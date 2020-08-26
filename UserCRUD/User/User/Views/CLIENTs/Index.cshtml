@@ -1,0 +1,103 @@
+﻿@model IEnumerable<User.Models.CLIENT>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .registerbtn {
+            background-color: darkblue;
+            color: white;
+            padding: 16px 20px;
+            margin: 8px 0;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            opacity: 0.9;
+        }
+
+        table, th, td {
+            border: 3px solid black;
+            border-collapse: collapse;
+            width: 1000px;
+            height: 50px;
+        }
+
+            table.center {
+                margin-left: 25px;
+                margin-right: auto;
+            }
+
+        th {
+            background-color: #ffa500;
+        }
+    </style>
+</head>
+<body>
+    <p>
+        @Html.ActionLink("Click To Add New Client", "Create")
+    </p>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.USER_NAME)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PASSWORD)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FULL_NAME_)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EMAIL_)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ADDRESS)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.USER.FULL_NAME)
+            </th>
+            <th></th>
+        </tr>
+    
+    @foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.USER_NAME)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PASSWORD)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FULL_NAME_)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EMAIL_)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ADDRESS)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.USER.FULL_NAME)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id=item.CLIENT_ID }) |
+               @* @Html.ActionLink("Details", "Details", new { id=item.CLIENT_ID }) |*@
+                @Html.ActionLink("Delete", "Delete", new { id=item.CLIENT_ID })
+            </td>
+        </tr>
+    }
+    
+    </table>
+</body>
+</html>

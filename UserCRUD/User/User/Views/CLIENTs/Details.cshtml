@@ -1,0 +1,74 @@
+﻿@model User.Models.CLIENT
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Details</title>
+</head>
+<body>
+    <div>
+        <h4>CLIENT</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.USER_NAME)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.USER_NAME)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.PASSWORD)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.PASSWORD)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.FULL_NAME_)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.FULL_NAME_)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.EMAIL_)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.EMAIL_)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.ADDRESS)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.ADDRESS)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.USER.FULL_NAME)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.USER.FULL_NAME)
+            </dd>
+    
+        </dl>
+    </div>
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.CLIENT_ID }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+</body>
+</html>
