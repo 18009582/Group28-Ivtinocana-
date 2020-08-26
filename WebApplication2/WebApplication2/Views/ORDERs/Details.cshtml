@@ -1,0 +1,58 @@
+﻿@model WebApplication2.Models.ORDER
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Details</title>
+</head>
+<body>
+    <div>
+        <h4>ORDER</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.ORDER_DATE_)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.ORDER_DATE_)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.ORDER_PRICE_)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.ORDER_PRICE_)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.ORDER_STATUS_)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.ORDER_STATUS_)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.SUPPLIER.NAME_)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.SUPPLIER.NAME_)
+            </dd>
+    
+        </dl>
+    </div>
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.ORDER_ID }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+</body>
+</html>
