@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="5616aeeeb0d44106983d21d5898f4b82" Name="Diagram1">
+        <EntityTypeShape EntityType="VehlutionModel.ACCESS" Width="1.5" PointX="3.75" PointY="24.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="VehlutionModel.BOOKING_DATES" Width="1.5" PointX="1.5" PointY="57.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="VehlutionModel.BOOKING_FOR_POSSIBLE_PURCHASE" Width="1.5" PointX="0.75" PointY="15.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="VehlutionModel.BOOKING_STATUS" Width="1.5" PointX="1.5" PointY="60.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="VehlutionModel.BOOKING_TIMES" Width="1.5" PointX="1.5" PointY="51.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="VehlutionModel.CAR_BOOKING" Width="1.5" PointX="0.75" PointY="32.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="VehlutionModel.CAR_BOOKING_SLOTS" Width="1.5" PointX="1.5" PointY="54.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="VehlutionModel.CAR_DEFECT_STATUS" Width="1.5" PointX="10.5" PointY="7.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="VehlutionModel.CAR_DEFECTS" Width="1.5" PointX="5.25" PointY="7.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="VehlutionModel.CAR_PARTS" Width="1.5" PointX="3" PointY="33" IsExpanded="true" />
+        <EntityTypeShape EntityType="VehlutionModel.CAR_PARTS_ORDERED" Width="1.5" PointX="15.25" PointY="16.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="VehlutionModel.CAR_STATUS" Width="1.5" PointX="0.75" PointY="13.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="VehlutionModel.CAR_TYPE" Width="1.5" PointX="5.25" PointY="11.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="VehlutionModel.CAR" Width="1.5" PointX="3" PointY="7" IsExpanded="true" />
+        <EntityTypeShape EntityType="VehlutionModel.CLIENT" Width="1.5" PointX="1.5" PointY="20" IsExpanded="true" />
+        <EntityTypeShape EntityType="VehlutionModel.CLIENT_DOCUMENTS" Width="1.5" PointX="3.75" PointY="20.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="VehlutionModel.COLOUR" Width="1.5" PointX="0.75" PointY="36.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="VehlutionModel.DEFECT_STATUS" Width="1.5" PointX="8.25" PointY="3.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="VehlutionModel.DEFECT" Width="1.5" PointX="3" PointY="1.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="VehlutionModel.DOCUMENT_TYPE" Width="1.5" PointX="6" PointY="21" IsExpanded="true" />
+        <EntityTypeShape EntityType="VehlutionModel.EMPLOYEE" Width="1.5" PointX="3.75" PointY="54.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="VehlutionModel.FUEL_TYPE" Width="1.5" PointX="0.75" PointY="38.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="VehlutionModel.MAKE" Width="1.5" PointX="0.75" PointY="9.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="VehlutionModel.MECHANIC" Width="1.5" PointX="7.5" PointY="14" IsExpanded="true" />
+        <EntityTypeShape EntityType="VehlutionModel.MECHANIC_JOB" Width="1.5" PointX="5.25" PointY="13.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="VehlutionModel.MECHANIC_TASK" Width="1.5" PointX="7.5" PointY="11" IsExpanded="true" />
+        <EntityTypeShape EntityType="VehlutionModel.MODEL" Width="1.5" PointX="3" PointY="17.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="VehlutionModel.NUMBER_OF_DOORS" Width="1.5" PointX="0.75" PointY="41.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="VehlutionModel.NUMBER_OF_SEATS" Width="1.5" PointX="0.75" PointY="43.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="VehlutionModel.OFFER_STATUS" Width="1.5" PointX="6" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="VehlutionModel.OFFER_TYPE" Width="1.5" PointX="6" PointY="3.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="VehlutionModel.OFFER" Width="1.5" PointX="8.25" PointY="6.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="VehlutionModel.ORDER" Width="1.5" PointX="13" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="VehlutionModel.PART_OF_CAR" Width="1.5" PointX="3" PointY="14.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="VehlutionModel.PAYMENT" Width="1.5" PointX="3.75" PointY="59.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="VehlutionModel.POSSIBLE_PURCHASE_STATUS" Width="1.5" PointX="1.5" PointY="4.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="VehlutionModel.Purchase" Width="1.5" PointX="0.75" PointY="45.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="VehlutionModel.RELATIONSHIP_12" Width="1.5" PointX="5.25" PointY="33.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="VehlutionModel.SALE" Width="1.5" PointX="6" PointY="55.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="VehlutionModel.SUPPLIER" Width="1.5" PointX="10.75" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="VehlutionModel.TASK" Width="1.5" PointX="5.25" PointY="17.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="VehlutionModel.TRANSMISSION" Width="1.5" PointX="0.75" PointY="48.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="VehlutionModel.USER_ROLE" Width="1.5" PointX="1.5" PointY="30" IsExpanded="true" />
+        <EntityTypeShape EntityType="VehlutionModel.USER" Width="1.5" PointX="1.5" PointY="25.25" IsExpanded="true" />
+        <AssociationConnector Association="VehlutionModel.FK_ACCESS_HAS_USER__USERS" ManuallyRouted="false" />
+        <AssociationConnector Association="VehlutionModel.FK_CAR_BOOK_HAS_BOOKI_BOOKING_2" ManuallyRouted="false" />
+        <AssociationConnector Association="VehlutionModel.FK_BOOKING__HAS_A_BOO_CLIENT" ManuallyRouted="false" />
+        <AssociationConnector Association="VehlutionModel.FK_BOOKING__HAS_A_STA_POSSIBLE" ManuallyRouted="false" />
+        <AssociationConnector Association="VehlutionModel.FK_CARS_DN2_BOOKING_" ManuallyRouted="false" />
+        <AssociationConnector Association="VehlutionModel.FK_CAR_BOOK_HAS_PENDI_BOOKING_" ManuallyRouted="false" />
+        <AssociationConnector Association="VehlutionModel.FK_CAR_BOOK_HAS_BOOKI_BOOKING_" ManuallyRouted="false" />
+        <AssociationConnector Association="VehlutionModel.FK_CAR_BOOK_HAS_A_CAR_CAR_BOOK" ManuallyRouted="false" />
+        <AssociationConnector Association="VehlutionModel.FK_CAR_BOOK_HAS_CLIEN_CLIENT" ManuallyRouted="false" />
+        <AssociationConnector Association="VehlutionModel.FK_CARS_DR_CAR_BOOK" ManuallyRouted="false" />
+        <AssociationConnector Association="VehlutionModel.FK_EMPLOYEE_HAS_EMPLO_CAR_BOOK" ManuallyRouted="false" />
+        <AssociationConnector Association="VehlutionModel.FK_CAR_DEFE_HAS_A_CAR_DEFECT_S" ManuallyRouted="false" />
+        <AssociationConnector Association="VehlutionModel.FK_CAR_DEFE_HAS_A_STA_CAR_DEFE" ManuallyRouted="false" />
+        <AssociationConnector Association="VehlutionModel.FK_CAR_DEFE_HAS_A_DEF_PART_OF_" ManuallyRouted="false" />
+        <AssociationConnector Association="VehlutionModel.FK_CAR_DEFE_HAS_CARS_CARS" ManuallyRouted="false" />
+        <AssociationConnector Association="VehlutionModel.FK_CAR_DEFE_HAS_DEFEC_DEFECTS" ManuallyRouted="false" />
+        <AssociationConnector Association="VehlutionModel.FK_CAR_PART_HAS_CAR_P_CAR_PART" ManuallyRouted="false" />
+        <AssociationConnector Association="VehlutionModel.FK_RELATION_RELATIONS_CAR_PART" ManuallyRouted="false" />
+        <AssociationConnector Association="VehlutionModel.FK_CAR_PART_HAS_ORDER_ORDER" ManuallyRouted="false" />
+        <AssociationConnector Association="VehlutionModel.FK_CARS_HAS_STATU_CAR_STAT" ManuallyRouted="false" />
+        <AssociationConnector Association="VehlutionModel.FK_CAR_TYPE_HAS_CAR_T_CARS" ManuallyRouted="false" />
+        <AssociationConnector Association="VehlutionModel.FK_CARS_DR6_PURCHASE" ManuallyRouted="false" />
+        <AssociationConnector Association="VehlutionModel.FK_CARS_HAD_MAKE_MAKE" ManuallyRouted="false" />
+        <AssociationConnector Association="VehlutionModel.FK_CARS_HAS_CLIEN_CLIENT" ManuallyRouted="false" />
+        <AssociationConnector Association="VehlutionModel.FK_CARS_HAS_COLOU_COLOUR" ManuallyRouted="false" />
+        <AssociationConnector Association="VehlutionModel.FK_CARS_HAS_FEUL__FUEL_TYP" ManuallyRouted="false" />
+        <AssociationConnector Association="VehlutionModel.FK_CARS_HAS_NO__O_NUMBER_O" ManuallyRouted="false" />
+        <AssociationConnector Association="VehlutionModel.FK_CARS_HAS_NUM_O_NUMBER_O" ManuallyRouted="false" />
+        <AssociationConnector Association="VehlutionModel.FK_CARS_HAS_TRANS_TRANSMIS" ManuallyRouted="false" />
+        <AssociationConnector Association="VehlutionModel.FK_MECHANIC_HAS_CAR_CARS" ManuallyRouted="false" />
+        <AssociationConnector Association="VehlutionModel.FK_OFFERS_HAS_A_CAR_CARS" ManuallyRouted="false" />
+        <AssociationConnector Association="VehlutionModel.FK_CLIENT_D_HAS_A_CLI_CLIENT" ManuallyRouted="false" />
+        <AssociationConnector Association="VehlutionModel.FK_CLIENT_HAS_A_CLI_USERS" ManuallyRouted="false" />
+        <AssociationConnector Association="VehlutionModel.FK_OFFERS_HAS_OFFER_CLIENT" ManuallyRouted="false" />
+        <AssociationConnector Association="VehlutionModel.FK_PURCHASE_HAS_CLIEN_CLIENT" ManuallyRouted="false" />
+        <AssociationConnector Association="VehlutionModel.FK_DOCUMENT_HAS_A_DOC_CLIENT_D" ManuallyRouted="false" />
+        <AssociationConnector Association="VehlutionModel.FK_MODEL_HAS_MODEL_MAKE" ManuallyRouted="false" />
+        <AssociationConnector Association="VehlutionModel.FK_MECHANIC_DC2_MECHANIC" ManuallyRouted="false" />
+        <AssociationConnector Association="VehlutionModel.FK_MECHANIC_HAS_A_MEC_MECHANIC" ManuallyRouted="false" />
+        <AssociationConnector Association="VehlutionModel.FK_MECHANIC_HAS_SERVI_TASK" ManuallyRouted="false" />
+        <AssociationConnector Association="VehlutionModel.FK_MECHANIC_HAS_USED__RELATION" ManuallyRouted="false" />
+        <AssociationConnector Association="VehlutionModel.FK_OFFERS_HAS_A_STA_OFFER_ST" ManuallyRouted="false" />
+        <AssociationConnector Association="VehlutionModel.FK_OFFERS_HAS_AN_OF_OFFER_TY" ManuallyRouted="false" />
+        <AssociationConnector Association="VehlutionModel.FK_OFFERS_DR2_SALES" ManuallyRouted="false" />
+        <AssociationConnector Association="VehlutionModel.FK_ORDER_HAS_SUPPL_SUPPLIER" ManuallyRouted="false" />
+        <AssociationConnector Association="VehlutionModel.FK_SALES_HAS_PAYME_PAYMENT" ManuallyRouted="false" />
+        <AssociationConnector Association="VehlutionModel.FK_USERS_HAS_USER__USER_ROL" ManuallyRouted="false" />
+        <AssociationConnector Association="VehlutionModel.EMPLYEE_SALES" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

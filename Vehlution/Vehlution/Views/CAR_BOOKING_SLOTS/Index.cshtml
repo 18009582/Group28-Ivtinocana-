@@ -1,0 +1,67 @@
+﻿@model IEnumerable<Vehlution.Models.CAR_BOOKING_SLOTS>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+    <link rel="stylesheet" type="text/css" href="~/CSS/StyleSheet1.css" />
+</head>
+<body>
+    <div class="navbar">
+        <a class="active" href="#"><i class="fa fa-fw fa-home"></i> Home</a>
+        <a href="#"><i class="fa fa-fw fa-search"></i> Search</a>
+        <a href="#"><i class="fa fa-fw fa-envelope"></i> Contact</a>
+        <a href="#"><i class="fa fa-fw fa-user"></i> Login</a>
+    </div>
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.BOOKING_DATES.DAY_)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BOOKING_STATUS.PROPOSED)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BOOKING_TIMES.TIME_ID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CAR_BOOKING.STATUS)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BOOKING_DATES.DAY_)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BOOKING_STATUS.PROPOSED)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BOOKING_TIMES.TIME_ID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CAR_BOOKING.STATUS)
+                </td>
+                <td>
+                    <button class="button button1">@Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) </button>
+                    <button class="button button2">@Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) </button>
+                    <button class="button button3">@Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ }) </button>
+                </td>
+            </tr>
+        }
+
+    </table>
+</body>
+</html>
