@@ -1,0 +1,73 @@
+﻿@model IEnumerable<User.Models.USER_ROLE>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+    <style>
+    body {
+    font-family: Arial, Helvetica, sans-serif;
+
+    }
+    .registerbtn {
+    background-color: darkblue;
+    color: white;
+    padding: 16px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    opacity: 0.9;
+    }
+
+    table, th, td {
+    border: 3px solid black;
+    border-collapse: collapse;
+    width: 500px;
+    height: 50px;
+    }
+    table.center {
+    margin-left:25px;
+    margin-right:auto;
+    }
+
+    th{
+    background-color: #ffa500;
+    }
+
+    </style>
+</head>
+<body>
+    <p>
+        @Html.ActionLink("Click To Add New User Role", "Create")
+    </p>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ROLE)
+            </th>
+            <th></th>
+        </tr>
+    
+    @foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ROLE)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id=item.USERROLE_ID }) |
+                @*@Html.ActionLink("Details", "Details", new { id=item.USERROLE_ID }) |*@
+                @Html.ActionLink("Delete", "Delete", new { id=item.USERROLE_ID })
+            </td>
+        </tr>
+    }
+    
+    </table>
+</body>
+</html>
