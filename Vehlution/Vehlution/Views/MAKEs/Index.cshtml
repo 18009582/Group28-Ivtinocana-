@@ -1,0 +1,49 @@
+﻿@model IEnumerable<Vehlution.Models.MAKE>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Car Make</title>
+    <link rel="stylesheet" type="text/css" href="~/CSS/StyleSheet1.css"/>
+</head>
+<body>
+    <div class="navbar">
+        <a class="active" href="#"><i class="fa fa-fw fa-home"></i> Home</a>
+        <a href="#"><i class="fa fa-fw fa-search"></i> Search</a>
+        <a href="#"><i class="fa fa-fw fa-envelope"></i> Contact</a>
+        <a href="#"><i class="fa fa-fw fa-user"></i> Login</a>
+    </div>
+    <p>
+        <button class="button button1"> @Html.ActionLink("Create New Car Make", "Create")</button>
+    </p>
+    <table class="table">
+        <tr>
+            <th>
+               @Html.DisplayNameFor(model => model.MAKE_NAME)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MAKE_NAME)
+                </td>
+                <td>
+                    <button class="button button1">@Html.ActionLink("Edit Car Make", "Edit", new { id = item.MAKE_ID }) </button>|
+                    <button class="button button2">@Html.ActionLink("Details", "Details", new { id = item.MAKE_ID }) </button>
+                    <button class="button button3">@Html.ActionLink("Delete", "Delete", new { id = item.MAKE_ID }) </button>
+                </td>
+            </tr>
+        }
+
+    </table>
+</body>
+</html>
