@@ -1,0 +1,1276 @@
+USE master
+IF EXISTS(select * from sys.databases where name ='Vehlution3')
+DROP DATABASE Vehlution3
+GO
+
+CREATE DATABASE Vehlution3
+GO
+
+USE Vehlution3
+
+
+/*==============================================================*/
+/* DBMS name:      Microsoft SQL Server 2014                    */
+/* Created on:     2020/08/31 20:10:40                          */
+/*==============================================================*/
+
+
+if exists(select 1 from systypes where name='DOMAIN_IDENTITY')
+   drop type DOMAIN_IDENTITY
+go
+
+create sequence SEQUENCE_2
+go
+
+create sequence S_CLIENT_DOCUMENTS
+go
+
+/*==============================================================*/
+/* Domain: DOMAIN_IDENTITY                                      */
+/*==============================================================*/
+create type DOMAIN_IDENTITY
+   from int not null
+go
+
+/*==============================================================*/
+/* Table: ACCESS                                                */
+/*==============================================================*/
+create table ACCESS (
+   ACCESS_ID            DOMAIN_IDENTITY      identity,
+   USER_ID              int                  not null,
+   USERANAME            char(225)            null,
+   PASSWORD_            char(225)            null,
+   constraint PK_ACCESS primary key (ACCESS_ID)
+)
+go
+
+/*==============================================================*/
+/* Index: HAS_USER__FK                                          */
+/*==============================================================*/
+
+
+
+
+create nonclustered index HAS_USER__FK on ACCESS (USER_ID ASC)
+go
+
+/*==============================================================*/
+/* Table: BOOKING_DATES                                         */
+/*==============================================================*/
+create table BOOKING_DATES (
+   DAY_                 DOMAIN_IDENTITY      identity,
+   MONTH_               datetime             null,
+   MONTH                datetime             null,
+   YEAR                 datetime             null,
+   constraint PK_BOOKING_DATES primary key (DAY_)
+)
+go
+
+/*==============================================================*/
+/* Table: BOOKING_FOR_POSSIBLE_PURCHASE                         */
+/*==============================================================*/
+create table BOOKING_FOR_POSSIBLE_PURCHASE (
+   CLIENT_ID            int                  not null,
+   STATUS_ID            int                  not null,
+   BOOKING_ID           DOMAIN_IDENTITY      identity,
+   BOOKING_DATE         datetime             null,
+   BOOKING_TIME         datetime             null,
+   BOOKING_STATUS       char(20)             null,
+   constraint PK_BOOKING_FOR_POSSIBLE_PURCHA primary key (BOOKING_ID)
+)
+go
+
+/*==============================================================*/
+/* Index: HAS_A_BOOKING_FK                                      */
+/*==============================================================*/
+
+
+
+
+create nonclustered index HAS_A_BOOKING_FK on BOOKING_FOR_POSSIBLE_PURCHASE (CLIENT_ID ASC)
+go
+
+/*==============================================================*/
+/* Index: HAS_A_STATUS___FK                                     */
+/*==============================================================*/
+
+
+
+
+create nonclustered index HAS_A_STATUS___FK on BOOKING_FOR_POSSIBLE_PURCHASE (STATUS_ID ASC)
+go
+
+/*==============================================================*/
+/* Table: BOOKING_STATUS                                        */
+/*==============================================================*/
+create table BOOKING_STATUS (
+   STATUSID             DOMAIN_IDENTITY      identity,
+   AVAILABLE_           smallint             null,
+   NOT_AVAILABLE        smallint             null,
+   PROPOSED             char(10)             null,
+   constraint PK_BOOKING_STATUS primary key (STATUSID)
+)
+go
+
+/*==============================================================*/
+/* Table: BOOKING_TIMES                                         */
+/*==============================================================*/
+create table BOOKING_TIMES (
+   TIME_ID              DOMAIN_IDENTITY      identity,
+   START_TIME_          datetime             null,
+   END_TIME             datetime             null,
+   constraint PK_BOOKING_TIMES primary key (TIME_ID)
+)
+go
+
+/*==============================================================*/
+/* Table: CARS                                                  */
+/*==============================================================*/
+create table CARS (
+   CAR_ID               DOMAIN_IDENTITY      identity,
+   SEATS_ID             int                  not null,
+   COLOUR_ID            int                  not null,
+   TRANSMISSION_ID      int                  not null,
+   DOORS_ID             int                  not null,
+   MAKE_ID              int                  not null,
+   CLIENT_ID            int                  not null,
+   STATUS_ID            int                  not null,
+   BOOKING_ID           int                  not null,
+   PURCHASE_ID          int                  not null,
+   FUELTYPE_ID          int                  not null,
+   BOO_BOOKING_ID       int                  not null,
+   YEAR                 int                  null,
+   MILAGE_              int                  null,
+   LISTING_PRICE        float                null,
+   IMAGE                binary(1)            null,
+   constraint PK_CARS primary key (CAR_ID)
+)
+go
+
+/*==============================================================*/
+/* Index: HAS_NO__OF_SEATS_FK                                   */
+/*==============================================================*/
+
+
+
+
+create nonclustered index HAS_NO__OF_SEATS_FK on CARS (SEATS_ID ASC)
+go
+
+/*==============================================================*/
+/* Index: HAS_COLOUR_FK                                         */
+/*==============================================================*/
+
+
+
+
+create nonclustered index HAS_COLOUR_FK on CARS (COLOUR_ID ASC)
+go
+
+/*==============================================================*/
+/* Index: HAS_TRANSMISSION_FK                                   */
+/*==============================================================*/
+
+
+
+
+create nonclustered index HAS_TRANSMISSION_FK on CARS (TRANSMISSION_ID ASC)
+go
+
+/*==============================================================*/
+/* Index: HAS_NO__OF_DOORS_FK                                   */
+/*==============================================================*/
+
+
+
+
+create nonclustered index HAS_NO__OF_DOORS_FK on CARS (DOORS_ID ASC)
+go
+
+/*==============================================================*/
+/* Index: HAD_MAKE_FK                                           */
+/*==============================================================*/
+
+
+
+
+create nonclustered index HAD_MAKE_FK on CARS (MAKE_ID ASC)
+go
+
+/*==============================================================*/
+/* Index: HAS_STATUS_FK                                         */
+/*==============================================================*/
+
+
+
+
+create nonclustered index HAS_STATUS_FK on CARS (STATUS_ID ASC)
+go
+
+/*==============================================================*/
+/* Index: DR_FK                                                 */
+/*==============================================================*/
+
+
+
+
+create nonclustered index DR_FK on CARS (BOOKING_ID ASC)
+go
+
+/*==============================================================*/
+/* Index: HAS_CLIENT__FK                                        */
+/*==============================================================*/
+
+
+
+
+create nonclustered index HAS_CLIENT__FK on CARS (CLIENT_ID ASC)
+go
+
+/*==============================================================*/
+/* Index: DR6_FK                                                */
+/*==============================================================*/
+
+
+
+
+create nonclustered index DR6_FK on CARS (PURCHASE_ID ASC)
+go
+
+/*==============================================================*/
+/* Index: HAS_FEUL_TYPE_FK                                      */
+/*==============================================================*/
+
+
+
+
+create nonclustered index HAS_FEUL_TYPE_FK on CARS (FUELTYPE_ID ASC)
+go
+
+/*==============================================================*/
+/* Index: DN2_FK                                                */
+/*==============================================================*/
+
+
+
+
+create nonclustered index DN2_FK on CARS (BOO_BOOKING_ID ASC)
+go
+
+/*==============================================================*/
+/* Table: CAR_BOOKING                                           */
+/*==============================================================*/
+create table CAR_BOOKING (
+   CARBOOKING_ID        DOMAIN_IDENTITY      identity,
+   CLIENT_ID            int                  not null,
+   STATUS               char(50)             null,
+   BOOKING_DATE         datetime             null,
+   BOOKING_TIME         datetime             null,
+   constraint PK_CAR_BOOKING primary key (CARBOOKING_ID)
+)
+go
+
+/*==============================================================*/
+/* Index: HAS_CLIENT_FK                                         */
+/*==============================================================*/
+
+
+
+
+create nonclustered index HAS_CLIENT_FK on CAR_BOOKING (CLIENT_ID ASC)
+go
+
+/*==============================================================*/
+/* Table: CAR_BOOKING_SLOTS                                     */
+/*==============================================================*/
+create table CAR_BOOKING_SLOTS (
+   TIME_ID              int                  not null,
+   DAY_                 int                  not null,
+   STATUSID             int                  not null,
+   BOOKING_ID           int                  not null,
+   EMPLYEE_ID           int                  null,
+   CARBOOKINGSLOTID     DOMAIN_IDENTITY      identity,
+   constraint PK_CAR_BOOKING_SLOTS primary key (CARBOOKINGSLOTID)
+)
+go
+
+/*==============================================================*/
+/* Index: HAS_BOOKING_DATES_FK                                  */
+/*==============================================================*/
+
+
+
+
+create nonclustered index HAS_BOOKING_DATES_FK on CAR_BOOKING_SLOTS (DAY_ ASC)
+go
+
+/*==============================================================*/
+/* Index: HAS_PENDING_BOOKING_FK                                */
+/*==============================================================*/
+
+
+
+
+create nonclustered index HAS_PENDING_BOOKING_FK on CAR_BOOKING_SLOTS (STATUSID ASC)
+go
+
+/*==============================================================*/
+/* Index: HAS_A_CAR_BOOKING_FK                                  */
+/*==============================================================*/
+
+
+
+
+create nonclustered index HAS_A_CAR_BOOKING_FK on CAR_BOOKING_SLOTS (BOOKING_ID ASC)
+go
+
+/*==============================================================*/
+/* Table: CAR_DEFECTS                                           */
+/*==============================================================*/
+create table CAR_DEFECTS (
+   DEFECT_ID            int                  not null,
+   CAR_ID               int                  not null,
+   PARTOFCAR_ID         int                  not null,
+   SEVERITY             smallint             null,
+   CARDEFECTID          DOMAIN_IDENTITY      identity,
+   constraint PK_CAR_DEFECTS primary key nonclustered (CARDEFECTID)
+)
+go
+
+/*==============================================================*/
+/* Index: HAS_CARS_FK                                           */
+/*==============================================================*/
+
+
+
+
+create nonclustered index HAS_CARS_FK on CAR_DEFECTS (CAR_ID ASC)
+go
+
+/*==============================================================*/
+/* Index: HAS_DEFECTS_FK                                        */
+/*==============================================================*/
+
+
+
+
+create nonclustered index HAS_DEFECTS_FK on CAR_DEFECTS (DEFECT_ID ASC)
+go
+
+/*==============================================================*/
+/* Index: HAS_A_DEFECT_FK                                       */
+/*==============================================================*/
+
+
+
+
+create nonclustered index HAS_A_DEFECT_FK on CAR_DEFECTS (PARTOFCAR_ID ASC)
+go
+
+/*==============================================================*/
+/* Table: CAR_DEFECT_STATUS                                     */
+/*==============================================================*/
+create table CAR_DEFECT_STATUS (
+   STATUS_ID            int                  not null,
+   DEFECT_ID            int                  not null,
+   CAR_ID               int                  not null,
+   CARDEFECTID          int                  not null,
+   DATE                 datetime             null,
+   CARDEFECTSTATUSID    DOMAIN_IDENTITY      identity,
+   constraint PK_CAR_DEFECT_STATUS primary key nonclustered (CARDEFECTSTATUSID)
+)
+go
+
+/*==============================================================*/
+/* Index: HAS_A_CAR_DEFECT_STATUS_FK                            */
+/*==============================================================*/
+
+
+
+
+create nonclustered index HAS_A_CAR_DEFECT_STATUS_FK on CAR_DEFECT_STATUS (STATUS_ID ASC)
+go
+
+/*==============================================================*/
+/* Index: HAS_A_STATUS__FK                                      */
+/*==============================================================*/
+
+
+
+
+create nonclustered index HAS_A_STATUS__FK on CAR_DEFECT_STATUS (CARDEFECTID ASC)
+go
+
+/*==============================================================*/
+/* Table: CAR_PARTS                                             */
+/*==============================================================*/
+create table CAR_PARTS (
+   CARPARTS_ID          DOMAIN_IDENTITY      identity,
+   PARTNAME             char(50)             null,
+   constraint PK_CAR_PARTS primary key (CARPARTS_ID)
+)
+go
+
+/*==============================================================*/
+/* Table: CAR_PARTS_ORDERED                                     */
+/*==============================================================*/
+create table CAR_PARTS_ORDERED (
+   ORD_ID               int                  not null,
+   CARPARTS_ID          int                  not null,
+   QUANTITY             int                  null,
+   CARPARTSORDEREDID    DOMAIN_IDENTITY      identity,
+   constraint PK_CAR_PARTS_ORDERED primary key nonclustered (CARPARTSORDEREDID)
+)
+go
+
+/*==============================================================*/
+/* Index: HAS_CAR_PART_FK                                       */
+/*==============================================================*/
+
+
+
+
+create nonclustered index HAS_CAR_PART_FK on CAR_PARTS_ORDERED (CARPARTS_ID ASC)
+go
+
+/*==============================================================*/
+/* Index: HAS_ORDER_FK                                          */
+/*==============================================================*/
+
+
+
+
+create nonclustered index HAS_ORDER_FK on CAR_PARTS_ORDERED (ORD_ID ASC)
+go
+
+/*==============================================================*/
+/* Table: CAR_STATUS                                            */
+/*==============================================================*/
+create table CAR_STATUS (
+   STATUS_ID            DOMAIN_IDENTITY      identity,
+   SASTUS_NAME          char(50)             null,
+   constraint PK_CAR_STATUS primary key (STATUS_ID)
+)
+go
+
+/*==============================================================*/
+/* Table: CAR_TYPE                                              */
+/*==============================================================*/
+create table CAR_TYPE (
+   CAR_ID               int                  not null,
+   CAR_TYPEID           DOMAIN_IDENTITY      identity,
+   TYPE_NAME            char(50)             null,
+   constraint PK_CAR_TYPE primary key (CAR_TYPEID)
+)
+go
+
+/*==============================================================*/
+/* Index: HAS_CAR_TYPE_FK                                       */
+/*==============================================================*/
+
+
+
+
+create nonclustered index HAS_CAR_TYPE_FK on CAR_TYPE (CAR_ID ASC)
+go
+
+/*==============================================================*/
+/* Table: CLIENT                                                */
+/*==============================================================*/
+create table CLIENT (
+   CLIENT_ID            DOMAIN_IDENTITY      identity,
+   USER_ID              int                  not null,
+   USER_NAME            char(225)            null,
+   PASSWORD             char(225)            null,
+   FULL_NAME_           char(50)             null,
+   EMAIL_               char(50)             null,
+   ADDRESS              char(225)            null,
+   constraint PK_CLIENT primary key (CLIENT_ID)
+)
+go
+
+/*==============================================================*/
+/* Index: HAS_A_CLIENT__FK                                      */
+/*==============================================================*/
+
+
+
+
+create nonclustered index HAS_A_CLIENT__FK on CLIENT (USER_ID ASC)
+go
+
+/*==============================================================*/
+/* Table: CLIENT_DOCUMENTS                                      */
+/*==============================================================*/
+create table CLIENT_DOCUMENTS (
+   DOCUEMTN_ID          DOMAIN_IDENTITY      identity,
+   CLIENT_ID            int                  not null,
+   DOCUMENTTYPE_ID      int                  not null,
+   DOCUMENT             varchar(50)          not null,
+   constraint PK_CLIENT_DOCUMENTS primary key nonclustered (DOCUEMTN_ID)
+)
+go
+
+/*==============================================================*/
+/* Index: HAS_A_CLIENT___FK                                     */
+/*==============================================================*/
+
+
+
+
+create nonclustered index HAS_A_CLIENT___FK on CLIENT_DOCUMENTS (CLIENT_ID ASC)
+go
+
+/*==============================================================*/
+/* Table: COLOUR                                                */
+/*==============================================================*/
+create table COLOUR (
+   COLOUR_ID            DOMAIN_IDENTITY      identity,
+   COLOUR_NAME          char(50)             null,
+   constraint PK_COLOUR primary key (COLOUR_ID)
+)
+go
+
+/*==============================================================*/
+/* Table: DEFECTS                                               */
+/*==============================================================*/
+create table DEFECTS (
+   DEFECT_ID            DOMAIN_IDENTITY      identity,
+   DEFECTNAME           char(225)            null,
+   constraint PK_DEFECTS primary key (DEFECT_ID)
+)
+go
+
+/*==============================================================*/
+/* Table: DEFECT_STATUS                                         */
+/*==============================================================*/
+create table DEFECT_STATUS (
+   STATUS_ID            DOMAIN_IDENTITY      identity,
+   STATUS_NAME          char(10)             null,
+   constraint PK_DEFECT_STATUS primary key (STATUS_ID)
+)
+go
+
+/*==============================================================*/
+/* Table: DOCUMENT_TYPE                                         */
+/*==============================================================*/
+create table DOCUMENT_TYPE (
+   DOCUMENTTYPE_ID      DOMAIN_IDENTITY      identity,
+   DOCUMENT             int                  not null,
+   DOCUMENTTYPE_NAME    char(15)             null,
+   constraint PK_DOCUMENT_TYPE primary key (DOCUMENTTYPE_ID)
+)
+go
+
+/*==============================================================*/
+/* Table: EMPLOYEE                                              */
+/*==============================================================*/
+create table EMPLOYEE (
+   EMPLYEE_ID           DOMAIN_IDENTITY      identity,
+   FULL_NAME            char(50)             null,
+   CELL_NUMBER          varchar(10)          null,
+   EMAIL                char(50)             null,
+   JOB_DESCRIPTION      char(225)            null,
+   DATE_HIRED           datetime             null,
+   constraint PK_EMPLOYEE primary key (EMPLYEE_ID)
+)
+go
+
+/*==============================================================*/
+/* Index: DN_FK                                                 */
+/*==============================================================*/
+
+
+
+
+create nonclustered index DN_FK on EMPLOYEE (EMPLYEE_ID ASC)
+go
+
+/*==============================================================*/
+/* Table: EMPLYEE_SALES                                         */
+/*==============================================================*/
+create table EMPLYEE_SALES (
+   EMPLYEE_ID           int                  not null,
+   SALES_ID             int                  not null,
+   EMPLOYEESALESID      DOMAIN_IDENTITY      identity,
+   constraint PK_EMPLYEE_SALES primary key nonclustered (EMPLOYEESALESID)
+)
+go
+
+/*==============================================================*/
+/* Index: HAS_SALE_FK                                           */
+/*==============================================================*/
+
+
+
+
+create nonclustered index HAS_SALE_FK on EMPLYEE_SALES (SALES_ID ASC)
+go
+
+/*==============================================================*/
+/* Index: HAS_EMPLOYEE_FK                                       */
+/*==============================================================*/
+
+
+
+
+create nonclustered index HAS_EMPLOYEE_FK on EMPLYEE_SALES (EMPLYEE_ID ASC)
+go
+
+/*==============================================================*/
+/* Table: FUEL_TYPE                                             */
+/*==============================================================*/
+create table FUEL_TYPE (
+   FUELTYPE_ID          DOMAIN_IDENTITY      identity,
+   FUELTYPE_NAME        char(225)            null,
+   constraint PK_FUEL_TYPE primary key (FUELTYPE_ID)
+)
+go
+
+/*==============================================================*/
+/* Table: MAKE                                                  */
+/*==============================================================*/
+create table MAKE (
+   MAKE_ID              DOMAIN_IDENTITY      identity,
+   MAKE_NAME            char(50)             null,
+   constraint PK_MAKE primary key (MAKE_ID)
+)
+go
+
+/*==============================================================*/
+/* Table: MECHANIC                                              */
+/*==============================================================*/
+create table MECHANIC (
+   MECHANIC_ID          DOMAIN_IDENTITY      identity,
+   MECHANICJOB_ID       int                  not null,
+   FULL_NAME_           char(100)            null,
+   CELL_NUMBER_         varchar(10)          null,
+   EMAIL_               varchar(50)          null,
+   constraint PK_MECHANIC primary key (MECHANIC_ID)
+)
+go
+
+/*==============================================================*/
+/* Index: DC2_FK                                                */
+/*==============================================================*/
+
+
+
+
+create nonclustered index DC2_FK on MECHANIC (MECHANICJOB_ID ASC)
+go
+
+/*==============================================================*/
+/* Table: MECHANIC_JOB                                          */
+/*==============================================================*/
+create table MECHANIC_JOB (
+   MECHANICJOB_ID       DOMAIN_IDENTITY      identity,
+   CAR_ID               int                  not null,
+   JOB_DATE             datetime             null,
+   JOB_TIME             datetime             null,
+   constraint PK_MECHANIC_JOB primary key (MECHANICJOB_ID)
+)
+go
+
+/*==============================================================*/
+/* Index: HAS_CAR_FK                                            */
+/*==============================================================*/
+
+
+
+
+create nonclustered index HAS_CAR_FK on MECHANIC_JOB (CAR_ID ASC)
+go
+
+/*==============================================================*/
+/* Table: MECHANIC_TASK                                         */
+/*==============================================================*/
+create table MECHANIC_TASK (
+   CARPARTS_ID          int                  not null,
+   CARPARTSUSEDID       int                  not null,
+   SERVICE_ID           int                  not null,
+   MECHANICJOB_ID       int                  not null,
+   MECHANICTASKID       DOMAIN_IDENTITY      identity,
+   constraint PK_MECHANIC_TASK primary key nonclustered (MECHANICTASKID)
+)
+go
+
+/*==============================================================*/
+/* Index: HAS_SERVICE_FK                                        */
+/*==============================================================*/
+
+
+
+
+create nonclustered index HAS_SERVICE_FK on MECHANIC_TASK (SERVICE_ID ASC)
+go
+
+/*==============================================================*/
+/* Index: HAS_A_MECHANIC_TASK_FK                                */
+/*==============================================================*/
+
+
+
+
+create nonclustered index HAS_A_MECHANIC_TASK_FK on MECHANIC_TASK (MECHANICJOB_ID ASC)
+go
+
+/*==============================================================*/
+/* Index: HAS_USED_CAR_PARTS_FK                                 */
+/*==============================================================*/
+
+
+
+
+create nonclustered index HAS_USED_CAR_PARTS_FK on MECHANIC_TASK (CARPARTSUSEDID ASC)
+go
+
+/*==============================================================*/
+/* Table: MODEL                                                 */
+/*==============================================================*/
+create table MODEL (
+   MODEL_ID             DOMAIN_IDENTITY      identity,
+   MAKE_ID              int                  not null,
+   MODEL_NAME           char(50)             null,
+   constraint PK_MODEL primary key (MODEL_ID)
+)
+go
+
+/*==============================================================*/
+/* Index: HAS_MODEL_FK                                          */
+/*==============================================================*/
+
+
+
+
+create nonclustered index HAS_MODEL_FK on MODEL (MAKE_ID ASC)
+go
+
+/*==============================================================*/
+/* Table: NUMBER_OF_DOORS                                       */
+/*==============================================================*/
+create table NUMBER_OF_DOORS (
+   DOORS_ID             DOMAIN_IDENTITY      identity,
+   NUMBER_OF_DOORS      int                  null,
+   constraint PK_NUMBER_OF_DOORS primary key (DOORS_ID)
+)
+go
+
+/*==============================================================*/
+/* Table: NUMBER_OF_SEATS                                       */
+/*==============================================================*/
+create table NUMBER_OF_SEATS (
+   SEATS_ID             DOMAIN_IDENTITY      identity,
+   NUMBER_OF_SEATS_     int                  null,
+   constraint PK_NUMBER_OF_SEATS primary key (SEATS_ID)
+)
+go
+
+/*==============================================================*/
+/* Table: OFFERS                                                */
+/*==============================================================*/
+create table OFFERS (
+   OFFER_ID             DOMAIN_IDENTITY      identity,
+   CAR_ID               int                  not null,
+   CLIENT_ID            int                  not null,
+   SALES_ID             int                  not null,
+   STATUS_ID            int                  not null,
+   OFFERTYPE_ID         int                  not null,
+   AMOUNT               float                null,
+   constraint PK_OFFERS primary key (OFFER_ID)
+)
+go
+
+/*==============================================================*/
+/* Index: HAS_A_CLIENT_FK                                       */
+/*==============================================================*/
+
+
+
+
+create nonclustered index HAS_A_CLIENT_FK on OFFERS (CLIENT_ID ASC)
+go
+
+/*==============================================================*/
+/* Index: DR2_FK                                                */
+/*==============================================================*/
+
+
+
+
+create nonclustered index DR2_FK on OFFERS (SALES_ID ASC)
+go
+
+/*==============================================================*/
+/* Index: HAS_A_CAR__FK                                         */
+/*==============================================================*/
+
+
+
+
+create nonclustered index HAS_A_CAR__FK on OFFERS (CAR_ID ASC)
+go
+
+/*==============================================================*/
+/* Index: HAS_A_STATUS_FK                                       */
+/*==============================================================*/
+
+
+
+
+create nonclustered index HAS_A_STATUS_FK on OFFERS (STATUS_ID ASC)
+go
+
+/*==============================================================*/
+/* Index: HAS_AN_OFFER_FK                                       */
+/*==============================================================*/
+
+
+
+
+create nonclustered index HAS_AN_OFFER_FK on OFFERS (OFFERTYPE_ID ASC)
+go
+
+/*==============================================================*/
+/* Table: OFFER_STATUS                                          */
+/*==============================================================*/
+create table OFFER_STATUS (
+   STATUS_ID            DOMAIN_IDENTITY      identity,
+   STATUS_NAME_         char(10)             null,
+   constraint PK_OFFER_STATUS primary key (STATUS_ID)
+)
+go
+
+/*==============================================================*/
+/* Table: OFFER_TYPE                                            */
+/*==============================================================*/
+create table OFFER_TYPE (
+   OFFERTYPE_ID         DOMAIN_IDENTITY      identity,
+   OFFERTYPE            char(10)             null,
+   constraint PK_OFFER_TYPE primary key (OFFERTYPE_ID)
+)
+go
+
+/*==============================================================*/
+/* Table: "ORDER"                                               */
+/*==============================================================*/
+create table "ORDER" (
+   ORDER_ID             DOMAIN_IDENTITY      identity,
+   SUPPLIER_ID          int                  not null,
+   ORDER_DATE_          datetime             null,
+   ORDER_PRICE_         float                null,
+   ORDER_STATUS_        char(50)             null,
+   constraint PK_ORDER primary key (ORDER_ID)
+)
+go
+
+/*==============================================================*/
+/* Index: HAS_SUPPLIER_FK                                       */
+/*==============================================================*/
+
+
+
+
+create nonclustered index HAS_SUPPLIER_FK on "ORDER" (SUPPLIER_ID ASC)
+go
+
+/*==============================================================*/
+/* Table: PART_OF_CAR                                           */
+/*==============================================================*/
+create table PART_OF_CAR (
+   PARTOFCAR_ID         DOMAIN_IDENTITY      identity,
+   PARTOFCAR_NAME       char(20)             null,
+   constraint PK_PART_OF_CAR primary key (PARTOFCAR_ID)
+)
+go
+
+/*==============================================================*/
+/* Table: PAYMENT                                               */
+/*==============================================================*/
+create table PAYMENT (
+   PAYMENT_ID           DOMAIN_IDENTITY      identity,
+   PAYMENTTYPE          character(50)        not null,
+   PAYMENT_DATE         datetime             null,
+   constraint PK_PAYMENT primary key (PAYMENT_ID)
+)
+go
+
+/*==============================================================*/
+/* Table: POSSIBLE_PURCHASE_STATUS                              */
+/*==============================================================*/
+create table POSSIBLE_PURCHASE_STATUS (
+   POSSIBLEPURCHASESTATUS_ID DOMAIN_IDENTITY      identity,
+   STATUS_NAME_         datetime             null,
+   constraint PK_POSSIBLE_PURCHASE_STATUS primary key (POSSIBLEPURCHASESTATUS_ID)
+)
+go
+
+/*==============================================================*/
+/* Table: PURCHASES                                             */
+/*==============================================================*/
+create table PURCHASES (
+   PURCHASE_ID          DOMAIN_IDENTITY      identity,
+   CLIENT_ID            int                  not null,
+   PURCHASEDATE_        datetime             null,
+   COST_                float                null,
+   constraint PK_PURCHASES primary key (PURCHASE_ID)
+)
+go
+
+/*==============================================================*/
+/* Index: HAS_CLIEN__FK                                         */
+/*==============================================================*/
+
+
+
+
+create nonclustered index HAS_CLIEN__FK on PURCHASES (CLIENT_ID ASC)
+go
+
+/*==============================================================*/
+/* Table: RELATIONSHIP_12                                       */
+/*==============================================================*/
+create table RELATIONSHIP_12 (
+   CARPARTS_ID          int                  not null,
+   CARPARTSUSEDID       DOMAIN_IDENTITY      identity,
+   constraint PK_RELATIONSHIP_12 primary key (CARPARTSUSEDID)
+)
+go
+
+/*==============================================================*/
+/* Table: SALES                                                 */
+/*==============================================================*/
+create table SALES (
+   SALES_ID             DOMAIN_IDENTITY      identity,
+   PAYMENT_ID           int                  not null,
+   SALE_DATE_           datetime             null,
+   ACCEPTED_OFFER       float                null,
+   CAR_CONTRACT_        binary(250)          null,
+   constraint PK_SALES primary key (SALES_ID)
+)
+go
+
+/*==============================================================*/
+/* Index: HAS_PAYMENT_FK                                        */
+/*==============================================================*/
+
+
+
+
+create nonclustered index HAS_PAYMENT_FK on SALES (PAYMENT_ID ASC)
+go
+
+/*==============================================================*/
+/* Table: SUPPLIER                                              */
+/*==============================================================*/
+create table SUPPLIER (
+   SUPPLIER_ID          DOMAIN_IDENTITY      identity,
+   NAME_                char(50)             null,
+   CELL_NUMBER_         varchar(10)          null,
+   EMAIL_               char(50)             null,
+   ADDRESS              varchar(100)         null,
+   constraint PK_SUPPLIER primary key (SUPPLIER_ID)
+)
+go
+
+/*==============================================================*/
+/* Table: TASK                                                  */
+/*==============================================================*/
+create table TASK (
+   SERVICE_ID           DOMAIN_IDENTITY      identity,
+   SERVICE_NAME         char(50)             null,
+   constraint PK_TASK primary key (SERVICE_ID)
+)
+go
+
+/*==============================================================*/
+/* Table: TRANSMISSION                                          */
+/*==============================================================*/
+create table TRANSMISSION (
+   TRANSMISSION_ID      DOMAIN_IDENTITY      identity,
+   TRANSMISSION_NAME    char(50)             null,
+   constraint PK_TRANSMISSION primary key (TRANSMISSION_ID)
+)
+go
+
+/*==============================================================*/
+/* Table: USERS                                                 */
+/*==============================================================*/
+create table USERS (
+   USER_ID              DOMAIN_IDENTITY      identity,
+   USERROLE_ID          int                  not null,
+   FULL_NAME            char(50)             null,
+   EMAIL                char(50)             null,
+   ADDRESS              char(100)            null,
+   STATUS               char(20)             null,
+   AVAILABLEDAYS        datetime             null,
+   AVAILABLETIMES       datetime             null,
+   constraint PK_USERS primary key (USER_ID)
+)
+go
+
+/*==============================================================*/
+/* Index: HAS_USER_ROLE_FK                                      */
+/*==============================================================*/
+
+
+
+
+create nonclustered index HAS_USER_ROLE_FK on USERS (USERROLE_ID ASC)
+go
+
+/*==============================================================*/
+/* Table: USER_ROLE                                             */
+/*==============================================================*/
+create table USER_ROLE (
+   USERROLE_ID          DOMAIN_IDENTITY      identity,
+   ROLE                 char(50)             null,
+   constraint PK_USER_ROLE primary key (USERROLE_ID)
+)
+go
+
+alter table ACCESS
+   add constraint FK_ACCESS_HAS_USER__USERS foreign key (USER_ID)
+      references USERS (USER_ID)
+go
+
+alter table BOOKING_FOR_POSSIBLE_PURCHASE
+   add constraint FK_BOOKING__HAS_A_BOO_CLIENT foreign key (CLIENT_ID)
+      references CLIENT (CLIENT_ID)
+go
+
+alter table BOOKING_FOR_POSSIBLE_PURCHASE
+   add constraint FK_BOOKING__HAS_A_STA_POSSIBLE foreign key (STATUS_ID)
+      references POSSIBLE_PURCHASE_STATUS (POSSIBLEPURCHASESTATUS_ID)
+go
+
+alter table CARS
+   add constraint FK_CARS_DN2_BOOKING_ foreign key (BOO_BOOKING_ID)
+      references BOOKING_FOR_POSSIBLE_PURCHASE (BOOKING_ID)
+go
+
+alter table CARS
+   add constraint FK_CARS_DR_CAR_BOOK foreign key (BOOKING_ID)
+      references CAR_BOOKING (CARBOOKING_ID)
+go
+
+alter table CARS
+   add constraint FK_CARS_DR6_PURCHASE foreign key (PURCHASE_ID)
+      references PURCHASES (PURCHASE_ID)
+go
+
+alter table CARS
+   add constraint FK_CARS_HAD_MAKE_MAKE foreign key (MAKE_ID)
+      references MAKE (MAKE_ID)
+go
+
+alter table CARS
+   add constraint FK_CARS_HAS_CLIEN_CLIENT foreign key (CLIENT_ID)
+      references CLIENT (CLIENT_ID)
+go
+
+alter table CARS
+   add constraint FK_CARS_HAS_COLOU_COLOUR foreign key (COLOUR_ID)
+      references COLOUR (COLOUR_ID)
+go
+
+alter table CARS
+   add constraint FK_CARS_HAS_FEUL__FUEL_TYP foreign key (FUELTYPE_ID)
+      references FUEL_TYPE (FUELTYPE_ID)
+go
+
+alter table CARS
+   add constraint FK_CARS_HAS_NO__O_NUMBER_O foreign key (DOORS_ID)
+      references NUMBER_OF_DOORS (DOORS_ID)
+go
+
+alter table CARS
+   add constraint FK_CARS_HAS_NUM_O_NUMBER_O foreign key (SEATS_ID)
+      references NUMBER_OF_SEATS (SEATS_ID)
+go
+
+alter table CARS
+   add constraint FK_CARS_HAS_STATU_CAR_STAT foreign key (STATUS_ID)
+      references CAR_STATUS (STATUS_ID)
+go
+
+alter table CARS
+   add constraint FK_CARS_HAS_TRANS_TRANSMIS foreign key (TRANSMISSION_ID)
+      references TRANSMISSION (TRANSMISSION_ID)
+go
+
+alter table CAR_BOOKING
+   add constraint FK_CAR_BOOK_HAS_CLIEN_CLIENT foreign key (CLIENT_ID)
+      references CLIENT (CLIENT_ID)
+go
+
+alter table CAR_BOOKING_SLOTS
+   add constraint FK_CAR_BOOK_HAS_A_CAR_CAR_BOOK foreign key (BOOKING_ID)
+      references CAR_BOOKING (CARBOOKING_ID)
+go
+
+alter table CAR_BOOKING_SLOTS
+   add constraint FK_CAR_BOOK_HAS_BOOKI_BOOKING_2 foreign key (DAY_)
+      references BOOKING_DATES (DAY_)
+go
+
+alter table CAR_BOOKING_SLOTS
+   add constraint FK_CAR_BOOK_HAS_BOOKI_BOOKING_ foreign key (TIME_ID)
+      references BOOKING_TIMES (TIME_ID)
+go
+
+alter table CAR_BOOKING_SLOTS
+   add constraint FK_CAR_BOOK_HAS_EMPLO_EMPLOYEE foreign key (EMPLYEE_ID)
+      references EMPLOYEE (EMPLYEE_ID)
+go
+
+alter table CAR_BOOKING_SLOTS
+   add constraint FK_CAR_BOOK_HAS_PENDI_BOOKING_ foreign key (STATUSID)
+      references BOOKING_STATUS (STATUSID)
+go
+
+alter table CAR_DEFECTS
+   add constraint FK_CAR_DEFE_HAS_A_DEF_PART_OF_ foreign key (PARTOFCAR_ID)
+      references PART_OF_CAR (PARTOFCAR_ID)
+go
+
+alter table CAR_DEFECTS
+   add constraint FK_CAR_DEFE_HAS_CARS_CARS foreign key (CAR_ID)
+      references CARS (CAR_ID)
+go
+
+alter table CAR_DEFECTS
+   add constraint FK_CAR_DEFE_HAS_DEFEC_DEFECTS foreign key (DEFECT_ID)
+      references DEFECTS (DEFECT_ID)
+go
+
+alter table CAR_DEFECT_STATUS
+   add constraint FK_CAR_DEFE_HAS_A_CAR_DEFECT_S foreign key (STATUS_ID)
+      references DEFECT_STATUS (STATUS_ID)
+go
+
+alter table CAR_DEFECT_STATUS
+   add constraint FK_CAR_DEFE_HAS_A_STA_CAR_DEFE foreign key (CARDEFECTID)
+      references CAR_DEFECTS (CARDEFECTID)
+go
+
+alter table CAR_PARTS_ORDERED
+   add constraint FK_CAR_PART_HAS_CAR_P_CAR_PART foreign key (CARPARTS_ID)
+      references CAR_PARTS (CARPARTS_ID)
+go
+
+alter table CAR_PARTS_ORDERED
+   add constraint FK_CAR_PART_HAS_ORDER_ORDER foreign key (ORD_ID)
+      references "ORDER" (ORDER_ID)
+go
+
+alter table CAR_TYPE
+   add constraint FK_CAR_TYPE_HAS_CAR_T_CARS foreign key (CAR_ID)
+      references CARS (CAR_ID)
+go
+
+alter table CLIENT
+   add constraint FK_CLIENT_HAS_A_CLI_USERS foreign key (USER_ID)
+      references USERS (USER_ID)
+go
+
+alter table CLIENT_DOCUMENTS
+   add constraint FK_CLIENT_D_HAS_A_CLI_CLIENT foreign key (CLIENT_ID)
+      references CLIENT (CLIENT_ID)
+go
+
+alter table DOCUMENT_TYPE
+   add constraint FK_DOCUMENT_HAS_A_DOC_CLIENT_D foreign key (DOCUMENTTYPE_ID)
+      references CLIENT_DOCUMENTS (DOCUEMTN_ID)
+go
+
+alter table EMPLYEE_SALES
+   add constraint FK_EMPLYEE__HAS_EMPLO_EMPLOYEE foreign key (EMPLYEE_ID)
+      references EMPLOYEE (EMPLYEE_ID)
+go
+
+alter table EMPLYEE_SALES
+   add constraint FK_EMPLYEE__HAS_SALE_SALES foreign key (SALES_ID)
+      references SALES (SALES_ID)
+go
+
+alter table MECHANIC
+   add constraint FK_MECHANIC_DC2_MECHANIC foreign key (MECHANICJOB_ID)
+      references MECHANIC_JOB (MECHANICJOB_ID)
+go
+
+alter table MECHANIC_JOB
+   add constraint FK_MECHANIC_HAS_CAR_CARS foreign key (CAR_ID)
+      references CARS (CAR_ID)
+go
+
+alter table MECHANIC_TASK
+   add constraint FK_MECHANIC_HAS_A_MEC_MECHANIC foreign key (MECHANICJOB_ID)
+      references MECHANIC_JOB (MECHANICJOB_ID)
+go
+
+alter table MECHANIC_TASK
+   add constraint FK_MECHANIC_HAS_SERVI_TASK foreign key (SERVICE_ID)
+      references TASK (SERVICE_ID)
+go
+
+alter table MECHANIC_TASK
+   add constraint FK_MECHANIC_HAS_USED__RELATION foreign key (CARPARTSUSEDID)
+      references RELATIONSHIP_12 (CARPARTSUSEDID)
+go
+
+alter table MODEL
+   add constraint FK_MODEL_HAS_MODEL_MAKE foreign key (MAKE_ID)
+      references MAKE (MAKE_ID)
+go
+
+alter table OFFERS
+   add constraint FK_OFFERS_DR2_SALES foreign key (SALES_ID)
+      references SALES (SALES_ID)
+go
+
+alter table OFFERS
+   add constraint FK_OFFERS_HAS_AN_OF_OFFER_TY foreign key (OFFERTYPE_ID)
+      references OFFER_TYPE (OFFERTYPE_ID)
+go
+
+alter table OFFERS
+   add constraint FK_OFFERS_HAS_A_CAR_CARS foreign key (CAR_ID)
+      references CARS (CAR_ID)
+go
+
+alter table OFFERS
+   add constraint FK_OFFERS_HAS_A_STA_OFFER_ST foreign key (STATUS_ID)
+      references OFFER_STATUS (STATUS_ID)
+go
+
+alter table OFFERS
+   add constraint FK_OFFERS_HAS_OFFER_CLIENT foreign key (CLIENT_ID)
+      references CLIENT (CLIENT_ID)
+go
+
+alter table "ORDER"
+   add constraint FK_ORDER_HAS_SUPPL_SUPPLIER foreign key (SUPPLIER_ID)
+      references SUPPLIER (SUPPLIER_ID)
+go
+
+alter table PURCHASES
+   add constraint FK_PURCHASE_HAS_CLIEN_CLIENT foreign key (CLIENT_ID)
+      references CLIENT (CLIENT_ID)
+go
+
+alter table RELATIONSHIP_12
+   add constraint FK_RELATION_RELATIONS_CAR_PART foreign key (CARPARTS_ID)
+      references CAR_PARTS (CARPARTS_ID)
+go
+
+alter table SALES
+   add constraint FK_SALES_HAS_PAYME_PAYMENT foreign key (PAYMENT_ID)
+      references PAYMENT (PAYMENT_ID)
+go
+
+alter table USERS
+   add constraint FK_USERS_HAS_USER__USER_ROL foreign key (USERROLE_ID)
+      references USER_ROLE (USERROLE_ID)
+go
+
