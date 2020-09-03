@@ -1,0 +1,72 @@
+﻿@model D5.Models.EMPLOYEE
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    <script src='https://kit.fontawesome.com/a076d05399.js'></script>
+    <link href="@Url.Content("~/Content/Site.css")" rel="stylesheet" type="text/css" />
+    <title>Details</title>
+</head>
+<body>
+    <div>
+        <h4>EMPLOYEE</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.FULL_NAME)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.FULL_NAME)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.CELL_NUMBER)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.CELL_NUMBER)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.EMAIL)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.EMAIL)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.JOB_DESCRIPTION)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.JOB_DESCRIPTION)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.DATE_HIRED)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.DATE_HIRED)
+            </dd>
+    
+        </dl>
+    </div>
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.EMPLYEE_ID }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+</body>
+</html>

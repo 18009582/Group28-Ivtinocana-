@@ -1,0 +1,108 @@
+﻿@model IEnumerable<D5.Models.CAR>
+
+@{
+    Layout = null;
+}
+
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    <script src='https://kit.fontawesome.com/a076d05399.js'></script>
+    
+    <link href="@Url.Content("~/Content/Site.css")" rel="stylesheet" type="text/css" />
+    <title>Index</title>
+
+</head>
+<body>
+
+    <div class="container">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+            <div class="panel-body">
+                <div>
+                    <label>Please Choose the make of the car that you are searching for</label>
+
+                    @using (Html.BeginForm("Search", "CARs"))
+                    {<form name="Search" id="Search" >
+                    
+                    @Html.DropDownList("Makes", null, htmlAttributes: new { @class = "select" })
+                    <button type="submit" name="Search" style="background-color:orange" class="btn btn-default btn-sm" value="Search">
+                        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-search" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" d="M10.442 10.442a1 1 0 0 1 1.415 0l3.85 3.85a1 1 0 0 1-1.414 1.415l-3.85-3.85a1 1 0 0 1 0-1.415z" />
+                            <path fill-rule="evenodd" d="M6.5 12a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11zM13 6.5a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0z" />
+                        </svg> Search
+                    </button>
+                    <button type="button" id="close" class="btn btn-default btn-sm" style="background-color:darkblue;color:white">
+                        <i class="fa fa-times"></i>
+                        <i class="glyphicon glyphicon-remove"></i> Cancel
+                    </button></form>
+                    }
+                </div>
+
+                @if (Model.Count() != 0)
+                {
+                <table class="table-latitude">
+                    <caption>Car Information</caption>
+                    <thead>
+                    <th>Car ID</th>
+                    <th>Colour</th>
+                    <th> Transmission</th>
+                    <th>Make</th>
+                    <th>Mileage</th>
+                    <th>Listing Price</th>                    
+                    <th>
+                            
+                    </th>
+                    </thead>
+
+                    @foreach (var item in Model)
+                    {
+                    <tr>
+                        <td>@Html.DisplayFor(modelItem => item.CAR_ID)</td>
+
+                        
+                        <td>
+                            @Html.DisplayFor(modelItem => item.COLOUR.COLOUR_NAME)
+                        </td>
+
+                        <td>
+                            @Html.DisplayFor(modelItem => item.TRANSMISSION.TRANSMISSION_NAME)
+                        </td>
+                        <td>
+    @Html.DisplayFor(modelItem => item.MAKE.MAKE_NAME)
+</td>
+                        <td>
+    @Html.DisplayFor(modelItem => item.MILAGE_)
+</td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.LISTING_PRICE)
+                        </td>
+
+
+                        
+
+
+                        <td>
+                            @Html.ActionLink("Edit", "Edit", new { id = item.CAR_ID }) |
+                            @Html.ActionLink("Details", "Details", new { id = item.CAR_ID }) |
+
+                        </td>
+                    </tr>
+                    }
+
+                </table>
+                }
+
+                </div>
+            </div>
+        </div>
+        </div>
+</body>
+</html>
