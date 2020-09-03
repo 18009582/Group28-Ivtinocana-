@@ -17,20 +17,20 @@ namespace Vehlution.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public EMPLOYEE()
         {
-            this.SALES = new HashSet<SALE>();
+            this.CAR_BOOKING_SLOTS = new HashSet<CAR_BOOKING_SLOTS>();
+            this.EMPLYEE_SALES = new HashSet<EMPLYEE_SALES>();
         }
     
         public int EMPLYEE_ID { get; set; }
-        public int TIME_ID { get; set; }
-        public int DAY_ { get; set; }
         public string FULL_NAME { get; set; }
         public string CELL_NUMBER { get; set; }
         public string EMAIL { get; set; }
         public string JOB_DESCRIPTION { get; set; }
         public Nullable<System.DateTime> DATE_HIRED { get; set; }
     
-        public virtual CAR_BOOKING_SLOTS CAR_BOOKING_SLOTS { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<SALE> SALES { get; set; }
+        public virtual ICollection<CAR_BOOKING_SLOTS> CAR_BOOKING_SLOTS { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<EMPLYEE_SALES> EMPLYEE_SALES { get; set; }
     }
 }

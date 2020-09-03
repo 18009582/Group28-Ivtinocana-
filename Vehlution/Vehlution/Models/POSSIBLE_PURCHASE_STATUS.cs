@@ -20,7 +20,7 @@ namespace Vehlution.Models
             this.BOOKING_FOR_POSSIBLE_PURCHASE = new HashSet<BOOKING_FOR_POSSIBLE_PURCHASE>();
         }
     
-        public int STATUS_ID { get; set; }
+        public int POSSIBLEPURCHASESTATUS_ID { get; set; }
         public Nullable<System.DateTime> STATUS_NAME_ { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

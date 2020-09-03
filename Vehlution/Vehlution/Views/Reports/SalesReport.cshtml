@@ -1,0 +1,48 @@
+﻿@model Vehlution.ViewModels.Sales
+@using Vehlution.ViewModels
+@using System.Globalization
+@using System.Data
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>SalesReport</title>
+</head>
+<body>
+    <h1>Sales Report</h1>
+    <div class="criteria">
+        @using (Html.BeginForm("Advanced", "Reports", FormMethod.Post))
+        {
+            <label>Please select the employee who's sales you would like to see</label><br />
+            <label>Employee</label><br />
+            @Html.DropDownListFor(m => m.SelectedEmployeeID, Model.Employees, "- - Please Select - -", new { @class = "form-Control"})
+            <label>Please select the dates which you would like this report to be generated between</label><br />
+            <label>From</label><br />
+            @Html.TextBoxFor(m => m.DateFrom, "yyyy-mm-dd", new { @value = "2020/08/01", @type = "date", @class = "form-Control" })<br />
+            <label>To</label><br />
+            @Html.TextBoxFor(m => m.DateTo, "yyyy-mm-dd", new { @value = "2020/08/31", @type = "date", @class = "form-Control" })<br />
+            <br />
+            <input type="submit" value="Generate" class="btn btn-primary" />
+        }
+    </div>
+    <hr />
+    @if(Model.Employees != null)
+    {
+        //first panel 
+        <div class="panel panel-success">
+            <div class="panel-heading"><strong>Employee Details: </strong>@Model.Employees.</div>
+
+
+        </div>
+
+    }
+
+
+</body>
+</html>

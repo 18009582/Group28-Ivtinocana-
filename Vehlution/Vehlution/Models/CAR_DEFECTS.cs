@@ -24,6 +24,7 @@ namespace Vehlution.Models
         public int CAR_ID { get; set; }
         public int PARTOFCAR_ID { get; set; }
         public Nullable<short> SEVERITY { get; set; }
+        public int CARDEFECTID { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CAR_DEFECT_STATUS> CAR_DEFECT_STATUS { get; set; }

@@ -1,0 +1,131 @@
+﻿@model Vehlution.Models.CAR
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    <script src='https://kit.fontawesome.com/a076d05399.js'></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link href="@Url.Content("~/Content/Site.css")" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="~/CSS/StyleSheet1.css" />
+    <style>
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 1; /* Sit on top */
+            padding-top: 100px; /* Location of the box */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgb(0,0,0); /* Fallback color */
+            background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+        }
+
+        /* Modal Content */
+        .modal-content {
+            background-color: #fefefe;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 50%;
+            text-align: center;
+        }
+
+        /* The Close Button */
+        .close {
+            color: #aaaaaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+            .close:hover,
+            .close:focus {
+                color: #000;
+                text-decoration: none;
+                cursor: pointer;
+            }
+    </style>
+    <meta name="viewport" content="width=device-width" />
+    <title>Details</title>
+</head>
+<body>
+    <div class="container">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+
+            </div>
+            <div class="panel-body">
+                <table class="table-latitude">
+                    <caption>Cars For Sale</caption>
+                    <thead>
+
+                        <tr>
+                            <th>Car ID</th>
+                            <td>@Html.DisplayFor(model => model.CAR_ID)</td>
+                        </tr>
+                        <tr>
+                            <th>Year</th>
+                            <td>@Html.DisplayFor(model => model.YEAR)</td>
+                        </tr>
+                        <tr>
+                            <th>Milage</th>
+                            <td> @Html.DisplayFor(model => model.MILAGE_)</td>
+                        </tr>
+                        <tr>
+                            <th>Listing Price</th>
+                            <td>@Html.DisplayFor(model => model.LISTING_PRICE)</td>
+                        </tr>
+                        <tr>
+                            <th>Image</th>
+                            <td>@Html.DisplayFor(model => model.IMAGE)</td>
+                        </tr>
+                        <tr>
+                            <th>Car Make</th>
+                            <td>@Html.DisplayFor(model => model.MAKE.MAKE_NAME)</td>
+                        </tr>
+                        <tr>
+                            <th>Colour</th>
+                            <td>@Html.DisplayFor(model => model.COLOUR.COLOUR_NAME)</td>
+                        </tr>
+                        <tr>
+                            <th>Fuel Type</th>
+                            <td>@Html.DisplayFor(model => model.FUEL_TYPE.FUELTYPE_NAME)</td>
+                        </tr>
+                        <tr>
+                            <th>Number Of Doors</th>
+                            <td>@Html.DisplayFor(model => model.NUMBER_OF_DOORS.DOORS_ID)</td>
+                        </tr>
+                        <tr>
+                            <th>Number Of Seats</th>
+                            <td>@Html.DisplayFor(model => model.NUMBER_OF_SEATS.SEATS_ID)</td>
+                        </tr>
+                        <tr>
+                            <th>Transmission</th>
+                            <td>@Html.DisplayFor(model => model.TRANSMISSION.TRANSMISSION_NAME)</td>
+                        </tr>
+                    </thead>
+                </table>
+                <a class="btn btn-outline-success" id="myBtn"><i class="glyphicon glyphicon-calendar"></i> Make Booking to View Car</a> <br /> <br />
+                <a class="btn btn-outline-success" id="myBtn"><i class="glyphicon glyphicon-usd"></i> Make an Offer on this Car</a>
+            </div>
+        </div>
+    </div>
+</body>
+
+<p>
+    @Html.ActionLink("Back to List", "PendingCarIndex")
+</p>
+</html>

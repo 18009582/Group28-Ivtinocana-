@@ -14,19 +14,12 @@ namespace Vehlution.Models
     
     public partial class CLIENT_DOCUMENTS
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public CLIENT_DOCUMENTS()
-        {
-            this.DOCUMENT_TYPE = new HashSet<DOCUMENT_TYPE>();
-        }
-    
         public int DOCUEMTN_ID { get; set; }
         public int CLIENT_ID { get; set; }
         public int DOCUMENTTYPE_ID { get; set; }
         public string DOCUMENT { get; set; }
     
         public virtual CLIENT CLIENT { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<DOCUMENT_TYPE> DOCUMENT_TYPE { get; set; }
+        public virtual DOCUMENT_TYPE DOCUMENT_TYPE { get; set; }
     }
 }

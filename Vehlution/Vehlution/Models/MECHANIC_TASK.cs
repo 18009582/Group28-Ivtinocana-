@@ -15,8 +15,10 @@ namespace Vehlution.Models
     public partial class MECHANIC_TASK
     {
         public int CARPARTS_ID { get; set; }
+        public int CARPARTSUSEDID { get; set; }
         public int SERVICE_ID { get; set; }
         public int MECHANICJOB_ID { get; set; }
+        public int MECHANICTASKID { get; set; }
     
         public virtual MECHANIC_JOB MECHANIC_JOB { get; set; }
         public virtual TASK TASK { get; set; }

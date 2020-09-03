@@ -17,8 +17,8 @@ namespace Vehlution.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public SALE()
         {
+            this.EMPLYEE_SALES = new HashSet<EMPLYEE_SALES>();
             this.OFFERS = new HashSet<OFFER>();
-            this.EMPLOYEEs = new HashSet<EMPLOYEE>();
         }
     
         public int SALES_ID { get; set; }
@@ -28,9 +28,9 @@ namespace Vehlution.Models
         public byte[] CAR_CONTRACT_ { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<EMPLYEE_SALES> EMPLYEE_SALES { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<OFFER> OFFERS { get; set; }
         public virtual PAYMENT PAYMENT { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<EMPLOYEE> EMPLOYEEs { get; set; }
     }
 }

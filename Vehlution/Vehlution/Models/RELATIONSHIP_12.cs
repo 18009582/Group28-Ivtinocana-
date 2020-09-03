@@ -21,6 +21,7 @@ namespace Vehlution.Models
         }
     
         public int CARPARTS_ID { get; set; }
+        public int CARPARTSUSEDID { get; set; }
     
         public virtual CAR_PARTS CAR_PARTS { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

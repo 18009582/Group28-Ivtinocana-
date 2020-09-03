@@ -15,7 +15,7 @@ namespace Vehlution.Controllers
         private VehlutionEntities db = new VehlutionEntities();
 
         // GET: MODELs
-        public ActionResult Index()
+        public ActionResult CarModelIndex()
         {
             var mODELs = db.MODELs.Include(m => m.MAKE);
             return View(mODELs.ToList());

@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Schema Namespace="VehlutionModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+<Schema Namespace="Vehlution3Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
   <EntityType Name="ACCESS">
     <Key>
       <PropertyRef Name="ACCESS_ID" />
     </Key>
-    <Property Name="ACCESS_ID" Type="int" Nullable="false" />
+    <Property Name="ACCESS_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="USER_ID" Type="int" Nullable="false" />
     <Property Name="USERANAME" Type="char" MaxLength="225" />
     <Property Name="PASSWORD_" Type="char" MaxLength="225" />
@@ -13,7 +13,7 @@
     <Key>
       <PropertyRef Name="DAY_" />
     </Key>
-    <Property Name="DAY_" Type="int" Nullable="false" />
+    <Property Name="DAY_" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="MONTH_" Type="datetime" />
     <Property Name="MONTH" Type="datetime" />
     <Property Name="YEAR" Type="datetime" />
@@ -24,7 +24,7 @@
     </Key>
     <Property Name="CLIENT_ID" Type="int" Nullable="false" />
     <Property Name="STATUS_ID" Type="int" Nullable="false" />
-    <Property Name="BOOKING_ID" Type="int" Nullable="false" />
+    <Property Name="BOOKING_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="BOOKING_DATE" Type="datetime" />
     <Property Name="BOOKING_TIME" Type="datetime" />
     <Property Name="BOOKING_STATUS" Type="char" MaxLength="20" />
@@ -33,7 +33,7 @@
     <Key>
       <PropertyRef Name="STATUSID" />
     </Key>
-    <Property Name="STATUSID" Type="int" Nullable="false" />
+    <Property Name="STATUSID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="AVAILABLE_" Type="smallint" />
     <Property Name="NOT_AVAILABLE" Type="smallint" />
     <Property Name="PROPOSED" Type="char" MaxLength="10" />
@@ -42,15 +42,15 @@
     <Key>
       <PropertyRef Name="TIME_ID" />
     </Key>
-    <Property Name="TIME_ID" Type="int" Nullable="false" />
+    <Property Name="TIME_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="START_TIME_" Type="datetime" />
     <Property Name="END_TIME" Type="datetime" />
   </EntityType>
   <EntityType Name="CAR_BOOKING">
     <Key>
-      <PropertyRef Name="BOOKING_ID" />
+      <PropertyRef Name="CARBOOKING_ID" />
     </Key>
-    <Property Name="BOOKING_ID" Type="int" Nullable="false" />
+    <Property Name="CARBOOKING_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="CLIENT_ID" Type="int" Nullable="false" />
     <Property Name="STATUS" Type="char" MaxLength="50" />
     <Property Name="BOOKING_DATE" Type="datetime" />
@@ -58,71 +58,72 @@
   </EntityType>
   <EntityType Name="CAR_BOOKING_SLOTS">
     <Key>
-      <PropertyRef Name="TIME_ID" />
-      <PropertyRef Name="DAY_" />
+      <PropertyRef Name="CARBOOKINGSLOTID" />
     </Key>
     <Property Name="TIME_ID" Type="int" Nullable="false" />
     <Property Name="DAY_" Type="int" Nullable="false" />
     <Property Name="STATUSID" Type="int" Nullable="false" />
-    <Property Name="BOOKING_ID" Type="int" />
+    <Property Name="BOOKING_ID" Type="int" Nullable="false" />
+    <Property Name="EMPLYEE_ID" Type="int" />
+    <Property Name="CARBOOKINGSLOTID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
   </EntityType>
   <EntityType Name="CAR_DEFECT_STATUS">
     <Key>
-      <PropertyRef Name="STATUS_ID" />
-      <PropertyRef Name="DEFECT_ID" />
-      <PropertyRef Name="CAR_ID" />
+      <PropertyRef Name="CARDEFECTSTATUSID" />
     </Key>
     <Property Name="STATUS_ID" Type="int" Nullable="false" />
     <Property Name="DEFECT_ID" Type="int" Nullable="false" />
     <Property Name="CAR_ID" Type="int" Nullable="false" />
+    <Property Name="CARDEFECTID" Type="int" Nullable="false" />
     <Property Name="DATE" Type="datetime" />
+    <Property Name="CARDEFECTSTATUSID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
   </EntityType>
   <EntityType Name="CAR_DEFECTS">
     <Key>
-      <PropertyRef Name="DEFECT_ID" />
-      <PropertyRef Name="CAR_ID" />
+      <PropertyRef Name="CARDEFECTID" />
     </Key>
     <Property Name="DEFECT_ID" Type="int" Nullable="false" />
     <Property Name="CAR_ID" Type="int" Nullable="false" />
     <Property Name="PARTOFCAR_ID" Type="int" Nullable="false" />
     <Property Name="SEVERITY" Type="smallint" />
+    <Property Name="CARDEFECTID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
   </EntityType>
   <EntityType Name="CAR_PARTS">
     <Key>
       <PropertyRef Name="CARPARTS_ID" />
     </Key>
-    <Property Name="CARPARTS_ID" Type="int" Nullable="false" />
+    <Property Name="CARPARTS_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="PARTNAME" Type="char" MaxLength="50" />
   </EntityType>
   <EntityType Name="CAR_PARTS_ORDERED">
     <Key>
-      <PropertyRef Name="ORD_ID" />
-      <PropertyRef Name="CARPARTS_ID" />
+      <PropertyRef Name="CARPARTSORDEREDID" />
     </Key>
     <Property Name="ORD_ID" Type="int" Nullable="false" />
     <Property Name="CARPARTS_ID" Type="int" Nullable="false" />
     <Property Name="QUANTITY" Type="int" />
+    <Property Name="CARPARTSORDEREDID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
   </EntityType>
   <EntityType Name="CAR_STATUS">
     <Key>
       <PropertyRef Name="STATUS_ID" />
     </Key>
-    <Property Name="STATUS_ID" Type="int" Nullable="false" />
+    <Property Name="STATUS_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="SASTUS_NAME" Type="char" MaxLength="50" />
   </EntityType>
   <EntityType Name="CAR_TYPE">
     <Key>
-      <PropertyRef Name="CAR_TYPE" />
+      <PropertyRef Name="CAR_TYPEID" />
     </Key>
     <Property Name="CAR_ID" Type="int" Nullable="false" />
-    <Property Name="CAR_TYPE" Type="int" Nullable="false" />
+    <Property Name="CAR_TYPEID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="TYPE_NAME" Type="char" MaxLength="50" />
   </EntityType>
   <EntityType Name="CARS">
     <Key>
       <PropertyRef Name="CAR_ID" />
     </Key>
-    <Property Name="CAR_ID" Type="int" Nullable="false" />
+    <Property Name="CAR_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="SEATS_ID" Type="int" Nullable="false" />
     <Property Name="COLOUR_ID" Type="int" Nullable="false" />
     <Property Name="TRANSMISSION_ID" Type="int" Nullable="false" />
@@ -143,7 +144,7 @@
     <Key>
       <PropertyRef Name="CLIENT_ID" />
     </Key>
-    <Property Name="CLIENT_ID" Type="int" Nullable="false" />
+    <Property Name="CLIENT_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="USER_ID" Type="int" Nullable="false" />
     <Property Name="USER_NAME" Type="char" MaxLength="225" />
     <Property Name="PASSWORD" Type="char" MaxLength="225" />
@@ -155,7 +156,7 @@
     <Key>
       <PropertyRef Name="DOCUEMTN_ID" />
     </Key>
-    <Property Name="DOCUEMTN_ID" Type="int" Nullable="false" />
+    <Property Name="DOCUEMTN_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="CLIENT_ID" Type="int" Nullable="false" />
     <Property Name="DOCUMENTTYPE_ID" Type="int" Nullable="false" />
     <Property Name="DOCUMENT" Type="varchar" MaxLength="50" Nullable="false" />
@@ -164,29 +165,28 @@
     <Key>
       <PropertyRef Name="COLOUR_ID" />
     </Key>
-    <Property Name="COLOUR_ID" Type="int" Nullable="false" />
+    <Property Name="COLOUR_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="COLOUR_NAME" Type="char" MaxLength="50" />
   </EntityType>
   <EntityType Name="DEFECT_STATUS">
     <Key>
       <PropertyRef Name="STATUS_ID" />
     </Key>
-    <Property Name="STATUS_ID" Type="int" Nullable="false" />
+    <Property Name="STATUS_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="STATUS_NAME" Type="char" MaxLength="10" />
   </EntityType>
   <EntityType Name="DEFECTS">
     <Key>
       <PropertyRef Name="DEFECT_ID" />
     </Key>
-    <Property Name="DEFECT_ID" Type="int" Nullable="false" />
+    <Property Name="DEFECT_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="DEFECTNAME" Type="char" MaxLength="225" />
   </EntityType>
   <EntityType Name="DOCUMENT_TYPE">
     <Key>
       <PropertyRef Name="DOCUMENTTYPE_ID" />
-      <PropertyRef Name="DOCUMENT" />
     </Key>
-    <Property Name="DOCUMENTTYPE_ID" Type="int" Nullable="false" />
+    <Property Name="DOCUMENTTYPE_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="DOCUMENT" Type="int" Nullable="false" />
     <Property Name="DOCUMENTTYPE_NAME" Type="char" MaxLength="15" />
   </EntityType>
@@ -194,9 +194,7 @@
     <Key>
       <PropertyRef Name="EMPLYEE_ID" />
     </Key>
-    <Property Name="EMPLYEE_ID" Type="int" Nullable="false" />
-    <Property Name="TIME_ID" Type="int" Nullable="false" />
-    <Property Name="DAY_" Type="int" Nullable="false" />
+    <Property Name="EMPLYEE_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="FULL_NAME" Type="char" MaxLength="50" />
     <Property Name="CELL_NUMBER" Type="varchar" MaxLength="10" />
     <Property Name="EMAIL" Type="char" MaxLength="50" />
@@ -205,31 +203,31 @@
   </EntityType>
   <EntityType Name="EMPLYEE_SALES">
     <Key>
-      <PropertyRef Name="EMPLYEE_ID" />
-      <PropertyRef Name="SALES_ID" />
+      <PropertyRef Name="EMPLOYEESALESID" />
     </Key>
     <Property Name="EMPLYEE_ID" Type="int" Nullable="false" />
     <Property Name="SALES_ID" Type="int" Nullable="false" />
+    <Property Name="EMPLOYEESALESID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
   </EntityType>
   <EntityType Name="FUEL_TYPE">
     <Key>
       <PropertyRef Name="FUELTYPE_ID" />
     </Key>
-    <Property Name="FUELTYPE_ID" Type="int" Nullable="false" />
+    <Property Name="FUELTYPE_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="FUELTYPE_NAME" Type="char" MaxLength="225" />
   </EntityType>
   <EntityType Name="MAKE">
     <Key>
       <PropertyRef Name="MAKE_ID" />
     </Key>
-    <Property Name="MAKE_ID" Type="int" Nullable="false" />
+    <Property Name="MAKE_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="MAKE_NAME" Type="char" MaxLength="50" />
   </EntityType>
   <EntityType Name="MECHANIC">
     <Key>
       <PropertyRef Name="MECHANIC_ID" />
     </Key>
-    <Property Name="MECHANIC_ID" Type="int" Nullable="false" />
+    <Property Name="MECHANIC_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="MECHANICJOB_ID" Type="int" Nullable="false" />
     <Property Name="FULL_NAME_" Type="char" MaxLength="100" />
     <Property Name="CELL_NUMBER_" Type="varchar" MaxLength="10" />
@@ -239,25 +237,26 @@
     <Key>
       <PropertyRef Name="MECHANICJOB_ID" />
     </Key>
-    <Property Name="MECHANICJOB_ID" Type="int" Nullable="false" />
+    <Property Name="MECHANICJOB_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="CAR_ID" Type="int" Nullable="false" />
     <Property Name="JOB_DATE" Type="datetime" />
     <Property Name="JOB_TIME" Type="datetime" />
   </EntityType>
   <EntityType Name="MECHANIC_TASK">
     <Key>
-      <PropertyRef Name="CARPARTS_ID" />
-      <PropertyRef Name="SERVICE_ID" />
+      <PropertyRef Name="MECHANICTASKID" />
     </Key>
     <Property Name="CARPARTS_ID" Type="int" Nullable="false" />
+    <Property Name="CARPARTSUSEDID" Type="int" Nullable="false" />
     <Property Name="SERVICE_ID" Type="int" Nullable="false" />
     <Property Name="MECHANICJOB_ID" Type="int" Nullable="false" />
+    <Property Name="MECHANICTASKID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
   </EntityType>
   <EntityType Name="MODEL">
     <Key>
       <PropertyRef Name="MODEL_ID" />
     </Key>
-    <Property Name="MODEL_ID" Type="int" Nullable="false" />
+    <Property Name="MODEL_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="MAKE_ID" Type="int" Nullable="false" />
     <Property Name="MODEL_NAME" Type="char" MaxLength="50" />
   </EntityType>
@@ -265,35 +264,35 @@
     <Key>
       <PropertyRef Name="DOORS_ID" />
     </Key>
-    <Property Name="DOORS_ID" Type="int" Nullable="false" />
+    <Property Name="DOORS_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="NUMBER_OF_DOORS" Type="int" />
   </EntityType>
   <EntityType Name="NUMBER_OF_SEATS">
     <Key>
       <PropertyRef Name="SEATS_ID" />
     </Key>
-    <Property Name="SEATS_ID" Type="int" Nullable="false" />
+    <Property Name="SEATS_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="NUMBER_OF_SEATS_" Type="int" />
   </EntityType>
   <EntityType Name="OFFER_STATUS">
     <Key>
       <PropertyRef Name="STATUS_ID" />
     </Key>
-    <Property Name="STATUS_ID" Type="int" Nullable="false" />
+    <Property Name="STATUS_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="STATUS_NAME_" Type="char" MaxLength="10" />
   </EntityType>
   <EntityType Name="OFFER_TYPE">
     <Key>
       <PropertyRef Name="OFFERTYPE_ID" />
     </Key>
-    <Property Name="OFFERTYPE_ID" Type="int" Nullable="false" />
+    <Property Name="OFFERTYPE_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="OFFERTYPE" Type="char" MaxLength="10" />
   </EntityType>
   <EntityType Name="OFFERS">
     <Key>
       <PropertyRef Name="OFFER_ID" />
     </Key>
-    <Property Name="OFFER_ID" Type="int" Nullable="false" />
+    <Property Name="OFFER_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="CAR_ID" Type="int" Nullable="false" />
     <Property Name="CLIENT_ID" Type="int" Nullable="false" />
     <Property Name="SALES_ID" Type="int" Nullable="false" />
@@ -305,7 +304,7 @@
     <Key>
       <PropertyRef Name="ORDER_ID" />
     </Key>
-    <Property Name="ORDER_ID" Type="int" Nullable="false" />
+    <Property Name="ORDER_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="SUPPLIER_ID" Type="int" Nullable="false" />
     <Property Name="ORDER_DATE_" Type="datetime" />
     <Property Name="ORDER_PRICE_" Type="float" />
@@ -315,44 +314,45 @@
     <Key>
       <PropertyRef Name="PARTOFCAR_ID" />
     </Key>
-    <Property Name="PARTOFCAR_ID" Type="int" Nullable="false" />
+    <Property Name="PARTOFCAR_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="PARTOFCAR_NAME" Type="char" MaxLength="20" />
   </EntityType>
   <EntityType Name="PAYMENT">
     <Key>
       <PropertyRef Name="PAYMENT_ID" />
     </Key>
-    <Property Name="PAYMENT_ID" Type="int" Nullable="false" />
-    <Property Name="PAYMENTTYPE_ID" Type="int" Nullable="false" />
+    <Property Name="PAYMENT_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="PAYMENTTYPE" Type="char" MaxLength="50" Nullable="false" />
     <Property Name="PAYMENT_DATE" Type="datetime" />
   </EntityType>
   <EntityType Name="POSSIBLE_PURCHASE_STATUS">
     <Key>
-      <PropertyRef Name="STATUS_ID" />
+      <PropertyRef Name="POSSIBLEPURCHASESTATUS_ID" />
     </Key>
-    <Property Name="STATUS_ID" Type="int" Nullable="false" />
+    <Property Name="POSSIBLEPURCHASESTATUS_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="STATUS_NAME_" Type="datetime" />
   </EntityType>
   <EntityType Name="PURCHASES">
     <Key>
       <PropertyRef Name="PURCHASE_ID" />
     </Key>
-    <Property Name="PURCHASE_ID" Type="int" Nullable="false" />
+    <Property Name="PURCHASE_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="CLIENT_ID" Type="int" Nullable="false" />
     <Property Name="PURCHASEDATE_" Type="datetime" />
     <Property Name="COST_" Type="float" />
   </EntityType>
   <EntityType Name="RELATIONSHIP_12">
     <Key>
-      <PropertyRef Name="CARPARTS_ID" />
+      <PropertyRef Name="CARPARTSUSEDID" />
     </Key>
     <Property Name="CARPARTS_ID" Type="int" Nullable="false" />
+    <Property Name="CARPARTSUSEDID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
   </EntityType>
   <EntityType Name="SALES">
     <Key>
       <PropertyRef Name="SALES_ID" />
     </Key>
-    <Property Name="SALES_ID" Type="int" Nullable="false" />
+    <Property Name="SALES_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="PAYMENT_ID" Type="int" Nullable="false" />
     <Property Name="SALE_DATE_" Type="datetime" />
     <Property Name="ACCEPTED_OFFER" Type="float" />
@@ -362,7 +362,7 @@
     <Key>
       <PropertyRef Name="SUPPLIER_ID" />
     </Key>
-    <Property Name="SUPPLIER_ID" Type="int" Nullable="false" />
+    <Property Name="SUPPLIER_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="NAME_" Type="char" MaxLength="50" />
     <Property Name="CELL_NUMBER_" Type="varchar" MaxLength="10" />
     <Property Name="EMAIL_" Type="char" MaxLength="50" />
@@ -372,28 +372,28 @@
     <Key>
       <PropertyRef Name="SERVICE_ID" />
     </Key>
-    <Property Name="SERVICE_ID" Type="int" Nullable="false" />
+    <Property Name="SERVICE_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="SERVICE_NAME" Type="char" MaxLength="50" />
   </EntityType>
   <EntityType Name="TRANSMISSION">
     <Key>
       <PropertyRef Name="TRANSMISSION_ID" />
     </Key>
-    <Property Name="TRANSMISSION_ID" Type="int" Nullable="false" />
+    <Property Name="TRANSMISSION_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="TRANSMISSION_NAME" Type="char" MaxLength="50" />
   </EntityType>
   <EntityType Name="USER_ROLE">
     <Key>
       <PropertyRef Name="USERROLE_ID" />
     </Key>
-    <Property Name="USERROLE_ID" Type="int" Nullable="false" />
+    <Property Name="USERROLE_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="ROLE" Type="char" MaxLength="50" />
   </EntityType>
   <EntityType Name="USERS">
     <Key>
       <PropertyRef Name="USER_ID" />
     </Key>
-    <Property Name="USER_ID" Type="int" Nullable="false" />
+    <Property Name="USER_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="USERROLE_ID" Type="int" Nullable="false" />
     <Property Name="FULL_NAME" Type="char" MaxLength="50" />
     <Property Name="EMAIL" Type="char" MaxLength="50" />
@@ -431,7 +431,7 @@
     <End Role="BOOKING_FOR_POSSIBLE_PURCHASE" Type="Self.BOOKING_FOR_POSSIBLE_PURCHASE" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="POSSIBLE_PURCHASE_STATUS">
-        <PropertyRef Name="STATUS_ID" />
+        <PropertyRef Name="POSSIBLEPURCHASESTATUS_ID" />
       </Principal>
       <Dependent Role="BOOKING_FOR_POSSIBLE_PURCHASE">
         <PropertyRef Name="STATUS_ID" />
@@ -439,11 +439,11 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_CAR_BOOK_HAS_A_CAR_CAR_BOOK">
-    <End Role="CAR_BOOKING" Type="Self.CAR_BOOKING" Multiplicity="0..1" />
+    <End Role="CAR_BOOKING" Type="Self.CAR_BOOKING" Multiplicity="1" />
     <End Role="CAR_BOOKING_SLOTS" Type="Self.CAR_BOOKING_SLOTS" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="CAR_BOOKING">
-        <PropertyRef Name="BOOKING_ID" />
+        <PropertyRef Name="CARBOOKING_ID" />
       </Principal>
       <Dependent Role="CAR_BOOKING_SLOTS">
         <PropertyRef Name="BOOKING_ID" />
@@ -483,6 +483,18 @@
       </Principal>
       <Dependent Role="CAR_BOOKING">
         <PropertyRef Name="CLIENT_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CAR_BOOK_HAS_EMPLO_EMPLOYEE">
+    <End Role="EMPLOYEE" Type="Self.EMPLOYEE" Multiplicity="0..1" />
+    <End Role="CAR_BOOKING_SLOTS" Type="Self.CAR_BOOKING_SLOTS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="EMPLOYEE">
+        <PropertyRef Name="EMPLYEE_ID" />
+      </Principal>
+      <Dependent Role="CAR_BOOKING_SLOTS">
+        <PropertyRef Name="EMPLYEE_ID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -527,12 +539,10 @@
     <End Role="CAR_DEFECT_STATUS" Type="Self.CAR_DEFECT_STATUS" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="CAR_DEFECTS">
-        <PropertyRef Name="DEFECT_ID" />
-        <PropertyRef Name="CAR_ID" />
+        <PropertyRef Name="CARDEFECTID" />
       </Principal>
       <Dependent Role="CAR_DEFECT_STATUS">
-        <PropertyRef Name="DEFECT_ID" />
-        <PropertyRef Name="CAR_ID" />
+        <PropertyRef Name="CARDEFECTID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -613,7 +623,7 @@
     <End Role="CARS" Type="Self.CARS" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="CAR_BOOKING">
-        <PropertyRef Name="BOOKING_ID" />
+        <PropertyRef Name="CARBOOKING_ID" />
       </Principal>
       <Dependent Role="CARS">
         <PropertyRef Name="BOOKING_ID" />
@@ -754,27 +764,13 @@
   </Association>
   <Association Name="FK_DOCUMENT_HAS_A_DOC_CLIENT_D">
     <End Role="CLIENT_DOCUMENTS" Type="Self.CLIENT_DOCUMENTS" Multiplicity="1" />
-    <End Role="DOCUMENT_TYPE" Type="Self.DOCUMENT_TYPE" Multiplicity="*" />
+    <End Role="DOCUMENT_TYPE" Type="Self.DOCUMENT_TYPE" Multiplicity="0..1" />
     <ReferentialConstraint>
       <Principal Role="CLIENT_DOCUMENTS">
         <PropertyRef Name="DOCUEMTN_ID" />
       </Principal>
       <Dependent Role="DOCUMENT_TYPE">
         <PropertyRef Name="DOCUMENTTYPE_ID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_EMPLOYEE_HAS_EMPLO_CAR_BOOK">
-    <End Role="CAR_BOOKING_SLOTS" Type="Self.CAR_BOOKING_SLOTS" Multiplicity="1" />
-    <End Role="EMPLOYEE" Type="Self.EMPLOYEE" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="CAR_BOOKING_SLOTS">
-        <PropertyRef Name="TIME_ID" />
-        <PropertyRef Name="DAY_" />
-      </Principal>
-      <Dependent Role="EMPLOYEE">
-        <PropertyRef Name="TIME_ID" />
-        <PropertyRef Name="DAY_" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -855,10 +851,10 @@
     <End Role="MECHANIC_TASK" Type="Self.MECHANIC_TASK" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="RELATIONSHIP_12">
-        <PropertyRef Name="CARPARTS_ID" />
+        <PropertyRef Name="CARPARTSUSEDID" />
       </Principal>
       <Dependent Role="MECHANIC_TASK">
-        <PropertyRef Name="CARPARTS_ID" />
+        <PropertyRef Name="CARPARTSUSEDID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -960,7 +956,7 @@
   </Association>
   <Association Name="FK_RELATION_RELATIONS_CAR_PART">
     <End Role="CAR_PARTS" Type="Self.CAR_PARTS" Multiplicity="1" />
-    <End Role="RELATIONSHIP_12" Type="Self.RELATIONSHIP_12" Multiplicity="0..1" />
+    <End Role="RELATIONSHIP_12" Type="Self.RELATIONSHIP_12" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="CAR_PARTS">
         <PropertyRef Name="CARPARTS_ID" />
@@ -994,7 +990,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <EntityContainer Name="VehlutionModelStoreContainer">
+  <EntityContainer Name="Vehlution3ModelStoreContainer">
     <EntitySet Name="ACCESS" EntityType="Self.ACCESS" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="BOOKING_DATES" EntityType="Self.BOOKING_DATES" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="BOOKING_FOR_POSSIBLE_PURCHASE" EntityType="Self.BOOKING_FOR_POSSIBLE_PURCHASE" Schema="dbo" store:Type="Tables" />
@@ -1067,6 +1063,10 @@
     <AssociationSet Name="FK_CAR_BOOK_HAS_CLIEN_CLIENT" Association="Self.FK_CAR_BOOK_HAS_CLIEN_CLIENT">
       <End Role="CLIENT" EntitySet="CLIENT" />
       <End Role="CAR_BOOKING" EntitySet="CAR_BOOKING" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CAR_BOOK_HAS_EMPLO_EMPLOYEE" Association="Self.FK_CAR_BOOK_HAS_EMPLO_EMPLOYEE">
+      <End Role="EMPLOYEE" EntitySet="EMPLOYEE" />
+      <End Role="CAR_BOOKING_SLOTS" EntitySet="CAR_BOOKING_SLOTS" />
     </AssociationSet>
     <AssociationSet Name="FK_CAR_BOOK_HAS_PENDI_BOOKING_" Association="Self.FK_CAR_BOOK_HAS_PENDI_BOOKING_">
       <End Role="BOOKING_STATUS" EntitySet="BOOKING_STATUS" />
@@ -1159,10 +1159,6 @@
     <AssociationSet Name="FK_DOCUMENT_HAS_A_DOC_CLIENT_D" Association="Self.FK_DOCUMENT_HAS_A_DOC_CLIENT_D">
       <End Role="CLIENT_DOCUMENTS" EntitySet="CLIENT_DOCUMENTS" />
       <End Role="DOCUMENT_TYPE" EntitySet="DOCUMENT_TYPE" />
-    </AssociationSet>
-    <AssociationSet Name="FK_EMPLOYEE_HAS_EMPLO_CAR_BOOK" Association="Self.FK_EMPLOYEE_HAS_EMPLO_CAR_BOOK">
-      <End Role="CAR_BOOKING_SLOTS" EntitySet="CAR_BOOKING_SLOTS" />
-      <End Role="EMPLOYEE" EntitySet="EMPLOYEE" />
     </AssociationSet>
     <AssociationSet Name="FK_EMPLYEE__HAS_EMPLO_EMPLOYEE" Association="Self.FK_EMPLYEE__HAS_EMPLO_EMPLOYEE">
       <End Role="EMPLOYEE" EntitySet="EMPLOYEE" />

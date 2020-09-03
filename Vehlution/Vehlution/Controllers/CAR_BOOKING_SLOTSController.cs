@@ -15,7 +15,7 @@ namespace Vehlution.Controllers
         private VehlutionEntities db = new VehlutionEntities();
 
         // GET: CAR_BOOKING_SLOTS
-        public ActionResult Index()
+        public ActionResult BookingSlotsIndex()
         {
             var cAR_BOOKING_SLOTS = db.CAR_BOOKING_SLOTS.Include(c => c.BOOKING_DATES).Include(c => c.BOOKING_STATUS).Include(c => c.BOOKING_TIMES).Include(c => c.CAR_BOOKING);
             return View(cAR_BOOKING_SLOTS.ToList());

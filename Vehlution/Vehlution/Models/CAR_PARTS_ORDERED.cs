@@ -17,6 +17,7 @@ namespace Vehlution.Models
         public int ORD_ID { get; set; }
         public int CARPARTS_ID { get; set; }
         public Nullable<int> QUANTITY { get; set; }
+        public int CARPARTSORDEREDID { get; set; }
     
         public virtual CAR_PARTS CAR_PARTS { get; set; }
         public virtual ORDER ORDER { get; set; }

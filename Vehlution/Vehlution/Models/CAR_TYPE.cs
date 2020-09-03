@@ -15,7 +15,7 @@ namespace Vehlution.Models
     public partial class CAR_TYPE
     {
         public int CAR_ID { get; set; }
-        public int CAR_TYPE1 { get; set; }
+        public int CAR_TYPEID { get; set; }
         public string TYPE_NAME { get; set; }
     
         public virtual CAR CAR { get; set; }

@@ -18,6 +18,7 @@ namespace Vehlution.Models
         public CAR_PARTS()
         {
             this.CAR_PARTS_ORDERED = new HashSet<CAR_PARTS_ORDERED>();
+            this.RELATIONSHIP_12 = new HashSet<RELATIONSHIP_12>();
         }
     
         public int CARPARTS_ID { get; set; }
@@ -25,6 +26,7 @@ namespace Vehlution.Models
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CAR_PARTS_ORDERED> CAR_PARTS_ORDERED { get; set; }
-        public virtual RELATIONSHIP_12 RELATIONSHIP_12 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<RELATIONSHIP_12> RELATIONSHIP_12 { get; set; }
     }
 }

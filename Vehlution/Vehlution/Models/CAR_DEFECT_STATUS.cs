@@ -17,7 +17,9 @@ namespace Vehlution.Models
         public int STATUS_ID { get; set; }
         public int DEFECT_ID { get; set; }
         public int CAR_ID { get; set; }
+        public int CARDEFECTID { get; set; }
         public Nullable<System.DateTime> DATE { get; set; }
+        public int CARDEFECTSTATUSID { get; set; }
     
         public virtual DEFECT_STATUS DEFECT_STATUS { get; set; }
         public virtual CAR_DEFECTS CAR_DEFECTS { get; set; }

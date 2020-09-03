@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Schema Namespace="VehlutionModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+<Schema Namespace="Vehlution3Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
   <EntityType Name="ACCESS">
     <Key>
       <PropertyRef Name="ACCESS_ID" />
     </Key>
-    <Property Name="ACCESS_ID" Type="Int32" Nullable="false" />
+    <Property Name="ACCESS_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="USER_ID" Type="Int32" Nullable="false" />
     <Property Name="USERANAME" Type="String" MaxLength="225" FixedLength="true" Unicode="false" />
     <Property Name="PASSWORD_" Type="String" MaxLength="225" FixedLength="true" Unicode="false" />
@@ -14,7 +14,7 @@
     <Key>
       <PropertyRef Name="DAY_" />
     </Key>
-    <Property Name="DAY_" Type="Int32" Nullable="false" />
+    <Property Name="DAY_" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="MONTH_" Type="DateTime" Precision="3" />
     <Property Name="MONTH" Type="DateTime" Precision="3" />
     <Property Name="YEAR" Type="DateTime" Precision="3" />
@@ -26,7 +26,7 @@
     </Key>
     <Property Name="CLIENT_ID" Type="Int32" Nullable="false" />
     <Property Name="STATUS_ID" Type="Int32" Nullable="false" />
-    <Property Name="BOOKING_ID" Type="Int32" Nullable="false" />
+    <Property Name="BOOKING_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="BOOKING_DATE" Type="DateTime" Precision="3" />
     <Property Name="BOOKING_TIME" Type="DateTime" Precision="3" />
     <Property Name="BOOKING_STATUS" Type="String" MaxLength="20" FixedLength="true" Unicode="false" />
@@ -38,7 +38,7 @@
     <Key>
       <PropertyRef Name="STATUSID" />
     </Key>
-    <Property Name="STATUSID" Type="Int32" Nullable="false" />
+    <Property Name="STATUSID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="AVAILABLE_" Type="Int16" />
     <Property Name="NOT_AVAILABLE" Type="Int16" />
     <Property Name="PROPOSED" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
@@ -48,16 +48,16 @@
     <Key>
       <PropertyRef Name="TIME_ID" />
     </Key>
-    <Property Name="TIME_ID" Type="Int32" Nullable="false" />
+    <Property Name="TIME_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="START_TIME_" Type="DateTime" Precision="3" />
     <Property Name="END_TIME" Type="DateTime" Precision="3" />
     <NavigationProperty Name="CAR_BOOKING_SLOTS" Relationship="Self.FK_CAR_BOOK_HAS_BOOKI_BOOKING_" FromRole="BOOKING_TIMES" ToRole="CAR_BOOKING_SLOTS" />
   </EntityType>
   <EntityType Name="CAR_BOOKING">
     <Key>
-      <PropertyRef Name="BOOKING_ID" />
+      <PropertyRef Name="CARBOOKING_ID" />
     </Key>
-    <Property Name="BOOKING_ID" Type="Int32" Nullable="false" />
+    <Property Name="CARBOOKING_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="CLIENT_ID" Type="Int32" Nullable="false" />
     <Property Name="STATUS" Type="String" MaxLength="50" FixedLength="true" Unicode="false" />
     <Property Name="BOOKING_DATE" Type="DateTime" Precision="3" />
@@ -68,41 +68,42 @@
   </EntityType>
   <EntityType Name="CAR_BOOKING_SLOTS">
     <Key>
-      <PropertyRef Name="TIME_ID" />
-      <PropertyRef Name="DAY_" />
+      <PropertyRef Name="CARBOOKINGSLOTID" />
     </Key>
     <Property Name="TIME_ID" Type="Int32" Nullable="false" />
     <Property Name="DAY_" Type="Int32" Nullable="false" />
     <Property Name="STATUSID" Type="Int32" Nullable="false" />
-    <Property Name="BOOKING_ID" Type="Int32" />
+    <Property Name="BOOKING_ID" Type="Int32" Nullable="false" />
+    <Property Name="EMPLYEE_ID" Type="Int32" />
+    <Property Name="CARBOOKINGSLOTID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <NavigationProperty Name="BOOKING_DATES" Relationship="Self.FK_CAR_BOOK_HAS_BOOKI_BOOKING_2" FromRole="CAR_BOOKING_SLOTS" ToRole="BOOKING_DATES" />
     <NavigationProperty Name="BOOKING_STATUS" Relationship="Self.FK_CAR_BOOK_HAS_PENDI_BOOKING_" FromRole="CAR_BOOKING_SLOTS" ToRole="BOOKING_STATUS" />
     <NavigationProperty Name="BOOKING_TIMES" Relationship="Self.FK_CAR_BOOK_HAS_BOOKI_BOOKING_" FromRole="CAR_BOOKING_SLOTS" ToRole="BOOKING_TIMES" />
     <NavigationProperty Name="CAR_BOOKING" Relationship="Self.FK_CAR_BOOK_HAS_A_CAR_CAR_BOOK" FromRole="CAR_BOOKING_SLOTS" ToRole="CAR_BOOKING" />
-    <NavigationProperty Name="EMPLOYEEs" Relationship="Self.FK_EMPLOYEE_HAS_EMPLO_CAR_BOOK" FromRole="CAR_BOOKING_SLOTS" ToRole="EMPLOYEE" />
+    <NavigationProperty Name="EMPLOYEE" Relationship="Self.FK_CAR_BOOK_HAS_EMPLO_EMPLOYEE" FromRole="CAR_BOOKING_SLOTS" ToRole="EMPLOYEE" />
   </EntityType>
   <EntityType Name="CAR_DEFECT_STATUS">
     <Key>
-      <PropertyRef Name="STATUS_ID" />
-      <PropertyRef Name="DEFECT_ID" />
-      <PropertyRef Name="CAR_ID" />
+      <PropertyRef Name="CARDEFECTSTATUSID" />
     </Key>
     <Property Name="STATUS_ID" Type="Int32" Nullable="false" />
     <Property Name="DEFECT_ID" Type="Int32" Nullable="false" />
     <Property Name="CAR_ID" Type="Int32" Nullable="false" />
+    <Property Name="CARDEFECTID" Type="Int32" Nullable="false" />
     <Property Name="DATE" Type="DateTime" Precision="3" />
+    <Property Name="CARDEFECTSTATUSID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <NavigationProperty Name="DEFECT_STATUS" Relationship="Self.FK_CAR_DEFE_HAS_A_CAR_DEFECT_S" FromRole="CAR_DEFECT_STATUS" ToRole="DEFECT_STATUS" />
     <NavigationProperty Name="CAR_DEFECTS" Relationship="Self.FK_CAR_DEFE_HAS_A_STA_CAR_DEFE" FromRole="CAR_DEFECT_STATUS" ToRole="CAR_DEFECTS" />
   </EntityType>
   <EntityType Name="CAR_DEFECTS">
     <Key>
-      <PropertyRef Name="DEFECT_ID" />
-      <PropertyRef Name="CAR_ID" />
+      <PropertyRef Name="CARDEFECTID" />
     </Key>
     <Property Name="DEFECT_ID" Type="Int32" Nullable="false" />
     <Property Name="CAR_ID" Type="Int32" Nullable="false" />
     <Property Name="PARTOFCAR_ID" Type="Int32" Nullable="false" />
     <Property Name="SEVERITY" Type="Int16" />
+    <Property Name="CARDEFECTID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <NavigationProperty Name="CAR_DEFECT_STATUS" Relationship="Self.FK_CAR_DEFE_HAS_A_STA_CAR_DEFE" FromRole="CAR_DEFECTS" ToRole="CAR_DEFECT_STATUS" />
     <NavigationProperty Name="PART_OF_CAR" Relationship="Self.FK_CAR_DEFE_HAS_A_DEF_PART_OF_" FromRole="CAR_DEFECTS" ToRole="PART_OF_CAR" />
     <NavigationProperty Name="CAR" Relationship="Self.FK_CAR_DEFE_HAS_CARS_CARS" FromRole="CAR_DEFECTS" ToRole="CARS" />
@@ -112,19 +113,19 @@
     <Key>
       <PropertyRef Name="CARPARTS_ID" />
     </Key>
-    <Property Name="CARPARTS_ID" Type="Int32" Nullable="false" />
+    <Property Name="CARPARTS_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="PARTNAME" Type="String" MaxLength="50" FixedLength="true" Unicode="false" />
     <NavigationProperty Name="CAR_PARTS_ORDERED" Relationship="Self.FK_CAR_PART_HAS_CAR_P_CAR_PART" FromRole="CAR_PARTS" ToRole="CAR_PARTS_ORDERED" />
     <NavigationProperty Name="RELATIONSHIP_12" Relationship="Self.FK_RELATION_RELATIONS_CAR_PART" FromRole="CAR_PARTS" ToRole="RELATIONSHIP_12" />
   </EntityType>
   <EntityType Name="CAR_PARTS_ORDERED">
     <Key>
-      <PropertyRef Name="ORD_ID" />
-      <PropertyRef Name="CARPARTS_ID" />
+      <PropertyRef Name="CARPARTSORDEREDID" />
     </Key>
     <Property Name="ORD_ID" Type="Int32" Nullable="false" />
     <Property Name="CARPARTS_ID" Type="Int32" Nullable="false" />
     <Property Name="QUANTITY" Type="Int32" />
+    <Property Name="CARPARTSORDEREDID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <NavigationProperty Name="CAR_PARTS" Relationship="Self.FK_CAR_PART_HAS_CAR_P_CAR_PART" FromRole="CAR_PARTS_ORDERED" ToRole="CAR_PARTS" />
     <NavigationProperty Name="ORDER" Relationship="Self.FK_CAR_PART_HAS_ORDER_ORDER" FromRole="CAR_PARTS_ORDERED" ToRole="ORDER" />
   </EntityType>
@@ -132,16 +133,16 @@
     <Key>
       <PropertyRef Name="STATUS_ID" />
     </Key>
-    <Property Name="STATUS_ID" Type="Int32" Nullable="false" />
+    <Property Name="STATUS_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="SASTUS_NAME" Type="String" MaxLength="50" FixedLength="true" Unicode="false" />
     <NavigationProperty Name="CARS" Relationship="Self.FK_CARS_HAS_STATU_CAR_STAT" FromRole="CAR_STATUS" ToRole="CARS" />
   </EntityType>
   <EntityType Name="CAR_TYPE">
     <Key>
-      <PropertyRef Name="CAR_TYPE1" />
+      <PropertyRef Name="CAR_TYPEID" />
     </Key>
     <Property Name="CAR_ID" Type="Int32" Nullable="false" />
-    <Property Name="CAR_TYPE1" Type="Int32" Nullable="false" />
+    <Property Name="CAR_TYPEID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="TYPE_NAME" Type="String" MaxLength="50" FixedLength="true" Unicode="false" />
     <NavigationProperty Name="CAR" Relationship="Self.FK_CAR_TYPE_HAS_CAR_T_CARS" FromRole="CAR_TYPE" ToRole="CARS" />
   </EntityType>
@@ -149,7 +150,7 @@
     <Key>
       <PropertyRef Name="CAR_ID" />
     </Key>
-    <Property Name="CAR_ID" Type="Int32" Nullable="false" />
+    <Property Name="CAR_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="SEATS_ID" Type="Int32" Nullable="false" />
     <Property Name="COLOUR_ID" Type="Int32" Nullable="false" />
     <Property Name="TRANSMISSION_ID" Type="Int32" Nullable="false" />
@@ -185,7 +186,7 @@
     <Key>
       <PropertyRef Name="CLIENT_ID" />
     </Key>
-    <Property Name="CLIENT_ID" Type="Int32" Nullable="false" />
+    <Property Name="CLIENT_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="USER_ID" Type="Int32" Nullable="false" />
     <Property Name="USER_NAME" Type="String" MaxLength="225" FixedLength="true" Unicode="false" />
     <Property Name="PASSWORD" Type="String" MaxLength="225" FixedLength="true" Unicode="false" />
@@ -204,7 +205,7 @@
     <Key>
       <PropertyRef Name="DOCUEMTN_ID" />
     </Key>
-    <Property Name="DOCUEMTN_ID" Type="Int32" Nullable="false" />
+    <Property Name="DOCUEMTN_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="CLIENT_ID" Type="Int32" Nullable="false" />
     <Property Name="DOCUMENTTYPE_ID" Type="Int32" Nullable="false" />
     <Property Name="DOCUMENT" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
@@ -215,7 +216,7 @@
     <Key>
       <PropertyRef Name="COLOUR_ID" />
     </Key>
-    <Property Name="COLOUR_ID" Type="Int32" Nullable="false" />
+    <Property Name="COLOUR_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="COLOUR_NAME" Type="String" MaxLength="50" FixedLength="true" Unicode="false" />
     <NavigationProperty Name="CARS" Relationship="Self.FK_CARS_HAS_COLOU_COLOUR" FromRole="COLOUR" ToRole="CARS" />
   </EntityType>
@@ -223,7 +224,7 @@
     <Key>
       <PropertyRef Name="STATUS_ID" />
     </Key>
-    <Property Name="STATUS_ID" Type="Int32" Nullable="false" />
+    <Property Name="STATUS_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="STATUS_NAME" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
     <NavigationProperty Name="CAR_DEFECT_STATUS" Relationship="Self.FK_CAR_DEFE_HAS_A_CAR_DEFECT_S" FromRole="DEFECT_STATUS" ToRole="CAR_DEFECT_STATUS" />
   </EntityType>
@@ -231,16 +232,15 @@
     <Key>
       <PropertyRef Name="DEFECT_ID" />
     </Key>
-    <Property Name="DEFECT_ID" Type="Int32" Nullable="false" />
+    <Property Name="DEFECT_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="DEFECTNAME" Type="String" MaxLength="225" FixedLength="true" Unicode="false" />
     <NavigationProperty Name="CAR_DEFECTS" Relationship="Self.FK_CAR_DEFE_HAS_DEFEC_DEFECTS" FromRole="DEFECTS" ToRole="CAR_DEFECTS" />
   </EntityType>
   <EntityType Name="DOCUMENT_TYPE">
     <Key>
       <PropertyRef Name="DOCUMENTTYPE_ID" />
-      <PropertyRef Name="DOCUMENT" />
     </Key>
-    <Property Name="DOCUMENTTYPE_ID" Type="Int32" Nullable="false" />
+    <Property Name="DOCUMENTTYPE_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="DOCUMENT" Type="Int32" Nullable="false" />
     <Property Name="DOCUMENTTYPE_NAME" Type="String" MaxLength="15" FixedLength="true" Unicode="false" />
     <NavigationProperty Name="CLIENT_DOCUMENTS" Relationship="Self.FK_DOCUMENT_HAS_A_DOC_CLIENT_D" FromRole="DOCUMENT_TYPE" ToRole="CLIENT_DOCUMENTS" />
@@ -249,22 +249,30 @@
     <Key>
       <PropertyRef Name="EMPLYEE_ID" />
     </Key>
-    <Property Name="EMPLYEE_ID" Type="Int32" Nullable="false" />
-    <Property Name="TIME_ID" Type="Int32" Nullable="false" />
-    <Property Name="DAY_" Type="Int32" Nullable="false" />
+    <Property Name="EMPLYEE_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="FULL_NAME" Type="String" MaxLength="50" FixedLength="true" Unicode="false" />
     <Property Name="CELL_NUMBER" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
     <Property Name="EMAIL" Type="String" MaxLength="50" FixedLength="true" Unicode="false" />
     <Property Name="JOB_DESCRIPTION" Type="String" MaxLength="225" FixedLength="true" Unicode="false" />
     <Property Name="DATE_HIRED" Type="DateTime" Precision="3" />
-    <NavigationProperty Name="CAR_BOOKING_SLOTS" Relationship="Self.FK_EMPLOYEE_HAS_EMPLO_CAR_BOOK" FromRole="EMPLOYEE" ToRole="CAR_BOOKING_SLOTS" />
-    <NavigationProperty Name="SALES" Relationship="Self.EMPLYEE_SALES" FromRole="EMPLOYEE" ToRole="SALES" />
+    <NavigationProperty Name="CAR_BOOKING_SLOTS" Relationship="Self.FK_CAR_BOOK_HAS_EMPLO_EMPLOYEE" FromRole="EMPLOYEE" ToRole="CAR_BOOKING_SLOTS" />
+    <NavigationProperty Name="EMPLYEE_SALES" Relationship="Self.FK_EMPLYEE__HAS_EMPLO_EMPLOYEE" FromRole="EMPLOYEE" ToRole="EMPLYEE_SALES" />
+  </EntityType>
+  <EntityType Name="EMPLYEE_SALES">
+    <Key>
+      <PropertyRef Name="EMPLOYEESALESID" />
+    </Key>
+    <Property Name="EMPLYEE_ID" Type="Int32" Nullable="false" />
+    <Property Name="SALES_ID" Type="Int32" Nullable="false" />
+    <Property Name="EMPLOYEESALESID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <NavigationProperty Name="EMPLOYEE" Relationship="Self.FK_EMPLYEE__HAS_EMPLO_EMPLOYEE" FromRole="EMPLYEE_SALES" ToRole="EMPLOYEE" />
+    <NavigationProperty Name="SALE" Relationship="Self.FK_EMPLYEE__HAS_SALE_SALES" FromRole="EMPLYEE_SALES" ToRole="SALES" />
   </EntityType>
   <EntityType Name="FUEL_TYPE">
     <Key>
       <PropertyRef Name="FUELTYPE_ID" />
     </Key>
-    <Property Name="FUELTYPE_ID" Type="Int32" Nullable="false" />
+    <Property Name="FUELTYPE_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="FUELTYPE_NAME" Type="String" MaxLength="225" FixedLength="true" Unicode="false" />
     <NavigationProperty Name="CARS" Relationship="Self.FK_CARS_HAS_FEUL__FUEL_TYP" FromRole="FUEL_TYPE" ToRole="CARS" />
   </EntityType>
@@ -272,7 +280,7 @@
     <Key>
       <PropertyRef Name="MAKE_ID" />
     </Key>
-    <Property Name="MAKE_ID" Type="Int32" Nullable="false" />
+    <Property Name="MAKE_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="MAKE_NAME" Type="String" MaxLength="50" FixedLength="true" Unicode="false" />
     <NavigationProperty Name="CARS" Relationship="Self.FK_CARS_HAD_MAKE_MAKE" FromRole="MAKE" ToRole="CARS" />
     <NavigationProperty Name="MODELs" Relationship="Self.FK_MODEL_HAS_MODEL_MAKE" FromRole="MAKE" ToRole="MODEL" />
@@ -281,7 +289,7 @@
     <Key>
       <PropertyRef Name="MECHANIC_ID" />
     </Key>
-    <Property Name="MECHANIC_ID" Type="Int32" Nullable="false" />
+    <Property Name="MECHANIC_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="MECHANICJOB_ID" Type="Int32" Nullable="false" />
     <Property Name="FULL_NAME_" Type="String" MaxLength="100" FixedLength="true" Unicode="false" />
     <Property Name="CELL_NUMBER_" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
@@ -292,7 +300,7 @@
     <Key>
       <PropertyRef Name="MECHANICJOB_ID" />
     </Key>
-    <Property Name="MECHANICJOB_ID" Type="Int32" Nullable="false" />
+    <Property Name="MECHANICJOB_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="CAR_ID" Type="Int32" Nullable="false" />
     <Property Name="JOB_DATE" Type="DateTime" Precision="3" />
     <Property Name="JOB_TIME" Type="DateTime" Precision="3" />
@@ -302,12 +310,13 @@
   </EntityType>
   <EntityType Name="MECHANIC_TASK">
     <Key>
-      <PropertyRef Name="CARPARTS_ID" />
-      <PropertyRef Name="SERVICE_ID" />
+      <PropertyRef Name="MECHANICTASKID" />
     </Key>
     <Property Name="CARPARTS_ID" Type="Int32" Nullable="false" />
+    <Property Name="CARPARTSUSEDID" Type="Int32" Nullable="false" />
     <Property Name="SERVICE_ID" Type="Int32" Nullable="false" />
     <Property Name="MECHANICJOB_ID" Type="Int32" Nullable="false" />
+    <Property Name="MECHANICTASKID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <NavigationProperty Name="MECHANIC_JOB" Relationship="Self.FK_MECHANIC_HAS_A_MEC_MECHANIC" FromRole="MECHANIC_TASK" ToRole="MECHANIC_JOB" />
     <NavigationProperty Name="TASK" Relationship="Self.FK_MECHANIC_HAS_SERVI_TASK" FromRole="MECHANIC_TASK" ToRole="TASK" />
     <NavigationProperty Name="RELATIONSHIP_12" Relationship="Self.FK_MECHANIC_HAS_USED__RELATION" FromRole="MECHANIC_TASK" ToRole="RELATIONSHIP_12" />
@@ -316,7 +325,7 @@
     <Key>
       <PropertyRef Name="MODEL_ID" />
     </Key>
-    <Property Name="MODEL_ID" Type="Int32" Nullable="false" />
+    <Property Name="MODEL_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="MAKE_ID" Type="Int32" Nullable="false" />
     <Property Name="MODEL_NAME" Type="String" MaxLength="50" FixedLength="true" Unicode="false" />
     <NavigationProperty Name="MAKE" Relationship="Self.FK_MODEL_HAS_MODEL_MAKE" FromRole="MODEL" ToRole="MAKE" />
@@ -325,7 +334,7 @@
     <Key>
       <PropertyRef Name="DOORS_ID" />
     </Key>
-    <Property Name="DOORS_ID" Type="Int32" Nullable="false" />
+    <Property Name="DOORS_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="NUMBER_OF_DOORS1" Type="Int32" />
     <NavigationProperty Name="CARS" Relationship="Self.FK_CARS_HAS_NO__O_NUMBER_O" FromRole="NUMBER_OF_DOORS" ToRole="CARS" />
   </EntityType>
@@ -333,7 +342,7 @@
     <Key>
       <PropertyRef Name="SEATS_ID" />
     </Key>
-    <Property Name="SEATS_ID" Type="Int32" Nullable="false" />
+    <Property Name="SEATS_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="NUMBER_OF_SEATS_" Type="Int32" />
     <NavigationProperty Name="CARS" Relationship="Self.FK_CARS_HAS_NUM_O_NUMBER_O" FromRole="NUMBER_OF_SEATS" ToRole="CARS" />
   </EntityType>
@@ -341,7 +350,7 @@
     <Key>
       <PropertyRef Name="STATUS_ID" />
     </Key>
-    <Property Name="STATUS_ID" Type="Int32" Nullable="false" />
+    <Property Name="STATUS_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="STATUS_NAME_" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
     <NavigationProperty Name="OFFERS" Relationship="Self.FK_OFFERS_HAS_A_STA_OFFER_ST" FromRole="OFFER_STATUS" ToRole="OFFERS" />
   </EntityType>
@@ -349,7 +358,7 @@
     <Key>
       <PropertyRef Name="OFFERTYPE_ID" />
     </Key>
-    <Property Name="OFFERTYPE_ID" Type="Int32" Nullable="false" />
+    <Property Name="OFFERTYPE_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="OFFERTYPE" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
     <NavigationProperty Name="OFFERS" Relationship="Self.FK_OFFERS_HAS_AN_OF_OFFER_TY" FromRole="OFFER_TYPE" ToRole="OFFERS" />
   </EntityType>
@@ -357,7 +366,7 @@
     <Key>
       <PropertyRef Name="OFFER_ID" />
     </Key>
-    <Property Name="OFFER_ID" Type="Int32" Nullable="false" />
+    <Property Name="OFFER_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="CAR_ID" Type="Int32" Nullable="false" />
     <Property Name="CLIENT_ID" Type="Int32" Nullable="false" />
     <Property Name="SALES_ID" Type="Int32" Nullable="false" />
@@ -374,7 +383,7 @@
     <Key>
       <PropertyRef Name="ORDER_ID" />
     </Key>
-    <Property Name="ORDER_ID" Type="Int32" Nullable="false" />
+    <Property Name="ORDER_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="SUPPLIER_ID" Type="Int32" Nullable="false" />
     <Property Name="ORDER_DATE_" Type="DateTime" Precision="3" />
     <Property Name="ORDER_PRICE_" Type="Double" />
@@ -386,7 +395,7 @@
     <Key>
       <PropertyRef Name="PARTOFCAR_ID" />
     </Key>
-    <Property Name="PARTOFCAR_ID" Type="Int32" Nullable="false" />
+    <Property Name="PARTOFCAR_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="PARTOFCAR_NAME" Type="String" MaxLength="20" FixedLength="true" Unicode="false" />
     <NavigationProperty Name="CAR_DEFECTS" Relationship="Self.FK_CAR_DEFE_HAS_A_DEF_PART_OF_" FromRole="PART_OF_CAR" ToRole="CAR_DEFECTS" />
   </EntityType>
@@ -394,16 +403,16 @@
     <Key>
       <PropertyRef Name="PAYMENT_ID" />
     </Key>
-    <Property Name="PAYMENT_ID" Type="Int32" Nullable="false" />
-    <Property Name="PAYMENTTYPE_ID" Type="Int32" Nullable="false" />
+    <Property Name="PAYMENT_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="PAYMENTTYPE" Type="String" MaxLength="50" FixedLength="true" Unicode="false" Nullable="false" />
     <Property Name="PAYMENT_DATE" Type="DateTime" Precision="3" />
     <NavigationProperty Name="SALES" Relationship="Self.FK_SALES_HAS_PAYME_PAYMENT" FromRole="PAYMENT" ToRole="SALES" />
   </EntityType>
   <EntityType Name="POSSIBLE_PURCHASE_STATUS">
     <Key>
-      <PropertyRef Name="STATUS_ID" />
+      <PropertyRef Name="POSSIBLEPURCHASESTATUS_ID" />
     </Key>
-    <Property Name="STATUS_ID" Type="Int32" Nullable="false" />
+    <Property Name="POSSIBLEPURCHASESTATUS_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="STATUS_NAME_" Type="DateTime" Precision="3" />
     <NavigationProperty Name="BOOKING_FOR_POSSIBLE_PURCHASE" Relationship="Self.FK_BOOKING__HAS_A_STA_POSSIBLE" FromRole="POSSIBLE_PURCHASE_STATUS" ToRole="BOOKING_FOR_POSSIBLE_PURCHASE" />
   </EntityType>
@@ -411,7 +420,7 @@
     <Key>
       <PropertyRef Name="PURCHASE_ID" />
     </Key>
-    <Property Name="PURCHASE_ID" Type="Int32" Nullable="false" />
+    <Property Name="PURCHASE_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="CLIENT_ID" Type="Int32" Nullable="false" />
     <Property Name="PURCHASEDATE_" Type="DateTime" Precision="3" />
     <Property Name="COST_" Type="Double" />
@@ -420,9 +429,10 @@
   </EntityType>
   <EntityType Name="RELATIONSHIP_12">
     <Key>
-      <PropertyRef Name="CARPARTS_ID" />
+      <PropertyRef Name="CARPARTSUSEDID" />
     </Key>
     <Property Name="CARPARTS_ID" Type="Int32" Nullable="false" />
+    <Property Name="CARPARTSUSEDID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <NavigationProperty Name="CAR_PARTS" Relationship="Self.FK_RELATION_RELATIONS_CAR_PART" FromRole="RELATIONSHIP_12" ToRole="CAR_PARTS" />
     <NavigationProperty Name="MECHANIC_TASK" Relationship="Self.FK_MECHANIC_HAS_USED__RELATION" FromRole="RELATIONSHIP_12" ToRole="MECHANIC_TASK" />
   </EntityType>
@@ -430,20 +440,20 @@
     <Key>
       <PropertyRef Name="SALES_ID" />
     </Key>
-    <Property Name="SALES_ID" Type="Int32" Nullable="false" />
+    <Property Name="SALES_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="PAYMENT_ID" Type="Int32" Nullable="false" />
     <Property Name="SALE_DATE_" Type="DateTime" Precision="3" />
     <Property Name="ACCEPTED_OFFER" Type="Double" />
     <Property Name="CAR_CONTRACT_" Type="Binary" MaxLength="250" FixedLength="true" />
+    <NavigationProperty Name="EMPLYEE_SALES" Relationship="Self.FK_EMPLYEE__HAS_SALE_SALES" FromRole="SALES" ToRole="EMPLYEE_SALES" />
     <NavigationProperty Name="OFFERS" Relationship="Self.FK_OFFERS_DR2_SALES" FromRole="SALES" ToRole="OFFERS" />
     <NavigationProperty Name="PAYMENT" Relationship="Self.FK_SALES_HAS_PAYME_PAYMENT" FromRole="SALES" ToRole="PAYMENT" />
-    <NavigationProperty Name="EMPLOYEEs" Relationship="Self.EMPLYEE_SALES" FromRole="SALES" ToRole="EMPLOYEE" />
   </EntityType>
   <EntityType Name="SUPPLIER">
     <Key>
       <PropertyRef Name="SUPPLIER_ID" />
     </Key>
-    <Property Name="SUPPLIER_ID" Type="Int32" Nullable="false" />
+    <Property Name="SUPPLIER_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="NAME_" Type="String" MaxLength="50" FixedLength="true" Unicode="false" />
     <Property Name="CELL_NUMBER_" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
     <Property Name="EMAIL_" Type="String" MaxLength="50" FixedLength="true" Unicode="false" />
@@ -454,7 +464,7 @@
     <Key>
       <PropertyRef Name="SERVICE_ID" />
     </Key>
-    <Property Name="SERVICE_ID" Type="Int32" Nullable="false" />
+    <Property Name="SERVICE_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="SERVICE_NAME" Type="String" MaxLength="50" FixedLength="true" Unicode="false" />
     <NavigationProperty Name="MECHANIC_TASK" Relationship="Self.FK_MECHANIC_HAS_SERVI_TASK" FromRole="TASK" ToRole="MECHANIC_TASK" />
   </EntityType>
@@ -462,7 +472,7 @@
     <Key>
       <PropertyRef Name="TRANSMISSION_ID" />
     </Key>
-    <Property Name="TRANSMISSION_ID" Type="Int32" Nullable="false" />
+    <Property Name="TRANSMISSION_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="TRANSMISSION_NAME" Type="String" MaxLength="50" FixedLength="true" Unicode="false" />
     <NavigationProperty Name="CARS" Relationship="Self.FK_CARS_HAS_TRANS_TRANSMIS" FromRole="TRANSMISSION" ToRole="CARS" />
   </EntityType>
@@ -470,7 +480,7 @@
     <Key>
       <PropertyRef Name="USERROLE_ID" />
     </Key>
-    <Property Name="USERROLE_ID" Type="Int32" Nullable="false" />
+    <Property Name="USERROLE_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="ROLE" Type="String" MaxLength="50" FixedLength="true" Unicode="false" />
     <NavigationProperty Name="USERS" Relationship="Self.FK_USERS_HAS_USER__USER_ROL" FromRole="USER_ROLE" ToRole="USERS" />
   </EntityType>
@@ -478,7 +488,7 @@
     <Key>
       <PropertyRef Name="USER_ID" />
     </Key>
-    <Property Name="USER_ID" Type="Int32" Nullable="false" />
+    <Property Name="USER_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="USERROLE_ID" Type="Int32" Nullable="false" />
     <Property Name="FULL_NAME" Type="String" MaxLength="50" FixedLength="true" Unicode="false" />
     <Property Name="EMAIL" Type="String" MaxLength="50" FixedLength="true" Unicode="false" />
@@ -531,7 +541,7 @@
     <End Role="BOOKING_FOR_POSSIBLE_PURCHASE" Type="Self.BOOKING_FOR_POSSIBLE_PURCHASE" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="POSSIBLE_PURCHASE_STATUS">
-        <PropertyRef Name="STATUS_ID" />
+        <PropertyRef Name="POSSIBLEPURCHASESTATUS_ID" />
       </Principal>
       <Dependent Role="BOOKING_FOR_POSSIBLE_PURCHASE">
         <PropertyRef Name="STATUS_ID" />
@@ -575,11 +585,11 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_CAR_BOOK_HAS_A_CAR_CAR_BOOK">
-    <End Role="CAR_BOOKING" Type="Self.CAR_BOOKING" Multiplicity="0..1" />
+    <End Role="CAR_BOOKING" Type="Self.CAR_BOOKING" Multiplicity="1" />
     <End Role="CAR_BOOKING_SLOTS" Type="Self.CAR_BOOKING_SLOTS" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="CAR_BOOKING">
-        <PropertyRef Name="BOOKING_ID" />
+        <PropertyRef Name="CARBOOKING_ID" />
       </Principal>
       <Dependent Role="CAR_BOOKING_SLOTS">
         <PropertyRef Name="BOOKING_ID" />
@@ -603,24 +613,22 @@
     <End Role="CARS" Type="Self.CAR" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="CAR_BOOKING">
-        <PropertyRef Name="BOOKING_ID" />
+        <PropertyRef Name="CARBOOKING_ID" />
       </Principal>
       <Dependent Role="CARS">
         <PropertyRef Name="BOOKING_ID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_EMPLOYEE_HAS_EMPLO_CAR_BOOK">
-    <End Role="CAR_BOOKING_SLOTS" Type="Self.CAR_BOOKING_SLOTS" Multiplicity="1" />
-    <End Role="EMPLOYEE" Type="Self.EMPLOYEE" Multiplicity="*" />
+  <Association Name="FK_CAR_BOOK_HAS_EMPLO_EMPLOYEE">
+    <End Role="EMPLOYEE" Type="Self.EMPLOYEE" Multiplicity="0..1" />
+    <End Role="CAR_BOOKING_SLOTS" Type="Self.CAR_BOOKING_SLOTS" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="CAR_BOOKING_SLOTS">
-        <PropertyRef Name="TIME_ID" />
-        <PropertyRef Name="DAY_" />
+      <Principal Role="EMPLOYEE">
+        <PropertyRef Name="EMPLYEE_ID" />
       </Principal>
-      <Dependent Role="EMPLOYEE">
-        <PropertyRef Name="TIME_ID" />
-        <PropertyRef Name="DAY_" />
+      <Dependent Role="CAR_BOOKING_SLOTS">
+        <PropertyRef Name="EMPLYEE_ID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -641,12 +649,10 @@
     <End Role="CAR_DEFECT_STATUS" Type="Self.CAR_DEFECT_STATUS" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="CAR_DEFECTS">
-        <PropertyRef Name="DEFECT_ID" />
-        <PropertyRef Name="CAR_ID" />
+        <PropertyRef Name="CARDEFECTID" />
       </Principal>
       <Dependent Role="CAR_DEFECT_STATUS">
-        <PropertyRef Name="DEFECT_ID" />
-        <PropertyRef Name="CAR_ID" />
+        <PropertyRef Name="CARDEFECTID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -700,7 +706,7 @@
   </Association>
   <Association Name="FK_RELATION_RELATIONS_CAR_PART">
     <End Role="CAR_PARTS" Type="Self.CAR_PARTS" Multiplicity="1" />
-    <End Role="RELATIONSHIP_12" Type="Self.RELATIONSHIP_12" Multiplicity="0..1" />
+    <End Role="RELATIONSHIP_12" Type="Self.RELATIONSHIP_12" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="CAR_PARTS">
         <PropertyRef Name="CARPARTS_ID" />
@@ -916,13 +922,37 @@
   </Association>
   <Association Name="FK_DOCUMENT_HAS_A_DOC_CLIENT_D">
     <End Role="CLIENT_DOCUMENTS" Type="Self.CLIENT_DOCUMENTS" Multiplicity="1" />
-    <End Role="DOCUMENT_TYPE" Type="Self.DOCUMENT_TYPE" Multiplicity="*" />
+    <End Role="DOCUMENT_TYPE" Type="Self.DOCUMENT_TYPE" Multiplicity="0..1" />
     <ReferentialConstraint>
       <Principal Role="CLIENT_DOCUMENTS">
         <PropertyRef Name="DOCUEMTN_ID" />
       </Principal>
       <Dependent Role="DOCUMENT_TYPE">
         <PropertyRef Name="DOCUMENTTYPE_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_EMPLYEE__HAS_EMPLO_EMPLOYEE">
+    <End Role="EMPLOYEE" Type="Self.EMPLOYEE" Multiplicity="1" />
+    <End Role="EMPLYEE_SALES" Type="Self.EMPLYEE_SALES" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="EMPLOYEE">
+        <PropertyRef Name="EMPLYEE_ID" />
+      </Principal>
+      <Dependent Role="EMPLYEE_SALES">
+        <PropertyRef Name="EMPLYEE_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_EMPLYEE__HAS_SALE_SALES">
+    <End Role="SALES" Type="Self.SALE" Multiplicity="1" />
+    <End Role="EMPLYEE_SALES" Type="Self.EMPLYEE_SALES" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SALES">
+        <PropertyRef Name="SALES_ID" />
+      </Principal>
+      <Dependent Role="EMPLYEE_SALES">
+        <PropertyRef Name="SALES_ID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -979,10 +1009,10 @@
     <End Role="MECHANIC_TASK" Type="Self.MECHANIC_TASK" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="RELATIONSHIP_12">
-        <PropertyRef Name="CARPARTS_ID" />
+        <PropertyRef Name="CARPARTSUSEDID" />
       </Principal>
       <Dependent Role="MECHANIC_TASK">
-        <PropertyRef Name="CARPARTS_ID" />
+        <PropertyRef Name="CARPARTSUSEDID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -1058,10 +1088,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="EMPLYEE_SALES">
-    <End Role="EMPLOYEE" Type="Self.EMPLOYEE" Multiplicity="*" />
-    <End Role="SALES" Type="Self.SALE" Multiplicity="*" />
-  </Association>
   <EntityContainer Name="VehlutionEntities" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="ACCESSes" EntityType="Self.ACCESS" />
     <EntitySet Name="BOOKING_DATES" EntityType="Self.BOOKING_DATES" />
@@ -1084,6 +1110,7 @@
     <EntitySet Name="DEFECTS" EntityType="Self.DEFECT" />
     <EntitySet Name="DOCUMENT_TYPE" EntityType="Self.DOCUMENT_TYPE" />
     <EntitySet Name="EMPLOYEEs" EntityType="Self.EMPLOYEE" />
+    <EntitySet Name="EMPLYEE_SALES" EntityType="Self.EMPLYEE_SALES" />
     <EntitySet Name="FUEL_TYPE" EntityType="Self.FUEL_TYPE" />
     <EntitySet Name="MAKEs" EntityType="Self.MAKE" />
     <EntitySet Name="MECHANICs" EntityType="Self.MECHANIC" />
@@ -1147,9 +1174,9 @@
       <End Role="CAR_BOOKING" EntitySet="CAR_BOOKING" />
       <End Role="CARS" EntitySet="CARS" />
     </AssociationSet>
-    <AssociationSet Name="FK_EMPLOYEE_HAS_EMPLO_CAR_BOOK" Association="Self.FK_EMPLOYEE_HAS_EMPLO_CAR_BOOK">
-      <End Role="CAR_BOOKING_SLOTS" EntitySet="CAR_BOOKING_SLOTS" />
+    <AssociationSet Name="FK_CAR_BOOK_HAS_EMPLO_EMPLOYEE" Association="Self.FK_CAR_BOOK_HAS_EMPLO_EMPLOYEE">
       <End Role="EMPLOYEE" EntitySet="EMPLOYEEs" />
+      <End Role="CAR_BOOKING_SLOTS" EntitySet="CAR_BOOKING_SLOTS" />
     </AssociationSet>
     <AssociationSet Name="FK_CAR_DEFE_HAS_A_CAR_DEFECT_S" Association="Self.FK_CAR_DEFE_HAS_A_CAR_DEFECT_S">
       <End Role="DEFECT_STATUS" EntitySet="DEFECT_STATUS" />
@@ -1251,6 +1278,14 @@
       <End Role="CLIENT_DOCUMENTS" EntitySet="CLIENT_DOCUMENTS" />
       <End Role="DOCUMENT_TYPE" EntitySet="DOCUMENT_TYPE" />
     </AssociationSet>
+    <AssociationSet Name="FK_EMPLYEE__HAS_EMPLO_EMPLOYEE" Association="Self.FK_EMPLYEE__HAS_EMPLO_EMPLOYEE">
+      <End Role="EMPLOYEE" EntitySet="EMPLOYEEs" />
+      <End Role="EMPLYEE_SALES" EntitySet="EMPLYEE_SALES" />
+    </AssociationSet>
+    <AssociationSet Name="FK_EMPLYEE__HAS_SALE_SALES" Association="Self.FK_EMPLYEE__HAS_SALE_SALES">
+      <End Role="SALES" EntitySet="SALES" />
+      <End Role="EMPLYEE_SALES" EntitySet="EMPLYEE_SALES" />
+    </AssociationSet>
     <AssociationSet Name="FK_MODEL_HAS_MODEL_MAKE" Association="Self.FK_MODEL_HAS_MODEL_MAKE">
       <End Role="MAKE" EntitySet="MAKEs" />
       <End Role="MODEL" EntitySet="MODELs" />
@@ -1294,10 +1329,6 @@
     <AssociationSet Name="FK_USERS_HAS_USER__USER_ROL" Association="Self.FK_USERS_HAS_USER__USER_ROL">
       <End Role="USER_ROLE" EntitySet="USER_ROLE" />
       <End Role="USERS" EntitySet="USERS" />
-    </AssociationSet>
-    <AssociationSet Name="EMPLYEE_SALES" Association="Self.EMPLYEE_SALES">
-      <End Role="EMPLOYEE" EntitySet="EMPLOYEEs" />
-      <End Role="SALES" EntitySet="SALES" />
     </AssociationSet>
   </EntityContainer>
 </Schema>

@@ -46,6 +46,7 @@ namespace Vehlution.Models
         public virtual DbSet<DEFECT> DEFECTS { get; set; }
         public virtual DbSet<DOCUMENT_TYPE> DOCUMENT_TYPE { get; set; }
         public virtual DbSet<EMPLOYEE> EMPLOYEEs { get; set; }
+        public virtual DbSet<EMPLYEE_SALES> EMPLYEE_SALES { get; set; }
         public virtual DbSet<FUEL_TYPE> FUEL_TYPE { get; set; }
         public virtual DbSet<MAKE> MAKEs { get; set; }
         public virtual DbSet<MECHANIC> MECHANICs { get; set; }

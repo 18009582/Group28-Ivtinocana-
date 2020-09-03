@@ -21,7 +21,7 @@ namespace Vehlution.Models
         }
     
         public int PAYMENT_ID { get; set; }
-        public int PAYMENTTYPE_ID { get; set; }
+        public string PAYMENTTYPE { get; set; }
         public Nullable<System.DateTime> PAYMENT_DATE { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

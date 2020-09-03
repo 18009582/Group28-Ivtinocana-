@@ -21,7 +21,7 @@ namespace Vehlution.Models
             this.CARS = new HashSet<CAR>();
         }
     
-        public int BOOKING_ID { get; set; }
+        public int CARBOOKING_ID { get; set; }
         public int CLIENT_ID { get; set; }
         public string STATUS { get; set; }
         public Nullable<System.DateTime> BOOKING_DATE { get; set; }
