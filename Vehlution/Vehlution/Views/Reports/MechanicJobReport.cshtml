@@ -1,4 +1,5 @@
-﻿
+﻿@model Vehlution.Reports.MechanicJobMocel
+@using System.Data;
 @{
     Layout = null;
 }
@@ -11,7 +12,31 @@
     <title>MechanicJobReport</title>
 </head>
 <body>
-    <div> 
+    <h1>List of Mechanic Jobs </h1>
+    <div>
+        <table class="table table-striped">
+            <tr>
+                <th>ID</th>
+                <th>Job Date</th>
+                <th>Job Time</th>
+                <th>Car</th>
+                <th>Mechanic</th>
+            </tr>
+            @foreach (DataRow row in Model.MechanicJob.Rows)
+            {
+                <tr>
+                    <td>@row[0]</td>
+                    <td>@row[1]</td>
+                    <td>@row[2]</td>
+                    <td>@row[3]</td>
+                    <td>@row[4]</td>
+                </tr>
+            }
+        </table>
+    </div>
+    <div>
+        @Html.ActionLink("Export as PDF", "ExportMechanicPDF", "Reports")<br />
+        @Html.ActionLink("Export as Word", "ExportCWord", "Reports")
     </div>
 </body>
 </html>

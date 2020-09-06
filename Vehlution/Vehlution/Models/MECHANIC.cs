@@ -14,12 +14,18 @@ namespace Vehlution.Models
     
     public partial class MECHANIC
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public MECHANIC()
+        {
+            this.MECHANIC_JOB = new HashSet<MECHANIC_JOB>();
+        }
+    
         public int MECHANIC_ID { get; set; }
-        public int MECHANICJOB_ID { get; set; }
         public string FULL_NAME_ { get; set; }
         public string CELL_NUMBER_ { get; set; }
         public string EMAIL_ { get; set; }
     
-        public virtual MECHANIC_JOB MECHANIC_JOB { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<MECHANIC_JOB> MECHANIC_JOB { get; set; }
     }
 }

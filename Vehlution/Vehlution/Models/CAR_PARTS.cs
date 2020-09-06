@@ -23,6 +23,8 @@ namespace Vehlution.Models
     
         public int CARPARTS_ID { get; set; }
         public string PARTNAME { get; set; }
+        public Nullable<int> STOCKONHAND { get; set; }
+        public Nullable<int> RESTOCKORDER { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CAR_PARTS_ORDERED> CAR_PARTS_ORDERED { get; set; }

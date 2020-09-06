@@ -18,8 +18,8 @@ namespace Vehlution.ViewModels
 
         //Data 
         public EMPLOYEE employee { get; set; }
-      //  public List<IGrouping, String, ReportRecord>> results {get;set }
-        public Dictionary<string, double> charData { get; set; }
+        public List<IGrouping< String, ReportRecord>> results { get; set; }
+        public Dictionary<string, double> chartData { get; set; }
     }
 
     public class ReportRecord
@@ -28,6 +28,7 @@ namespace Vehlution.ViewModels
         public double Amount { get; set; }
         public string PaymentMethod { get; set; }
         public string Employee { get; set; }
+        public int EmployeeID { get; set; }
 
     }
 }

@@ -14,19 +14,13 @@ namespace Vehlution.Models
     
     public partial class Purchase
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Purchase()
-        {
-            this.CARS = new HashSet<CAR>();
-        }
-    
         public int PURCHASE_ID { get; set; }
         public int CLIENT_ID { get; set; }
         public Nullable<System.DateTime> PURCHASEDATE_ { get; set; }
         public Nullable<double> COST_ { get; set; }
+        public Nullable<int> CAR_ID { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CAR> CARS { get; set; }
+        public virtual CAR CAR { get; set; }
         public virtual CLIENT CLIENT { get; set; }
     }
 }

@@ -14,10 +14,20 @@ namespace Vehlution.Models
     
     public partial class MODEL
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public MODEL()
+        {
+            this.CARS = new HashSet<CAR>();
+            this.MAKEs = new HashSet<MAKE>();
+        }
+    
         public int MODEL_ID { get; set; }
         public int MAKE_ID { get; set; }
         public string MODEL_NAME { get; set; }
     
-        public virtual MAKE MAKE { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CAR> CARS { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<MAKE> MAKEs { get; set; }
     }
 }

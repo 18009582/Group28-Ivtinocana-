@@ -1,4 +1,5 @@
-﻿
+﻿@model Vehlution.Reports.PurchasesModel
+@using System.Data;
 @{
     Layout = null;
 }
@@ -11,7 +12,32 @@
     <title>PurchasesReport</title>
 </head>
 <body>
-    <div> 
+    <h1>List of Car Purchases </h1>
+    <div>
+        <table class="table table-striped">
+            <tr>
+                <th>ID</th>
+                <th>Client Name</th>
+                <th>Purchase Date</th>
+                <th>Accepted Offer</th>
+                <th>Car</th>
+            </tr>
+            @foreach (DataRow row in Model.Purchases.Row)
+            {
+                <tr>
+                    <td>@row[0]</td>
+                    <td>@row[1]</td>
+                    <td>@row[2]</td>
+                    <td>@row[3]</td>
+                    <td>@row[4]</td>
+                </tr>
+            }
+        </table>
+    </div>
+    <div>
+        @Html.ActionLink("Export as PDF", "ExportPurchasesPDF", "Reports")<br />
+        @Html.ActionLink("Export as Word", "ExportPurchasesWord", "Reports")
     </div>
 </body>
 </html>
+

@@ -1,4 +1,5 @@
-﻿
+﻿@model Vehlution.Reports.AdminBookingsModel
+@using System.Data;
 @{
     Layout = null;
 }
@@ -8,10 +9,35 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>AdmiBookingsReport</title>
+    <title>Admin Bookings Report</title>
 </head>
 <body>
-    <div> 
+    <h1>List of Admin Bookings coming up</h1>
+    <div>
+        <table class="table table-striped">
+            <tr>
+                <th>ID</th>
+                <th>Client Name</th>
+                <th>Date</th>
+                <th>Time</th>
+                <th>Car</th>
+            </tr>
+            @foreach (DataRow row in Model.AdminBookings.Rows)
+            {
+                <tr>
+                    <td>@row[0]</td>
+                    <td>@row[1]</td>
+                    <td>@row[2]</td>
+                    <td>@row[3]</td>
+                    <td>@row[4]</td>
+                </tr>
+            }
+        </table>
+    </div>
+    <div>
+        @Html.ActionLink("Export as PDF", "ExportClientBookingsPDF", "Reports")<br />
+        @Html.ActionLink("Export as Word", "ExportClientBookingsWord", "Reports")
     </div>
 </body>
 </html>
+

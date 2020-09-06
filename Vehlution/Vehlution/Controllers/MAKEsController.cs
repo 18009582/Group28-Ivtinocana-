@@ -52,7 +52,7 @@ namespace Vehlution.Controllers
             {
                 db.MAKEs.Add(mAKE);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("CarMakeIndex");
             }
 
             return View(mAKE);

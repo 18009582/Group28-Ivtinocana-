@@ -17,18 +17,17 @@ namespace Vehlution.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public MECHANIC_JOB()
         {
-            this.MECHANICs = new HashSet<MECHANIC>();
             this.MECHANIC_TASK = new HashSet<MECHANIC_TASK>();
         }
     
         public int MECHANICJOB_ID { get; set; }
         public int CAR_ID { get; set; }
+        public Nullable<int> MECHANIC_ID { get; set; }
         public Nullable<System.DateTime> JOB_DATE { get; set; }
         public Nullable<System.DateTime> JOB_TIME { get; set; }
     
         public virtual CAR CAR { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<MECHANIC> MECHANICs { get; set; }
+        public virtual MECHANIC MECHANIC { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<MECHANIC_TASK> MECHANIC_TASK { get; set; }
     }

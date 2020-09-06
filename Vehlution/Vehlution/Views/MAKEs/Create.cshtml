@@ -8,21 +8,17 @@
 
 <html>
 <head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    <script src='https://kit.fontawesome.com/a076d05399.js'></script>
+    <link href="@Url.Content("~/Content/Site.css")" rel="stylesheet" type="text/css" />
     <meta name="viewport" content="width=device-width" />
     <title>Create new Car Make</title>
     <link rel="stylesheet" type="text/css" href="~/CSS/StyleSheet1.css" />
 </head>
 <body>
-    <div class="navbar">
-        <a class="active" href="#"><i class="fa fa-fw fa-home"></i> Home</a>
-        <a href="#"><i class="fa fa-fw fa-search"></i> Search</a>
-        <a href="#"><i class="fa fa-fw fa-envelope"></i> Contact</a>
-        <a href="#"><i class="fa fa-fw fa-user"></i> Login</a>
-    </div>
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/jqueryval")
-
-
     @using (Html.BeginForm())
     {
         @Html.AntiForgeryToken()
@@ -32,7 +28,7 @@
             <hr />
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
             <div class="form-group">
-                @Html.LabelFor(model => model.MAKE_ID, htmlAttributes: new { @class = "control-label col-md-2" })
+                <label>Make ID</label>
                 <div class="col-md-10">
                     @Html.EditorFor(model => model.MAKE_ID, new { htmlAttributes = new { @class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.MAKE_ID, "", new { @class = "text-danger" })
@@ -40,7 +36,7 @@
             </div>
 
             <div class="form-group">
-                @Html.LabelFor(model => model.MAKE_NAME, htmlAttributes: new { @class = "control-label col-md-2" })
+                <label>Make Name</label>
                 <div class="col-md-10">
                     @Html.EditorFor(model => model.MAKE_NAME, new { htmlAttributes = new { @class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.MAKE_NAME, "", new { @class = "text-danger" })
@@ -49,14 +45,14 @@
 
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" value="Create" class="btn btn-default" />
+                    <a class="btn btn-outline-success" id="myBtn"><i class="fa fa-plus-square" onclick="location.href='@Url.Action("Index", "MAKEs")';return false;"></i> Add New Car Model</a>
                 </div>
             </div>
         </div>
     }
 
-    <div class="Submit">
-        <button class="button button2"> @Html.ActionLink("Back to List", "Index") </button>
-    </div>
+<div class="col-md-offset-2 col-md-10">
+    <a class="btn btn-outline-success" id="myBtn"><i class="fa fa-plus-square" onclick="location.href='@Url.Action("Index", "MAKEs")';return false;"></i> </a>
+</div>
 </body>
 </html>
