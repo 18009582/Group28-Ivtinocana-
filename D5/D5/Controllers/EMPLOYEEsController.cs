@@ -12,7 +12,7 @@ namespace D5.Controllers
 {
     public class EMPLOYEEsController : Controller
     {
-        private VehlutionEntities db = new VehlutionEntities();
+        private VehlutionEntities1 db = new VehlutionEntities1();
 
         // GET: EMPLOYEEs
         public ActionResult Index()

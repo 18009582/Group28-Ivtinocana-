@@ -11,7 +11,7 @@ namespace D5.Controllers
 {
     public class ORDERsController : Controller
     {
-        private VehlutionEntities db = new VehlutionEntities();
+        private VehlutionEntities1 db = new VehlutionEntities1();
         static public List<NewOrderItem> NewPartsOrder = new List<NewOrderItem>();
 
 

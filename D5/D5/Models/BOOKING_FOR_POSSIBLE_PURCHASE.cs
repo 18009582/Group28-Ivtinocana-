@@ -14,22 +14,14 @@ namespace D5.Models
     
     public partial class BOOKING_FOR_POSSIBLE_PURCHASE
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public BOOKING_FOR_POSSIBLE_PURCHASE()
-        {
-            this.CARS = new HashSet<CAR>();
-        }
-    
         public int CLIENT_ID { get; set; }
-        public int STATUS_ID { get; set; }
         public int BOOKING_ID { get; set; }
+        public int CAR_ID { get; set; }
         public Nullable<System.DateTime> BOOKING_DATE { get; set; }
         public Nullable<System.DateTime> BOOKING_TIME { get; set; }
         public string BOOKING_STATUS { get; set; }
     
+        public virtual CAR CAR { get; set; }
         public virtual CLIENT CLIENT { get; set; }
-        public virtual POSSIBLE_PURCHASE_STATUS POSSIBLE_PURCHASE_STATUS { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CAR> CARS { get; set; }
     }
 }

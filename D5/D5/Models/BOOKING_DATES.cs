@@ -21,9 +21,7 @@ namespace D5.Models
         }
     
         public int DAY_ { get; set; }
-        public Nullable<System.DateTime> MONTH_ { get; set; }
-        public Nullable<System.DateTime> MONTH { get; set; }
-        public Nullable<System.DateTime> YEAR { get; set; }
+        public Nullable<System.DateTime> DATE { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CAR_BOOKING_SLOTS> CAR_BOOKING_SLOTS { get; set; }

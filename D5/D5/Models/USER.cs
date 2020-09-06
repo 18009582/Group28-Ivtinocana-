@@ -22,13 +22,14 @@ namespace D5.Models
         }
     
         public int USER_ID { get; set; }
-        public int USERROLE_ID { get; set; }
-        public string FULL_NAME { get; set; }
+        public Nullable<int> USERROLE_ID { get; set; }
+        public string FIRSTNAME { get; set; }
+        public string LASTNAME { get; set; }
         public string EMAIL { get; set; }
-        public string ADDRESS { get; set; }
-        public string STATUS { get; set; }
-        public Nullable<System.DateTime> AVAILABLEDAYS { get; set; }
-        public Nullable<System.DateTime> AVAILABLETIMES { get; set; }
+        public string PASSWORD { get; set; }
+        public Nullable<bool> EMAILVERIFICATION { get; set; }
+        public Nullable<System.Guid> ACTIVATIONCODE { get; set; }
+        public string OTP { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ACCESS> ACCESSes { get; set; }

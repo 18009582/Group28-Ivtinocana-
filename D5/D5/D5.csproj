@@ -131,6 +131,7 @@
     <Compile Include="Controllers\CARsController.cs" />
     <Compile Include="Controllers\EMPLOYEEsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\OFFERsController.cs" />
     <Compile Include="Controllers\ORDERsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -259,9 +260,6 @@
     <Compile Include="Models\PAYMENT.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\POSSIBLE_PURCHASE_STATUS.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\Purchase.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -299,8 +297,8 @@
     <Content Include="Content\Site.css" />
     <Content Include="Models\Model1.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>Model1.Context.cs</LastGenOutput>
       <DependentUpon>Model1.edmx</DependentUpon>
+      <LastGenOutput>Model1.Context.cs</LastGenOutput>
     </Content>
     <Content Include="Models\Model1.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -352,6 +350,12 @@
     <Content Include="Views\CARs\Details.cshtml" />
     <Content Include="Views\CARs\Edit.cshtml" />
     <Content Include="Views\CARs\Index.cshtml" />
+    <Content Include="Views\CARs\Delete.cshtml" />
+    <Content Include="Views\OFFERs\Create.cshtml" />
+    <Content Include="Views\OFFERs\Delete.cshtml" />
+    <Content Include="Views\OFFERs\Details.cshtml" />
+    <Content Include="Views\OFFERs\Edit.cshtml" />
+    <Content Include="Views\OFFERs\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

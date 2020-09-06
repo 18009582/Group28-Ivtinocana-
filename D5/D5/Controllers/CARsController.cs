@@ -12,9 +12,12 @@ namespace D5.Controllers
 {
     public class CARsController : Controller
     {
-        private VehlutionEntities db = new VehlutionEntities();
-        static public List<CAR> carlist = new List<CAR>();
+        public static List<CAR> carlist=new List<CAR>();
+
+        private VehlutionEntities1 db = new VehlutionEntities1();
+
         // GET: CARs
+
         public ActionResult Index()
         {
             ViewBag.Makes = new SelectList(db.MAKEs, "MAKE_ID", "MAKE_NAME");
@@ -24,9 +27,10 @@ namespace D5.Controllers
         public ActionResult Search(int Makes)
         {
             carlist = db.CARS.Where(zz => zz.MAKE_ID == Makes).ToList();
-            
+
             return RedirectToAction("Index");
         }
+
         // GET: CARs/Details/5
         public ActionResult Details(int? id)
         {
@@ -45,16 +49,14 @@ namespace D5.Controllers
         // GET: CARs/Create
         public ActionResult Create()
         {
-            ViewBag.BOO_BOOKING_ID = new SelectList(db.BOOKING_FOR_POSSIBLE_PURCHASE, "BOOKING_ID", "BOOKING_STATUS");
-            ViewBag.BOOKING_ID = new SelectList(db.CAR_BOOKING, "CARBOOKING_ID", "STATUS");
             ViewBag.STATUS_ID = new SelectList(db.CAR_STATUS, "STATUS_ID", "SASTUS_NAME");
-            ViewBag.PURCHASE_ID = new SelectList(db.PURCHASES, "PURCHASE_ID", "PURCHASE_ID");
-            ViewBag.MAKE_ID = new SelectList(db.MAKEs, "MAKE_ID", "MAKE_NAME");
+            ViewBag.MODEL_ID = new SelectList(db.MODELs, "MODEL_ID", "MODEL_NAME");
             ViewBag.CLIENT_ID = new SelectList(db.CLIENTs, "CLIENT_ID", "USER_NAME");
             ViewBag.COLOUR_ID = new SelectList(db.COLOURs, "COLOUR_ID", "COLOUR_NAME");
             ViewBag.FUELTYPE_ID = new SelectList(db.FUEL_TYPE, "FUELTYPE_ID", "FUELTYPE_NAME");
-            ViewBag.DOORS_ID = new SelectList(db.NUMBER_OF_DOORS, "DOORS_ID", "NUMBER_OF_DOORS");
-            ViewBag.SEATS_ID = new SelectList(db.NUMBER_OF_SEATS, "SEATS_ID", "NUMBER_OF_SEATS");
+            ViewBag.MAKE_ID = new SelectList(db.MAKEs, "MAKE_ID", "MAKE_NAME");
+            ViewBag.DOORS_ID = new SelectList(db.NUMBER_OF_DOORS, "DOORS_ID", "DOORS_ID");
+            ViewBag.SEATS_ID = new SelectList(db.NUMBER_OF_SEATS, "SEATS_ID", "SEATS_ID");
             ViewBag.TRANSMISSION_ID = new SelectList(db.TRANSMISSIONs, "TRANSMISSION_ID", "TRANSMISSION_NAME");
             return View();
         }
@@ -64,7 +66,7 @@ namespace D5.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "CAR_ID,SEATS_ID,COLOUR_ID,TRANSMISSION_ID,DOORS_ID,MAKE_ID,CLIENT_ID,STATUS_ID,BOOKING_ID,PURCHASE_ID,FUELTYPE_ID,BOO_BOOKING_ID,YEAR,MILAGE_,LISTING_PRICE,IMAGE")] CAR cAR)
+        public ActionResult Create([Bind(Include = "CAR_ID,SEATS_ID,COLOUR_ID,TRANSMISSION_ID,DOORS_ID,MAKE_ID,CLIENT_ID,STATUS_ID,FUELTYPE_ID,MODEL_ID,YEAR,MILAGE_,LISTING_PRICE,IMAGE")] CAR cAR)
         {
             if (ModelState.IsValid)
             {
@@ -73,14 +75,12 @@ namespace D5.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.BOO_BOOKING_ID = new SelectList(db.BOOKING_FOR_POSSIBLE_PURCHASE, "BOOKING_ID", "BOOKING_STATUS", cAR.BOO_BOOKING_ID);
-            ViewBag.BOOKING_ID = new SelectList(db.CAR_BOOKING, "CARBOOKING_ID", "STATUS", cAR.BOOKING_ID);
             ViewBag.STATUS_ID = new SelectList(db.CAR_STATUS, "STATUS_ID", "SASTUS_NAME", cAR.STATUS_ID);
-            ViewBag.PURCHASE_ID = new SelectList(db.PURCHASES, "PURCHASE_ID", "PURCHASE_ID", cAR.PURCHASE_ID);
-            ViewBag.MAKE_ID = new SelectList(db.MAKEs, "MAKE_ID", "MAKE_NAME", cAR.MAKE_ID);
+            ViewBag.MODEL_ID = new SelectList(db.MODELs, "MODEL_ID", "MODEL_NAME", cAR.MODEL_ID);
             ViewBag.CLIENT_ID = new SelectList(db.CLIENTs, "CLIENT_ID", "USER_NAME", cAR.CLIENT_ID);
             ViewBag.COLOUR_ID = new SelectList(db.COLOURs, "COLOUR_ID", "COLOUR_NAME", cAR.COLOUR_ID);
             ViewBag.FUELTYPE_ID = new SelectList(db.FUEL_TYPE, "FUELTYPE_ID", "FUELTYPE_NAME", cAR.FUELTYPE_ID);
+            ViewBag.MAKE_ID = new SelectList(db.MAKEs, "MAKE_ID", "MAKE_NAME", cAR.MAKE_ID);
             ViewBag.DOORS_ID = new SelectList(db.NUMBER_OF_DOORS, "DOORS_ID", "DOORS_ID", cAR.DOORS_ID);
             ViewBag.SEATS_ID = new SelectList(db.NUMBER_OF_SEATS, "SEATS_ID", "SEATS_ID", cAR.SEATS_ID);
             ViewBag.TRANSMISSION_ID = new SelectList(db.TRANSMISSIONs, "TRANSMISSION_ID", "TRANSMISSION_NAME", cAR.TRANSMISSION_ID);
@@ -99,17 +99,14 @@ namespace D5.Controllers
             {
                 return HttpNotFound();
             }
-           
-            ViewBag.BOO_BOOKING_ID = new SelectList(db.BOOKING_FOR_POSSIBLE_PURCHASE, "BOOKING_ID", "BOOKING_STATUS", cAR.BOO_BOOKING_ID);
-            ViewBag.BOOKING_ID = new SelectList(db.CAR_BOOKING, "CARBOOKING_ID", "STATUS", cAR.BOOKING_ID);
             ViewBag.STATUS_ID = new SelectList(db.CAR_STATUS, "STATUS_ID", "SASTUS_NAME", cAR.STATUS_ID);
-            ViewBag.PURCHASE_ID = new SelectList(db.PURCHASES, "PURCHASE_ID", "PURCHASE_ID", cAR.PURCHASE_ID);
-            ViewBag.MAKE_ID = new SelectList(db.MAKEs, "MAKE_ID", "MAKE_NAME", cAR.MAKE_ID);
+            ViewBag.MODEL_ID = new SelectList(db.MODELs, "MODEL_ID", "MODEL_NAME", cAR.MODEL_ID);
             ViewBag.CLIENT_ID = new SelectList(db.CLIENTs, "CLIENT_ID", "USER_NAME", cAR.CLIENT_ID);
             ViewBag.COLOUR_ID = new SelectList(db.COLOURs, "COLOUR_ID", "COLOUR_NAME", cAR.COLOUR_ID);
             ViewBag.FUELTYPE_ID = new SelectList(db.FUEL_TYPE, "FUELTYPE_ID", "FUELTYPE_NAME", cAR.FUELTYPE_ID);
-            ViewBag.DOORS_ID = new SelectList(db.NUMBER_OF_DOORS, "DOORS_ID", "NUMBER_OF_DOORS1", cAR.DOORS_ID);
-            ViewBag.SEATS_ID = new SelectList(db.NUMBER_OF_SEATS, "SEATS_ID", "NUMBER_OF_SEATS_", cAR.SEATS_ID);
+            ViewBag.MAKE_ID = new SelectList(db.MAKEs, "MAKE_ID", "MAKE_NAME", cAR.MAKE_ID);
+            ViewBag.DOORS_ID = new SelectList(db.NUMBER_OF_DOORS, "DOORS_ID", "DOORS_ID", cAR.DOORS_ID);
+            ViewBag.SEATS_ID = new SelectList(db.NUMBER_OF_SEATS, "SEATS_ID", "SEATS_ID", cAR.SEATS_ID);
             ViewBag.TRANSMISSION_ID = new SelectList(db.TRANSMISSIONs, "TRANSMISSION_ID", "TRANSMISSION_NAME", cAR.TRANSMISSION_ID);
             return View(cAR);
         }
@@ -119,7 +116,7 @@ namespace D5.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "CAR_ID,SEATS_ID,COLOUR_ID,TRANSMISSION_ID,DOORS_ID,MAKE_ID,CLIENT_ID,STATUS_ID,BOOKING_ID,PURCHASE_ID,FUELTYPE_ID,BOO_BOOKING_ID,YEAR,MILAGE_,LISTING_PRICE,IMAGE")] CAR cAR)
+        public ActionResult Edit([Bind(Include = "CAR_ID,SEATS_ID,COLOUR_ID,TRANSMISSION_ID,DOORS_ID,MAKE_ID,CLIENT_ID,STATUS_ID,FUELTYPE_ID,MODEL_ID,YEAR,MILAGE_,LISTING_PRICE,IMAGE")] CAR cAR)
         {
             if (ModelState.IsValid)
             {
@@ -127,14 +124,12 @@ namespace D5.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.BOO_BOOKING_ID = new SelectList(db.BOOKING_FOR_POSSIBLE_PURCHASE, "BOOKING_ID", "BOOKING_STATUS", cAR.BOO_BOOKING_ID);
-            ViewBag.BOOKING_ID = new SelectList(db.CAR_BOOKING, "CARBOOKING_ID", "STATUS", cAR.BOOKING_ID);
             ViewBag.STATUS_ID = new SelectList(db.CAR_STATUS, "STATUS_ID", "SASTUS_NAME", cAR.STATUS_ID);
-            ViewBag.PURCHASE_ID = new SelectList(db.PURCHASES, "PURCHASE_ID", "PURCHASE_ID", cAR.PURCHASE_ID);
-            ViewBag.MAKE_ID = new SelectList(db.MAKEs, "MAKE_ID", "MAKE_NAME", cAR.MAKE_ID);
+            ViewBag.MODEL_ID = new SelectList(db.MODELs, "MODEL_ID", "MODEL_NAME", cAR.MODEL_ID);
             ViewBag.CLIENT_ID = new SelectList(db.CLIENTs, "CLIENT_ID", "USER_NAME", cAR.CLIENT_ID);
             ViewBag.COLOUR_ID = new SelectList(db.COLOURs, "COLOUR_ID", "COLOUR_NAME", cAR.COLOUR_ID);
             ViewBag.FUELTYPE_ID = new SelectList(db.FUEL_TYPE, "FUELTYPE_ID", "FUELTYPE_NAME", cAR.FUELTYPE_ID);
+            ViewBag.MAKE_ID = new SelectList(db.MAKEs, "MAKE_ID", "MAKE_NAME", cAR.MAKE_ID);
             ViewBag.DOORS_ID = new SelectList(db.NUMBER_OF_DOORS, "DOORS_ID", "DOORS_ID", cAR.DOORS_ID);
             ViewBag.SEATS_ID = new SelectList(db.NUMBER_OF_SEATS, "SEATS_ID", "SEATS_ID", cAR.SEATS_ID);
             ViewBag.TRANSMISSION_ID = new SelectList(db.TRANSMISSIONs, "TRANSMISSION_ID", "TRANSMISSION_NAME", cAR.TRANSMISSION_ID);

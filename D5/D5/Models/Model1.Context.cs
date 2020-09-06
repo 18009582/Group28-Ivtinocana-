@@ -13,10 +13,10 @@ namespace D5.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class VehlutionEntities : DbContext
+    public partial class VehlutionEntities1 : DbContext
     {
-        public VehlutionEntities()
-            : base("name=VehlutionEntities")
+        public VehlutionEntities1()
+            : base("name=VehlutionEntities1")
         {
         }
     
@@ -61,7 +61,6 @@ namespace D5.Models
         public virtual DbSet<ORDER> ORDERs { get; set; }
         public virtual DbSet<PART_OF_CAR> PART_OF_CAR { get; set; }
         public virtual DbSet<PAYMENT> PAYMENTs { get; set; }
-        public virtual DbSet<POSSIBLE_PURCHASE_STATUS> POSSIBLE_PURCHASE_STATUS { get; set; }
         public virtual DbSet<Purchase> PURCHASES { get; set; }
         public virtual DbSet<RELATIONSHIP_12> RELATIONSHIP_12 { get; set; }
         public virtual DbSet<SALE> SALES { get; set; }
