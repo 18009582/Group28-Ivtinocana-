@@ -75,27 +75,28 @@
                     <th>Booking Time</th>
                     <th>Order Status</th>
 
-                    <th><a class="btn btn-outline-success" id="myBtn"><i class="fa fa-plus-square"></i> Place an Order</a></th>
+                    <th><a class="btn btn-outline-success" id="myBtn"><i class="fa fa-plus-square"></i>Add a new Time</a></th>
+                    <th><a class="btn btn-outline-success" id="myBtn"><i class="fa fa-plus-square"></i>Add a new Date</a></th>
 
                     </thead>
                     <tbody>
                         @foreach (var item in Model)
                         {
-                        <tr>
-                            <td>
-                                @item.BOOKING_ID
-                            </td>
-                            <td>
-                                @item.BOOKING_DATES.DAY_
-                            </td>
-                            <td>
-                                @item.BOOKING_TIMES.TIME_ID
-                            </td>
-                            <td>
-                                <a class="btn text-danger" onclick="del(@item.BOOKING_ID)" value="item.BOOKING_ID"><i class="fa fa-trash fa-lg"></i></a>
-                                @Html.ActionLink("Edit", "Edit", new { id = item.BOOKING_ID }) |
-                            </td>
-                        </tr>
+                            <tr>
+                                <td>
+                                    @item.BOOKING_ID
+                                </td>
+                                <td>
+                                    @item.BOOKING_DATES.DAY_
+                                </td>
+                                <td>
+                                    @item.BOOKING_TIMES.TIME_ID
+                                </td>
+                                <td>
+                                    <a class="btn text-danger" onclick="del(@item.BOOKING_ID)" value="item.BOOKING_ID"><i class="fa fa-trash fa-lg"></i></a>
+                                    @Html.ActionLink("Edit", "Edit", new { id = item.BOOKING_ID }) |
+                                </td>
+                            </tr>
                         }
                     </tbody>
                 </table>

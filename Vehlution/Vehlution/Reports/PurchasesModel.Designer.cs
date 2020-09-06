@@ -289,6 +289,8 @@ namespace Vehlution.Reports {
             
             private global::System.Data.DataColumn columnCar;
             
+            private global::System.Data.DataColumn columnCarColour;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public PurchasesDataTable() {
@@ -364,6 +366,14 @@ namespace Vehlution.Reports {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn CarColourColumn {
+                get {
+                    return this.columnCarColour;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -399,14 +409,15 @@ namespace Vehlution.Reports {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public PurchasesRow AddPurchasesRow(string ID, string Client_Name, string PurchaseDate, string AcceptedOffer, string Car) {
+            public PurchasesRow AddPurchasesRow(string ID, string Client_Name, string PurchaseDate, string AcceptedOffer, string Car, string CarColour) {
                 PurchasesRow rowPurchasesRow = ((PurchasesRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         ID,
                         Client_Name,
                         PurchaseDate,
                         AcceptedOffer,
-                        Car};
+                        Car,
+                        CarColour};
                 rowPurchasesRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowPurchasesRow);
                 return rowPurchasesRow;
@@ -434,6 +445,7 @@ namespace Vehlution.Reports {
                 this.columnPurchaseDate = base.Columns["PurchaseDate"];
                 this.columnAcceptedOffer = base.Columns["AcceptedOffer"];
                 this.columnCar = base.Columns["Car"];
+                this.columnCarColour = base.Columns["CarColour"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -449,6 +461,8 @@ namespace Vehlution.Reports {
                 base.Columns.Add(this.columnAcceptedOffer);
                 this.columnCar = new global::System.Data.DataColumn("Car", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnCar);
+                this.columnCarColour = new global::System.Data.DataColumn("CarColour", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnCarColour);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -671,6 +685,22 @@ namespace Vehlution.Reports {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string CarColour {
+                get {
+                    try {
+                        return ((string)(this[this.tablePurchases.CarColourColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'CarColour\' in table \'Purchases\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tablePurchases.CarColourColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public bool IsIDNull() {
                 return this.IsNull(this.tablePurchases.IDColumn);
             }
@@ -727,6 +757,18 @@ namespace Vehlution.Reports {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public void SetCarNull() {
                 this[this.tablePurchases.CarColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsCarColourNull() {
+                return this.IsNull(this.tablePurchases.CarColourColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetCarColourNull() {
+                this[this.tablePurchases.CarColourColumn] = global::System.Convert.DBNull;
             }
         }
         

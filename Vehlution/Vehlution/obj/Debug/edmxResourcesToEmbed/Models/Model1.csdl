@@ -15,9 +15,7 @@
       <PropertyRef Name="DAY_" />
     </Key>
     <Property Name="DAY_" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="MONTH_" Type="DateTime" Precision="3" />
-    <Property Name="MONTH" Type="DateTime" Precision="3" />
-    <Property Name="YEAR" Type="DateTime" Precision="3" />
+    <Property Name="DATE" Type="DateTime" Precision="0" />
     <NavigationProperty Name="CAR_BOOKING_SLOTS" Relationship="Self.FK_CAR_BOOK_HAS_BOOKI_BOOKING_2" FromRole="BOOKING_DATES" ToRole="CAR_BOOKING_SLOTS" />
   </EntityType>
   <EntityType Name="BOOKING_FOR_POSSIBLE_PURCHASE">
@@ -25,14 +23,13 @@
       <PropertyRef Name="BOOKING_ID" />
     </Key>
     <Property Name="CLIENT_ID" Type="Int32" Nullable="false" />
-    <Property Name="STATUS_ID" Type="Int32" Nullable="false" />
     <Property Name="BOOKING_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CAR_ID" Type="Int32" Nullable="false" />
     <Property Name="BOOKING_DATE" Type="DateTime" Precision="3" />
     <Property Name="BOOKING_TIME" Type="DateTime" Precision="3" />
     <Property Name="BOOKING_STATUS" Type="String" MaxLength="20" FixedLength="true" Unicode="false" />
+    <NavigationProperty Name="CAR" Relationship="Self.FK_BOOKING__DN2_CARS" FromRole="BOOKING_FOR_POSSIBLE_PURCHASE" ToRole="CARS" />
     <NavigationProperty Name="CLIENT" Relationship="Self.FK_BOOKING__HAS_A_BOO_CLIENT" FromRole="BOOKING_FOR_POSSIBLE_PURCHASE" ToRole="CLIENT" />
-    <NavigationProperty Name="POSSIBLE_PURCHASE_STATUS" Relationship="Self.FK_BOOKING__HAS_A_STA_POSSIBLE" FromRole="BOOKING_FOR_POSSIBLE_PURCHASE" ToRole="POSSIBLE_PURCHASE_STATUS" />
-    <NavigationProperty Name="CARS" Relationship="Self.FK_CARS_DN2_BOOKING_" FromRole="BOOKING_FOR_POSSIBLE_PURCHASE" ToRole="CARS" />
   </EntityType>
   <EntityType Name="BOOKING_STATUS">
     <Key>
@@ -59,12 +56,13 @@
     </Key>
     <Property Name="CARBOOKING_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="CLIENT_ID" Type="Int32" Nullable="false" />
+    <Property Name="CAR_ID" Type="Int32" Nullable="false" />
     <Property Name="STATUS" Type="String" MaxLength="50" FixedLength="true" Unicode="false" />
     <Property Name="BOOKING_DATE" Type="DateTime" Precision="3" />
     <Property Name="BOOKING_TIME" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="CAR" Relationship="Self.FK_CAR_BOOK_DR_CARS" FromRole="CAR_BOOKING" ToRole="CARS" />
     <NavigationProperty Name="CAR_BOOKING_SLOTS" Relationship="Self.FK_CAR_BOOK_HAS_A_CAR_CAR_BOOK" FromRole="CAR_BOOKING" ToRole="CAR_BOOKING_SLOTS" />
     <NavigationProperty Name="CLIENT" Relationship="Self.FK_CAR_BOOK_HAS_CLIEN_CLIENT" FromRole="CAR_BOOKING" ToRole="CLIENT" />
-    <NavigationProperty Name="CARS" Relationship="Self.FK_CARS_DR_CAR_BOOK" FromRole="CAR_BOOKING" ToRole="CARS" />
   </EntityType>
   <EntityType Name="CAR_BOOKING_SLOTS">
     <Key>
@@ -115,6 +113,8 @@
     </Key>
     <Property Name="CARPARTS_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="PARTNAME" Type="String" MaxLength="50" FixedLength="true" Unicode="false" />
+    <Property Name="STOCKONHAND" Type="Int32" />
+    <Property Name="RESTOCKORDER" Type="Int32" />
     <NavigationProperty Name="CAR_PARTS_ORDERED" Relationship="Self.FK_CAR_PART_HAS_CAR_P_CAR_PART" FromRole="CAR_PARTS" ToRole="CAR_PARTS_ORDERED" />
     <NavigationProperty Name="RELATIONSHIP_12" Relationship="Self.FK_RELATION_RELATIONS_CAR_PART" FromRole="CAR_PARTS" ToRole="RELATIONSHIP_12" />
   </EntityType>
@@ -158,21 +158,18 @@
     <Property Name="MAKE_ID" Type="Int32" Nullable="false" />
     <Property Name="CLIENT_ID" Type="Int32" Nullable="false" />
     <Property Name="STATUS_ID" Type="Int32" Nullable="false" />
-    <Property Name="BOOKING_ID" Type="Int32" Nullable="false" />
-    <Property Name="PURCHASE_ID" Type="Int32" Nullable="false" />
     <Property Name="FUELTYPE_ID" Type="Int32" Nullable="false" />
-    <Property Name="BOO_BOOKING_ID" Type="Int32" Nullable="false" />
+    <Property Name="MODEL_ID" Type="Int32" />
     <Property Name="YEAR" Type="Int32" />
     <Property Name="MILAGE_" Type="Int32" />
     <Property Name="LISTING_PRICE" Type="Double" />
-    <Property Name="IMAGE" Type="Binary" MaxLength="1" FixedLength="true" />
-    <NavigationProperty Name="BOOKING_FOR_POSSIBLE_PURCHASE" Relationship="Self.FK_CARS_DN2_BOOKING_" FromRole="CARS" ToRole="BOOKING_FOR_POSSIBLE_PURCHASE" />
-    <NavigationProperty Name="CAR_BOOKING" Relationship="Self.FK_CARS_DR_CAR_BOOK" FromRole="CARS" ToRole="CAR_BOOKING" />
+    <Property Name="IMAGE" Type="Binary" MaxLength="Max" FixedLength="false" />
+    <NavigationProperty Name="BOOKING_FOR_POSSIBLE_PURCHASE" Relationship="Self.FK_BOOKING__DN2_CARS" FromRole="CARS" ToRole="BOOKING_FOR_POSSIBLE_PURCHASE" />
+    <NavigationProperty Name="CAR_BOOKING" Relationship="Self.FK_CAR_BOOK_DR_CARS" FromRole="CARS" ToRole="CAR_BOOKING" />
     <NavigationProperty Name="CAR_DEFECTS" Relationship="Self.FK_CAR_DEFE_HAS_CARS_CARS" FromRole="CARS" ToRole="CAR_DEFECTS" />
     <NavigationProperty Name="CAR_STATUS" Relationship="Self.FK_CARS_HAS_STATU_CAR_STAT" FromRole="CARS" ToRole="CAR_STATUS" />
     <NavigationProperty Name="CAR_TYPE" Relationship="Self.FK_CAR_TYPE_HAS_CAR_T_CARS" FromRole="CARS" ToRole="CAR_TYPE" />
-    <NavigationProperty Name="Purchase" Relationship="Self.FK_CARS_DR6_PURCHASE" FromRole="CARS" ToRole="PURCHASES" />
-    <NavigationProperty Name="MAKE" Relationship="Self.FK_CARS_HAD_MAKE_MAKE" FromRole="CARS" ToRole="MAKE" />
+    <NavigationProperty Name="MODEL" Relationship="Self.FK_CARS_HAD_MAKE_MODEL" FromRole="CARS" ToRole="MODEL" />
     <NavigationProperty Name="CLIENT" Relationship="Self.FK_CARS_HAS_CLIEN_CLIENT" FromRole="CARS" ToRole="CLIENT" />
     <NavigationProperty Name="COLOUR" Relationship="Self.FK_CARS_HAS_COLOU_COLOUR" FromRole="CARS" ToRole="COLOUR" />
     <NavigationProperty Name="FUEL_TYPE" Relationship="Self.FK_CARS_HAS_FEUL__FUEL_TYP" FromRole="CARS" ToRole="FUEL_TYPE" />
@@ -181,6 +178,7 @@
     <NavigationProperty Name="TRANSMISSION" Relationship="Self.FK_CARS_HAS_TRANS_TRANSMIS" FromRole="CARS" ToRole="TRANSMISSION" />
     <NavigationProperty Name="MECHANIC_JOB" Relationship="Self.FK_MECHANIC_HAS_CAR_CARS" FromRole="CARS" ToRole="MECHANIC_JOB" />
     <NavigationProperty Name="OFFERS" Relationship="Self.FK_OFFERS_HAS_A_CAR_CARS" FromRole="CARS" ToRole="OFFERS" />
+    <NavigationProperty Name="PURCHASES" Relationship="Self.FK_PURCHASE_DR6_CARS" FromRole="CARS" ToRole="PURCHASES" />
   </EntityType>
   <EntityType Name="CLIENT">
     <Key>
@@ -281,16 +279,15 @@
       <PropertyRef Name="MAKE_ID" />
     </Key>
     <Property Name="MAKE_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="MODEL_ID" Type="Int32" />
     <Property Name="MAKE_NAME" Type="String" MaxLength="50" FixedLength="true" Unicode="false" />
-    <NavigationProperty Name="CARS" Relationship="Self.FK_CARS_HAD_MAKE_MAKE" FromRole="MAKE" ToRole="CARS" />
-    <NavigationProperty Name="MODELs" Relationship="Self.FK_MODEL_HAS_MODEL_MAKE" FromRole="MAKE" ToRole="MODEL" />
+    <NavigationProperty Name="MODEL" Relationship="Self.FK_MAKE_HAS_MODEL_MODEL" FromRole="MAKE" ToRole="MODEL" />
   </EntityType>
   <EntityType Name="MECHANIC">
     <Key>
       <PropertyRef Name="MECHANIC_ID" />
     </Key>
     <Property Name="MECHANIC_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="MECHANICJOB_ID" Type="Int32" Nullable="false" />
     <Property Name="FULL_NAME_" Type="String" MaxLength="100" FixedLength="true" Unicode="false" />
     <Property Name="CELL_NUMBER_" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
     <Property Name="EMAIL_" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
@@ -302,10 +299,11 @@
     </Key>
     <Property Name="MECHANICJOB_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="CAR_ID" Type="Int32" Nullable="false" />
+    <Property Name="MECHANIC_ID" Type="Int32" />
     <Property Name="JOB_DATE" Type="DateTime" Precision="3" />
     <Property Name="JOB_TIME" Type="DateTime" Precision="3" />
     <NavigationProperty Name="CAR" Relationship="Self.FK_MECHANIC_HAS_CAR_CARS" FromRole="MECHANIC_JOB" ToRole="CARS" />
-    <NavigationProperty Name="MECHANICs" Relationship="Self.FK_MECHANIC_DC2_MECHANIC" FromRole="MECHANIC_JOB" ToRole="MECHANIC" />
+    <NavigationProperty Name="MECHANIC" Relationship="Self.FK_MECHANIC_DC2_MECHANIC" FromRole="MECHANIC_JOB" ToRole="MECHANIC" />
     <NavigationProperty Name="MECHANIC_TASK" Relationship="Self.FK_MECHANIC_HAS_A_MEC_MECHANIC" FromRole="MECHANIC_JOB" ToRole="MECHANIC_TASK" />
   </EntityType>
   <EntityType Name="MECHANIC_TASK">
@@ -328,7 +326,8 @@
     <Property Name="MODEL_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="MAKE_ID" Type="Int32" Nullable="false" />
     <Property Name="MODEL_NAME" Type="String" MaxLength="50" FixedLength="true" Unicode="false" />
-    <NavigationProperty Name="MAKE" Relationship="Self.FK_MODEL_HAS_MODEL_MAKE" FromRole="MODEL" ToRole="MAKE" />
+    <NavigationProperty Name="CARS" Relationship="Self.FK_CARS_HAD_MAKE_MODEL" FromRole="MODEL" ToRole="CARS" />
+    <NavigationProperty Name="MAKEs" Relationship="Self.FK_MAKE_HAS_MODEL_MODEL" FromRole="MODEL" ToRole="MAKE" />
   </EntityType>
   <EntityType Name="NUMBER_OF_DOORS">
     <Key>
@@ -408,14 +407,6 @@
     <Property Name="PAYMENT_DATE" Type="DateTime" Precision="3" />
     <NavigationProperty Name="SALES" Relationship="Self.FK_SALES_HAS_PAYME_PAYMENT" FromRole="PAYMENT" ToRole="SALES" />
   </EntityType>
-  <EntityType Name="POSSIBLE_PURCHASE_STATUS">
-    <Key>
-      <PropertyRef Name="POSSIBLEPURCHASESTATUS_ID" />
-    </Key>
-    <Property Name="POSSIBLEPURCHASESTATUS_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="STATUS_NAME_" Type="DateTime" Precision="3" />
-    <NavigationProperty Name="BOOKING_FOR_POSSIBLE_PURCHASE" Relationship="Self.FK_BOOKING__HAS_A_STA_POSSIBLE" FromRole="POSSIBLE_PURCHASE_STATUS" ToRole="BOOKING_FOR_POSSIBLE_PURCHASE" />
-  </EntityType>
   <EntityType Name="Purchase">
     <Key>
       <PropertyRef Name="PURCHASE_ID" />
@@ -424,7 +415,8 @@
     <Property Name="CLIENT_ID" Type="Int32" Nullable="false" />
     <Property Name="PURCHASEDATE_" Type="DateTime" Precision="3" />
     <Property Name="COST_" Type="Double" />
-    <NavigationProperty Name="CARS" Relationship="Self.FK_CARS_DR6_PURCHASE" FromRole="PURCHASES" ToRole="CARS" />
+    <Property Name="CAR_ID" Type="Int32" />
+    <NavigationProperty Name="CAR" Relationship="Self.FK_PURCHASE_DR6_CARS" FromRole="PURCHASES" ToRole="CARS" />
     <NavigationProperty Name="CLIENT" Relationship="Self.FK_PURCHASE_HAS_CLIEN_CLIENT" FromRole="PURCHASES" ToRole="CLIENT" />
   </EntityType>
   <EntityType Name="RELATIONSHIP_12">
@@ -489,13 +481,14 @@
       <PropertyRef Name="USER_ID" />
     </Key>
     <Property Name="USER_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="USERROLE_ID" Type="Int32" Nullable="false" />
-    <Property Name="FULL_NAME" Type="String" MaxLength="50" FixedLength="true" Unicode="false" />
-    <Property Name="EMAIL" Type="String" MaxLength="50" FixedLength="true" Unicode="false" />
-    <Property Name="ADDRESS" Type="String" MaxLength="100" FixedLength="true" Unicode="false" />
-    <Property Name="STATUS" Type="String" MaxLength="20" FixedLength="true" Unicode="false" />
-    <Property Name="AVAILABLEDAYS" Type="DateTime" Precision="3" />
-    <Property Name="AVAILABLETIMES" Type="DateTime" Precision="3" />
+    <Property Name="USERROLE_ID" Type="Int32" />
+    <Property Name="FIRSTNAME" Type="String" MaxLength="50" FixedLength="true" Unicode="false" />
+    <Property Name="LASTNAME" Type="String" MaxLength="50" FixedLength="true" Unicode="false" />
+    <Property Name="EMAIL" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="PASSWORD" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="EMAILVERIFICATION" Type="Boolean" />
+    <Property Name="ACTIVATIONCODE" Type="Guid" />
+    <Property Name="OTP" Type="String" MaxLength="4" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="ACCESSes" Relationship="Self.FK_ACCESS_HAS_USER__USERS" FromRole="USERS" ToRole="ACCESS" />
     <NavigationProperty Name="CLIENTs" Relationship="Self.FK_CLIENT_HAS_A_CLI_USERS" FromRole="USERS" ToRole="CLIENT" />
     <NavigationProperty Name="USER_ROLE" Relationship="Self.FK_USERS_HAS_USER__USER_ROL" FromRole="USERS" ToRole="USER_ROLE" />
@@ -524,6 +517,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_BOOKING__DN2_CARS">
+    <End Role="CARS" Type="Self.CAR" Multiplicity="1" />
+    <End Role="BOOKING_FOR_POSSIBLE_PURCHASE" Type="Self.BOOKING_FOR_POSSIBLE_PURCHASE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CARS">
+        <PropertyRef Name="CAR_ID" />
+      </Principal>
+      <Dependent Role="BOOKING_FOR_POSSIBLE_PURCHASE">
+        <PropertyRef Name="CAR_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_BOOKING__HAS_A_BOO_CLIENT">
     <End Role="CLIENT" Type="Self.CLIENT" Multiplicity="1" />
     <End Role="BOOKING_FOR_POSSIBLE_PURCHASE" Type="Self.BOOKING_FOR_POSSIBLE_PURCHASE" Multiplicity="*" />
@@ -533,30 +538,6 @@
       </Principal>
       <Dependent Role="BOOKING_FOR_POSSIBLE_PURCHASE">
         <PropertyRef Name="CLIENT_ID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_BOOKING__HAS_A_STA_POSSIBLE">
-    <End Role="POSSIBLE_PURCHASE_STATUS" Type="Self.POSSIBLE_PURCHASE_STATUS" Multiplicity="1" />
-    <End Role="BOOKING_FOR_POSSIBLE_PURCHASE" Type="Self.BOOKING_FOR_POSSIBLE_PURCHASE" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="POSSIBLE_PURCHASE_STATUS">
-        <PropertyRef Name="POSSIBLEPURCHASESTATUS_ID" />
-      </Principal>
-      <Dependent Role="BOOKING_FOR_POSSIBLE_PURCHASE">
-        <PropertyRef Name="STATUS_ID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_CARS_DN2_BOOKING_">
-    <End Role="BOOKING_FOR_POSSIBLE_PURCHASE" Type="Self.BOOKING_FOR_POSSIBLE_PURCHASE" Multiplicity="1" />
-    <End Role="CARS" Type="Self.CAR" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="BOOKING_FOR_POSSIBLE_PURCHASE">
-        <PropertyRef Name="BOOKING_ID" />
-      </Principal>
-      <Dependent Role="CARS">
-        <PropertyRef Name="BOO_BOOKING_ID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -584,6 +565,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_CAR_BOOK_DR_CARS">
+    <End Role="CARS" Type="Self.CAR" Multiplicity="1" />
+    <End Role="CAR_BOOKING" Type="Self.CAR_BOOKING" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CARS">
+        <PropertyRef Name="CAR_ID" />
+      </Principal>
+      <Dependent Role="CAR_BOOKING">
+        <PropertyRef Name="CAR_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_CAR_BOOK_HAS_A_CAR_CAR_BOOK">
     <End Role="CAR_BOOKING" Type="Self.CAR_BOOKING" Multiplicity="1" />
     <End Role="CAR_BOOKING_SLOTS" Type="Self.CAR_BOOKING_SLOTS" Multiplicity="*" />
@@ -605,18 +598,6 @@
       </Principal>
       <Dependent Role="CAR_BOOKING">
         <PropertyRef Name="CLIENT_ID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_CARS_DR_CAR_BOOK">
-    <End Role="CAR_BOOKING" Type="Self.CAR_BOOKING" Multiplicity="1" />
-    <End Role="CARS" Type="Self.CAR" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="CAR_BOOKING">
-        <PropertyRef Name="CARBOOKING_ID" />
-      </Principal>
-      <Dependent Role="CARS">
-        <PropertyRef Name="BOOKING_ID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -752,27 +733,15 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_CARS_DR6_PURCHASE">
-    <End Role="PURCHASES" Type="Self.Purchase" Multiplicity="1" />
+  <Association Name="FK_CARS_HAD_MAKE_MODEL">
+    <End Role="MODEL" Type="Self.MODEL" Multiplicity="0..1" />
     <End Role="CARS" Type="Self.CAR" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="PURCHASES">
-        <PropertyRef Name="PURCHASE_ID" />
+      <Principal Role="MODEL">
+        <PropertyRef Name="MODEL_ID" />
       </Principal>
       <Dependent Role="CARS">
-        <PropertyRef Name="PURCHASE_ID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_CARS_HAD_MAKE_MAKE">
-    <End Role="MAKE" Type="Self.MAKE" Multiplicity="1" />
-    <End Role="CARS" Type="Self.CAR" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="MAKE">
-        <PropertyRef Name="MAKE_ID" />
-      </Principal>
-      <Dependent Role="CARS">
-        <PropertyRef Name="MAKE_ID" />
+        <PropertyRef Name="MODEL_ID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -872,6 +841,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_PURCHASE_DR6_CARS">
+    <End Role="CARS" Type="Self.CAR" Multiplicity="0..1" />
+    <End Role="PURCHASES" Type="Self.Purchase" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CARS">
+        <PropertyRef Name="CAR_ID" />
+      </Principal>
+      <Dependent Role="PURCHASES">
+        <PropertyRef Name="CAR_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_CLIENT_D_HAS_A_CLI_CLIENT">
     <End Role="CLIENT" Type="Self.CLIENT" Multiplicity="1" />
     <End Role="CLIENT_DOCUMENTS" Type="Self.CLIENT_DOCUMENTS" Multiplicity="*" />
@@ -956,27 +937,27 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_MODEL_HAS_MODEL_MAKE">
-    <End Role="MAKE" Type="Self.MAKE" Multiplicity="1" />
-    <End Role="MODEL" Type="Self.MODEL" Multiplicity="*" />
+  <Association Name="FK_MAKE_HAS_MODEL_MODEL">
+    <End Role="MODEL" Type="Self.MODEL" Multiplicity="0..1" />
+    <End Role="MAKE" Type="Self.MAKE" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="MAKE">
-        <PropertyRef Name="MAKE_ID" />
+      <Principal Role="MODEL">
+        <PropertyRef Name="MODEL_ID" />
       </Principal>
-      <Dependent Role="MODEL">
-        <PropertyRef Name="MAKE_ID" />
+      <Dependent Role="MAKE">
+        <PropertyRef Name="MODEL_ID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_MECHANIC_DC2_MECHANIC">
-    <End Role="MECHANIC_JOB" Type="Self.MECHANIC_JOB" Multiplicity="1" />
-    <End Role="MECHANIC" Type="Self.MECHANIC" Multiplicity="*" />
+    <End Role="MECHANIC" Type="Self.MECHANIC" Multiplicity="0..1" />
+    <End Role="MECHANIC_JOB" Type="Self.MECHANIC_JOB" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="MECHANIC_JOB">
-        <PropertyRef Name="MECHANICJOB_ID" />
+      <Principal Role="MECHANIC">
+        <PropertyRef Name="MECHANIC_ID" />
       </Principal>
-      <Dependent Role="MECHANIC">
-        <PropertyRef Name="MECHANICJOB_ID" />
+      <Dependent Role="MECHANIC_JOB">
+        <PropertyRef Name="MECHANIC_ID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -1077,7 +1058,7 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_USERS_HAS_USER__USER_ROL">
-    <End Role="USER_ROLE" Type="Self.USER_ROLE" Multiplicity="1" />
+    <End Role="USER_ROLE" Type="Self.USER_ROLE" Multiplicity="0..1" />
     <End Role="USERS" Type="Self.USER" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="USER_ROLE">
@@ -1125,7 +1106,6 @@
     <EntitySet Name="ORDERs" EntityType="Self.ORDER" />
     <EntitySet Name="PART_OF_CAR" EntityType="Self.PART_OF_CAR" />
     <EntitySet Name="PAYMENTs" EntityType="Self.PAYMENT" />
-    <EntitySet Name="POSSIBLE_PURCHASE_STATUS" EntityType="Self.POSSIBLE_PURCHASE_STATUS" />
     <EntitySet Name="PURCHASES" EntityType="Self.Purchase" />
     <EntitySet Name="RELATIONSHIP_12" EntityType="Self.RELATIONSHIP_12" />
     <EntitySet Name="SALES" EntityType="Self.SALE" />
@@ -1142,17 +1122,13 @@
       <End Role="BOOKING_DATES" EntitySet="BOOKING_DATES" />
       <End Role="CAR_BOOKING_SLOTS" EntitySet="CAR_BOOKING_SLOTS" />
     </AssociationSet>
+    <AssociationSet Name="FK_BOOKING__DN2_CARS" Association="Self.FK_BOOKING__DN2_CARS">
+      <End Role="CARS" EntitySet="CARS" />
+      <End Role="BOOKING_FOR_POSSIBLE_PURCHASE" EntitySet="BOOKING_FOR_POSSIBLE_PURCHASE" />
+    </AssociationSet>
     <AssociationSet Name="FK_BOOKING__HAS_A_BOO_CLIENT" Association="Self.FK_BOOKING__HAS_A_BOO_CLIENT">
       <End Role="CLIENT" EntitySet="CLIENTs" />
       <End Role="BOOKING_FOR_POSSIBLE_PURCHASE" EntitySet="BOOKING_FOR_POSSIBLE_PURCHASE" />
-    </AssociationSet>
-    <AssociationSet Name="FK_BOOKING__HAS_A_STA_POSSIBLE" Association="Self.FK_BOOKING__HAS_A_STA_POSSIBLE">
-      <End Role="POSSIBLE_PURCHASE_STATUS" EntitySet="POSSIBLE_PURCHASE_STATUS" />
-      <End Role="BOOKING_FOR_POSSIBLE_PURCHASE" EntitySet="BOOKING_FOR_POSSIBLE_PURCHASE" />
-    </AssociationSet>
-    <AssociationSet Name="FK_CARS_DN2_BOOKING_" Association="Self.FK_CARS_DN2_BOOKING_">
-      <End Role="BOOKING_FOR_POSSIBLE_PURCHASE" EntitySet="BOOKING_FOR_POSSIBLE_PURCHASE" />
-      <End Role="CARS" EntitySet="CARS" />
     </AssociationSet>
     <AssociationSet Name="FK_CAR_BOOK_HAS_PENDI_BOOKING_" Association="Self.FK_CAR_BOOK_HAS_PENDI_BOOKING_">
       <End Role="BOOKING_STATUS" EntitySet="BOOKING_STATUS" />
@@ -1162,6 +1138,10 @@
       <End Role="BOOKING_TIMES" EntitySet="BOOKING_TIMES" />
       <End Role="CAR_BOOKING_SLOTS" EntitySet="CAR_BOOKING_SLOTS" />
     </AssociationSet>
+    <AssociationSet Name="FK_CAR_BOOK_DR_CARS" Association="Self.FK_CAR_BOOK_DR_CARS">
+      <End Role="CARS" EntitySet="CARS" />
+      <End Role="CAR_BOOKING" EntitySet="CAR_BOOKING" />
+    </AssociationSet>
     <AssociationSet Name="FK_CAR_BOOK_HAS_A_CAR_CAR_BOOK" Association="Self.FK_CAR_BOOK_HAS_A_CAR_CAR_BOOK">
       <End Role="CAR_BOOKING" EntitySet="CAR_BOOKING" />
       <End Role="CAR_BOOKING_SLOTS" EntitySet="CAR_BOOKING_SLOTS" />
@@ -1169,10 +1149,6 @@
     <AssociationSet Name="FK_CAR_BOOK_HAS_CLIEN_CLIENT" Association="Self.FK_CAR_BOOK_HAS_CLIEN_CLIENT">
       <End Role="CLIENT" EntitySet="CLIENTs" />
       <End Role="CAR_BOOKING" EntitySet="CAR_BOOKING" />
-    </AssociationSet>
-    <AssociationSet Name="FK_CARS_DR_CAR_BOOK" Association="Self.FK_CARS_DR_CAR_BOOK">
-      <End Role="CAR_BOOKING" EntitySet="CAR_BOOKING" />
-      <End Role="CARS" EntitySet="CARS" />
     </AssociationSet>
     <AssociationSet Name="FK_CAR_BOOK_HAS_EMPLO_EMPLOYEE" Association="Self.FK_CAR_BOOK_HAS_EMPLO_EMPLOYEE">
       <End Role="EMPLOYEE" EntitySet="EMPLOYEEs" />
@@ -1218,12 +1194,8 @@
       <End Role="CARS" EntitySet="CARS" />
       <End Role="CAR_TYPE" EntitySet="CAR_TYPE" />
     </AssociationSet>
-    <AssociationSet Name="FK_CARS_DR6_PURCHASE" Association="Self.FK_CARS_DR6_PURCHASE">
-      <End Role="PURCHASES" EntitySet="PURCHASES" />
-      <End Role="CARS" EntitySet="CARS" />
-    </AssociationSet>
-    <AssociationSet Name="FK_CARS_HAD_MAKE_MAKE" Association="Self.FK_CARS_HAD_MAKE_MAKE">
-      <End Role="MAKE" EntitySet="MAKEs" />
+    <AssociationSet Name="FK_CARS_HAD_MAKE_MODEL" Association="Self.FK_CARS_HAD_MAKE_MODEL">
+      <End Role="MODEL" EntitySet="MODELs" />
       <End Role="CARS" EntitySet="CARS" />
     </AssociationSet>
     <AssociationSet Name="FK_CARS_HAS_CLIEN_CLIENT" Association="Self.FK_CARS_HAS_CLIEN_CLIENT">
@@ -1258,6 +1230,10 @@
       <End Role="CARS" EntitySet="CARS" />
       <End Role="OFFERS" EntitySet="OFFERS" />
     </AssociationSet>
+    <AssociationSet Name="FK_PURCHASE_DR6_CARS" Association="Self.FK_PURCHASE_DR6_CARS">
+      <End Role="CARS" EntitySet="CARS" />
+      <End Role="PURCHASES" EntitySet="PURCHASES" />
+    </AssociationSet>
     <AssociationSet Name="FK_CLIENT_D_HAS_A_CLI_CLIENT" Association="Self.FK_CLIENT_D_HAS_A_CLI_CLIENT">
       <End Role="CLIENT" EntitySet="CLIENTs" />
       <End Role="CLIENT_DOCUMENTS" EntitySet="CLIENT_DOCUMENTS" />
@@ -1286,13 +1262,13 @@
       <End Role="SALES" EntitySet="SALES" />
       <End Role="EMPLYEE_SALES" EntitySet="EMPLYEE_SALES" />
     </AssociationSet>
-    <AssociationSet Name="FK_MODEL_HAS_MODEL_MAKE" Association="Self.FK_MODEL_HAS_MODEL_MAKE">
-      <End Role="MAKE" EntitySet="MAKEs" />
+    <AssociationSet Name="FK_MAKE_HAS_MODEL_MODEL" Association="Self.FK_MAKE_HAS_MODEL_MODEL">
       <End Role="MODEL" EntitySet="MODELs" />
+      <End Role="MAKE" EntitySet="MAKEs" />
     </AssociationSet>
     <AssociationSet Name="FK_MECHANIC_DC2_MECHANIC" Association="Self.FK_MECHANIC_DC2_MECHANIC">
-      <End Role="MECHANIC_JOB" EntitySet="MECHANIC_JOB" />
       <End Role="MECHANIC" EntitySet="MECHANICs" />
+      <End Role="MECHANIC_JOB" EntitySet="MECHANIC_JOB" />
     </AssociationSet>
     <AssociationSet Name="FK_MECHANIC_HAS_A_MEC_MECHANIC" Association="Self.FK_MECHANIC_HAS_A_MEC_MECHANIC">
       <End Role="MECHANIC_JOB" EntitySet="MECHANIC_JOB" />

@@ -131,6 +131,8 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\BOOKING_DATESController.cs" />
+    <Compile Include="Controllers\BOOKING_TIMESController.cs" />
     <Compile Include="Controllers\CARsController.cs" />
     <Compile Include="Controllers\CAR_BOOKING_SLOTSController.cs" />
     <Compile Include="Controllers\MAKEsController.cs" />
@@ -500,6 +502,8 @@
     <Content Include="Views\CARs\PendingCarIndex.cshtml" />
     <Content Include="Views\CARs\PendingDetails.cshtml" />
     <Content Include="Views\Reports\EmployeeSalesChart.cshtml" />
+    <Content Include="Views\BOOKING_DATES\Create.cshtml" />
+    <Content Include="Views\BOOKING_TIMES\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -15,9 +15,7 @@
       <EntityTypeMapping TypeName="Vehlution3Model.BOOKING_DATES">
         <MappingFragment StoreEntitySet="BOOKING_DATES">
           <ScalarProperty Name="DAY_" ColumnName="DAY_" />
-          <ScalarProperty Name="MONTH_" ColumnName="MONTH_" />
-          <ScalarProperty Name="MONTH" ColumnName="MONTH" />
-          <ScalarProperty Name="YEAR" ColumnName="YEAR" />
+          <ScalarProperty Name="DATE" ColumnName="DATE" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -25,8 +23,8 @@
       <EntityTypeMapping TypeName="Vehlution3Model.BOOKING_FOR_POSSIBLE_PURCHASE">
         <MappingFragment StoreEntitySet="BOOKING_FOR_POSSIBLE_PURCHASE">
           <ScalarProperty Name="CLIENT_ID" ColumnName="CLIENT_ID" />
-          <ScalarProperty Name="STATUS_ID" ColumnName="STATUS_ID" />
           <ScalarProperty Name="BOOKING_ID" ColumnName="BOOKING_ID" />
+          <ScalarProperty Name="CAR_ID" ColumnName="CAR_ID" />
           <ScalarProperty Name="BOOKING_DATE" ColumnName="BOOKING_DATE" />
           <ScalarProperty Name="BOOKING_TIME" ColumnName="BOOKING_TIME" />
           <ScalarProperty Name="BOOKING_STATUS" ColumnName="BOOKING_STATUS" />
@@ -57,6 +55,7 @@
         <MappingFragment StoreEntitySet="CAR_BOOKING">
           <ScalarProperty Name="CARBOOKING_ID" ColumnName="CARBOOKING_ID" />
           <ScalarProperty Name="CLIENT_ID" ColumnName="CLIENT_ID" />
+          <ScalarProperty Name="CAR_ID" ColumnName="CAR_ID" />
           <ScalarProperty Name="STATUS" ColumnName="STATUS" />
           <ScalarProperty Name="BOOKING_DATE" ColumnName="BOOKING_DATE" />
           <ScalarProperty Name="BOOKING_TIME" ColumnName="BOOKING_TIME" />
@@ -103,6 +102,8 @@
         <MappingFragment StoreEntitySet="CAR_PARTS">
           <ScalarProperty Name="CARPARTS_ID" ColumnName="CARPARTS_ID" />
           <ScalarProperty Name="PARTNAME" ColumnName="PARTNAME" />
+          <ScalarProperty Name="STOCKONHAND" ColumnName="STOCKONHAND" />
+          <ScalarProperty Name="RESTOCKORDER" ColumnName="RESTOCKORDER" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -144,10 +145,8 @@
           <ScalarProperty Name="MAKE_ID" ColumnName="MAKE_ID" />
           <ScalarProperty Name="CLIENT_ID" ColumnName="CLIENT_ID" />
           <ScalarProperty Name="STATUS_ID" ColumnName="STATUS_ID" />
-          <ScalarProperty Name="BOOKING_ID" ColumnName="BOOKING_ID" />
-          <ScalarProperty Name="PURCHASE_ID" ColumnName="PURCHASE_ID" />
           <ScalarProperty Name="FUELTYPE_ID" ColumnName="FUELTYPE_ID" />
-          <ScalarProperty Name="BOO_BOOKING_ID" ColumnName="BOO_BOOKING_ID" />
+          <ScalarProperty Name="MODEL_ID" ColumnName="MODEL_ID" />
           <ScalarProperty Name="YEAR" ColumnName="YEAR" />
           <ScalarProperty Name="MILAGE_" ColumnName="MILAGE_" />
           <ScalarProperty Name="LISTING_PRICE" ColumnName="LISTING_PRICE" />
@@ -244,6 +243,7 @@
       <EntityTypeMapping TypeName="Vehlution3Model.MAKE">
         <MappingFragment StoreEntitySet="MAKE">
           <ScalarProperty Name="MAKE_ID" ColumnName="MAKE_ID" />
+          <ScalarProperty Name="MODEL_ID" ColumnName="MODEL_ID" />
           <ScalarProperty Name="MAKE_NAME" ColumnName="MAKE_NAME" />
         </MappingFragment>
       </EntityTypeMapping>
@@ -252,7 +252,6 @@
       <EntityTypeMapping TypeName="Vehlution3Model.MECHANIC">
         <MappingFragment StoreEntitySet="MECHANIC">
           <ScalarProperty Name="MECHANIC_ID" ColumnName="MECHANIC_ID" />
-          <ScalarProperty Name="MECHANICJOB_ID" ColumnName="MECHANICJOB_ID" />
           <ScalarProperty Name="FULL_NAME_" ColumnName="FULL_NAME_" />
           <ScalarProperty Name="CELL_NUMBER_" ColumnName="CELL_NUMBER_" />
           <ScalarProperty Name="EMAIL_" ColumnName="EMAIL_" />
@@ -264,6 +263,7 @@
         <MappingFragment StoreEntitySet="MECHANIC_JOB">
           <ScalarProperty Name="MECHANICJOB_ID" ColumnName="MECHANICJOB_ID" />
           <ScalarProperty Name="CAR_ID" ColumnName="CAR_ID" />
+          <ScalarProperty Name="MECHANIC_ID" ColumnName="MECHANIC_ID" />
           <ScalarProperty Name="JOB_DATE" ColumnName="JOB_DATE" />
           <ScalarProperty Name="JOB_TIME" ColumnName="JOB_TIME" />
         </MappingFragment>
@@ -362,14 +362,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="POSSIBLE_PURCHASE_STATUS">
-      <EntityTypeMapping TypeName="Vehlution3Model.POSSIBLE_PURCHASE_STATUS">
-        <MappingFragment StoreEntitySet="POSSIBLE_PURCHASE_STATUS">
-          <ScalarProperty Name="POSSIBLEPURCHASESTATUS_ID" ColumnName="POSSIBLEPURCHASESTATUS_ID" />
-          <ScalarProperty Name="STATUS_NAME_" ColumnName="STATUS_NAME_" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="PURCHASES">
       <EntityTypeMapping TypeName="Vehlution3Model.Purchase">
         <MappingFragment StoreEntitySet="PURCHASES">
@@ -377,6 +369,7 @@
           <ScalarProperty Name="CLIENT_ID" ColumnName="CLIENT_ID" />
           <ScalarProperty Name="PURCHASEDATE_" ColumnName="PURCHASEDATE_" />
           <ScalarProperty Name="COST_" ColumnName="COST_" />
+          <ScalarProperty Name="CAR_ID" ColumnName="CAR_ID" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -439,12 +432,13 @@
         <MappingFragment StoreEntitySet="USERS">
           <ScalarProperty Name="USER_ID" ColumnName="USER_ID" />
           <ScalarProperty Name="USERROLE_ID" ColumnName="USERROLE_ID" />
-          <ScalarProperty Name="FULL_NAME" ColumnName="FULL_NAME" />
+          <ScalarProperty Name="FIRSTNAME" ColumnName="FIRSTNAME" />
+          <ScalarProperty Name="LASTNAME" ColumnName="LASTNAME" />
           <ScalarProperty Name="EMAIL" ColumnName="EMAIL" />
-          <ScalarProperty Name="ADDRESS" ColumnName="ADDRESS" />
-          <ScalarProperty Name="STATUS" ColumnName="STATUS" />
-          <ScalarProperty Name="AVAILABLEDAYS" ColumnName="AVAILABLEDAYS" />
-          <ScalarProperty Name="AVAILABLETIMES" ColumnName="AVAILABLETIMES" />
+          <ScalarProperty Name="PASSWORD" ColumnName="PASSWORD" />
+          <ScalarProperty Name="EMAILVERIFICATION" ColumnName="EMAILVERIFICATION" />
+          <ScalarProperty Name="ACTIVATIONCODE" ColumnName="ACTIVATIONCODE" />
+          <ScalarProperty Name="OTP" ColumnName="OTP" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

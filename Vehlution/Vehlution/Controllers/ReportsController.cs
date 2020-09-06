@@ -307,6 +307,7 @@ namespace Vehlution.Controllers
         public PurchasesModel getPurchaseData()
         {
             PurchasesModel reportData = new PurchasesModel();
+            Advanced purchasesClass = new Advanced();
 
             using (VehlutionEntities db = new VehlutionEntities())
             {
@@ -317,7 +318,8 @@ namespace Vehlution.Controllers
                     ClientName = rr.CLIENT.FULL_NAME_,
                     PurchaseDate = rr.PURCHASEDATE_.Value,
                     AcceptedOffer = rr.COST_.Value,
-                    Car = rr.CAR.CAR_ID + " " + rr.CAR.CAR_TYPE + " " + rr.CAR.COLOUR
+                    Car = rr.CAR.CAR_ID + " " + rr.CAR.CAR_TYPE,
+                    Colour = rr.CAR.COLOUR.COLOUR_NAME
                 }).ToList();
 
                 reportData.Purchases.Rows.Clear();
@@ -329,8 +331,12 @@ namespace Vehlution.Controllers
                     row["PurchaseDate"] = item.PurchaseDate;
                     row["AcceptedOffer"] = item.AcceptedOffer;
                     row["Car"] = item.Car;
+                    row["CarColour"] = item.Colour;
                     reportData.Purchases.Rows.Add(row);
                 }
+
+               purchasesClass.results = purch.GroupBy(g => g.Colour).ToList();
+
                 return reportData;
 
             }

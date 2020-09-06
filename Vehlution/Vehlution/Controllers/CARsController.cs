@@ -18,12 +18,14 @@ namespace Vehlution.Controllers
         public ActionResult ViewCarsForSaleIndex()
         {
             var cARS = db.CARS.Include(c => c.CAR_STATUS)
-                              .Include(c => c.MAKE)
+                              .Include(c => c.MODEL)
                               .Include(c => c.COLOUR)
                               .Include(c => c.FUEL_TYPE)
                               .Include(c => c.NUMBER_OF_DOORS)
                               .Include(c => c.NUMBER_OF_SEATS)
                               .Include(c => c.TRANSMISSION)
+                              .Include(c => db.MAKEs.Where(p => p.MAKE_ID == p.MODEL.MAKE_ID))
+                              .Include(c => c.IMAGE)
                               .Where(cc => cc.STATUS_ID == 5);
             return View(cARS.ToList());
         }
@@ -32,12 +34,14 @@ namespace Vehlution.Controllers
         public ActionResult PendingCarIndex()
         {
             var cARS = db.CARS.Include(c => c.CAR_STATUS)
-                              .Include(c => c.MAKE)
+                              .Include(c => c.MODEL)
                               .Include(c => c.COLOUR)
                               .Include(c => c.FUEL_TYPE)
                               .Include(c => c.NUMBER_OF_DOORS)
                               .Include(c => c.NUMBER_OF_SEATS)
                               .Include(c => c.TRANSMISSION)
+                              .Include(c => db.MAKEs.Where(p => p.MAKE_ID == p.MODEL.MAKE_ID))
+                              .Include(c => c.IMAGE)
                               .Where(cc => cc.STATUS_ID == 1);
             return View(cARS.ToList());
         }
