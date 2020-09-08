@@ -14,100 +14,44 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
     <script src='https://kit.fontawesome.com/a076d05399.js'></script>
-
-    <link href="~/Content/Site.css" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/Site.css")" rel="stylesheet" type="text/css" />
     <title>Create</title>
 </head>
 <body>
-    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
-    <script src="~/Scripts/jquery.validate.min.js"></script>
-    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
-    
-    
-    @using (Html.BeginForm()) 
-    {
-        @Html.AntiForgeryToken()
-        
-        <div class="form-horizontal">
-            <h4>USER</h4>
-            <hr />
-            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-           <div class="form-group">
-                @Html.LabelFor(model => model.USERROLE_ID, "USERROLE_ID", htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.DropDownList("USERROLE_ID", null, htmlAttributes: new { @class = "form-control" })
-                    @Html.ValidationMessageFor(model => model.USERROLE_ID, "", new { @class = "text-danger" })
-                </div>
-            </div>
-    
-            <div class="form-group">
-                @Html.LabelFor(model => model.FIRSTNAME, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.FIRSTNAME, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.FIRSTNAME, "", new { @class = "text-danger" })
-                </div>
-            </div>
-    
-            <div class="form-group">
-                @Html.LabelFor(model => model.LASTNAME, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.LASTNAME, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.LASTNAME, "", new { @class = "text-danger" })
-                </div>
-            </div>
-    
-            <div class="form-group">
-                @Html.LabelFor(model => model.EMAIL, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.EMAIL, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.EMAIL, "", new { @class = "text-danger" })
-                </div>
-            </div>
-    
-            <div class="form-group">
-                @Html.LabelFor(model => model.PASSWORD, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.PASSWORD, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.PASSWORD, "", new { @class = "text-danger" })
-                </div>
-            </div>
-    
-            <div class="form-group">
-                @Html.LabelFor(model => model.EMAILVERIFICATION, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    <div class="checkbox">
-                        @Html.EditorFor(model => model.EMAILVERIFICATION)
-                        @Html.ValidationMessageFor(model => model.EMAILVERIFICATION, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-            </div>
-    
-            <div class="form-group">
-                @Html.LabelFor(model => model.ACTIVATIONCODE, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.ACTIVATIONCODE, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.ACTIVATIONCODE, "", new { @class = "text-danger" })
-                </div>
-            </div>
-    
-            <div class="form-group">
-                @Html.LabelFor(model => model.OTP, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.OTP, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.OTP, "", new { @class = "text-danger" })
-                </div>
-            </div>
-    
-            <div class="form-group">
-                <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" value="Create" class="btn btn-default" />
-                </div>
+    <div class="container" style="text-align:center">
+        <div class="panel panel-default">
+            <h1 style="color:orange">User details</h1>
+            <div class="panel-body">
+
+
+                @using (Html.BeginForm("Create", "USERs"))
+                {
+
+
+                    <label>First Name </label><br />
+                    <input type="text" id="FIRSTNAME" name="FIRSTNAME" style="width:50%" /> <br />
+                    <label>Last Name</label><br />
+                    <input type="text" id="LASTNAME" name="LASTNAME" style="width:50%" /><br />
+                    <label>Email Address</label><br />
+                    <input type="text" id="EMAIL" name="EMAIL" style="width:50%" /><br />
+                    <label>Password </label><br />
+                    <input type="text" id="PASSWORD" name="PASSWORD" style="width:50%" /><br />
+                    <label>Confirm Password </label><br />
+                    <input type="text" style="width:50%" id="CONFIRMPASSWORD" name="CONFIRMPASSWORD" /><br />
+
+                    <button type="submit" class="btn btn-default btn-sm" id="Create" name="Create" style="background-color:lightgreen">
+                        <i class="fa fa-plus-square"></i>
+                        <span class="glyphicon glyphicon-ok"></span> Register
+                    </button> <button type="button" class="btn btn-default btn-sm" style="background-color:red" onclick="location.href='@Url.Action("Index","USERs")'">
+                        <i class="fa fa-times"></i>
+                        <i class="glyphicon glyphicon-remove"></i> Cancel
+                    </button>
+                }
+
             </div>
         </div>
-    }
-    
-    <div>
-        @Html.ActionLink("Back to List", "Index")
     </div>
+
+    
 </body>
 </html>

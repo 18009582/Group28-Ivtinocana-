@@ -47,7 +47,7 @@ namespace WebApplication1.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
+        //[ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "USER_ID,USERROLE_ID,FIRSTNAME,LASTNAME,EMAIL,PASSWORD,EMAILVERIFICATION,ACTIVATIONCODE,OTP")] USER uSER)
         {
             if (ModelState.IsValid)
@@ -81,7 +81,7 @@ namespace WebApplication1.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
+        //[ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "USER_ID,USERROLE_ID,FIRSTNAME,LASTNAME,EMAIL,PASSWORD,EMAILVERIFICATION,ACTIVATIONCODE,OTP")] USER uSER)
         {
             if (ModelState.IsValid)
@@ -111,7 +111,7 @@ namespace WebApplication1.Controllers
 
         // POST: USERs/Delete/5
         [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
+        //[ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
             USER uSER = db.USERS.Find(id);
