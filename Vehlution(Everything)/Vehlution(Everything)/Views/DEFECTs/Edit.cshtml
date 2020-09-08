@@ -1,4 +1,4 @@
-﻿@model Vehlution.Models.DEFECT
+﻿@model Vehlution_Everything_.Models.DEFECT
 
 @{
     Layout = null;
@@ -70,7 +70,7 @@
                     @Html.AntiForgeryToken()
 
                     <input type="hidden" id="DEFECT_ID" name="DEFECT_ID" value="@Model.DEFECT_ID" readonly />
-                    <input type="text" id="DEFECTNAME" name="DEFECTNAME" style="width:50%" /> <br />
+                    <input type="text" id="DEFECTNAME" name="DEFECTNAME" style="width:50%" required/> <br />
 
                     <button type="submit" class="btn btn-default btn-sm" id="Create" name="Create" style="background-color:lightgreen">
                         <i class="fa fa-plus-square"></i>

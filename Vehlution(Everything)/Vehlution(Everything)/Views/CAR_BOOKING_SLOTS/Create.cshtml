@@ -1,5 +1,5 @@
-﻿@model Vehlution.Models.CAR_BOOKING_SLOTS
-
+﻿@model Vehlution_Everything_.Models.CAR_BOOKING_SLOTS
+@using System;
 @{
     Layout = null;
 }
@@ -107,10 +107,10 @@
                 @Html.AntiForgeryToken()
 
                 <label>Start Time</label><br />
-                <input type="datetime" id="MAKE_NAME" name="MAKE_NAME" style="width:50%" /> <br />
+                <input type="text" id="START_TIME_" name="START_TIME_" style="width:50%" /> <br />
 
                 <label>End Time</label><br />
-                <input type="datetime" id="MAKE_NAME" name="MAKE_NAME" style="width:50%" /> <br />
+                <input type="text" id="END_TIMEE" name="END_TIME" style="width:50%" /> <br />
                 <br />
                 <button type="submit" class="btn btn-default btn-sm" id="Create" name="Create" style="background-color:lightgreen">
                     <i class="fa fa-plus-square"></i>
@@ -125,7 +125,7 @@
 
     <div id="CreateDate" class="modal">
         <div class="modal-content">
-            @using (Html.BeginForm("Create", "BOOKING_TIMES"))
+            @using (Html.BeginForm("Create", "BOOKING_DATES"))
             {
                 @Html.AntiForgeryToken()
 

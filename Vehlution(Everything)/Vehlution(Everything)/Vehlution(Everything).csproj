@@ -136,7 +136,6 @@
     <Compile Include="Controllers\CARsController.cs" />
     <Compile Include="Controllers\CAR_BOOKING_SLOTSController.cs" />
     <Compile Include="Controllers\DEFECTsController.cs" />
-    <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MAKEsController.cs" />
     <Compile Include="Controllers\MODELsController.cs" />
     <Compile Include="Controllers\ReportsController.cs" />
@@ -358,26 +357,27 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>SalesModel.xsd</DependentUpon>
     </Compile>
-    <Compile Include="ViewModel\AdminBookings.cs" />
-    <Compile Include="ViewModel\CarParts.cs" />
-    <Compile Include="ViewModel\ClientBookings.cs" />
-    <Compile Include="ViewModel\MechanicJob.cs" />
-    <Compile Include="ViewModel\Purchases.cs" />
-    <Compile Include="ViewModel\Sales.cs" />
+    <Compile Include="ViewModels\AdminBookings.cs" />
+    <Compile Include="ViewModels\CarParts.cs" />
+    <Compile Include="ViewModels\ClientBookings.cs" />
+    <Compile Include="ViewModels\MechanicJob.cs" />
+    <Compile Include="ViewModels\Purchases.cs" />
+    <Compile Include="ViewModels\SalesVM.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="CSS\StyleSheet1.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Models\Model1.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>Model1.Context.cs</LastGenOutput>
       <DependentUpon>Model1.edmx</DependentUpon>
+      <LastGenOutput>Model1.Context.cs</LastGenOutput>
     </Content>
     <Content Include="Models\Model1.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -507,6 +507,7 @@
     <Content Include="Views\CAR_BOOKING_SLOTS\BookingSlotsIndex.cshtml" />
     <Content Include="Views\CAR_BOOKING_SLOTS\Create.cshtml" />
     <Content Include="Views\CAR_BOOKING_SLOTS\Edit.cshtml" />
+    <Content Include="Views\View.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

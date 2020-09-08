@@ -6,9 +6,9 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using Vehlution.Models;
+using Vehlution_Everything_.Models;
 
-namespace Vehlution.Controllers
+namespace Vehlution_Everything_.Controllers
 {
     public class CARsController : Controller
     {
@@ -24,7 +24,7 @@ namespace Vehlution.Controllers
                               .Include(c => c.NUMBER_OF_DOORS)
                               .Include(c => c.NUMBER_OF_SEATS)
                               .Include(c => c.TRANSMISSION)
-                              .Include(c => db.MAKEs.Where(p => p.MAKE_ID == p.MODEL.MAKE_ID))
+                              .Include(c => db.MAKEs.Where(p => p.MAKE_ID == c.MODEL.MAKE_ID))
                               .Include(c => c.IMAGE)
                               .Where(cc => cc.STATUS_ID == 5);
             return View(cARS.ToList());
@@ -40,7 +40,7 @@ namespace Vehlution.Controllers
                               .Include(c => c.NUMBER_OF_DOORS)
                               .Include(c => c.NUMBER_OF_SEATS)
                               .Include(c => c.TRANSMISSION)
-                              .Include(c => db.MAKEs.Where(p => p.MAKE_ID == p.MODEL.MAKE_ID))
+                              .Include(c => db.MAKEs.Where(p => p.MAKE_ID == c.MODEL.MAKE_ID))
                               .Include(c => c.IMAGE)
                               .Where(cc => cc.STATUS_ID == 1);
             return View(cARS.ToList());

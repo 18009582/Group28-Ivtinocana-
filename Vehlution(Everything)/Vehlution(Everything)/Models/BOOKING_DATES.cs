@@ -11,7 +11,8 @@ namespace Vehlution_Everything_.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class BOOKING_DATES
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -19,7 +20,8 @@ namespace Vehlution_Everything_.Models
         {
             this.CAR_BOOKING_SLOTS = new HashSet<CAR_BOOKING_SLOTS>();
         }
-    
+        
+        [Display (Name = "Date")]
         public int DAY_ { get; set; }
         public Nullable<System.DateTime> DATE { get; set; }
     

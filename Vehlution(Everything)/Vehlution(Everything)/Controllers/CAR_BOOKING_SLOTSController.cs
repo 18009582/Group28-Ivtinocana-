@@ -9,9 +9,9 @@ using System.Threading;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.WebPages;
-using Vehlution.Models;
+using Vehlution_Everything_.Models;
 
-namespace Vehlution.Controllers
+namespace Vehlution_Everything_.Controllers
 {
     public class CAR_BOOKING_SLOTSController : Controller
     {
@@ -44,7 +44,7 @@ namespace Vehlution.Controllers
         {
             List<BOOKING_DATES> dateslist = new List<BOOKING_DATES>();
             int count = 0;
-            List<dynamic> d = new List<dynamic>();
+           List<dynamic> d = new List<dynamic>();
             dateslist = db.BOOKING_DATES.ToList();
             foreach (BOOKING_DATES x in dateslist)
             {
@@ -52,14 +52,14 @@ namespace Vehlution.Controllers
                 //  dd."DAY_ = x.DAY_;
                 dd.DATE = (x.DATE).Value.ToString("yyyy/mm/dd");
                 d.Add(dd);
-
+        
             }
-            ViewBag.DAY_ = new SelectList(d, "DAY_", "DATE");
-
-            //   ViewBag.DAY_ = new SelectList(db.BOOKING_DATES, "DAY_", "DATE");
-            ViewBag.STATUSID = new SelectList(db.BOOKING_STATUS, "STATUSID", "PROPOSED");
-            ViewBag.TIME_ID = new SelectList(db.BOOKING_TIMES, "TIME_ID", Convert.ToString("START_TIME_"));
-            ViewBag.BOOKING_ID = new SelectList(db.CAR_BOOKING, "BOOKING_ID", "STATUS");
+         //   ViewBag.DAY_ = new SelectList(db.BOOKING_, "DAY_", "DATE");
+            
+            ViewBag.DAY_ = new SelectList(db.BOOKING_DATES, "DAY_", "DATE");
+            ViewBag.STATUSID = new SelectList(db.BOOKING_STATUS, "STATUSID", "STATUSNAME");
+            ViewBag.TIME_ID = new SelectList(db.BOOKING_TIMES, "TIME_ID", "START_TIME_");
+            
             return View();
         }
 
@@ -68,10 +68,11 @@ namespace Vehlution.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "TIME_ID,DAY_,STATUSID,BOOKING_ID")] CAR_BOOKING_SLOTS cAR_BOOKING_SLOTS)
+        public ActionResult Create([Bind(Include = "TIME_ID,DAY_,STATUSID")] CAR_BOOKING_SLOTS cAR_BOOKING_SLOTS)
         {
             if (ModelState.IsValid)
             {
+    
                 db.CAR_BOOKING_SLOTS.Add(cAR_BOOKING_SLOTS);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -80,8 +81,7 @@ namespace Vehlution.Controllers
             ViewBag.DAY_ = new SelectList(db.BOOKING_DATES, "DAY_", "DAY_", cAR_BOOKING_SLOTS.DAY_);
             ViewBag.STATUSID = new SelectList(db.BOOKING_STATUS, "STATUSID", "PROPOSED", cAR_BOOKING_SLOTS.STATUSID);
             ViewBag.TIME_ID = new SelectList(db.BOOKING_TIMES, "TIME_ID", "TIME_ID", cAR_BOOKING_SLOTS.TIME_ID);
-            ViewBag.BOOKING_ID = new SelectList(db.CAR_BOOKING, "BOOKING_ID", "STATUS", cAR_BOOKING_SLOTS.BOOKING_ID);
-            return View(cAR_BOOKING_SLOTS);
+                       return View(cAR_BOOKING_SLOTS);
         }
 
         // GET: CAR_BOOKING_SLOTS/Edit/5
@@ -99,7 +99,6 @@ namespace Vehlution.Controllers
             ViewBag.DAY_ = new SelectList(db.BOOKING_DATES, "DAY_", "DAY_", cAR_BOOKING_SLOTS.DAY_);
             ViewBag.STATUSID = new SelectList(db.BOOKING_STATUS, "STATUSID", "PROPOSED", cAR_BOOKING_SLOTS.STATUSID);
             ViewBag.TIME_ID = new SelectList(db.BOOKING_TIMES, "TIME_ID", "TIME_ID", cAR_BOOKING_SLOTS.TIME_ID);
-            ViewBag.BOOKING_ID = new SelectList(db.CAR_BOOKING, "BOOKING_ID", "STATUS", cAR_BOOKING_SLOTS.BOOKING_ID);
             return View(cAR_BOOKING_SLOTS);
         }
 
@@ -119,7 +118,6 @@ namespace Vehlution.Controllers
             ViewBag.DAY_ = new SelectList(db.BOOKING_DATES, "DAY_", "DAY_", cAR_BOOKING_SLOTS.DAY_);
             ViewBag.STATUSID = new SelectList(db.BOOKING_STATUS, "STATUSID", "PROPOSED", cAR_BOOKING_SLOTS.STATUSID);
             ViewBag.TIME_ID = new SelectList(db.BOOKING_TIMES, "TIME_ID", "TIME_ID", cAR_BOOKING_SLOTS.TIME_ID);
-            ViewBag.BOOKING_ID = new SelectList(db.CAR_BOOKING, "BOOKING_ID", "STATUS", cAR_BOOKING_SLOTS.BOOKING_ID);
             return View(cAR_BOOKING_SLOTS);
         }
 

@@ -7,11 +7,12 @@ using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Web;
 using System.Web.Mvc;
-using Vehlution.Models;
-using Vehlution.Reports;
+using Vehlution_Everything_.Models;
+using Vehlution_Everything_.ViewModels;
+using Vehlution_Everything_.Reporting;
 using Vehlution.ViewModels;
 
-namespace Vehlution.Controllers
+namespace Vehlution_Everything_.Controllers
 {
     public class ReportsController : Controller
     {
@@ -24,7 +25,7 @@ namespace Vehlution.Controllers
         [HttpGet]
         public ActionResult SalesReport()
         {
-            Sales vm = new Sales();
+            SalesVM vm = new SalesVM();
 
             //Retrives Employees dropdown
             vm.Employees = GetEmployees(0);
@@ -60,7 +61,7 @@ namespace Vehlution.Controllers
         }
 
         [HttpPost]
-        public ActionResult SalesReport(Sales vm)
+        public ActionResult SalesReport(SalesVM vm)
         {
             using (VehlutionEntities db = new VehlutionEntities())
             {
@@ -127,9 +128,9 @@ namespace Vehlution.Controllers
             return File(strem, "application/pdf", "SalesReport.doc");
         }
 
-        public SalesReportModel GetAdvancedDataSet()
+        public SalesModel GetAdvancedDataSet()
         {
-            SalesReportModel data = new SalesReportModel();
+            SalesModel data = new SalesModel();
 
             //Once data has been added
             data.Employee.Clear();
@@ -235,9 +236,9 @@ namespace Vehlution.Controllers
             return View(getMechanicData());
         }
 
-        public MechanicJobMocel getMechanicData()
+        public MechanicJobModel getMechanicData()
         {
-            MechanicJobMocel reportData = new MechanicJobMocel();
+            MechanicJobModel reportData = new MechanicJobModel();
 
             using (VehlutionEntities db = new VehlutionEntities())
             {
@@ -395,16 +396,16 @@ namespace Vehlution.Controllers
                     Car = rr.CAR.CAR_ID + " " + rr.CAR.CAR_TYPE + " " + rr.CAR.COLOUR
                 }).ToList();
 
-                reportData.Client_Booking_.Rows.Clear();
+                reportData.Client_Booking.Rows.Clear();
                 foreach (var item in book)
                 {
-                    DataRow row = reportData.Client_Booking_.NewRow();
+                    DataRow row = reportData.Client_Booking.NewRow();
                     row["ID"] = item.ID;
                     row["ClientName"] = item.ClientName;
                     row["Date"] = item.Date;
                     row["Time"] = item.Time;
                     row["Car"] = item.Car;
-                    reportData.Client_Booking_.Rows.Add(row);
+                    reportData.Client_Booking.Rows.Add(row);
                 }
                 return reportData;
 
