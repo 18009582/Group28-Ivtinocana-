@@ -1,0 +1,18 @@
+﻿
+@{
+    ViewBag.Title = "SendEmail";
+}
+
+
+<h2> Car Sale Finalisation</h2> <br /> <br /> @if (ViewBag.Error != null)
+{<h2> @ViewBag.Error </h2>
+} <form method = "post"
+action = "SendEmail"> <div class = "container"> <span class = "form-control-static"> Receiver: </span> <input class = "form-control"
+type = "text"
+name = "receiver" /> <br /> <span class = "form-control-static"> Subject: </span> <input class = "form-control"
+type = "text"
+name = "subject" /> <br /> <span class = "form-control-static"> Car Details: </span> <input class = "form-control"
+type = "text"
+name = "message" /> <br /> <input class = "btn btn-primary"
+type = "submit"
+value = "Send" /> </div> </form>  

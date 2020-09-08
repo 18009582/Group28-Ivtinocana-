@@ -1,0 +1,187 @@
+﻿@model IEnumerable<WebApplication1.Models.USER>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    <script src='https://kit.fontawesome.com/a076d05399.js'></script>
+    <link href="@Url.Content("~/Content/Site.css")" rel="stylesheet" type="text/css" />
+    <title>Index</title>
+    <style>
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 1; /* Sit on top */
+            padding-top: 100px; /* Location of the box */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgb(0,0,0); /* Fallback color */
+            background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+        }
+        /* Modal Content */
+        .modal-content {
+            background-color: #fefefe;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 50%;
+            text-align: center;
+        }
+        /* The Close Button */
+        .close {
+            color: #aaaaaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+            .close:hover,
+            .close:focus {
+                color: #000;
+                text-decoration: none;
+                cursor: pointer;
+            }
+    </style>
+</head>
+<body>
+
+
+
+    <div class="container">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+
+            </div>
+            <div class="panel-body">
+                <table class="table-latitude">
+                    <caption>User Information</caption>
+                    <thead>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Email Address</th>
+                    <th>Password</th>
+                    <th>Email Verification</th>
+                    <th>Activation Code</th>
+                    <th>OTP</th>
+                    <th>Role</th>
+
+                    <th><a class="btn btn-outline-success" onclick="location.href='@Url.Action("Create","USERs")'"><i class="fa fa-plus-square"></i> Create New</a></th>
+                    </thead>
+
+                    <tbody>
+
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.FIRSTNAME)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.LASTNAME)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.EMAIL)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.PASSWORD)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.EMAILVERIFICATION)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ACTIVATIONCODE)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.OTP)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.USER_ROLE.ROLE)
+                                </td>
+                                <td>
+                                    <a class="btn text-danger" onclick="del(@item.USER_ID)"><i class="fa fa-trash fa-lg"></i></a>
+                                    <a onclick="location.href='@Url.Action("Edit","USERs",new { id=item.USER_ID})'">
+                                        <svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-person-lines-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                            <path fill-rule="evenodd" d="M1 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm7 1.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5zm-2-3a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5zm0-3a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5zm2 9a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5z" />
+                                        </svg>
+                                    </a>
+
+
+                                </td>
+                            </tr>
+
+                        }
+                    </tbody>
+
+                </table>
+            </div>
+        </div>
+    </div>
+    <div id="myModal1" class="modal">
+        <div class="modal-content">
+            @using (Html.BeginForm("Delete", "USER_ROLE"))
+            {
+                <form id="DeleteConfirmed">
+                    <label id="dellabel">Are You sure you want to delete user? </label>
+                    <br />
+                    <input type="hidden" id="id" name="id" readonly />
+                    <button type="submit" class="btn btn-default btn-sm" style="background-color:lightgreen;width:100%">
+                        <i class="fa fa-check"></i>
+                        Yes
+                    </button>
+
+                    <button type="button" class="btn btn-default btn-sm" style="background-color:red;width:100%" id="close">
+                        <i class="fa fa-times"></i>
+                        <i class="glyphicon glyphicon-remove"></i> Cancel
+                    </button>
+                    <br />
+                </form>
+            }
+        </div>
+    </div>
+
+    @*<div id="myModal" class="modal">
+            <div class="modal-content">
+
+                <label id="DelConMsg">Please enter a valid time period </label>
+                <button type="button" class="btn btn-default btn-sm" id="close" style="background-color:orange">Ok</button>
+            </div>
+        </div>*@
+    <script>
+        // Get the modal
+        var modal = document.getElementById("myModal");
+        var modal1 = document.getElementById("myModal1");
+        var closebtn = document.getElementById("close");
+        function DelCon(msg) {
+            document.getElementById(DelConMsg).innerHTML = msg;
+            modal.style.display = "block";
+        }
+        function del(id) {
+            document.getElementById('dellabel').innerText = "Are you sure you want to delete user " + id + " ?";
+            document.getElementById('id').value = id;
+            modal1.style.display = "block";
+        }
+        closebtn.onclick = function () {
+            modal1.style.display = "none";
+            modal.style.display = "none";
+        }
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function (event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+    </script>
+</body>
+</html>
