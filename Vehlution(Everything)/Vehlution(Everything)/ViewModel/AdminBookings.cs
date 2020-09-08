@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace Vehlution.ViewModels
+namespace Vehlution_Everything_.ViewModels
 {
     public class AdminBookingsClass
     {
@@ -14,5 +14,4 @@ namespace Vehlution.ViewModels
         public string Car { get; set; }
         public string Employee { get; set; }
     }
-}  }
-}
+}  

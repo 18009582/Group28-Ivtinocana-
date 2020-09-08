@@ -1,0 +1,110 @@
+﻿
+@{
+    ViewBag.Title = "IndexSearch";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model IEnumerable<Vehlution_Everything_.Models.CAR>
+
+
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+    <div>
+        <h1>Search cars for sale </h1>
+        <label>Please choose the Make of the car that you are searching for</label>
+        @using (Html.BeginForm("Search", "CARs"))
+        {
+
+
+            @Html.DropDownList("Makes");
+        }
+        <button type="submit" class="btn btn-default btn-sm" id="Search" name="Search" style="background-color:orange"></button>
+    </div>
+    @if (Model != null)
+    {
+        <div class="container">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+
+                </div>
+                <div class="panel-body">
+                    <table class="table-latitude">
+
+                        <tr>
+                            <th>
+                                ID
+                            </th>
+                            <th>
+                                Colour
+                            </th>
+                            <th>Transmission</th>
+                            <th>
+                                Make
+                            </th>
+                            <th>
+                                Model
+                            </th>
+                            <th>
+                                Milage
+                            </th>
+                            <th>
+                                Listing Price
+                            </th>
+
+                            <th></th>
+                        </tr>
+
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.CAR_ID)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.COLOUR.COLOUR_NAME)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.TRANSMISSION.TRANSMISSION_NAME)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.MODEL.MAKE_NAME)
+                                </td>
+
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.MODEL.MODEL_NAME)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.MILAGE_)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.LISTING_PRICE)
+                                </td>
+
+
+
+
+
+
+                                <td>
+                                    <button class="btn btn-default btn-sm" id="Create" name="Create" style="background-color:lightsteelblue" onclick="location.href=' @Url.Action("Edit", "CARs", new { id = item.CAR_ID })'">Update</button>
+                                    <button class="btn btn-default btn-sm" id="Create" name="Create" style="background-color:lightsteelblue" onclick="location.href=' @Url.Action("Details", "CARs", new { id = item.CAR_ID })'">View</button>
+
+
+                                </td>
+                            </tr>
+                        }
+
+                        }
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </body>
+</html>

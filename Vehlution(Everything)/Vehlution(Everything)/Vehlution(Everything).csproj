@@ -136,9 +136,12 @@
     <Compile Include="Controllers\CARsController.cs" />
     <Compile Include="Controllers\CAR_BOOKING_SLOTSController.cs" />
     <Compile Include="Controllers\DEFECTsController.cs" />
+    <Compile Include="Controllers\EmployeesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MAKEsController.cs" />
     <Compile Include="Controllers\MODELsController.cs" />
+    <Compile Include="Controllers\OFFERsController.cs" />
+    <Compile Include="Controllers\ORDERsController.cs" />
     <Compile Include="Controllers\ReportsController.cs" />
     <Compile Include="Controllers\SUPPLIERsController.cs" />
     <Compile Include="Global.asax.cs">
@@ -243,6 +246,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Model1.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\NewOrderItem.cs" />
     <Compile Include="Models\NUMBER_OF_DOORS.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -507,6 +511,15 @@
     <Content Include="Views\CAR_BOOKING_SLOTS\BookingSlotsIndex.cshtml" />
     <Content Include="Views\CAR_BOOKING_SLOTS\Create.cshtml" />
     <Content Include="Views\CAR_BOOKING_SLOTS\Edit.cshtml" />
+    <Content Include="Views\Employees\Index.cshtml" />
+    <Content Include="Views\Employees\Create.cshtml" />
+    <Content Include="Views\Employees\Edit.cshtml" />
+    <Content Include="Views\ORDERs\Index.cshtml" />
+    <Content Include="Views\ORDERs\Create.cshtml" />
+    <Content Include="Views\CARs\IndexSearch.cshtml" />
+    <Content Include="Views\OFFERs\AdminIndex.cshtml" />
+    <Content Include="Views\OFFERs\ClientIndex.cshtml" />
+    <Content Include="Views\CARs\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -6,14 +6,14 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using Vehlution.Models;
+using Vehlution_Everything_.Models;
 
-namespace Vehlution.Controllers
+namespace Vehlution_Everything_.Controllers
 {
     public class CARsController : Controller
     {
         private VehlutionEntities db = new VehlutionEntities();
-
+        public static List<CAR> carlist = new List<CAR>();
         // GET: CARs for sale
         public ActionResult ViewCarsForSaleIndex()
         {
@@ -28,6 +28,19 @@ namespace Vehlution.Controllers
                               .Include(c => c.IMAGE)
                               .Where(cc => cc.STATUS_ID == 5);
             return View(cARS.ToList());
+        }
+
+        public ActionResult IndexSearch()
+        {
+            ViewBag.Makes = new SelectList(db.MAKEs, "MAKE_ID", "MAKE_NAME");
+            return View(carlist);
+        }
+        [HttpPost]
+        public ActionResult Search(int Makes)
+        {
+            carlist = db.CARS.Include(zz => zz.MODEL).Where(zz => zz.MODEL.MAKE_ID == Makes).ToList();
+
+            return RedirectToAction("IndexSearch");
         }
 
         //GET: CARs that are pending
@@ -75,6 +88,19 @@ namespace Vehlution.Controllers
             return View(cAR);
         }
 
+        [HttpPost]
+        public ActionResult MakeOfferA(int c, float offer, int type)
+        {
+            OFFER o = new OFFER();
+            o.AMOUNT = offer;
+            o.CAR_ID = c;
+            o.OFFERTYPE_ID = type;
+            o.STATUS_ID = 3;
+            db.OFFERS.Add(o);
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)
@@ -82,6 +108,55 @@ namespace Vehlution.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        // GET: CARs/Edit/5
+        public ActionResult Edit(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            CAR cAR = db.CARS.Find(id);
+            if (cAR == null)
+            {
+                return HttpNotFound();
+            }
+            ViewBag.STATUS_ID = new SelectList(db.CAR_STATUS, "STATUS_ID", "SASTUS_NAME", cAR.STATUS_ID);
+            ViewBag.CAR_TYPEID = new SelectList(db.CAR_TYPE, "CAR_TYPEID", "TYPE_NAME", cAR.CAR_TYPEID);
+            ViewBag.MODEL_ID = new SelectList(db.MODELs, "MODEL_ID", "MODEL_NAME", cAR.MODEL_ID);
+            ViewBag.CLIENT_ID = new SelectList(db.CLIENTs, "CLIENT_ID", "USER_NAME", cAR.CLIENT_ID);
+            ViewBag.COLOUR_ID = new SelectList(db.COLOURs, "COLOUR_ID", "COLOUR_NAME", cAR.COLOUR_ID);
+            ViewBag.FUELTYPE_ID = new SelectList(db.FUEL_TYPE, "FUELTYPE_ID", "FUELTYPE_NAME", cAR.FUELTYPE_ID);
+            ViewBag.DOORS_ID = new SelectList(db.NUMBER_OF_DOORS, "DOORS_ID", "NUMBER_OF_DOORS1", cAR.DOORS_ID);
+            ViewBag.SEATS_ID = new SelectList(db.NUMBER_OF_SEATS, "SEATS_ID", "NUMBER_OF_SEATS_", cAR.SEATS_ID);
+            ViewBag.TRANSMISSION_ID = new SelectList(db.TRANSMISSIONs, "TRANSMISSION_ID", "TRANSMISSION_NAME", cAR.TRANSMISSION_ID);
+            return View(cAR);
+        }
+
+        // POST: CARs/Edit/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit([Bind(Include = "CAR_REG,SEATS_ID,COLOUR_ID,TRANSMISSION_ID,DOORS_ID,CLIENT_ID,STATUS_ID,FUELTYPE_ID,MODEL_ID,YEAR,MILAGE_,LISTING_PRICE,IMAGE,CAR_ID,CAR_TYPEID")] CAR cAR)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Entry(cAR).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            ViewBag.STATUS_ID = new SelectList(db.CAR_STATUS, "STATUS_ID", "SASTUS_NAME", cAR.STATUS_ID);
+            ViewBag.CAR_TYPEID = new SelectList(db.CAR_TYPE, "CAR_TYPEID", "TYPE_NAME", cAR.CAR_TYPEID);
+            ViewBag.MODEL_ID = new SelectList(db.MODELs, "MODEL_ID", "MODEL_NAME", cAR.MODEL_ID);
+            ViewBag.CLIENT_ID = new SelectList(db.CLIENTs, "CLIENT_ID", "USER_NAME", cAR.CLIENT_ID);
+            ViewBag.COLOUR_ID = new SelectList(db.COLOURs, "COLOUR_ID", "COLOUR_NAME", cAR.COLOUR_ID);
+            ViewBag.FUELTYPE_ID = new SelectList(db.FUEL_TYPE, "FUELTYPE_ID", "FUELTYPE_NAME", cAR.FUELTYPE_ID);
+            ViewBag.DOORS_ID = new SelectList(db.NUMBER_OF_DOORS, "DOORS_ID", "NUMBER_OF_DOORS1", cAR.DOORS_ID);
+            ViewBag.SEATS_ID = new SelectList(db.NUMBER_OF_SEATS, "SEATS_ID", "NUMBER_OF_SEATS_", cAR.SEATS_ID);
+            ViewBag.TRANSMISSION_ID = new SelectList(db.TRANSMISSIONs, "TRANSMISSION_ID", "TRANSMISSION_NAME", cAR.TRANSMISSION_ID);
+            return View(cAR);
         }
     }
 }
