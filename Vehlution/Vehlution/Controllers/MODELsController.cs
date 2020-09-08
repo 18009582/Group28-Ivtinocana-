@@ -48,13 +48,13 @@ namespace Vehlution.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "MODEL_ID,MAKE_ID,MODEL_NAME")] MODEL mODEL)
+        public ActionResult Create([Bind(Include = "MAKE_ID,MODEL_NAME")] MODEL mODEL)
         {
             if (ModelState.IsValid)
             {
                 db.MODELs.Add(mODEL);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("CarModelIndex");
             }
 
             ViewBag.MAKE_ID = new SelectList(db.MAKEs, "MAKE_ID", "MAKE_NAME", mODEL.MAKE_ID);
@@ -88,7 +88,7 @@ namespace Vehlution.Controllers
             {
                 db.Entry(mODEL).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("CarModelIndex");
             }
             ViewBag.MAKE_ID = new SelectList(db.MAKEs, "MAKE_ID", "MAKE_NAME", mODEL.MAKE_ID);
             return View(mODEL);
@@ -117,7 +117,7 @@ namespace Vehlution.Controllers
             MODEL mODEL = db.MODELs.Find(id);
             db.MODELs.Remove(mODEL);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("CarModelIndex");
         }
 
         protected override void Dispose(bool disposing)

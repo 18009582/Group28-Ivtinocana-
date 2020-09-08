@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="MechanicJobModel" targetNamespace="http://tempuri.org/MechanicJobModel.xsd" xmlns:mstns="http://tempuri.org/MechanicJobModel.xsd" xmlns="http://tempuri.org/MechanicJobModel.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections />
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="MechanicJobModel" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="MechanicJobModel" msprop:Generator_UserDSName="MechanicJobModel">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="MechanicJob" msprop:Generator_TableClassName="MechanicJobDataTable" msprop:Generator_TableVarName="tableMechanicJob" msprop:Generator_TablePropName="MechanicJob" msprop:Generator_RowDeletingName="MechanicJobRowDeleting" msprop:Generator_RowChangingName="MechanicJobRowChanging" msprop:Generator_RowEvHandlerName="MechanicJobRowChangeEventHandler" msprop:Generator_RowDeletedName="MechanicJobRowDeleted" msprop:Generator_UserTableName="MechanicJob" msprop:Generator_RowChangedName="MechanicJobRowChanged" msprop:Generator_RowEvArgName="MechanicJobRowChangeEvent" msprop:Generator_RowClassName="MechanicJobRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ID" msprop:Generator_ColumnVarNameInTable="columnID" msprop:Generator_ColumnPropNameInRow="ID" msprop:Generator_ColumnPropNameInTable="IDColumn" msprop:Generator_UserColumnName="ID" type="xs:string" minOccurs="0" />
+              <xs:element name="JobDate" msprop:Generator_ColumnVarNameInTable="columnJobDate" msprop:Generator_ColumnPropNameInRow="JobDate" msprop:Generator_ColumnPropNameInTable="JobDateColumn" msprop:Generator_UserColumnName="JobDate" type="xs:string" minOccurs="0" />
+              <xs:element name="JobTime" msprop:Generator_ColumnVarNameInTable="columnJobTime" msprop:Generator_ColumnPropNameInRow="JobTime" msprop:Generator_ColumnPropNameInTable="JobTimeColumn" msprop:Generator_UserColumnName="JobTime" type="xs:string" minOccurs="0" />
+              <xs:element name="Car" msprop:Generator_ColumnVarNameInTable="columnCar" msprop:Generator_ColumnPropNameInRow="Car" msprop:Generator_ColumnPropNameInTable="CarColumn" msprop:Generator_UserColumnName="Car" type="xs:string" minOccurs="0" />
+              <xs:element name="Mechanic" msprop:Generator_ColumnVarNameInTable="columnMechanic" msprop:Generator_ColumnPropNameInRow="Mechanic" msprop:Generator_ColumnPropNameInTable="MechanicColumn" msprop:Generator_UserColumnName="Mechanic" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

@@ -32,7 +32,7 @@ namespace Vehlution.Controllers
             {
                 db.BOOKING_TIMES.Add(bOOKING_TIMES);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Create", "CAR_BOOKING_SLOTS");
             }
 
             return View(bOOKING_TIMES);

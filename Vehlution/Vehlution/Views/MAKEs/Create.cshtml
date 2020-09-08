@@ -1,7 +1,8 @@
 ﻿@model Vehlution.Models.MAKE
 
 @{
-    Layout = null;
+    ViewBag.Title = "View1";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <!DOCTYPE html>
@@ -19,40 +20,34 @@
     <link rel="stylesheet" type="text/css" href="~/CSS/StyleSheet1.css" />
 </head>
 <body>
-    @using (Html.BeginForm())
-    {
-        @Html.AntiForgeryToken()
+    <div class="container" style="text-align:center">
+        <div class="panel panel-default">
+            <h1 style="color:orange">Car Makes</h1>
+            <div class="panel-body">
 
-        <div class="form-horizontal">
-            <h4> Add New Car Make</h4>
-            <hr />
-            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-            <div class="form-group">
-                <label>Make ID</label>
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.MAKE_ID, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.MAKE_ID, "", new { @class = "text-danger" })
-                </div>
-            </div>
+                @using (Html.BeginForm("Create", "MAKEs"))
+                {
+                    @Html.AntiForgeryToken()
 
-            <div class="form-group">
-                <label>Make Name</label>
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.MAKE_NAME, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.MAKE_NAME, "", new { @class = "text-danger" })
-                </div>
-            </div>
+                    <label>Car Make Name </label><br />
+                    <input type="text" id="MAKE_NAME" name="MAKE_NAME" style="width:50%" /> <br />
 
-            <div class="form-group">
-                <div class="col-md-offset-2 col-md-10">
-                    <a class="btn btn-outline-success" id="myBtn"><i class="fa fa-plus-square" onclick="location.href='@Url.Action("Index", "MAKEs")';return false;"></i> Add New Car Model</a>
-                </div>
+                    <button type="submit" class="btn btn-default btn-sm" id="Create" name="Create" style="background-color:lightgreen">
+                        <i class="fa fa-plus-square"></i>
+                        <span class="glyphicon glyphicon-ok"></span> Add New Car Make
+                    </button> <button type="button" class="btn btn-default btn-sm" style="background-color:red" onclick="location.href='@Url.Action("Index","MAKEs")'">
+                        <i class="fa fa-times"></i>
+                        <i class="glyphicon glyphicon-remove"></i> Cancel
+                    </button>
+                }
+
             </div>
         </div>
-    }
+    </div>
 
-<div class="col-md-offset-2 col-md-10">
-    <a class="btn btn-outline-success" id="myBtn"><i class="fa fa-plus-square" onclick="location.href='@Url.Action("Index", "MAKEs")';return false;"></i> </a>
-</div>
+    <div>
+        @Html.ActionLink("Back to List", "Index")
+    </div>
+
 </body>
 </html>

@@ -1,0 +1,56 @@
+﻿@model Vehlution.ViewModels.Advanced
+@using Vehlution.ViewModels
+@using System.Data;
+@using System.Globalization
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>PurchasesReport</title>
+</head>
+<body>
+    <h1>List of Car Purchases </h1>
+    <div class="panel panel-info">
+        @foreach (var group in Model.results)
+        {
+            <h4>@group.Key:</h4>
+            <table class="table table striped">
+                <tr>
+                    <th>ID</th>
+                    <th>Client Name</th>
+                    <th>Purchase Date</th>
+                    <th>Accepted Offer</th>
+                    <th>Car</th>
+                </tr>
+                @foreach (PurchasesClass groupItem in group)
+                {
+                    <tr>
+                        <td>@groupItem.ID</td>
+                        <td>@groupItem.ClientName</td>
+                        <td>@groupItem.PurchaseDate</td>
+                        <td>@groupItem.AcceptedOffer</td>
+                        <td>@groupItem.Car</td>
+                    </tr>
+                }
+                <tr>
+                    <td><strong>Total</strong></td>
+                    <td><strong>@group.Sum(item => item.AcceptedOffer).ToString("C", CultureInfo.CurrentCulture)</strong></td>
+                </tr>
+            </table>
+            <hr />
+        }
+        <h3>Grand Total: <strong>@Model.results.Sum(group => group.Sum(item => item.AcceptedOffer)).ToString("C", CultureInfo.CurrentCulture) </strong></h3>
+
+    </div>
+    <div>
+        @Html.ActionLink("Export as PDF", "ExportPurchasesPDF", "Reports")<br />
+        @Html.ActionLink("Export as Word", "ExportPurchasesWord", "Reports")
+    </div>
+</body>
+</html>
+

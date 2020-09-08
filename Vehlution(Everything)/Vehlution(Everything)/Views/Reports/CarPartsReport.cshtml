@@ -1,0 +1,42 @@
+﻿@model Vehlution.Reports.CarPartsModel
+@using System.Data;
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>CarPartsReport</title>
+</head>
+<body>
+    <h1>List of Car Parts that are low in stock</h1>
+    <div>
+        <table class="table table-striped">
+            <tr>
+                <th>ID</th>
+                <th>Part Name</th>
+                <th>Reorder Point</th>
+                <th>Stock on Hand</th>
+            </tr>
+            @foreach (DataRow row in Model.CarParts.Rows)
+            {
+                <tr>
+                    <td>@row[0]</td>
+                    <td>@row[1]</td>
+                    <td>@row[2]</td>
+                    <td>@row[3]</td>
+                </tr>
+            }
+        </table>
+    </div>
+    <div>
+        @Html.ActionLink("Export as PDF", "ExportCarPartsPDF", "Reports")<br />
+        @Html.ActionLink("Export as Word", "ExportCarPartsWord", "Reports")
+    </div>
+</body>
+</html>
+
+

@@ -19,52 +19,38 @@
     <link rel="stylesheet" type="text/css" href="~/CSS/StyleSheet1.css" />
 </head>
 <body>
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/jqueryval")
+    <div class="container" style="text-align:center">
+        <div class="panel panel-default">
+            <h1 style="color:orange">Car Models</h1>
+            <div class="panel-body">
 
+                @using (Html.BeginForm("Create", "MODELs"))
+                {
+                    @Html.AntiForgeryToken()
 
-    @using (Html.BeginForm())
-    {
-        @Html.AntiForgeryToken()
+                    <label>Car Model Name</label><br />
+                    <input type="text" id="MODEL_NAME" name="MODEL_NAME" style="width:50%" /> <br />
 
-        <div class="form-horizontal">
-            <h4>Add a Car Model</h4>
-            <hr />
-            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-            <div>
-                <label>Model ID</label>
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.MODEL_ID, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.MODEL_ID, "", new { @class = "text-danger" })
-                </div>
-            </div>
+                    <label>Car Makes</label><br />
+                    @Html.DropDownList("MAKE_ID", null, htmlAttributes: new { @class = "select" })<br />
 
-            <div class="form-group">
-                <label>Make Name</label>
-                <div class="col-md-10">
-                    @Html.DropDownList("MAKE_ID", null, htmlAttributes: new { @class = "form-control" })
-                    @Html.ValidationMessageFor(model => model.MAKE_ID, "", new { @class = "text-danger" })
-                </div>
-            </div>
+                    <button type="submit" class="btn btn-default btn-sm" id="Create" name="Create" style="background-color:lightgreen">
+                        <i class="fa fa-plus-square"></i>
+                        <span class="glyphicon glyphicon-ok"></span> Update Car Model
+                    </button> <button type="button" class="btn btn-default btn-sm" style="background-color:red" onclick="location.href='@Url.Action("Index","MAKEs")'">
+                        <i class="fa fa-times"></i>
+                        <i class="glyphicon glyphicon-remove"></i> Cancel
+                    </button>
+                }
 
-            <div class="form-group">
-                <label>Model Name</label>
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.MODEL_NAME, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.MODEL_NAME, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" value="Create" class="btn btn-default" />
-                </div>
             </div>
         </div>
-    }
+    </div>
 
-    <div class="Submit">
-        <button class="button button2"> @Html.ActionLink("Back to List", "Index") </button>
-</div>
+    <div>
+        @Html.ActionLink("Back to List", "Index")
+    </div>
+
 </body>
 </html>
+

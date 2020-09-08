@@ -1,0 +1,45 @@
+﻿@model Vehlution.Reports.ClientBookingsModel
+@using System.Data;
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Client BookingsReport</title>
+</head>
+<body>
+    <h1>List Client Bookings coming up</h1>
+    <div>
+        <table class="table table-striped">
+            <tr>
+                <th>ID</th>
+                <th>Client Name</th>
+                <th>Date</th>
+                <th>Time</th>
+                <th>Car</th>
+                <th>Employee</th>
+            </tr>
+            @foreach (DataRow row in Model.Client_Booking_.Rows)
+            {
+                <tr>
+                    <td>@row[0]</td>
+                    <td>@row[1]</td>
+                    <td>@row[2]</td>
+                    <td>@row[3]</td>
+                    <td>@row[4]</td>
+                    <td>@row[5]</td>
+                </tr>
+            }
+        </table>
+    </div>
+    <div>
+        @Html.ActionLink("Export as PDF", "ExportClientBookingsPDF", "Reports")<br />
+        @Html.ActionLink("Export as Word", "ExportClientBookingsWord", "Reports")
+    </div>
+</body>
+</html>
+

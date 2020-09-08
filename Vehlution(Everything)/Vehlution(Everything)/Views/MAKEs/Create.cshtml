@@ -1,0 +1,54 @@
+﻿@model Vehlution.Models.MAKE
+
+@{
+    ViewBag.Title = "View1";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    <script src='https://kit.fontawesome.com/a076d05399.js'></script>
+    <link href="@Url.Content("~/Content/Site.css")" rel="stylesheet" type="text/css" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Create new Car Make</title>
+    <link rel="stylesheet" type="text/css" href="~/CSS/StyleSheet1.css" />
+</head>
+<body>
+    <div class="container" style="text-align:center">
+        <div class="panel panel-default">
+            <h1 style="color:orange">Car Makes</h1>
+            <div class="panel-body">
+
+                @using (Html.BeginForm("Create", "MAKEs"))
+                {
+                    @Html.AntiForgeryToken()
+
+                    <label>Car Make Name </label><br />
+                    <input type="text" id="MAKE_NAME" name="MAKE_NAME" style="width:50%" /> <br />
+
+                    <button type="submit" class="btn btn-default btn-sm" id="Create" name="Create" style="background-color:lightgreen">
+                        <i class="fa fa-plus-square"></i>
+                        <span class="glyphicon glyphicon-ok"></span> Add New Car Make
+                    </button> <button type="button" class="btn btn-default btn-sm" style="background-color:red" onclick="location.href='@Url.Action("Index","MAKEs")'">
+                        <i class="fa fa-times"></i>
+                        <i class="glyphicon glyphicon-remove"></i> Cancel
+                    </button>
+                }
+
+            </div>
+        </div>
+    </div>
+
+    <div>
+        @Html.ActionLink("Back to List", "Index")
+    </div>
+
+</body>
+</html>
+

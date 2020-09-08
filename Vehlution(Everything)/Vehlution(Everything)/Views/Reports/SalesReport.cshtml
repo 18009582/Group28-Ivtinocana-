@@ -1,0 +1,95 @@
+﻿@model Vehlution.ViewModels.Sales
+@using Vehlution.ViewModels
+@using System.Globalization
+@using System.Data
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>SalesReport</title>
+</head>
+<body>
+    <h1>Sales Report</h1>
+    <div class="criteria">
+        @using (Html.BeginForm("SalesReport", "Reports", FormMethod.Post))
+        {
+            <label>Please select the employee who's sales you would like to see</label><br />
+            <label>Employees: </label><br />
+            @Html.DropDownListFor(m => m.SelectedEmployeeID, Model.Employees, "- - Please Select - -", new { @class = "form-Control" }) <br />
+            <label>Please select the dates which you would like this report to be generated between</label><br />
+            <label>From: </label><br />
+            @Html.TextBoxFor(m => m.DateFrom, "yyyy-mm-dd", new { @value = "2020/08/01", @type = "date", @class = "form-Control" })<br />
+            <label>To: </label><br />
+            @Html.TextBoxFor(m => m.DateTo, "yyyy-mm-dd", new { @value = "2020/08/31", @type = "date", @class = "form-Control" })<br />
+            <br />
+            <input type="submit" value="Generate" class="btn btn-primary" />
+        }
+    </div>
+    <hr />
+    @if (Model.employee != null)
+    {
+        //first panel
+        <div class="panel panel-success">
+            <div class="panel-heading"><strong>Employee Details: </strong>@Model.employee.FULL_NAME</div>
+            <div class="panel-body">
+                <label>Email Address: </label> @Model.employee.EMAIL<br />
+                <label>Job Description: </label>@Model.employee.JOB_DESCRIPTION<br />
+                <label>Date Hired: </label>@Model.employee.DATE_HIRED<br />
+            </div>
+
+
+        </div>
+
+        <div class="panel">
+            @if (Model.chartData != null)
+            {
+                <img src="@Url.Action("EmployeeSalesChart", "Reports")" />
+            }
+        </div>
+
+        <div class="panel panel-info">
+            @foreach (var group in Model.results)
+            {
+                <h4>@group.Key:</h4>
+                <table class="table table striped">
+                    <tr>
+                        <th>Order Date</th>
+                        <th>Amount</th>
+                        <th>Responsible Employee</th>
+                    </tr>
+                    @foreach (ReportRecord groupItem in group)
+                    {
+                        <tr>
+                            <td>@groupItem.orderDate</td>
+                            <td>@groupItem.Amount.ToString("C", CultureInfo.CurrentCulture)</td>
+                            <td>@groupItem.Employee</td>
+                        </tr>
+                    }
+                    <tr>
+                        <td><strong>Total</strong></td>
+                        <td><strong>@group.Sum(item => item.Amount).ToString("C", CultureInfo.CurrentCulture)</strong></td>
+                    </tr>
+                </table>
+                <hr />
+            }
+            <h3>Grand Total: <strong>@Model.results.Sum(group => group.Sum(item => item.Amount)).ToString("C", CultureInfo.CurrentCulture) </strong></h3>
+
+        </div>
+
+        <div>
+            @Html.ActionLink("Export as PDF", "ExportSalesReportPDF", "Reports")<br />
+            @Html.ActionLink("Export as Word", "ExportSalesReportWord", "Reports")
+        </div>
+    }
+
+
+</body>
+</html>
+
+

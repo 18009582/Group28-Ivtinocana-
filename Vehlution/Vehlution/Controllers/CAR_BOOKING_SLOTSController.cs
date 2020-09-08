@@ -2,11 +2,15 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Dynamic;
 using System.Linq;
 using System.Net;
+using System.Threading;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.WebPages;
 using Vehlution.Models;
+using System.Threading;
 
 namespace Vehlution.Controllers
 {
@@ -39,9 +43,23 @@ namespace Vehlution.Controllers
         // GET: CAR_BOOKING_SLOTS/Create
         public ActionResult Create()
         {
-            ViewBag.DAY_ = new SelectList(db.BOOKING_DATES, "DAY_", "DAY_");
+            List<BOOKING_DATES> dateslist = new List<BOOKING_DATES>();
+            int count = 0;
+            List<BOOKING_DATES> d = new List<BOOKING_DATES>();
+            dateslist = db.BOOKING_DATES.ToList();
+            foreach(BOOKING_DATES x in dateslist)
+            {
+                BOOKING_DATES dd = new BOOKING_DATES();
+                dd.DAY_ = x.DAY_;
+              //  dd.DATE = x.DATE.To
+                d.Add(dd);
+
+            }
+            ViewBag.DAY_ = new SelectList(d, "DAY_", "DATE");
+
+            //   ViewBag.DAY_ = new SelectList(db.BOOKING_DATES, "DAY_", "DATE");
             ViewBag.STATUSID = new SelectList(db.BOOKING_STATUS, "STATUSID", "PROPOSED");
-            ViewBag.TIME_ID = new SelectList(db.BOOKING_TIMES, "TIME_ID", "TIME_ID");
+            ViewBag.TIME_ID = new SelectList(db.BOOKING_TIMES, "TIME_ID", Convert.ToString("START_TIME_"));
             ViewBag.BOOKING_ID = new SelectList(db.CAR_BOOKING, "BOOKING_ID", "STATUS");
             return View();
         }

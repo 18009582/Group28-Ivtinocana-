@@ -1,0 +1,104 @@
+﻿@model Vehlution.Models.SUPPLIER
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    <script src='https://kit.fontawesome.com/a076d05399.js'></script>
+    <link href="@Url.Content("~/Content/Site.css")" rel="stylesheet" type="text/css" />
+    <style>
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 1; /* Sit on top */
+            padding-top: 100px; /* Location of the box */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgb(0,0,0); /* Fallback color */
+            background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+        }
+
+        /* Modal Content */
+        .modal-content {
+            background-color: #fefefe;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 50%;
+            text-align: center;
+        }
+
+        /* The Close Button */
+        .close {
+            color: #aaaaaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+            .close:hover,
+            .close:focus {
+                color: #000;
+                text-decoration: none;
+                cursor: pointer;
+            }
+    </style>
+    <meta name="viewport" content="width=device-width" />
+    <title>Edit</title>
+    <link rel="stylesheet" type="text/css" href="~/CSS/StyleSheet1.css" />
+</head>
+<body>
+    <div class="container" style="text-align:center">
+        <div class="panel panel-default">
+            <h1 style="color:orange">Edit @Model.NAME_ Supplier Information</h1>
+            <div class="panel-body">
+
+                <label>Supplier Name </label><br />
+                @using (Html.BeginForm("Edit", "SUPPLIERs"))
+                {
+                    @Html.AntiForgeryToken()
+
+                    <input type="hidden" id="SUPPLIER_ID" name="SUPPLIER_ID" value="@Model.SUPPLIER_ID" readonly />
+
+                    <input type="text" id="NAME_" name="NAME_" style="width:50%" /> <br />
+
+                    <label>Supplier Cell Number</label><br />
+                    <input type="text" id="CELL_NUMBER_" name="CELL_NUMBER_" style="width:50%" /> <br />
+
+                    <label>Supplier Email Address</label><br />
+                    <input type="text" id="EMAIL_" name="EMAIL_" style="width:50%" /> <br />
+
+                    <label>Supplier Physical Address</label><br />
+                    <input type="text" id="ADDRESS" name="ADDRESS" style="width:50%" /> <br />
+
+                    <button type="submit" class="btn btn-default btn-sm" id="Create" name="Create" style="background-color:lightgreen">
+                        <i class="fa fa-plus-square"></i>
+                        <span class="glyphicon glyphicon-ok"></span> Update Supplier Information
+                    </button>
+                }
+                <button type="button" class="btn btn-default btn-sm" style="background-color:red">
+                    <i class="fa fa-times"></i>
+                    <i class="glyphicon glyphicon-remove"></i> Cancel
+                </button>
+
+            </div>
+        </div>
+    </div>
+
+    <div>
+        @Html.ActionLink("Back to List", "Index")
+    </div>
+</body>
+</html>
+

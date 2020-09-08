@@ -135,9 +135,11 @@
     <Compile Include="Controllers\BOOKING_TIMESController.cs" />
     <Compile Include="Controllers\CARsController.cs" />
     <Compile Include="Controllers\CAR_BOOKING_SLOTSController.cs" />
+    <Compile Include="Controllers\DEFECTsController.cs" />
     <Compile Include="Controllers\MAKEsController.cs" />
     <Compile Include="Controllers\MODELsController.cs" />
     <Compile Include="Controllers\ReportsController.cs" />
+    <Compile Include="Controllers\SUPPLIERsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -480,15 +482,12 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\MAKEs\Create.cshtml" />
-    <Content Include="Views\MAKEs\Delete.cshtml" />
     <Content Include="Views\MAKEs\Edit.cshtml" />
     <Content Include="Views\MAKEs\CarMakeIndex.cshtml" />
     <Content Include="Views\MODELs\Create.cshtml" />
-    <Content Include="Views\MODELs\Delete.cshtml" />
     <Content Include="Views\MODELs\Edit.cshtml" />
     <Content Include="Views\MODELs\CarModelIndex.cshtml" />
     <Content Include="Views\CAR_BOOKING_SLOTS\Create.cshtml" />
-    <Content Include="Views\CAR_BOOKING_SLOTS\Delete.cshtml" />
     <Content Include="Views\CAR_BOOKING_SLOTS\Edit.cshtml" />
     <Content Include="Views\CAR_BOOKING_SLOTS\BookingSlotsIndex.cshtml" />
     <Content Include="Views\Reports\SalesReport.cshtml" />
@@ -504,6 +503,14 @@
     <Content Include="Views\Reports\EmployeeSalesChart.cshtml" />
     <Content Include="Views\BOOKING_DATES\Create.cshtml" />
     <Content Include="Views\BOOKING_TIMES\Create.cshtml" />
+    <Content Include="Views\DEFECTs\Create.cshtml" />
+    <Content Include="Views\DEFECTs\Edit.cshtml" />
+    <Content Include="Views\DEFECTs\Index.cshtml" />
+    <Content Include="Views\SUPPLIERs\Create.cshtml" />
+    <Content Include="Views\SUPPLIERs\Edit.cshtml" />
+    <Content Include="Views\SUPPLIERs\Index.cshtml" />
+    <Content Include="Views\View.cshtml" />
+    <Content Include="Views\View1.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
