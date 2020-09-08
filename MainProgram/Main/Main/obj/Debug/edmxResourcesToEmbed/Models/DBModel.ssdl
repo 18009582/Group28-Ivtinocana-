@@ -1,0 +1,1216 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Vehlution4Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="ACCESS">
+    <Key>
+      <PropertyRef Name="ACCESS_ID" />
+    </Key>
+    <Property Name="ACCESS_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="USER_ID" Type="int" Nullable="false" />
+    <Property Name="USERANAME" Type="char" MaxLength="225" />
+    <Property Name="PASSWORD_" Type="char" MaxLength="225" />
+  </EntityType>
+  <EntityType Name="BOOKING_DATES">
+    <Key>
+      <PropertyRef Name="DAY_" />
+    </Key>
+    <Property Name="DAY_" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="MONTH_" Type="datetime" />
+    <Property Name="MONTH" Type="datetime" />
+    <Property Name="YEAR" Type="datetime" />
+  </EntityType>
+  <EntityType Name="BOOKING_FOR_POSSIBLE_PURCHASE">
+    <Key>
+      <PropertyRef Name="BOOKING_ID" />
+    </Key>
+    <Property Name="CLIENT_ID" Type="int" Nullable="false" />
+    <Property Name="STATUS_ID" Type="int" Nullable="false" />
+    <Property Name="BOOKING_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CAR_ID" Type="int" Nullable="false" />
+    <Property Name="BOOKING_DATE" Type="datetime" />
+    <Property Name="BOOKING_TIME" Type="datetime" />
+    <Property Name="BOOKING_STATUS" Type="char" MaxLength="20" />
+  </EntityType>
+  <EntityType Name="BOOKING_STATUS">
+    <Key>
+      <PropertyRef Name="STATUSID" />
+    </Key>
+    <Property Name="STATUSID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="AVAILABLE_" Type="smallint" />
+    <Property Name="NOT_AVAILABLE" Type="smallint" />
+    <Property Name="PROPOSED" Type="char" MaxLength="10" />
+  </EntityType>
+  <EntityType Name="BOOKING_TIMES">
+    <Key>
+      <PropertyRef Name="TIME_ID" />
+    </Key>
+    <Property Name="TIME_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="START_TIME_" Type="datetime" />
+    <Property Name="END_TIME" Type="datetime" />
+  </EntityType>
+  <EntityType Name="CAR_BOOKING">
+    <Key>
+      <PropertyRef Name="CARBOOKING_ID" />
+    </Key>
+    <Property Name="CARBOOKING_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CLIENT_ID" Type="int" Nullable="false" />
+    <Property Name="CAR_ID" Type="int" Nullable="false" />
+    <Property Name="STATUS" Type="char" MaxLength="50" />
+    <Property Name="BOOKING_DATE" Type="datetime" />
+    <Property Name="BOOKING_TIME" Type="datetime" />
+  </EntityType>
+  <EntityType Name="CAR_BOOKING_SLOTS">
+    <Key>
+      <PropertyRef Name="CARBOOKINGSLOTID" />
+    </Key>
+    <Property Name="TIME_ID" Type="int" Nullable="false" />
+    <Property Name="DAY_" Type="int" Nullable="false" />
+    <Property Name="STATUSID" Type="int" Nullable="false" />
+    <Property Name="BOOKING_ID" Type="int" Nullable="false" />
+    <Property Name="EMPLYEE_ID" Type="int" />
+    <Property Name="CARBOOKINGSLOTID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+  </EntityType>
+  <EntityType Name="CAR_DEFECT_STATUS">
+    <Key>
+      <PropertyRef Name="CARDEFECTSTATUSID" />
+    </Key>
+    <Property Name="STATUS_ID" Type="int" Nullable="false" />
+    <Property Name="DEFECT_ID" Type="int" Nullable="false" />
+    <Property Name="CAR_ID" Type="int" Nullable="false" />
+    <Property Name="CARDEFECTID" Type="int" Nullable="false" />
+    <Property Name="DATE" Type="datetime" />
+    <Property Name="CARDEFECTSTATUSID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+  </EntityType>
+  <EntityType Name="CAR_DEFECTS">
+    <Key>
+      <PropertyRef Name="CARDEFECTID" />
+    </Key>
+    <Property Name="DEFECT_ID" Type="int" Nullable="false" />
+    <Property Name="CAR_ID" Type="int" Nullable="false" />
+    <Property Name="PARTOFCAR_ID" Type="int" Nullable="false" />
+    <Property Name="SEVERITY" Type="smallint" />
+    <Property Name="CARDEFECTID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+  </EntityType>
+  <EntityType Name="CAR_PARTS">
+    <Key>
+      <PropertyRef Name="CARPARTS_ID" />
+    </Key>
+    <Property Name="CARPARTS_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="PARTNAME" Type="char" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="CAR_PARTS_ORDERED">
+    <Key>
+      <PropertyRef Name="CARPARTSORDEREDID" />
+    </Key>
+    <Property Name="ORD_ID" Type="int" Nullable="false" />
+    <Property Name="CARPARTS_ID" Type="int" Nullable="false" />
+    <Property Name="QUANTITY" Type="int" />
+    <Property Name="CARPARTSORDEREDID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+  </EntityType>
+  <EntityType Name="CAR_STATUS">
+    <Key>
+      <PropertyRef Name="STATUS_ID" />
+    </Key>
+    <Property Name="STATUS_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="SASTUS_NAME" Type="char" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="CAR_TYPE">
+    <Key>
+      <PropertyRef Name="CAR_TYPEID" />
+    </Key>
+    <Property Name="CAR_ID" Type="int" Nullable="false" />
+    <Property Name="CAR_TYPEID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TYPE_NAME" Type="char" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="CARS">
+    <Key>
+      <PropertyRef Name="CAR_ID" />
+    </Key>
+    <Property Name="CAR_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="SEATS_ID" Type="int" Nullable="false" />
+    <Property Name="COLOUR_ID" Type="int" Nullable="false" />
+    <Property Name="TRANSMISSION_ID" Type="int" Nullable="false" />
+    <Property Name="DOORS_ID" Type="int" Nullable="false" />
+    <Property Name="MAKE_ID" Type="int" Nullable="false" />
+    <Property Name="CLIENT_ID" Type="int" Nullable="false" />
+    <Property Name="STATUS_ID" Type="int" Nullable="false" />
+    <Property Name="PURCHASE_ID" Type="int" Nullable="false" />
+    <Property Name="FUELTYPE_ID" Type="int" Nullable="false" />
+    <Property Name="MODEL_ID" Type="int" />
+    <Property Name="YEAR" Type="int" />
+    <Property Name="MILAGE_" Type="int" />
+    <Property Name="LISTING_PRICE" Type="float" />
+    <Property Name="IMAGE" Type="image" />
+  </EntityType>
+  <EntityType Name="CLIENT">
+    <Key>
+      <PropertyRef Name="CLIENT_ID" />
+    </Key>
+    <Property Name="CLIENT_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="USER_ID" Type="int" Nullable="false" />
+    <Property Name="USER_NAME" Type="char" MaxLength="225" />
+    <Property Name="PASSWORD" Type="char" MaxLength="225" />
+    <Property Name="FULL_NAME_" Type="char" MaxLength="50" />
+    <Property Name="EMAIL_" Type="char" MaxLength="50" />
+    <Property Name="ADDRESS" Type="char" MaxLength="225" />
+  </EntityType>
+  <EntityType Name="CLIENT_DOCUMENTS">
+    <Key>
+      <PropertyRef Name="DOCUEMTN_ID" />
+    </Key>
+    <Property Name="DOCUEMTN_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CLIENT_ID" Type="int" Nullable="false" />
+    <Property Name="DOCUMENTTYPE_ID" Type="int" Nullable="false" />
+    <Property Name="DOCUMENT" Type="varchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="COLOUR">
+    <Key>
+      <PropertyRef Name="COLOUR_ID" />
+    </Key>
+    <Property Name="COLOUR_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="COLOUR_NAME" Type="char" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="DEFECT_STATUS">
+    <Key>
+      <PropertyRef Name="STATUS_ID" />
+    </Key>
+    <Property Name="STATUS_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="STATUS_NAME" Type="char" MaxLength="10" />
+  </EntityType>
+  <EntityType Name="DEFECTS">
+    <Key>
+      <PropertyRef Name="DEFECT_ID" />
+    </Key>
+    <Property Name="DEFECT_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DEFECTNAME" Type="char" MaxLength="225" />
+  </EntityType>
+  <EntityType Name="DOCUMENT_TYPE">
+    <Key>
+      <PropertyRef Name="DOCUMENTTYPE_ID" />
+    </Key>
+    <Property Name="DOCUMENTTYPE_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DOCUMENT" Type="int" Nullable="false" />
+    <Property Name="DOCUMENTTYPE_NAME" Type="char" MaxLength="15" />
+  </EntityType>
+  <EntityType Name="EMPLOYEE">
+    <Key>
+      <PropertyRef Name="EMPLYEE_ID" />
+    </Key>
+    <Property Name="EMPLYEE_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FULL_NAME" Type="char" MaxLength="50" />
+    <Property Name="CELL_NUMBER" Type="varchar" MaxLength="10" />
+    <Property Name="EMAIL" Type="char" MaxLength="50" />
+    <Property Name="JOB_DESCRIPTION" Type="char" MaxLength="225" />
+    <Property Name="DATE_HIRED" Type="datetime" />
+  </EntityType>
+  <EntityType Name="EMPLYEE_SALES">
+    <Key>
+      <PropertyRef Name="EMPLOYEESALESID" />
+    </Key>
+    <Property Name="EMPLYEE_ID" Type="int" Nullable="false" />
+    <Property Name="SALES_ID" Type="int" Nullable="false" />
+    <Property Name="EMPLOYEESALESID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+  </EntityType>
+  <EntityType Name="FUEL_TYPE">
+    <Key>
+      <PropertyRef Name="FUELTYPE_ID" />
+    </Key>
+    <Property Name="FUELTYPE_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FUELTYPE_NAME" Type="char" MaxLength="225" />
+  </EntityType>
+  <EntityType Name="MAKE">
+    <Key>
+      <PropertyRef Name="MAKE_ID" />
+    </Key>
+    <Property Name="MAKE_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="MODEL_ID" Type="int" />
+    <Property Name="MAKE_NAME" Type="char" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="MECHANIC">
+    <Key>
+      <PropertyRef Name="MECHANIC_ID" />
+    </Key>
+    <Property Name="MECHANIC_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="MECHANICJOB_ID" Type="int" Nullable="false" />
+    <Property Name="FULL_NAME_" Type="char" MaxLength="100" />
+    <Property Name="CELL_NUMBER_" Type="varchar" MaxLength="10" />
+    <Property Name="EMAIL_" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="MECHANIC_JOB">
+    <Key>
+      <PropertyRef Name="MECHANICJOB_ID" />
+    </Key>
+    <Property Name="MECHANICJOB_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CAR_ID" Type="int" Nullable="false" />
+    <Property Name="JOB_DATE" Type="datetime" />
+    <Property Name="JOB_TIME" Type="datetime" />
+  </EntityType>
+  <EntityType Name="MECHANIC_TASK">
+    <Key>
+      <PropertyRef Name="MECHANICTASKID" />
+    </Key>
+    <Property Name="CARPARTS_ID" Type="int" Nullable="false" />
+    <Property Name="CARPARTSUSEDID" Type="int" Nullable="false" />
+    <Property Name="SERVICE_ID" Type="int" Nullable="false" />
+    <Property Name="MECHANICJOB_ID" Type="int" Nullable="false" />
+    <Property Name="MECHANICTASKID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+  </EntityType>
+  <EntityType Name="MODEL">
+    <Key>
+      <PropertyRef Name="MODEL_ID" />
+    </Key>
+    <Property Name="MODEL_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="MAKE_ID" Type="int" Nullable="false" />
+    <Property Name="MODEL_NAME" Type="char" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="NUMBER_OF_DOORS">
+    <Key>
+      <PropertyRef Name="DOORS_ID" />
+    </Key>
+    <Property Name="DOORS_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="NUMBER_OF_DOORS" Type="int" />
+  </EntityType>
+  <EntityType Name="NUMBER_OF_SEATS">
+    <Key>
+      <PropertyRef Name="SEATS_ID" />
+    </Key>
+    <Property Name="SEATS_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="NUMBER_OF_SEATS_" Type="int" />
+  </EntityType>
+  <EntityType Name="OFFER_STATUS">
+    <Key>
+      <PropertyRef Name="STATUS_ID" />
+    </Key>
+    <Property Name="STATUS_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="STATUS_NAME_" Type="char" MaxLength="10" />
+  </EntityType>
+  <EntityType Name="OFFER_TYPE">
+    <Key>
+      <PropertyRef Name="OFFERTYPE_ID" />
+    </Key>
+    <Property Name="OFFERTYPE_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="OFFERTYPE" Type="char" MaxLength="10" />
+  </EntityType>
+  <EntityType Name="OFFERS">
+    <Key>
+      <PropertyRef Name="OFFER_ID" />
+    </Key>
+    <Property Name="OFFER_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CAR_ID" Type="int" Nullable="false" />
+    <Property Name="CLIENT_ID" Type="int" Nullable="false" />
+    <Property Name="SALES_ID" Type="int" Nullable="false" />
+    <Property Name="STATUS_ID" Type="int" Nullable="false" />
+    <Property Name="OFFERTYPE_ID" Type="int" Nullable="false" />
+    <Property Name="AMOUNT" Type="float" />
+  </EntityType>
+  <EntityType Name="ORDER">
+    <Key>
+      <PropertyRef Name="ORDER_ID" />
+    </Key>
+    <Property Name="ORDER_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="SUPPLIER_ID" Type="int" Nullable="false" />
+    <Property Name="ORDER_DATE_" Type="datetime" />
+    <Property Name="ORDER_PRICE_" Type="float" />
+    <Property Name="ORDER_STATUS_" Type="char" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="PART_OF_CAR">
+    <Key>
+      <PropertyRef Name="PARTOFCAR_ID" />
+    </Key>
+    <Property Name="PARTOFCAR_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="PARTOFCAR_NAME" Type="char" MaxLength="20" />
+  </EntityType>
+  <EntityType Name="PAYMENT">
+    <Key>
+      <PropertyRef Name="PAYMENT_ID" />
+    </Key>
+    <Property Name="PAYMENT_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="PAYMENTTYPE" Type="char" MaxLength="50" Nullable="false" />
+    <Property Name="PAYMENT_DATE" Type="datetime" />
+  </EntityType>
+  <EntityType Name="PURCHASES">
+    <Key>
+      <PropertyRef Name="PURCHASE_ID" />
+    </Key>
+    <Property Name="PURCHASE_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CLIENT_ID" Type="int" Nullable="false" />
+    <Property Name="PURCHASEDATE_" Type="datetime" />
+    <Property Name="COST_" Type="float" />
+  </EntityType>
+  <EntityType Name="RELATIONSHIP_12">
+    <Key>
+      <PropertyRef Name="CARPARTSUSEDID" />
+    </Key>
+    <Property Name="CARPARTS_ID" Type="int" Nullable="false" />
+    <Property Name="CARPARTSUSEDID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+  </EntityType>
+  <EntityType Name="SALES">
+    <Key>
+      <PropertyRef Name="SALES_ID" />
+    </Key>
+    <Property Name="SALES_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="PAYMENT_ID" Type="int" Nullable="false" />
+    <Property Name="SALE_DATE_" Type="datetime" />
+    <Property Name="ACCEPTED_OFFER" Type="float" />
+    <Property Name="CAR_CONTRACT_" Type="binary" MaxLength="250" />
+  </EntityType>
+  <EntityType Name="SUPPLIER">
+    <Key>
+      <PropertyRef Name="SUPPLIER_ID" />
+    </Key>
+    <Property Name="SUPPLIER_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="NAME_" Type="char" MaxLength="50" />
+    <Property Name="CELL_NUMBER_" Type="varchar" MaxLength="10" />
+    <Property Name="EMAIL_" Type="char" MaxLength="50" />
+    <Property Name="ADDRESS" Type="varchar" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="TASK">
+    <Key>
+      <PropertyRef Name="SERVICE_ID" />
+    </Key>
+    <Property Name="SERVICE_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="SERVICE_NAME" Type="char" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="TRANSMISSION">
+    <Key>
+      <PropertyRef Name="TRANSMISSION_ID" />
+    </Key>
+    <Property Name="TRANSMISSION_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TRANSMISSION_NAME" Type="char" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="USER_ROLE">
+    <Key>
+      <PropertyRef Name="USERROLE_ID" />
+    </Key>
+    <Property Name="USERROLE_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ROLE" Type="char" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="USERS">
+    <Key>
+      <PropertyRef Name="USER_ID" />
+    </Key>
+    <Property Name="USER_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="USERROLE_ID" Type="int" Nullable="false" />
+    <Property Name="FIRSTNAME" Type="char" MaxLength="50" />
+    <Property Name="LASTNAME" Type="char" MaxLength="50" />
+    <Property Name="EMAIL" Type="char" MaxLength="100" />
+    <Property Name="STATUS" Type="char" MaxLength="20" />
+    <Property Name="PASSWORD" Type="nvarchar(max)" />
+    <Property Name="EMAILVERIFICATION" Type="bit" />
+    <Property Name="ACTIVATIONCODE" Type="uniqueidentifier" />
+    <Property Name="OTP" Type="nvarchar" MaxLength="4" />
+  </EntityType>
+  <Association Name="FK_ACCESS_HAS_USER__USERS">
+    <End Role="USERS" Type="Self.USERS" Multiplicity="1" />
+    <End Role="ACCESS" Type="Self.ACCESS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="USERS">
+        <PropertyRef Name="USER_ID" />
+      </Principal>
+      <Dependent Role="ACCESS">
+        <PropertyRef Name="USER_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_BOOKING__DN2_CARS">
+    <End Role="CARS" Type="Self.CARS" Multiplicity="1" />
+    <End Role="BOOKING_FOR_POSSIBLE_PURCHASE" Type="Self.BOOKING_FOR_POSSIBLE_PURCHASE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CARS">
+        <PropertyRef Name="CAR_ID" />
+      </Principal>
+      <Dependent Role="BOOKING_FOR_POSSIBLE_PURCHASE">
+        <PropertyRef Name="CAR_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_BOOKING__HAS_A_BOO_CLIENT">
+    <End Role="CLIENT" Type="Self.CLIENT" Multiplicity="1" />
+    <End Role="BOOKING_FOR_POSSIBLE_PURCHASE" Type="Self.BOOKING_FOR_POSSIBLE_PURCHASE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CLIENT">
+        <PropertyRef Name="CLIENT_ID" />
+      </Principal>
+      <Dependent Role="BOOKING_FOR_POSSIBLE_PURCHASE">
+        <PropertyRef Name="CLIENT_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CAR_BOOK_DR_CARS">
+    <End Role="CARS" Type="Self.CARS" Multiplicity="1" />
+    <End Role="CAR_BOOKING" Type="Self.CAR_BOOKING" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CARS">
+        <PropertyRef Name="CAR_ID" />
+      </Principal>
+      <Dependent Role="CAR_BOOKING">
+        <PropertyRef Name="CAR_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CAR_BOOK_HAS_A_CAR_CAR_BOOK">
+    <End Role="CAR_BOOKING" Type="Self.CAR_BOOKING" Multiplicity="1" />
+    <End Role="CAR_BOOKING_SLOTS" Type="Self.CAR_BOOKING_SLOTS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CAR_BOOKING">
+        <PropertyRef Name="CARBOOKING_ID" />
+      </Principal>
+      <Dependent Role="CAR_BOOKING_SLOTS">
+        <PropertyRef Name="BOOKING_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CAR_BOOK_HAS_BOOKI_BOOKING_">
+    <End Role="BOOKING_TIMES" Type="Self.BOOKING_TIMES" Multiplicity="1" />
+    <End Role="CAR_BOOKING_SLOTS" Type="Self.CAR_BOOKING_SLOTS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="BOOKING_TIMES">
+        <PropertyRef Name="TIME_ID" />
+      </Principal>
+      <Dependent Role="CAR_BOOKING_SLOTS">
+        <PropertyRef Name="TIME_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CAR_BOOK_HAS_BOOKI_BOOKING_2">
+    <End Role="BOOKING_DATES" Type="Self.BOOKING_DATES" Multiplicity="1" />
+    <End Role="CAR_BOOKING_SLOTS" Type="Self.CAR_BOOKING_SLOTS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="BOOKING_DATES">
+        <PropertyRef Name="DAY_" />
+      </Principal>
+      <Dependent Role="CAR_BOOKING_SLOTS">
+        <PropertyRef Name="DAY_" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CAR_BOOK_HAS_CLIEN_CLIENT">
+    <End Role="CLIENT" Type="Self.CLIENT" Multiplicity="1" />
+    <End Role="CAR_BOOKING" Type="Self.CAR_BOOKING" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CLIENT">
+        <PropertyRef Name="CLIENT_ID" />
+      </Principal>
+      <Dependent Role="CAR_BOOKING">
+        <PropertyRef Name="CLIENT_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CAR_BOOK_HAS_EMPLO_EMPLOYEE">
+    <End Role="EMPLOYEE" Type="Self.EMPLOYEE" Multiplicity="0..1" />
+    <End Role="CAR_BOOKING_SLOTS" Type="Self.CAR_BOOKING_SLOTS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="EMPLOYEE">
+        <PropertyRef Name="EMPLYEE_ID" />
+      </Principal>
+      <Dependent Role="CAR_BOOKING_SLOTS">
+        <PropertyRef Name="EMPLYEE_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CAR_BOOK_HAS_PENDI_BOOKING_">
+    <End Role="BOOKING_STATUS" Type="Self.BOOKING_STATUS" Multiplicity="1" />
+    <End Role="CAR_BOOKING_SLOTS" Type="Self.CAR_BOOKING_SLOTS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="BOOKING_STATUS">
+        <PropertyRef Name="STATUSID" />
+      </Principal>
+      <Dependent Role="CAR_BOOKING_SLOTS">
+        <PropertyRef Name="STATUSID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CAR_DEFE_HAS_A_CAR_DEFECT_S">
+    <End Role="DEFECT_STATUS" Type="Self.DEFECT_STATUS" Multiplicity="1" />
+    <End Role="CAR_DEFECT_STATUS" Type="Self.CAR_DEFECT_STATUS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="DEFECT_STATUS">
+        <PropertyRef Name="STATUS_ID" />
+      </Principal>
+      <Dependent Role="CAR_DEFECT_STATUS">
+        <PropertyRef Name="STATUS_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CAR_DEFE_HAS_A_DEF_PART_OF_">
+    <End Role="PART_OF_CAR" Type="Self.PART_OF_CAR" Multiplicity="1" />
+    <End Role="CAR_DEFECTS" Type="Self.CAR_DEFECTS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PART_OF_CAR">
+        <PropertyRef Name="PARTOFCAR_ID" />
+      </Principal>
+      <Dependent Role="CAR_DEFECTS">
+        <PropertyRef Name="PARTOFCAR_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CAR_DEFE_HAS_A_STA_CAR_DEFE">
+    <End Role="CAR_DEFECTS" Type="Self.CAR_DEFECTS" Multiplicity="1" />
+    <End Role="CAR_DEFECT_STATUS" Type="Self.CAR_DEFECT_STATUS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CAR_DEFECTS">
+        <PropertyRef Name="CARDEFECTID" />
+      </Principal>
+      <Dependent Role="CAR_DEFECT_STATUS">
+        <PropertyRef Name="CARDEFECTID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CAR_DEFE_HAS_CARS_CARS">
+    <End Role="CARS" Type="Self.CARS" Multiplicity="1" />
+    <End Role="CAR_DEFECTS" Type="Self.CAR_DEFECTS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CARS">
+        <PropertyRef Name="CAR_ID" />
+      </Principal>
+      <Dependent Role="CAR_DEFECTS">
+        <PropertyRef Name="CAR_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CAR_DEFE_HAS_DEFEC_DEFECTS">
+    <End Role="DEFECTS" Type="Self.DEFECTS" Multiplicity="1" />
+    <End Role="CAR_DEFECTS" Type="Self.CAR_DEFECTS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="DEFECTS">
+        <PropertyRef Name="DEFECT_ID" />
+      </Principal>
+      <Dependent Role="CAR_DEFECTS">
+        <PropertyRef Name="DEFECT_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CAR_PART_HAS_CAR_P_CAR_PART">
+    <End Role="CAR_PARTS" Type="Self.CAR_PARTS" Multiplicity="1" />
+    <End Role="CAR_PARTS_ORDERED" Type="Self.CAR_PARTS_ORDERED" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CAR_PARTS">
+        <PropertyRef Name="CARPARTS_ID" />
+      </Principal>
+      <Dependent Role="CAR_PARTS_ORDERED">
+        <PropertyRef Name="CARPARTS_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CAR_PART_HAS_ORDER_ORDER">
+    <End Role="ORDER" Type="Self.ORDER" Multiplicity="1" />
+    <End Role="CAR_PARTS_ORDERED" Type="Self.CAR_PARTS_ORDERED" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ORDER">
+        <PropertyRef Name="ORDER_ID" />
+      </Principal>
+      <Dependent Role="CAR_PARTS_ORDERED">
+        <PropertyRef Name="ORD_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CAR_TYPE_HAS_CAR_T_CARS">
+    <End Role="CARS" Type="Self.CARS" Multiplicity="1" />
+    <End Role="CAR_TYPE" Type="Self.CAR_TYPE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CARS">
+        <PropertyRef Name="CAR_ID" />
+      </Principal>
+      <Dependent Role="CAR_TYPE">
+        <PropertyRef Name="CAR_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CARS_DR6_PURCHASE">
+    <End Role="PURCHASES" Type="Self.PURCHASES" Multiplicity="1" />
+    <End Role="CARS" Type="Self.CARS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PURCHASES">
+        <PropertyRef Name="PURCHASE_ID" />
+      </Principal>
+      <Dependent Role="CARS">
+        <PropertyRef Name="PURCHASE_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CARS_HAD_MAKE_MODEL">
+    <End Role="MODEL" Type="Self.MODEL" Multiplicity="0..1" />
+    <End Role="CARS" Type="Self.CARS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MODEL">
+        <PropertyRef Name="MODEL_ID" />
+      </Principal>
+      <Dependent Role="CARS">
+        <PropertyRef Name="MODEL_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CARS_HAS_CLIEN_CLIENT">
+    <End Role="CLIENT" Type="Self.CLIENT" Multiplicity="1" />
+    <End Role="CARS" Type="Self.CARS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CLIENT">
+        <PropertyRef Name="CLIENT_ID" />
+      </Principal>
+      <Dependent Role="CARS">
+        <PropertyRef Name="CLIENT_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CARS_HAS_COLOU_COLOUR">
+    <End Role="COLOUR" Type="Self.COLOUR" Multiplicity="1" />
+    <End Role="CARS" Type="Self.CARS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="COLOUR">
+        <PropertyRef Name="COLOUR_ID" />
+      </Principal>
+      <Dependent Role="CARS">
+        <PropertyRef Name="COLOUR_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CARS_HAS_FEUL__FUEL_TYP">
+    <End Role="FUEL_TYPE" Type="Self.FUEL_TYPE" Multiplicity="1" />
+    <End Role="CARS" Type="Self.CARS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="FUEL_TYPE">
+        <PropertyRef Name="FUELTYPE_ID" />
+      </Principal>
+      <Dependent Role="CARS">
+        <PropertyRef Name="FUELTYPE_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CARS_HAS_NO__O_NUMBER_O">
+    <End Role="NUMBER_OF_DOORS" Type="Self.NUMBER_OF_DOORS" Multiplicity="1" />
+    <End Role="CARS" Type="Self.CARS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="NUMBER_OF_DOORS">
+        <PropertyRef Name="DOORS_ID" />
+      </Principal>
+      <Dependent Role="CARS">
+        <PropertyRef Name="DOORS_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CARS_HAS_NUM_O_NUMBER_O">
+    <End Role="NUMBER_OF_SEATS" Type="Self.NUMBER_OF_SEATS" Multiplicity="1" />
+    <End Role="CARS" Type="Self.CARS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="NUMBER_OF_SEATS">
+        <PropertyRef Name="SEATS_ID" />
+      </Principal>
+      <Dependent Role="CARS">
+        <PropertyRef Name="SEATS_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CARS_HAS_STATU_CAR_STAT">
+    <End Role="CAR_STATUS" Type="Self.CAR_STATUS" Multiplicity="1" />
+    <End Role="CARS" Type="Self.CARS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CAR_STATUS">
+        <PropertyRef Name="STATUS_ID" />
+      </Principal>
+      <Dependent Role="CARS">
+        <PropertyRef Name="STATUS_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CARS_HAS_TRANS_TRANSMIS">
+    <End Role="TRANSMISSION" Type="Self.TRANSMISSION" Multiplicity="1" />
+    <End Role="CARS" Type="Self.CARS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TRANSMISSION">
+        <PropertyRef Name="TRANSMISSION_ID" />
+      </Principal>
+      <Dependent Role="CARS">
+        <PropertyRef Name="TRANSMISSION_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CLIENT_D_HAS_A_CLI_CLIENT">
+    <End Role="CLIENT" Type="Self.CLIENT" Multiplicity="1" />
+    <End Role="CLIENT_DOCUMENTS" Type="Self.CLIENT_DOCUMENTS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CLIENT">
+        <PropertyRef Name="CLIENT_ID" />
+      </Principal>
+      <Dependent Role="CLIENT_DOCUMENTS">
+        <PropertyRef Name="CLIENT_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CLIENT_HAS_A_CLI_USERS">
+    <End Role="USERS" Type="Self.USERS" Multiplicity="1" />
+    <End Role="CLIENT" Type="Self.CLIENT" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="USERS">
+        <PropertyRef Name="USER_ID" />
+      </Principal>
+      <Dependent Role="CLIENT">
+        <PropertyRef Name="USER_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DOCUMENT_HAS_A_DOC_CLIENT_D">
+    <End Role="CLIENT_DOCUMENTS" Type="Self.CLIENT_DOCUMENTS" Multiplicity="1" />
+    <End Role="DOCUMENT_TYPE" Type="Self.DOCUMENT_TYPE" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="CLIENT_DOCUMENTS">
+        <PropertyRef Name="DOCUEMTN_ID" />
+      </Principal>
+      <Dependent Role="DOCUMENT_TYPE">
+        <PropertyRef Name="DOCUMENTTYPE_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_EMPLYEE__HAS_EMPLO_EMPLOYEE">
+    <End Role="EMPLOYEE" Type="Self.EMPLOYEE" Multiplicity="1" />
+    <End Role="EMPLYEE_SALES" Type="Self.EMPLYEE_SALES" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="EMPLOYEE">
+        <PropertyRef Name="EMPLYEE_ID" />
+      </Principal>
+      <Dependent Role="EMPLYEE_SALES">
+        <PropertyRef Name="EMPLYEE_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_EMPLYEE__HAS_SALE_SALES">
+    <End Role="SALES" Type="Self.SALES" Multiplicity="1" />
+    <End Role="EMPLYEE_SALES" Type="Self.EMPLYEE_SALES" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SALES">
+        <PropertyRef Name="SALES_ID" />
+      </Principal>
+      <Dependent Role="EMPLYEE_SALES">
+        <PropertyRef Name="SALES_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MAKE_HAS_MODEL_MODEL">
+    <End Role="MODEL" Type="Self.MODEL" Multiplicity="0..1" />
+    <End Role="MAKE" Type="Self.MAKE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MODEL">
+        <PropertyRef Name="MODEL_ID" />
+      </Principal>
+      <Dependent Role="MAKE">
+        <PropertyRef Name="MODEL_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MECHANIC_DC2_MECHANIC">
+    <End Role="MECHANIC_JOB" Type="Self.MECHANIC_JOB" Multiplicity="1" />
+    <End Role="MECHANIC" Type="Self.MECHANIC" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MECHANIC_JOB">
+        <PropertyRef Name="MECHANICJOB_ID" />
+      </Principal>
+      <Dependent Role="MECHANIC">
+        <PropertyRef Name="MECHANICJOB_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MECHANIC_HAS_A_MEC_MECHANIC">
+    <End Role="MECHANIC_JOB" Type="Self.MECHANIC_JOB" Multiplicity="1" />
+    <End Role="MECHANIC_TASK" Type="Self.MECHANIC_TASK" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MECHANIC_JOB">
+        <PropertyRef Name="MECHANICJOB_ID" />
+      </Principal>
+      <Dependent Role="MECHANIC_TASK">
+        <PropertyRef Name="MECHANICJOB_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MECHANIC_HAS_CAR_CARS">
+    <End Role="CARS" Type="Self.CARS" Multiplicity="1" />
+    <End Role="MECHANIC_JOB" Type="Self.MECHANIC_JOB" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CARS">
+        <PropertyRef Name="CAR_ID" />
+      </Principal>
+      <Dependent Role="MECHANIC_JOB">
+        <PropertyRef Name="CAR_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MECHANIC_HAS_SERVI_TASK">
+    <End Role="TASK" Type="Self.TASK" Multiplicity="1" />
+    <End Role="MECHANIC_TASK" Type="Self.MECHANIC_TASK" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TASK">
+        <PropertyRef Name="SERVICE_ID" />
+      </Principal>
+      <Dependent Role="MECHANIC_TASK">
+        <PropertyRef Name="SERVICE_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MECHANIC_HAS_USED__RELATION">
+    <End Role="RELATIONSHIP_12" Type="Self.RELATIONSHIP_12" Multiplicity="1" />
+    <End Role="MECHANIC_TASK" Type="Self.MECHANIC_TASK" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="RELATIONSHIP_12">
+        <PropertyRef Name="CARPARTSUSEDID" />
+      </Principal>
+      <Dependent Role="MECHANIC_TASK">
+        <PropertyRef Name="CARPARTSUSEDID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_OFFERS_DR2_SALES">
+    <End Role="SALES" Type="Self.SALES" Multiplicity="1" />
+    <End Role="OFFERS" Type="Self.OFFERS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SALES">
+        <PropertyRef Name="SALES_ID" />
+      </Principal>
+      <Dependent Role="OFFERS">
+        <PropertyRef Name="SALES_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_OFFERS_HAS_A_CAR_CARS">
+    <End Role="CARS" Type="Self.CARS" Multiplicity="1" />
+    <End Role="OFFERS" Type="Self.OFFERS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CARS">
+        <PropertyRef Name="CAR_ID" />
+      </Principal>
+      <Dependent Role="OFFERS">
+        <PropertyRef Name="CAR_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_OFFERS_HAS_A_STA_OFFER_ST">
+    <End Role="OFFER_STATUS" Type="Self.OFFER_STATUS" Multiplicity="1" />
+    <End Role="OFFERS" Type="Self.OFFERS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="OFFER_STATUS">
+        <PropertyRef Name="STATUS_ID" />
+      </Principal>
+      <Dependent Role="OFFERS">
+        <PropertyRef Name="STATUS_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_OFFERS_HAS_AN_OF_OFFER_TY">
+    <End Role="OFFER_TYPE" Type="Self.OFFER_TYPE" Multiplicity="1" />
+    <End Role="OFFERS" Type="Self.OFFERS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="OFFER_TYPE">
+        <PropertyRef Name="OFFERTYPE_ID" />
+      </Principal>
+      <Dependent Role="OFFERS">
+        <PropertyRef Name="OFFERTYPE_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_OFFERS_HAS_OFFER_CLIENT">
+    <End Role="CLIENT" Type="Self.CLIENT" Multiplicity="1" />
+    <End Role="OFFERS" Type="Self.OFFERS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CLIENT">
+        <PropertyRef Name="CLIENT_ID" />
+      </Principal>
+      <Dependent Role="OFFERS">
+        <PropertyRef Name="CLIENT_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ORDER_HAS_SUPPL_SUPPLIER">
+    <End Role="SUPPLIER" Type="Self.SUPPLIER" Multiplicity="1" />
+    <End Role="ORDER" Type="Self.ORDER" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SUPPLIER">
+        <PropertyRef Name="SUPPLIER_ID" />
+      </Principal>
+      <Dependent Role="ORDER">
+        <PropertyRef Name="SUPPLIER_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PURCHASE_HAS_CLIEN_CLIENT">
+    <End Role="CLIENT" Type="Self.CLIENT" Multiplicity="1" />
+    <End Role="PURCHASES" Type="Self.PURCHASES" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CLIENT">
+        <PropertyRef Name="CLIENT_ID" />
+      </Principal>
+      <Dependent Role="PURCHASES">
+        <PropertyRef Name="CLIENT_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_RELATION_RELATIONS_CAR_PART">
+    <End Role="CAR_PARTS" Type="Self.CAR_PARTS" Multiplicity="1" />
+    <End Role="RELATIONSHIP_12" Type="Self.RELATIONSHIP_12" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CAR_PARTS">
+        <PropertyRef Name="CARPARTS_ID" />
+      </Principal>
+      <Dependent Role="RELATIONSHIP_12">
+        <PropertyRef Name="CARPARTS_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SALES_HAS_PAYME_PAYMENT">
+    <End Role="PAYMENT" Type="Self.PAYMENT" Multiplicity="1" />
+    <End Role="SALES" Type="Self.SALES" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PAYMENT">
+        <PropertyRef Name="PAYMENT_ID" />
+      </Principal>
+      <Dependent Role="SALES">
+        <PropertyRef Name="PAYMENT_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_USERS_HAS_USER__USER_ROL">
+    <End Role="USER_ROLE" Type="Self.USER_ROLE" Multiplicity="1" />
+    <End Role="USERS" Type="Self.USERS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="USER_ROLE">
+        <PropertyRef Name="USERROLE_ID" />
+      </Principal>
+      <Dependent Role="USERS">
+        <PropertyRef Name="USERROLE_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="Vehlution4ModelStoreContainer">
+    <EntitySet Name="ACCESS" EntityType="Self.ACCESS" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="BOOKING_DATES" EntityType="Self.BOOKING_DATES" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="BOOKING_FOR_POSSIBLE_PURCHASE" EntityType="Self.BOOKING_FOR_POSSIBLE_PURCHASE" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="BOOKING_STATUS" EntityType="Self.BOOKING_STATUS" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="BOOKING_TIMES" EntityType="Self.BOOKING_TIMES" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CAR_BOOKING" EntityType="Self.CAR_BOOKING" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CAR_BOOKING_SLOTS" EntityType="Self.CAR_BOOKING_SLOTS" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CAR_DEFECT_STATUS" EntityType="Self.CAR_DEFECT_STATUS" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CAR_DEFECTS" EntityType="Self.CAR_DEFECTS" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CAR_PARTS" EntityType="Self.CAR_PARTS" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CAR_PARTS_ORDERED" EntityType="Self.CAR_PARTS_ORDERED" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CAR_STATUS" EntityType="Self.CAR_STATUS" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CAR_TYPE" EntityType="Self.CAR_TYPE" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CARS" EntityType="Self.CARS" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CLIENT" EntityType="Self.CLIENT" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CLIENT_DOCUMENTS" EntityType="Self.CLIENT_DOCUMENTS" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="COLOUR" EntityType="Self.COLOUR" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="DEFECT_STATUS" EntityType="Self.DEFECT_STATUS" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="DEFECTS" EntityType="Self.DEFECTS" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="DOCUMENT_TYPE" EntityType="Self.DOCUMENT_TYPE" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="EMPLOYEE" EntityType="Self.EMPLOYEE" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="EMPLYEE_SALES" EntityType="Self.EMPLYEE_SALES" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="FUEL_TYPE" EntityType="Self.FUEL_TYPE" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="MAKE" EntityType="Self.MAKE" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="MECHANIC" EntityType="Self.MECHANIC" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="MECHANIC_JOB" EntityType="Self.MECHANIC_JOB" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="MECHANIC_TASK" EntityType="Self.MECHANIC_TASK" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="MODEL" EntityType="Self.MODEL" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="NUMBER_OF_DOORS" EntityType="Self.NUMBER_OF_DOORS" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="NUMBER_OF_SEATS" EntityType="Self.NUMBER_OF_SEATS" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="OFFER_STATUS" EntityType="Self.OFFER_STATUS" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="OFFER_TYPE" EntityType="Self.OFFER_TYPE" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="OFFERS" EntityType="Self.OFFERS" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ORDER" EntityType="Self.ORDER" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PART_OF_CAR" EntityType="Self.PART_OF_CAR" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PAYMENT" EntityType="Self.PAYMENT" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PURCHASES" EntityType="Self.PURCHASES" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="RELATIONSHIP_12" EntityType="Self.RELATIONSHIP_12" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="SALES" EntityType="Self.SALES" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="SUPPLIER" EntityType="Self.SUPPLIER" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TASK" EntityType="Self.TASK" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TRANSMISSION" EntityType="Self.TRANSMISSION" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="USER_ROLE" EntityType="Self.USER_ROLE" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="USERS" EntityType="Self.USERS" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_ACCESS_HAS_USER__USERS" Association="Self.FK_ACCESS_HAS_USER__USERS">
+      <End Role="USERS" EntitySet="USERS" />
+      <End Role="ACCESS" EntitySet="ACCESS" />
+    </AssociationSet>
+    <AssociationSet Name="FK_BOOKING__DN2_CARS" Association="Self.FK_BOOKING__DN2_CARS">
+      <End Role="CARS" EntitySet="CARS" />
+      <End Role="BOOKING_FOR_POSSIBLE_PURCHASE" EntitySet="BOOKING_FOR_POSSIBLE_PURCHASE" />
+    </AssociationSet>
+    <AssociationSet Name="FK_BOOKING__HAS_A_BOO_CLIENT" Association="Self.FK_BOOKING__HAS_A_BOO_CLIENT">
+      <End Role="CLIENT" EntitySet="CLIENT" />
+      <End Role="BOOKING_FOR_POSSIBLE_PURCHASE" EntitySet="BOOKING_FOR_POSSIBLE_PURCHASE" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CAR_BOOK_DR_CARS" Association="Self.FK_CAR_BOOK_DR_CARS">
+      <End Role="CARS" EntitySet="CARS" />
+      <End Role="CAR_BOOKING" EntitySet="CAR_BOOKING" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CAR_BOOK_HAS_A_CAR_CAR_BOOK" Association="Self.FK_CAR_BOOK_HAS_A_CAR_CAR_BOOK">
+      <End Role="CAR_BOOKING" EntitySet="CAR_BOOKING" />
+      <End Role="CAR_BOOKING_SLOTS" EntitySet="CAR_BOOKING_SLOTS" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CAR_BOOK_HAS_BOOKI_BOOKING_" Association="Self.FK_CAR_BOOK_HAS_BOOKI_BOOKING_">
+      <End Role="BOOKING_TIMES" EntitySet="BOOKING_TIMES" />
+      <End Role="CAR_BOOKING_SLOTS" EntitySet="CAR_BOOKING_SLOTS" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CAR_BOOK_HAS_BOOKI_BOOKING_2" Association="Self.FK_CAR_BOOK_HAS_BOOKI_BOOKING_2">
+      <End Role="BOOKING_DATES" EntitySet="BOOKING_DATES" />
+      <End Role="CAR_BOOKING_SLOTS" EntitySet="CAR_BOOKING_SLOTS" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CAR_BOOK_HAS_CLIEN_CLIENT" Association="Self.FK_CAR_BOOK_HAS_CLIEN_CLIENT">
+      <End Role="CLIENT" EntitySet="CLIENT" />
+      <End Role="CAR_BOOKING" EntitySet="CAR_BOOKING" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CAR_BOOK_HAS_EMPLO_EMPLOYEE" Association="Self.FK_CAR_BOOK_HAS_EMPLO_EMPLOYEE">
+      <End Role="EMPLOYEE" EntitySet="EMPLOYEE" />
+      <End Role="CAR_BOOKING_SLOTS" EntitySet="CAR_BOOKING_SLOTS" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CAR_BOOK_HAS_PENDI_BOOKING_" Association="Self.FK_CAR_BOOK_HAS_PENDI_BOOKING_">
+      <End Role="BOOKING_STATUS" EntitySet="BOOKING_STATUS" />
+      <End Role="CAR_BOOKING_SLOTS" EntitySet="CAR_BOOKING_SLOTS" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CAR_DEFE_HAS_A_CAR_DEFECT_S" Association="Self.FK_CAR_DEFE_HAS_A_CAR_DEFECT_S">
+      <End Role="DEFECT_STATUS" EntitySet="DEFECT_STATUS" />
+      <End Role="CAR_DEFECT_STATUS" EntitySet="CAR_DEFECT_STATUS" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CAR_DEFE_HAS_A_DEF_PART_OF_" Association="Self.FK_CAR_DEFE_HAS_A_DEF_PART_OF_">
+      <End Role="PART_OF_CAR" EntitySet="PART_OF_CAR" />
+      <End Role="CAR_DEFECTS" EntitySet="CAR_DEFECTS" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CAR_DEFE_HAS_A_STA_CAR_DEFE" Association="Self.FK_CAR_DEFE_HAS_A_STA_CAR_DEFE">
+      <End Role="CAR_DEFECTS" EntitySet="CAR_DEFECTS" />
+      <End Role="CAR_DEFECT_STATUS" EntitySet="CAR_DEFECT_STATUS" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CAR_DEFE_HAS_CARS_CARS" Association="Self.FK_CAR_DEFE_HAS_CARS_CARS">
+      <End Role="CARS" EntitySet="CARS" />
+      <End Role="CAR_DEFECTS" EntitySet="CAR_DEFECTS" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CAR_DEFE_HAS_DEFEC_DEFECTS" Association="Self.FK_CAR_DEFE_HAS_DEFEC_DEFECTS">
+      <End Role="DEFECTS" EntitySet="DEFECTS" />
+      <End Role="CAR_DEFECTS" EntitySet="CAR_DEFECTS" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CAR_PART_HAS_CAR_P_CAR_PART" Association="Self.FK_CAR_PART_HAS_CAR_P_CAR_PART">
+      <End Role="CAR_PARTS" EntitySet="CAR_PARTS" />
+      <End Role="CAR_PARTS_ORDERED" EntitySet="CAR_PARTS_ORDERED" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CAR_PART_HAS_ORDER_ORDER" Association="Self.FK_CAR_PART_HAS_ORDER_ORDER">
+      <End Role="ORDER" EntitySet="ORDER" />
+      <End Role="CAR_PARTS_ORDERED" EntitySet="CAR_PARTS_ORDERED" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CAR_TYPE_HAS_CAR_T_CARS" Association="Self.FK_CAR_TYPE_HAS_CAR_T_CARS">
+      <End Role="CARS" EntitySet="CARS" />
+      <End Role="CAR_TYPE" EntitySet="CAR_TYPE" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CARS_DR6_PURCHASE" Association="Self.FK_CARS_DR6_PURCHASE">
+      <End Role="PURCHASES" EntitySet="PURCHASES" />
+      <End Role="CARS" EntitySet="CARS" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CARS_HAD_MAKE_MODEL" Association="Self.FK_CARS_HAD_MAKE_MODEL">
+      <End Role="MODEL" EntitySet="MODEL" />
+      <End Role="CARS" EntitySet="CARS" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CARS_HAS_CLIEN_CLIENT" Association="Self.FK_CARS_HAS_CLIEN_CLIENT">
+      <End Role="CLIENT" EntitySet="CLIENT" />
+      <End Role="CARS" EntitySet="CARS" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CARS_HAS_COLOU_COLOUR" Association="Self.FK_CARS_HAS_COLOU_COLOUR">
+      <End Role="COLOUR" EntitySet="COLOUR" />
+      <End Role="CARS" EntitySet="CARS" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CARS_HAS_FEUL__FUEL_TYP" Association="Self.FK_CARS_HAS_FEUL__FUEL_TYP">
+      <End Role="FUEL_TYPE" EntitySet="FUEL_TYPE" />
+      <End Role="CARS" EntitySet="CARS" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CARS_HAS_NO__O_NUMBER_O" Association="Self.FK_CARS_HAS_NO__O_NUMBER_O">
+      <End Role="NUMBER_OF_DOORS" EntitySet="NUMBER_OF_DOORS" />
+      <End Role="CARS" EntitySet="CARS" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CARS_HAS_NUM_O_NUMBER_O" Association="Self.FK_CARS_HAS_NUM_O_NUMBER_O">
+      <End Role="NUMBER_OF_SEATS" EntitySet="NUMBER_OF_SEATS" />
+      <End Role="CARS" EntitySet="CARS" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CARS_HAS_STATU_CAR_STAT" Association="Self.FK_CARS_HAS_STATU_CAR_STAT">
+      <End Role="CAR_STATUS" EntitySet="CAR_STATUS" />
+      <End Role="CARS" EntitySet="CARS" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CARS_HAS_TRANS_TRANSMIS" Association="Self.FK_CARS_HAS_TRANS_TRANSMIS">
+      <End Role="TRANSMISSION" EntitySet="TRANSMISSION" />
+      <End Role="CARS" EntitySet="CARS" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CLIENT_D_HAS_A_CLI_CLIENT" Association="Self.FK_CLIENT_D_HAS_A_CLI_CLIENT">
+      <End Role="CLIENT" EntitySet="CLIENT" />
+      <End Role="CLIENT_DOCUMENTS" EntitySet="CLIENT_DOCUMENTS" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CLIENT_HAS_A_CLI_USERS" Association="Self.FK_CLIENT_HAS_A_CLI_USERS">
+      <End Role="USERS" EntitySet="USERS" />
+      <End Role="CLIENT" EntitySet="CLIENT" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DOCUMENT_HAS_A_DOC_CLIENT_D" Association="Self.FK_DOCUMENT_HAS_A_DOC_CLIENT_D">
+      <End Role="CLIENT_DOCUMENTS" EntitySet="CLIENT_DOCUMENTS" />
+      <End Role="DOCUMENT_TYPE" EntitySet="DOCUMENT_TYPE" />
+    </AssociationSet>
+    <AssociationSet Name="FK_EMPLYEE__HAS_EMPLO_EMPLOYEE" Association="Self.FK_EMPLYEE__HAS_EMPLO_EMPLOYEE">
+      <End Role="EMPLOYEE" EntitySet="EMPLOYEE" />
+      <End Role="EMPLYEE_SALES" EntitySet="EMPLYEE_SALES" />
+    </AssociationSet>
+    <AssociationSet Name="FK_EMPLYEE__HAS_SALE_SALES" Association="Self.FK_EMPLYEE__HAS_SALE_SALES">
+      <End Role="SALES" EntitySet="SALES" />
+      <End Role="EMPLYEE_SALES" EntitySet="EMPLYEE_SALES" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MAKE_HAS_MODEL_MODEL" Association="Self.FK_MAKE_HAS_MODEL_MODEL">
+      <End Role="MODEL" EntitySet="MODEL" />
+      <End Role="MAKE" EntitySet="MAKE" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MECHANIC_DC2_MECHANIC" Association="Self.FK_MECHANIC_DC2_MECHANIC">
+      <End Role="MECHANIC_JOB" EntitySet="MECHANIC_JOB" />
+      <End Role="MECHANIC" EntitySet="MECHANIC" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MECHANIC_HAS_A_MEC_MECHANIC" Association="Self.FK_MECHANIC_HAS_A_MEC_MECHANIC">
+      <End Role="MECHANIC_JOB" EntitySet="MECHANIC_JOB" />
+      <End Role="MECHANIC_TASK" EntitySet="MECHANIC_TASK" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MECHANIC_HAS_CAR_CARS" Association="Self.FK_MECHANIC_HAS_CAR_CARS">
+      <End Role="CARS" EntitySet="CARS" />
+      <End Role="MECHANIC_JOB" EntitySet="MECHANIC_JOB" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MECHANIC_HAS_SERVI_TASK" Association="Self.FK_MECHANIC_HAS_SERVI_TASK">
+      <End Role="TASK" EntitySet="TASK" />
+      <End Role="MECHANIC_TASK" EntitySet="MECHANIC_TASK" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MECHANIC_HAS_USED__RELATION" Association="Self.FK_MECHANIC_HAS_USED__RELATION">
+      <End Role="RELATIONSHIP_12" EntitySet="RELATIONSHIP_12" />
+      <End Role="MECHANIC_TASK" EntitySet="MECHANIC_TASK" />
+    </AssociationSet>
+    <AssociationSet Name="FK_OFFERS_DR2_SALES" Association="Self.FK_OFFERS_DR2_SALES">
+      <End Role="SALES" EntitySet="SALES" />
+      <End Role="OFFERS" EntitySet="OFFERS" />
+    </AssociationSet>
+    <AssociationSet Name="FK_OFFERS_HAS_A_CAR_CARS" Association="Self.FK_OFFERS_HAS_A_CAR_CARS">
+      <End Role="CARS" EntitySet="CARS" />
+      <End Role="OFFERS" EntitySet="OFFERS" />
+    </AssociationSet>
+    <AssociationSet Name="FK_OFFERS_HAS_A_STA_OFFER_ST" Association="Self.FK_OFFERS_HAS_A_STA_OFFER_ST">
+      <End Role="OFFER_STATUS" EntitySet="OFFER_STATUS" />
+      <End Role="OFFERS" EntitySet="OFFERS" />
+    </AssociationSet>
+    <AssociationSet Name="FK_OFFERS_HAS_AN_OF_OFFER_TY" Association="Self.FK_OFFERS_HAS_AN_OF_OFFER_TY">
+      <End Role="OFFER_TYPE" EntitySet="OFFER_TYPE" />
+      <End Role="OFFERS" EntitySet="OFFERS" />
+    </AssociationSet>
+    <AssociationSet Name="FK_OFFERS_HAS_OFFER_CLIENT" Association="Self.FK_OFFERS_HAS_OFFER_CLIENT">
+      <End Role="CLIENT" EntitySet="CLIENT" />
+      <End Role="OFFERS" EntitySet="OFFERS" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ORDER_HAS_SUPPL_SUPPLIER" Association="Self.FK_ORDER_HAS_SUPPL_SUPPLIER">
+      <End Role="SUPPLIER" EntitySet="SUPPLIER" />
+      <End Role="ORDER" EntitySet="ORDER" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PURCHASE_HAS_CLIEN_CLIENT" Association="Self.FK_PURCHASE_HAS_CLIEN_CLIENT">
+      <End Role="CLIENT" EntitySet="CLIENT" />
+      <End Role="PURCHASES" EntitySet="PURCHASES" />
+    </AssociationSet>
+    <AssociationSet Name="FK_RELATION_RELATIONS_CAR_PART" Association="Self.FK_RELATION_RELATIONS_CAR_PART">
+      <End Role="CAR_PARTS" EntitySet="CAR_PARTS" />
+      <End Role="RELATIONSHIP_12" EntitySet="RELATIONSHIP_12" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SALES_HAS_PAYME_PAYMENT" Association="Self.FK_SALES_HAS_PAYME_PAYMENT">
+      <End Role="PAYMENT" EntitySet="PAYMENT" />
+      <End Role="SALES" EntitySet="SALES" />
+    </AssociationSet>
+    <AssociationSet Name="FK_USERS_HAS_USER__USER_ROL" Association="Self.FK_USERS_HAS_USER__USER_ROL">
+      <End Role="USER_ROLE" EntitySet="USER_ROLE" />
+      <End Role="USERS" EntitySet="USERS" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
