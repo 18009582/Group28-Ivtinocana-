@@ -1,4 +1,4 @@
-﻿@model Vehlution.Models.MODEL
+﻿@model Vehlution_Everything_.Models.MODEL
 
 @{
     Layout = null;
@@ -70,7 +70,7 @@
                     @Html.AntiForgeryToken()
 
                     <input type="hidden" id="MODEL_ID" name="MODEL_ID" value="@Model.MODEL_ID" readonly />
-                    <input type="text" id="MODEL_NAME" name="MODEL_NAME" style="width:50%" /> <br />
+                    <input type="text" id="MODEL_NAME" name="MODEL_NAME" style="width:50%" required/> <br />
 
                     <label>Car Makes</label><br />
                     @Html.DropDownList("MAKE_ID", null, htmlAttributes: new { @class = "select" })<br />

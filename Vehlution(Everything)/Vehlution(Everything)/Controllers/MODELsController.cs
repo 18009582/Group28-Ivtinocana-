@@ -6,9 +6,9 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using Vehlution.Models;
+using Vehlution_Everything_.Models;
 
-namespace Vehlution.Controllers
+namespace Vehlution_Everything_.Controllers
 {
     public class MODELsController : Controller
     {
@@ -17,7 +17,7 @@ namespace Vehlution.Controllers
         // GET: MODELs
         public ActionResult CarModelIndex()
         {
-            var mODELs = db.MODELs.Include(m => m.MAKEs);
+            var mODELs = db.MODELs.Include(m => m.MAKE);
             return View(mODELs.ToList());
         }
 
