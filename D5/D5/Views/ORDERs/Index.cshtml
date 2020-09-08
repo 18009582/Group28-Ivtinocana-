@@ -1,0 +1,228 @@
+﻿@model dynamic
+
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Orders</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    <script src='https://kit.fontawesome.com/a076d05399.js'></script>
+    <link href="@Url.Content("~/Content/Site.css")" rel="stylesheet" type="text/css" />
+    <style>
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 1; /* Sit on top */
+            padding-top: 100px; /* Location of the box */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgb(0,0,0); /* Fallback color */
+            background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+        }
+
+        /* Modal Content */
+        .modal-content {
+            background-color: #fefefe;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 50%;
+            text-align: center;
+        }
+
+        /* The Close Button */
+        .close {
+            color: #aaaaaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+            .close:hover,
+            .close:focus {
+                color: #000;
+                text-decoration: none;
+                cursor: pointer;
+            }
+    </style>
+    <meta charset="utf-8" />
+
+</head>
+
+<body>
+
+
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+    <div class="container">
+        <div class="panel panel-default">
+
+            <div class="panel-body">
+                <table class="table-latitude">
+                    <caption>Supplier Order Information</caption>
+                    
+
+                    <thead>
+                    <th>OrderID</th>
+                    <th>Order Date</th>
+                    <th>Order Price</th>
+                    <th>Order Status</th>
+                    <th>Car parts ordered</th>
+                    <th>Supplier Name</th>
+                    <th><button class="btn btn-outline-success" style="color:darkblue"onclick="location.href='@Url.Action("Create","ORDERs")'"><i class="fa fa-plus-square" ></i> Place an Order</button></th>
+
+                    </thead>
+                    <tbody>
+
+                        @foreach (var item in Model.Orders)
+                        {
+                            <tr>
+                                <td>
+                                    @item.ORDER_ID
+                                </td>
+                                <td>
+                                    @item.ORDER_DATE_.ToString("yyyy/mm/dd")
+                                </td>
+                                <td>
+                                    R @item.ORDER_PRICE_
+                                </td>
+                                <td>
+                                    @item.ORDER_STATUS_
+                                </td>
+                                <td>
+                                    <ul>
+                                        @foreach (var x in item.Parts)
+                                        {
+
+                                            <li> @x.PARTNAME x @x.QUANTITY</li>
+
+                                        }
+                                    </ul>
+                                </td>
+                                <td>
+                                    @item.SUPPLIER.NAME_
+                                </td>
+                                <td>
+                                    <a class="btn text-danger" onclick="del(@item.ORDER_ID)" value="item.ORDER_ID"><i class="fa fa-trash fa-lg"></i></a>
+
+                                    @{if (String.Equals(item.ORDER_STATUS_.Trim(), "Placed"))
+                                        {
+                                            <a onclick="Rec(@item.ORDER_ID)" value="item.ORDER_ID" >
+                                                <svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-box-seam" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                                    <path fill-rule="evenodd" d="M8.186 1.113a.5.5 0 0 0-.372 0L1.846 3.5l2.404.961L10.404 2l-2.218-.887zm3.564 1.426L5.596 5 8 5.961 14.154 3.5l-2.404-.961zm3.25 1.7l-6.5 2.6v7.922l6.5-2.6V4.24zM7.5 14.762V6.838L1 4.239v7.923l6.5 2.6zM7.443.184a1.5 1.5 0 0 1 1.114 0l7.129 2.852A.5.5 0 0 1 16 3.5v8.662a1 1 0 0 1-.629.928l-7.185 2.874a.5.5 0 0 1-.372 0L.63 13.09a1 1 0 0 1-.63-.928V3.5a.5.5 0 0 1 .314-.464L7.443.184z" />
+                                                </svg>
+                                            </a>
+                                            
+                    
+                }
+            }
+
+         
+
+
+                                        </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div id="myModal1" class="modal">
+        <div class="modal-content">
+            @using (Html.BeginForm("Delete", "ORDERs"))
+            {
+                <form id="DeleteConfirmed">
+                    <label id="dellabel">Are You sure you want to cancel supplier order </label>
+                    <br />
+                    <input type="hidden" id="DelId" name="DelId" readonly />
+                    <button type="submit" class="btn btn-default btn-sm" style="background-color:lightgreen;width:100%">
+                        <i class="fa fa-check"></i>
+                        Yes
+                    </button>
+
+                    <button type="button" class="btn btn-default btn-sm" style="background-color:red;width:100%" id="close">
+                        <i class="fa fa-times"></i>
+                        <i class="glyphicon glyphicon-remove"></i> Cancel
+                    </button>
+                    <br />
+                </form>
+            }
+        </div>
+    </div>
+
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            @using (Html.BeginForm("RecieveOrder", "ORDERs"))
+            {
+                <form id="RecieveOrder">
+                    <label id="reclabel">Are You sure you want to Recieve supplier order </label>
+                    <br />
+                    <input type="hidden" id="id" name="id" readonly />
+                    <button type="submit" class="btn btn-default btn-sm" style="background-color:lightgreen;width:100%">
+                        <i class="fa fa-check"></i>
+                        Yes
+                    </button>
+
+                    <button type="button" class="btn btn-default btn-sm" style="background-color:red;width:100%" id="close">
+                        <i class="fa fa-times"></i>
+                        <i class="glyphicon glyphicon-remove"></i> Cancel
+                    </button>
+                    <br />
+                </form>
+            }
+        </div>
+    </div>
+
+    <script>
+        // Get the modal
+        var modal = document.getElementById("myModal");
+        var modal1 = document.getElementById("myModal1");
+
+        var closebtn = document.getElementById("close");
+        // Get the <span> element that closes the modal
+        // When the user clicks on the button, open the modal
+
+
+        function del(id) {
+            document.getElementById('dellabel').innerText = "Are you sure you want to cancel Supplier order " + id + " ?";
+            document.getElementById('DelId').value = id;
+            modal1.style.display = "block";
+
+
+        }
+        function Rec(id) {
+            document.getElementById('reclabel').innerText = "Are you sure you want to Recieve Supplier order " + id + " ?";
+            document.getElementById('id').value = id;
+            modal.style.display = "block";
+
+        }
+        closebtn.onclick = function () {
+            modal1.style.display = "none";
+            modal.style.display = "none";
+        }
+
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function (event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+
+
+    </script>
+
+</body>
+</html>

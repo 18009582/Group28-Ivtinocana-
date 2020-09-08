@@ -1,0 +1,74 @@
+﻿@model D5.Models.OFFER
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Details</title>
+</head>
+<body>
+    <div>
+        <h4>OFFER</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.AMOUNT)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.AMOUNT)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.CAR.CAR_ID)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.CAR.CAR_ID)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.CLIENT.USER_NAME)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.CLIENT.USER_NAME)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.OFFER_STATUS.STATUS_NAME_)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.OFFER_STATUS.STATUS_NAME_)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.OFFER_TYPE.OFFERTYPE)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.OFFER_TYPE.OFFERTYPE)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.SALE.SALES_ID)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.SALE.SALES_ID)
+            </dd>
+    
+        </dl>
+    </div>
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.OFFER_ID }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+</body>
+</html>

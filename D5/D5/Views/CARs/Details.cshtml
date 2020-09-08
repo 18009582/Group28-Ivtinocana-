@@ -1,0 +1,130 @@
+﻿@model D5.Models.CAR
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Details</title>
+</head>
+<body>
+    <div>
+        <h4>CAR</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.YEAR)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.YEAR)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.MILAGE_)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.MILAGE_)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.LISTING_PRICE)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.LISTING_PRICE)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.IMAGE)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.IMAGE)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.CAR_STATUS.SASTUS_NAME)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.CAR_STATUS.SASTUS_NAME)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.MODEL.MODEL_NAME)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.MODEL.MODEL_NAME)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.CLIENT.USER_NAME)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.CLIENT.USER_NAME)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.COLOUR.COLOUR_NAME)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.COLOUR.COLOUR_NAME)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.FUEL_TYPE.FUELTYPE_NAME)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.FUEL_TYPE.FUELTYPE_NAME)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.MAKE.MAKE_NAME)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.MAKE.MAKE_NAME)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.NUMBER_OF_DOORS.DOORS_ID)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.NUMBER_OF_DOORS.DOORS_ID)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.NUMBER_OF_SEATS.SEATS_ID)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.NUMBER_OF_SEATS.SEATS_ID)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.TRANSMISSION.TRANSMISSION_NAME)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.TRANSMISSION.TRANSMISSION_NAME)
+            </dd>
+    
+        </dl>
+    </div>
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.CAR_ID }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+</body>
+</html>
