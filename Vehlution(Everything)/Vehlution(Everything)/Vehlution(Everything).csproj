@@ -142,8 +142,12 @@
     <Compile Include="Controllers\MODELsController.cs" />
     <Compile Include="Controllers\OFFERsController.cs" />
     <Compile Include="Controllers\ORDERsController.cs" />
+    <Compile Include="Controllers\RegisterController.cs" />
     <Compile Include="Controllers\ReportsController.cs" />
     <Compile Include="Controllers\SUPPLIERsController.cs" />
+    <Compile Include="Controllers\UserDashController.cs" />
+    <Compile Include="Controllers\USERsController.cs" />
+    <Compile Include="Controllers\USER_ROLEController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -189,6 +193,7 @@
     <Compile Include="Models\CAR_TYPE.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ChangePassword.cs" />
     <Compile Include="Models\CLIENT.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -213,6 +218,8 @@
     <Compile Include="Models\EMPLYEE_SALES.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\encryptPassword.cs" />
+    <Compile Include="Models\ForgotPassword.cs" />
     <Compile Include="Models\FUEL_TYPE.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -292,6 +299,8 @@
     <Compile Include="Models\USER.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\UserLogin.cs" />
+    <Compile Include="Models\UserRegistration.cs" />
     <Compile Include="Models\USER_ROLE.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -520,6 +529,23 @@
     <Content Include="Views\OFFERs\AdminIndex.cshtml" />
     <Content Include="Views\OFFERs\ClientIndex.cshtml" />
     <Content Include="Views\CARs\Edit.cshtml" />
+    <Content Include="Views\Register\ChangePassword.cshtml" />
+    <Content Include="Views\Register\ForgetPassword.cshtml" />
+    <Content Include="Views\Register\Index.cshtml" />
+    <Content Include="Views\Register\Login.cshtml" />
+    <Content Include="Views\Register\Registration.cshtml" />
+    <Content Include="Views\Register\UserVerification.cshtml" />
+    <Content Include="Views\UserDash\Index.cshtml" />
+    <Content Include="Views\USERs\Create.cshtml" />
+    <Content Include="Views\USERs\Delete.cshtml" />
+    <Content Include="Views\USERs\Details.cshtml" />
+    <Content Include="Views\USERs\Edit.cshtml" />
+    <Content Include="Views\USERs\Index.cshtml" />
+    <Content Include="Views\USER_ROLE\Create.cshtml" />
+    <Content Include="Views\USER_ROLE\Delete.cshtml" />
+    <Content Include="Views\USER_ROLE\Details.cshtml" />
+    <Content Include="Views\USER_ROLE\Edit.cshtml" />
+    <Content Include="Views\USER_ROLE\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
