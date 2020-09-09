@@ -148,6 +148,7 @@
     <Compile Include="Controllers\ORDERsController.cs" />
     <Compile Include="Controllers\RegisterController.cs" />
     <Compile Include="Controllers\ReportsController.cs" />
+    <Compile Include="Controllers\SALEsController.cs" />
     <Compile Include="Controllers\SUPPLIERsController.cs" />
     <Compile Include="Controllers\TASKsController.cs" />
     <Compile Include="Controllers\UserDashController.cs" />
@@ -569,6 +570,11 @@
     <Content Include="Views\TASKs\Delete.cshtml" />
     <Content Include="Views\TASKs\Index.cshtml" />
     <Content Include="Views\TASKs\Edit.cshtml" />
+    <Content Include="Views\SALEs\Create.cshtml" />
+    <Content Include="Views\SALEs\Delete.cshtml" />
+    <Content Include="Views\SALEs\Details.cshtml" />
+    <Content Include="Views\SALEs\Edit.cshtml" />
+    <Content Include="Views\SALEs\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
