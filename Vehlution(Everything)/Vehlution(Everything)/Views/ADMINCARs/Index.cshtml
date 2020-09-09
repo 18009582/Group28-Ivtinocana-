@@ -1,0 +1,105 @@
+﻿@model IEnumerable<Vehlution_Everything_.Models.CAR>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            MAKE ID
+        </th>
+        <th>
+            YEAR
+        </th>
+        <th>
+           MILEAGE
+        </th>
+        <th>
+            LISTING PRICE
+        </th>
+        <th>
+            IMAGE
+        </th>
+        <th>
+           CAR STATUS
+        </th>
+        <th>
+            MODEL NAME
+        </th>
+        <th>
+           USER NAME
+        </th>
+        <th>
+            COLOUR NAME
+        </th>
+        <th>
+            FUEL TYPE
+        </th>
+        <th>
+            NUMBER OF DOORS
+        </th>
+        <th>
+            NUMBER OF SEATS
+        </th>
+        <th>
+            TRANSMISSION NAME
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.MAKE_ID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.YEAR)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MILAGE_)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LISTING_PRICE)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IMAGE)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CAR_STATUS.SASTUS_NAME)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MODEL.MODEL_NAME)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CLIENT.USER_NAME)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.COLOUR.COLOUR_NAME)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FUEL_TYPE.FUELTYPE_NAME)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NUMBER_OF_DOORS.DOORS_ID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NUMBER_OF_SEATS.SEATS_ID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TRANSMISSION.TRANSMISSION_NAME)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.CAR_ID }) |
+                @Html.ActionLink("Details", "Details", new { id = item.CAR_ID }) |
+            </td>
+        </tr>
+    }
+
+</table>

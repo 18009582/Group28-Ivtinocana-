@@ -6,3 +6,5 @@ C:\Users\27814\Documents\GitHub\Group28-Ivtinocana-\Vehlution(Everything)\Vehlut
 C:\Users\27814\Documents\GitHub\Group28-Ivtinocana-\Vehlution(Everything)\Vehlution(Everything)\obj\Debug\Vehlution(Everything).csproj.CoreCompileInputs.cache
 C:\Users\27814\Documents\GitHub\Group28-Ivtinocana-\Vehlution(Everything)\Vehlution(Everything)\obj\Debug\Vehlution(Everything).dll
 C:\Users\27814\Documents\GitHub\Group28-Ivtinocana-\Vehlution(Everything)\Vehlution(Everything)\obj\Debug\Vehlution(Everything).pdb
+C:\Users\Hi\Source\Repos\18009582\Group28-Ivtinocana-\Vehlution(Everything)\Vehlution(Everything)\obj\Debug\Vehlution(Everything).csprojAssemblyReference.cache
+C:\Users\Hi\Source\Repos\18009582\Group28-Ivtinocana-\Vehlution(Everything)\Vehlution(Everything)\obj\Debug\Vehlution(Everything).csproj.CoreCompileInputs.cache
