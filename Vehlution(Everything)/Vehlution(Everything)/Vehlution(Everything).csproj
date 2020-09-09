@@ -131,15 +131,29 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\ADMINCARsController.cs" />
     <Compile Include="Controllers\BOOKING_DATESController.cs" />
     <Compile Include="Controllers\BOOKING_TIMESController.cs" />
     <Compile Include="Controllers\CARsController.cs" />
     <Compile Include="Controllers\CAR_BOOKING_SLOTSController.cs" />
+    <Compile Include="Controllers\CAR_PARTsController.cs" />
+    <Compile Include="Controllers\CLIENTCARsController.cs" />
     <Compile Include="Controllers\DEFECTsController.cs" />
+    <Compile Include="Controllers\EmployeesController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MAKEsController.cs" />
+    <Compile Include="Controllers\MECHANICsController.cs" />
+    <Compile Include="Controllers\MECHANICsJOBController.cs" />
     <Compile Include="Controllers\MODELsController.cs" />
+    <Compile Include="Controllers\OFFERsController.cs" />
+    <Compile Include="Controllers\ORDERsController.cs" />
+    <Compile Include="Controllers\RegisterController.cs" />
     <Compile Include="Controllers\ReportsController.cs" />
     <Compile Include="Controllers\SUPPLIERsController.cs" />
+    <Compile Include="Controllers\TASKsController.cs" />
+    <Compile Include="Controllers\UserDashController.cs" />
+    <Compile Include="Controllers\USERsController.cs" />
+    <Compile Include="Controllers\USER_ROLEController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -185,6 +199,7 @@
     <Compile Include="Models\CAR_TYPE.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ChangePassword.cs" />
     <Compile Include="Models\CLIENT.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -209,6 +224,8 @@
     <Compile Include="Models\EMPLYEE_SALES.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\encryptPassword.cs" />
+    <Compile Include="Models\ForgotPassword.cs" />
     <Compile Include="Models\FUEL_TYPE.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -242,6 +259,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Model1.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\NewOrderItem.cs" />
     <Compile Include="Models\NUMBER_OF_DOORS.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -287,6 +305,8 @@
     <Compile Include="Models\USER.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\UserLogin.cs" />
+    <Compile Include="Models\UserRegistration.cs" />
     <Compile Include="Models\USER_ROLE.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -357,27 +377,26 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>SalesModel.xsd</DependentUpon>
     </Compile>
-    <Compile Include="ViewModels\AdminBookings.cs" />
-    <Compile Include="ViewModels\CarParts.cs" />
-    <Compile Include="ViewModels\ClientBookings.cs" />
-    <Compile Include="ViewModels\MechanicJob.cs" />
-    <Compile Include="ViewModels\Purchases.cs" />
-    <Compile Include="ViewModels\SalesVM.cs" />
+    <Compile Include="ViewModel\AdminBookings.cs" />
+    <Compile Include="ViewModel\CarParts.cs" />
+    <Compile Include="ViewModel\ClientBookings.cs" />
+    <Compile Include="ViewModel\MechanicJob.cs" />
+    <Compile Include="ViewModel\Purchases.cs" />
+    <Compile Include="ViewModel\Sales.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
-    <Content Include="CSS\StyleSheet1.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Models\Model1.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Model1.edmx</DependentUpon>
       <LastGenOutput>Model1.Context.cs</LastGenOutput>
+      <DependentUpon>Model1.edmx</DependentUpon>
     </Content>
     <Content Include="Models\Model1.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -504,10 +523,60 @@
     <Content Include="Views\Reports\PurchasesReport.cshtml" />
     <Content Include="Views\Reports\SalesReport.cshtml" />
     <Content Include="Views\Reports\EmployeeSalesChart.cshtml" />
-    <Content Include="Views\View.cshtml" />
+    <Content Include="Views\CAR_BOOKING_SLOTS\BookingSlotsIndex.cshtml" />
     <Content Include="Views\CAR_BOOKING_SLOTS\Create.cshtml" />
     <Content Include="Views\CAR_BOOKING_SLOTS\Edit.cshtml" />
-    <Content Include="Views\CAR_BOOKING_SLOTS\Index.cshtml" />
+    <Content Include="Views\Employees\Index.cshtml" />
+    <Content Include="Views\Employees\Create.cshtml" />
+    <Content Include="Views\Employees\Edit.cshtml" />
+    <Content Include="Views\ORDERs\Index.cshtml" />
+    <Content Include="Views\ORDERs\Create.cshtml" />
+    <Content Include="Views\CARs\IndexSearch.cshtml" />
+    <Content Include="Views\OFFERs\AdminIndex.cshtml" />
+    <Content Include="Views\OFFERs\ClientIndex.cshtml" />
+    <Content Include="Views\CARs\Edit.cshtml" />
+    <Content Include="Views\Register\ChangePassword.cshtml" />
+    <Content Include="Views\Register\ForgetPassword.cshtml" />
+    <Content Include="Views\Register\Index.cshtml" />
+    <Content Include="Views\Register\Login.cshtml" />
+    <Content Include="Views\Register\Registration.cshtml" />
+    <Content Include="Views\Register\UserVerification.cshtml" />
+    <Content Include="Views\UserDash\Index.cshtml" />
+    <Content Include="Views\USERs\Create.cshtml" />
+    <Content Include="Views\USERs\Delete.cshtml" />
+    <Content Include="Views\USERs\Details.cshtml" />
+    <Content Include="Views\USERs\Edit.cshtml" />
+    <Content Include="Views\USERs\Index.cshtml" />
+    <Content Include="Views\USER_ROLE\Create.cshtml" />
+    <Content Include="Views\USER_ROLE\Delete.cshtml" />
+    <Content Include="Views\USER_ROLE\Details.cshtml" />
+    <Content Include="Views\USER_ROLE\Edit.cshtml" />
+    <Content Include="Views\USER_ROLE\Index.cshtml" />
+    <Content Include="Views\ADMINCARs\Create.cshtml" />
+    <Content Include="Views\ADMINCARs\Details.cshtml" />
+    <Content Include="Views\ADMINCARs\Index.cshtml" />
+    <Content Include="Views\ADMINCARs\Edit.cshtml" />
+    <Content Include="Views\CAR_PARTs\Create.cshtml" />
+    <Content Include="Views\CAR_PARTs\Details.cshtml" />
+    <Content Include="Views\CAR_PARTs\Edit.cshtml" />
+    <Content Include="Views\CAR_PARTs\Index.cshtml" />
+    <Content Include="Views\CLIENTCARs\Create.cshtml" />
+    <Content Include="Views\CLIENTCARs\Delete.cshtml" />
+    <Content Include="Views\CLIENTCARs\Details.cshtml" />
+    <Content Include="Views\CLIENTCARs\Index.cshtml" />
+    <Content Include="Views\CLIENTCARs\Edit.cshtml" />
+    <Content Include="Views\MECHANICs\Create.cshtml" />
+    <Content Include="Views\MECHANICs\Edit.cshtml" />
+    <Content Include="Views\MECHANICs\Index.cshtml" />
+    <Content Include="Views\MECHANICs\Details.cshtml" />
+    <Content Include="Views\MECHANICs\Delete.cshtml" />
+    <Content Include="Views\d.cshtml" />
+    <Content Include="Views\MECHANICsJOB\Create.cshtml" />
+    <Content Include="Views\TASKs\Create.cshtml" />
+    <Content Include="Views\TASKs\Details.cshtml" />
+    <Content Include="Views\TASKs\Delete.cshtml" />
+    <Content Include="Views\TASKs\Index.cshtml" />
+    <Content Include="Views\TASKs\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

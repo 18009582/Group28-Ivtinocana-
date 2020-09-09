@@ -1,0 +1,75 @@
+﻿
+@{
+    ViewBag.Title = "AdminIndex";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@model IEnumerable<Vehlution_Everything_.Models.OFFER>
+
+
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    <script src='https://kit.fontawesome.com/a076d05399.js'></script>
+    <link href="@Url.Content("~/Content/Site.css")" rel="stylesheet" type="text/css" />
+</head>
+<body>
+    <div class="container">
+        <div class="panel panel-default">
+
+            <div class="panel-body">
+                <table class="table-latitude">
+                    <caption>OFFERS</caption>
+                    <thead>
+                    <th>
+                        Offer ID
+                    </th>
+                    <th>
+
+                        @Html.DisplayNameFor(model => model.AMOUNT)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.CAR.CAR_REG)
+                    </th>
+
+                    <th></th>
+
+                    </thead>
+
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.OFFER_ID)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.AMOUNT)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.CAR.CAR_REG)
+                            </td>
+
+
+                            <td>
+                                <button class="btn btn-default btn-sm" id="Create" name="Create" style="background-color:lightsteelblue" onclick="location.href=' @Url.Action("Accept", "OFFERs", new { id = item.OFFER_ID })'">Accept</button>
+                                <button class="btn btn-default btn-sm" id="Create" name="Create" style="background-color:lightsteelblue" onclick="location.href=' @Url.Action("Reject", "OFFERS", new { id = item.OFFER_ID })'">Reject</button>
+
+                            </td>
+                        </tr>
+                    }
+
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+

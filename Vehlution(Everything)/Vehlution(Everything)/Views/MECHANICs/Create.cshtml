@@ -1,0 +1,114 @@
+﻿@model Vehlution_Everything_.Models.MECHANIC
+
+@{
+    ViewBag.Title = "Add Mechanic";
+}
+
+<head>
+    <link rel="stylesheet" href="~/CSS/StyleSheet1.css" type="text/css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    <script src='https://kit.fontawesome.com/a076d05399.js'></script>
+    <link href="@Url.Content("~/Content/Site.css")" rel="stylesheet" type="text/css" />
+    <style>
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 1; /* Sit on top */
+            padding-top: 100px; /* Location of the box */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgb(0,0,0); /* Fallback color */
+            background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+        }
+
+        /* Modal Content */
+        .modal-content {
+            background-color: #fefefe;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 50%;
+            text-align: center;
+        }
+
+        /* The Close Button */
+        .close {
+            color: #aaaaaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+            .close:hover,
+            .close:focus {
+                color: #000;
+                text-decoration: none;
+                cursor: pointer;
+            }
+    </style>
+</head>
+<h2>Mechanic</h2>
+<body>
+
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            <h4>Add New Mechanic</h4>
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                <!--@Html.LabelFor(model => model.FULL_NAME_, htmlAttributes: new { @class = "control-label col-md-2" })-->
+                <div class="col-md-10">
+                    <label for="FullName">Full Name</label>
+                    @Html.EditorFor(model => model.FULL_NAME_, new { htmlAttributes = new { @class = "form-control" }, id = "FullName" })
+                    @Html.ValidationMessageFor(model => model.FULL_NAME_, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <!--  @Html.LabelFor(model => model.CELL_NUMBER_, htmlAttributes: new { @class = "control-label col-md-2" })-->
+                <div class="col-md-10">
+                    <label for="CellNum">Cell Number</label>
+                    @Html.EditorFor(model => model.CELL_NUMBER_, new { htmlAttributes = new { @class = "form-control" }, id = "CellNum" })
+                    @Html.ValidationMessageFor(model => model.CELL_NUMBER_, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+
+                <!-- @Html.LabelFor(model => model.EMAIL_, htmlAttributes: new { @class = "control-label col-md-2" } )-->
+                <div class="col-md-10">
+                    <label for="Email">Email</label>
+                    @Html.EditorFor(model => model.EMAIL_, new { htmlAttributes = new { @class = "form-control" }, id = "Email" })
+                    @Html.ValidationMessageFor(model => model.EMAIL_, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class=" col-md-10">
+                    <input type="submit" value="Create" class="btn btn-primary" />
+                </div>
+            </div>
+        </div>
+    }
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</body>
+<div>
+    <!-- @Html.ActionLink("Back to List", "Index")-->
+    @Html.ActionLink("Return to Mechanic Lists", "Index", "Index", new { @class = "btn btn-dark" })
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

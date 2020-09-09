@@ -1,0 +1,58 @@
+﻿@model Vehlution_Everything_.Models.USER
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    <script src='https://kit.fontawesome.com/a076d05399.js'></script>
+    <link href="@Url.Content("~/Content/Site.css")" rel="stylesheet" type="text/css" />
+    <title>Edit</title>
+</head>
+<body>
+    <div class="container" style="text-align:center">
+        <div class="panel panel-default">
+            <h1 style="color:orange">User @Model.USER_ID details</h1>
+            <div class="panel-body">
+
+
+                @using (Html.BeginForm("Edit", "USERs"))
+                {
+
+                    <label>First Name </label><br />
+                    <input type="hidden" id="USERROLE_ID" name="USERROLE_ID" value="@Model.USER_ID" readonly />
+                    <input type="text" id="FIRSTNAME" name="FIRSTNAME" value="@Model.FIRSTNAME" style="width:50%" /> <br />
+                    <label>Last Name</label><br />
+                    <input type="text" id="LASTNAME" name="LASTNAME" value="@Model.LASTNAME" style="width:50%" /><br />
+                    <label>Email Address</label><br />
+                    <input type="text" id="EMAIL" name="EMAIL" value="@Model.EMAIL" style="width:50%" /><br />
+                    <label>Password </label><br />
+                    <input type="text" id="PASSWORD" name="PASSWORD" value="@Model.PASSWORD" style="width:50%" /><br />
+                    //<label>Confirm Password </label><br />
+                    //<input type="text" id="CONFIRMPASSWORD" name="CONFIRMPASSWORD" value="@Model.CONFIRMPASSWORD" style="width:50%" /><br />
+
+
+                    <button type="submit" class="btn btn-default btn-sm" id="Create" name="Create" style="background-color:lightgreen">
+                        <i class="fa fa-plus-square"></i>
+                        <span class="glyphicon glyphicon-ok"></span> Update
+                    </button>
+                }
+                </button> <button type="button" class="btn btn-default btn-sm" style="background-color:red" onclick="location.href='@Url.Action("Index","USERs")'">
+                    <i class="fa fa-times"></i>
+                    <i class="glyphicon glyphicon-remove"></i> Cancel
+                </button>
+            </div>
+        </div>
+    </div>
+
+  
+</body>
+</html>

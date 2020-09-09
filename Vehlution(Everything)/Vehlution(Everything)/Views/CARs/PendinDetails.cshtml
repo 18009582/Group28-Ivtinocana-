@@ -127,6 +127,30 @@
             </div>
         </div>
     </div>
+    <div id="myModal1" class="modal">
+        <div class="modal-content">
+            @using (Html.BeginForm("MakeOffer", "CARs"))
+            {
+                <form id="DeleteConfirmed">
+                    <label>Please enter the amount you would like to offer</label>
+                    <br />
+                    <input type="hidden" id="type" name="type" value="2" readonly />
+                    <input type="hidden" id="c" name="c" readonly />
+                    <input type="number" id="offer" name="offer" />
+                    <button type="submit" class="btn btn-default btn-sm" style="background-color:lightgreen;width:100%">
+                        <i class="fa fa-check"></i>
+                        Make Offer
+                    </button>
+
+                    <button type="button" class="btn btn-default btn-sm" style="background-color:red;width:100%" id="close">
+                        <i class="fa fa-times"></i>
+                        <i class="glyphicon glyphicon-remove"></i> Cancel
+                    </button>
+                    <br />
+                </form>
+            }
+        </div>
+    </div>
 </body>
 
 <p>
@@ -134,3 +158,34 @@
 </p>
 </html>
 
+
+
+
+<script>
+
+    var modal1 = document.getElementById("myModal1");
+
+    var closebtn = document.getElementById("close");
+
+    function MakeNewOffer(car) {
+
+        document.getElementById('c').value = car;
+        modal1.style.display = "block";
+
+
+    }
+
+    closebtn.onclick = function () {
+        modal1.style.display = "none";
+
+    }
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function (event) {
+        if (event.target == modal) {
+            modal1.style.display = "none";
+        }
+    }
+
+
+</script>

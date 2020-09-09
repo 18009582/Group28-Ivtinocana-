@@ -1,0 +1,103 @@
+﻿@model Vehlution_Everything_.Models.USER
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    <script src='https://kit.fontawesome.com/a076d05399.js'></script>
+
+    <link href="~/Content/Site.css" rel="stylesheet" />
+    <title>Delete</title>
+</head>
+<body>
+    <h3>Are you sure you want to delete this?</h3>
+    <div>
+        <h4>USER</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.FIRSTNAME)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.FIRSTNAME)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.LASTNAME)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.LASTNAME)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.EMAIL)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.EMAIL)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.PASSWORD)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.PASSWORD)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.EMAILVERIFICATION)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.EMAILVERIFICATION)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.ACTIVATIONCODE)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.ACTIVATIONCODE)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.OTP)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.OTP)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.USER_ROLE.ROLE)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.USER_ROLE.ROLE)
+            </dd>
+    
+        </dl>
+    
+        @using (Html.BeginForm()) {
+            @Html.AntiForgeryToken()
+    
+            <div class="form-actions no-color">
+                <input type="submit" value="Delete" class="btn btn-default" /> |
+                @Html.ActionLink("Back to List", "Index")
+            </div>
+        }
+    </div>
+</body>
+</html>

@@ -1,0 +1,205 @@
+﻿@model Vehlution_Everything_.Models.ORDER
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    <script src='https://kit.fontawesome.com/a076d05399.js'></script>
+    <link href="@Url.Content("~/Content/Site.css")" rel="stylesheet" type="text/css" />
+
+    <meta charset="utf-8" />
+    <style>
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 1; /* Sit on top */
+            padding-top: 100px; /* Location of the box */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgb(0,0,0); /* Fallback color */
+            background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+        }
+
+        /* Modal Content */
+        .modal-content {
+            background-color: #fefefe;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 50%;
+            text-align: center;
+        }
+
+        /* The Close Button */
+        .close {
+            color: #aaaaaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+            .close:hover,
+            .close:focus {
+                color: #000;
+                text-decoration: none;
+                cursor: pointer;
+            }
+    </style>
+</head>
+<body>
+
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <h1 style="color:orange">Part details</h1><br />
+            <label>Please select a Car Part</label><br />
+            @using (Html.BeginForm("AddToList", "ORDERs"))
+            {
+
+
+                @Html.DropDownList("CarParts", null, htmlAttributes: new { @class = "select" })
+                <br />
+                <label>Please Select a quantity </label><br />
+                <input type="number" name="Qty" id="Qty" style="width:50%" /><br />
+                <label>Please Enter the price per a part</label><br />
+                <input type="text" id="Price" name="Price" style="width:50%" /><br />
+                <button type="submit" class="btn btn-default btn-sm" style="background-color:orange;width:50%;color:white" value="addToList">
+
+                    <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-cart-plus-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1H.5zM4 14a1 1 0 1 1 2 0 1 1 0 0 1-2 0zm7 0a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM9 5.5a.5.5 0 0 0-1 0V7H6.5a.5.5 0 0 0 0 1H8v1.5a.5.5 0 0 0 1 0V8h1.5a.5.5 0 0 0 0-1H9V5.5z" />
+                    </svg>
+                    Add Part
+                </button>
+
+                <button type="button" id="close" class="btn btn-default btn-sm" style="background-color:darkblue;width:50%;color:white">
+                    <i class="fa fa-times"></i>
+                    <i class="glyphicon glyphicon-remove"></i>
+                    Cancel
+                </button>
+
+            }
+        </div>
+    </div>
+
+
+
+    <div class="container" style="text-align:center">
+        <div class="panel panel-default">
+            <h1 style="color:orange">Supplier Order Details</h1>
+            <div class="panel-body">
+                <div class="container">
+                    <div class="panel-body">
+
+                        <table class="noborder">
+                            <caption>Parts to be ordered</caption>
+
+                            <tr style="border-color:white">
+                                <th>Part</th>
+                                <th>Quantity</th>
+                                <th>Price</th>
+                                <th>Total Price</th>
+                                <th><button class="btn btn-outline-success" style="color:darkblue" id="myBtn"><i class="fa fa-plus-square"></i> Add Part</button></th>
+                            </tr>
+                            @foreach (var item in ViewBag.PartsOrdered)
+                            {
+
+
+                                <tr style="border-color:white">
+                                    <td>@item.PartID @item.PartName</td>
+                                    <td>
+                                        @item.Qty
+                                    </td>
+                                    <td>
+                                        @item.Price
+                                    </td>
+                                    <td>
+                                        @item.Total
+                                    </td>
+                                    <td>
+                                        @using (Html.BeginForm("RemoveFromList", "ORDERs"))
+                                        {
+                                            <input type="hidden" value="@item.PartID" name="id" id="id" readonly />
+                                            <a class="btn text-danger"><i type="submit" class="fa fa-trash fa-lg"></i></a>
+
+                                        }
+                                    </td>
+                                </tr>
+                            }
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td>Order Total : R @ViewBag.total</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            @using (Html.BeginForm("Create", "ORDERs"))
+            {
+                <label>Supplier</label><br />
+                @Html.DropDownList("SUPPLIER_ID", null, htmlAttributes: new { @class = "select" })
+                <br />
+                <label>Date Placed</label><br />
+                <input type="date" id="date" name="date" style="width:50%" /><br />
+                <button type="submit" name="Create" style="background-color:lightgreen" class="btn btn-default btn-sm" value="Create">
+
+                    <i class="fa fa-plus-square"></i>
+                    <span class="glyphicon glyphicon-ok"></span> Place Order
+                </button> <button type="button" class="btn btn-default btn-sm" style="background-color:red" onclick="location.href='@Url.Action("Index", "ORDERs")'">
+                    <i class="fa fa-times"></i>
+                    <i class="glyphicon glyphicon-remove"></i> Cancel
+                </button>
+            }
+
+
+
+        </div>
+
+
+
+
+
+
+
+
+        @Html.ActionLink("Back to List", "Index")
+    </div>
+    <script>
+        // Get the modal
+        var modal = document.getElementById("myModal");
+
+        var btn = document.getElementById("myBtn");
+        var closebtn = document.getElementById("close");
+
+        btn.onclick = function () {
+            modal.style.display = "block";
+        }
+
+        closebtn.onclick = function () {
+            modal.style.display = "none";
+        }
+
+        window.onclick = function (event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+
+
+    </script>
+</body>
+</html>
