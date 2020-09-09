@@ -54,6 +54,7 @@
           <Property Name="CARBOOKING_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="CLIENT_ID" Type="int" Nullable="false" />
           <Property Name="CAR_ID" Type="int" Nullable="false" />
+          <Property Name="CARBOOKINGSLOTID" Type="int" />
           <Property Name="STATUS" Type="char" MaxLength="50" />
           <Property Name="BOOKING_DATE" Type="datetime" />
           <Property Name="BOOKING_TIME" Type="datetime" />
@@ -65,7 +66,6 @@
           <Property Name="TIME_ID" Type="int" Nullable="false" />
           <Property Name="DAY_" Type="int" Nullable="false" />
           <Property Name="STATUSID" Type="int" Nullable="false" />
-          <Property Name="BOOKING_ID" Type="int" Nullable="false" />
           <Property Name="EMPLYEE_ID" Type="int" />
           <Property Name="CARBOOKINGSLOTID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
         </EntityType>
@@ -449,14 +449,14 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_CAR_BOOK_HAS_A_CAR_CAR_BOOK">
-          <End Role="CAR_BOOKING" Type="Self.CAR_BOOKING" Multiplicity="1" />
-          <End Role="CAR_BOOKING_SLOTS" Type="Self.CAR_BOOKING_SLOTS" Multiplicity="*" />
+          <End Role="CAR_BOOKING_SLOTS" Type="Self.CAR_BOOKING_SLOTS" Multiplicity="0..1" />
+          <End Role="CAR_BOOKING" Type="Self.CAR_BOOKING" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="CAR_BOOKING">
-              <PropertyRef Name="CARBOOKING_ID" />
+            <Principal Role="CAR_BOOKING_SLOTS">
+              <PropertyRef Name="CARBOOKINGSLOTID" />
             </Principal>
-            <Dependent Role="CAR_BOOKING_SLOTS">
-              <PropertyRef Name="BOOKING_ID" />
+            <Dependent Role="CAR_BOOKING">
+              <PropertyRef Name="CARBOOKINGSLOTID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1038,8 +1038,8 @@
             <End Role="CAR_BOOKING" EntitySet="CAR_BOOKING" />
           </AssociationSet>
           <AssociationSet Name="FK_CAR_BOOK_HAS_A_CAR_CAR_BOOK" Association="Self.FK_CAR_BOOK_HAS_A_CAR_CAR_BOOK">
-            <End Role="CAR_BOOKING" EntitySet="CAR_BOOKING" />
             <End Role="CAR_BOOKING_SLOTS" EntitySet="CAR_BOOKING_SLOTS" />
+            <End Role="CAR_BOOKING" EntitySet="CAR_BOOKING" />
           </AssociationSet>
           <AssociationSet Name="FK_CAR_BOOK_HAS_BOOKI_BOOKING_" Association="Self.FK_CAR_BOOK_HAS_BOOKI_BOOKING_">
             <End Role="BOOKING_TIMES" EntitySet="BOOKING_TIMES" />
@@ -1274,6 +1274,7 @@
           <Property Name="CARBOOKING_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="CLIENT_ID" Type="Int32" Nullable="false" />
           <Property Name="CAR_ID" Type="Int32" Nullable="false" />
+          <Property Name="CARBOOKINGSLOTID" Type="Int32" />
           <Property Name="STATUS" Type="String" MaxLength="50" FixedLength="true" Unicode="false" />
           <Property Name="BOOKING_DATE" Type="DateTime" Precision="3" />
           <Property Name="BOOKING_TIME" Type="DateTime" Precision="3" />
@@ -1288,7 +1289,6 @@
           <Property Name="TIME_ID" Type="Int32" Nullable="false" />
           <Property Name="DAY_" Type="Int32" Nullable="false" />
           <Property Name="STATUSID" Type="Int32" Nullable="false" />
-          <Property Name="BOOKING_ID" Type="Int32" Nullable="false" />
           <Property Name="EMPLYEE_ID" Type="Int32" />
           <Property Name="CARBOOKINGSLOTID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <NavigationProperty Name="BOOKING_DATES" Relationship="Self.FK_CAR_BOOK_HAS_BOOKI_BOOKING_2" FromRole="CAR_BOOKING_SLOTS" ToRole="BOOKING_DATES" />
@@ -1795,14 +1795,14 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_CAR_BOOK_HAS_A_CAR_CAR_BOOK">
-          <End Role="CAR_BOOKING" Type="Self.CAR_BOOKING" Multiplicity="1" />
-          <End Role="CAR_BOOKING_SLOTS" Type="Self.CAR_BOOKING_SLOTS" Multiplicity="*" />
+          <End Role="CAR_BOOKING_SLOTS" Type="Self.CAR_BOOKING_SLOTS" Multiplicity="0..1" />
+          <End Role="CAR_BOOKING" Type="Self.CAR_BOOKING" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="CAR_BOOKING">
-              <PropertyRef Name="CARBOOKING_ID" />
+            <Principal Role="CAR_BOOKING_SLOTS">
+              <PropertyRef Name="CARBOOKINGSLOTID" />
             </Principal>
-            <Dependent Role="CAR_BOOKING_SLOTS">
-              <PropertyRef Name="BOOKING_ID" />
+            <Dependent Role="CAR_BOOKING">
+              <PropertyRef Name="CARBOOKINGSLOTID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -2360,8 +2360,8 @@
             <End Role="CAR_BOOKING" EntitySet="CAR_BOOKING" />
           </AssociationSet>
           <AssociationSet Name="FK_CAR_BOOK_HAS_A_CAR_CAR_BOOK" Association="Self.FK_CAR_BOOK_HAS_A_CAR_CAR_BOOK">
-            <End Role="CAR_BOOKING" EntitySet="CAR_BOOKING" />
             <End Role="CAR_BOOKING_SLOTS" EntitySet="CAR_BOOKING_SLOTS" />
+            <End Role="CAR_BOOKING" EntitySet="CAR_BOOKING" />
           </AssociationSet>
           <AssociationSet Name="FK_CAR_BOOK_HAS_CLIEN_CLIENT" Association="Self.FK_CAR_BOOK_HAS_CLIEN_CLIENT">
             <End Role="CLIENT" EntitySet="CLIENTs" />
@@ -2583,6 +2583,7 @@
                 <ScalarProperty Name="CARBOOKING_ID" ColumnName="CARBOOKING_ID" />
                 <ScalarProperty Name="CLIENT_ID" ColumnName="CLIENT_ID" />
                 <ScalarProperty Name="CAR_ID" ColumnName="CAR_ID" />
+                <ScalarProperty Name="CARBOOKINGSLOTID" ColumnName="CARBOOKINGSLOTID" />
                 <ScalarProperty Name="STATUS" ColumnName="STATUS" />
                 <ScalarProperty Name="BOOKING_DATE" ColumnName="BOOKING_DATE" />
                 <ScalarProperty Name="BOOKING_TIME" ColumnName="BOOKING_TIME" />
@@ -2595,7 +2596,6 @@
                 <ScalarProperty Name="TIME_ID" ColumnName="TIME_ID" />
                 <ScalarProperty Name="DAY_" ColumnName="DAY_" />
                 <ScalarProperty Name="STATUSID" ColumnName="STATUSID" />
-                <ScalarProperty Name="BOOKING_ID" ColumnName="BOOKING_ID" />
                 <ScalarProperty Name="EMPLYEE_ID" ColumnName="EMPLYEE_ID" />
                 <ScalarProperty Name="CARBOOKINGSLOTID" ColumnName="CARBOOKINGSLOTID" />
               </MappingFragment>

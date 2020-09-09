@@ -73,7 +73,8 @@
                     <th>Booking ID</th>
                     <th>Booking Date </th>
                     <th>Booking Time</th>
-                    <th>Order Status</th>
+                    <th>Booking Status</th>
+                    <th>Associated Employee</th>
                     <th>
                         <a class="btn btn-outline-success" onclick="location.href='@Url.Action("Create","CAR_BOOKING_SLOTS")'"><i class="fa fa-plus-square"></i> Create New Booking Slot</a>
                     </th>
@@ -84,13 +85,16 @@
                         {
                             <tr>
                                 <td>
-                                    @item.BOOKING_ID
+                                    @item.CARBOOKINGSLOTID
                                 </td>
                                 <td>
                                     @item.BOOKING_DATES.DAY_.ToString("dd-mmm-yyy")
                                 </td>
                                 <td>
                                     @item.BOOKING_TIMES.TIME_ID
+                                </td>
+                                <td>
+                                    @item.BOOKING_STATUS.STATUSNAME
                                 </td>
                                 <td>
                                     @item.EMPLOYEE.FULL_NAME
@@ -160,5 +164,4 @@
     </script>
 </body>
 </html>
-
 

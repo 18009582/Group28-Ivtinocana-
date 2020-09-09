@@ -2,13 +2,10 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
-using System.Dynamic;
 using System.Linq;
 using System.Net;
-using System.Threading;
 using System.Web;
 using System.Web.Mvc;
-using System.Web.WebPages;
 using Vehlution_Everything_.Models;
 
 namespace Vehlution_Everything_.Controllers
@@ -18,9 +15,9 @@ namespace Vehlution_Everything_.Controllers
         private VehlutionEntities db = new VehlutionEntities();
 
         // GET: CAR_BOOKING_SLOTS
-        public ActionResult BookingSlotsIndex()
+        public ActionResult Index()
         {
-            var cAR_BOOKING_SLOTS = db.CAR_BOOKING_SLOTS.Include(c => c.BOOKING_DATES).Include(c => c.BOOKING_STATUS).Include(c => c.BOOKING_TIMES).Include(c => c.CAR_BOOKING);
+            var cAR_BOOKING_SLOTS = db.CAR_BOOKING_SLOTS.Include(c => c.BOOKING_DATES).Include(c => c.BOOKING_STATUS).Include(c => c.BOOKING_TIMES).Include(c => c.EMPLOYEE);
             return View(cAR_BOOKING_SLOTS.ToList());
         }
 
@@ -42,24 +39,10 @@ namespace Vehlution_Everything_.Controllers
         // GET: CAR_BOOKING_SLOTS/Create
         public ActionResult Create()
         {
-            List<BOOKING_DATES> dateslist = new List<BOOKING_DATES>();
-            int count = 0;
-           List<dynamic> d = new List<dynamic>();
-            dateslist = db.BOOKING_DATES.ToList();
-            foreach (BOOKING_DATES x in dateslist)
-            {
-                dynamic dd = new ExpandoObject();
-                //  dd."DAY_ = x.DAY_;
-                dd.DATE = (x.DATE).Value.ToString("yyyy/mm/dd");
-                d.Add(dd);
-        
-            }
-         //   ViewBag.DAY_ = new SelectList(db.BOOKING_, "DAY_", "DATE");
-            
             ViewBag.DAY_ = new SelectList(db.BOOKING_DATES, "DAY_", "DATE");
             ViewBag.STATUSID = new SelectList(db.BOOKING_STATUS, "STATUSID", "STATUSNAME");
             ViewBag.TIME_ID = new SelectList(db.BOOKING_TIMES, "TIME_ID", "START_TIME_");
-            
+            ViewBag.EMPLYEE_ID = new SelectList(db.EMPLOYEEs, "EMPLYEE_ID", "FULL_NAME");
             return View();
         }
 
@@ -68,20 +51,20 @@ namespace Vehlution_Everything_.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "TIME_ID,DAY_,STATUSID")] CAR_BOOKING_SLOTS cAR_BOOKING_SLOTS)
+        public ActionResult Create([Bind(Include = "TIME_ID,DAY_,STATUSID,EMPLYEE_ID,CARBOOKINGSLOTID")] CAR_BOOKING_SLOTS cAR_BOOKING_SLOTS)
         {
             if (ModelState.IsValid)
             {
-    
                 db.CAR_BOOKING_SLOTS.Add(cAR_BOOKING_SLOTS);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
             ViewBag.DAY_ = new SelectList(db.BOOKING_DATES, "DAY_", "DAY_", cAR_BOOKING_SLOTS.DAY_);
-            ViewBag.STATUSID = new SelectList(db.BOOKING_STATUS, "STATUSID", "PROPOSED", cAR_BOOKING_SLOTS.STATUSID);
+            ViewBag.STATUSID = new SelectList(db.BOOKING_STATUS, "STATUSID", "STATUSNAME", cAR_BOOKING_SLOTS.STATUSID);
             ViewBag.TIME_ID = new SelectList(db.BOOKING_TIMES, "TIME_ID", "TIME_ID", cAR_BOOKING_SLOTS.TIME_ID);
-                       return View(cAR_BOOKING_SLOTS);
+            ViewBag.EMPLYEE_ID = new SelectList(db.EMPLOYEEs, "EMPLYEE_ID", "FULL_NAME", cAR_BOOKING_SLOTS.EMPLYEE_ID);
+            return View(cAR_BOOKING_SLOTS);
         }
 
         // GET: CAR_BOOKING_SLOTS/Edit/5
@@ -97,8 +80,9 @@ namespace Vehlution_Everything_.Controllers
                 return HttpNotFound();
             }
             ViewBag.DAY_ = new SelectList(db.BOOKING_DATES, "DAY_", "DAY_", cAR_BOOKING_SLOTS.DAY_);
-            ViewBag.STATUSID = new SelectList(db.BOOKING_STATUS, "STATUSID", "PROPOSED", cAR_BOOKING_SLOTS.STATUSID);
+            ViewBag.STATUSID = new SelectList(db.BOOKING_STATUS, "STATUSID", "STATUSNAME", cAR_BOOKING_SLOTS.STATUSID);
             ViewBag.TIME_ID = new SelectList(db.BOOKING_TIMES, "TIME_ID", "TIME_ID", cAR_BOOKING_SLOTS.TIME_ID);
+            ViewBag.EMPLYEE_ID = new SelectList(db.EMPLOYEEs, "EMPLYEE_ID", "FULL_NAME", cAR_BOOKING_SLOTS.EMPLYEE_ID);
             return View(cAR_BOOKING_SLOTS);
         }
 
@@ -107,7 +91,7 @@ namespace Vehlution_Everything_.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "TIME_ID,DAY_,STATUSID,BOOKING_ID")] CAR_BOOKING_SLOTS cAR_BOOKING_SLOTS)
+        public ActionResult Edit([Bind(Include = "TIME_ID,DAY_,STATUSID,EMPLYEE_ID,CARBOOKINGSLOTID")] CAR_BOOKING_SLOTS cAR_BOOKING_SLOTS)
         {
             if (ModelState.IsValid)
             {
@@ -116,8 +100,9 @@ namespace Vehlution_Everything_.Controllers
                 return RedirectToAction("Index");
             }
             ViewBag.DAY_ = new SelectList(db.BOOKING_DATES, "DAY_", "DAY_", cAR_BOOKING_SLOTS.DAY_);
-            ViewBag.STATUSID = new SelectList(db.BOOKING_STATUS, "STATUSID", "PROPOSED", cAR_BOOKING_SLOTS.STATUSID);
+            ViewBag.STATUSID = new SelectList(db.BOOKING_STATUS, "STATUSID", "STATUSNAME", cAR_BOOKING_SLOTS.STATUSID);
             ViewBag.TIME_ID = new SelectList(db.BOOKING_TIMES, "TIME_ID", "TIME_ID", cAR_BOOKING_SLOTS.TIME_ID);
+            ViewBag.EMPLYEE_ID = new SelectList(db.EMPLOYEEs, "EMPLYEE_ID", "FULL_NAME", cAR_BOOKING_SLOTS.EMPLYEE_ID);
             return View(cAR_BOOKING_SLOTS);
         }
 

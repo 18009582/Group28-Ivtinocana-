@@ -55,6 +55,7 @@
     <Property Name="CARBOOKING_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="CLIENT_ID" Type="Int32" Nullable="false" />
     <Property Name="CAR_ID" Type="Int32" Nullable="false" />
+    <Property Name="CARBOOKINGSLOTID" Type="Int32" />
     <Property Name="STATUS" Type="String" MaxLength="50" FixedLength="true" Unicode="false" />
     <Property Name="BOOKING_DATE" Type="DateTime" Precision="3" />
     <Property Name="BOOKING_TIME" Type="DateTime" Precision="3" />
@@ -69,7 +70,6 @@
     <Property Name="TIME_ID" Type="Int32" Nullable="false" />
     <Property Name="DAY_" Type="Int32" Nullable="false" />
     <Property Name="STATUSID" Type="Int32" Nullable="false" />
-    <Property Name="BOOKING_ID" Type="Int32" Nullable="false" />
     <Property Name="EMPLYEE_ID" Type="Int32" />
     <Property Name="CARBOOKINGSLOTID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <NavigationProperty Name="BOOKING_DATES" Relationship="Self.FK_CAR_BOOK_HAS_BOOKI_BOOKING_2" FromRole="CAR_BOOKING_SLOTS" ToRole="BOOKING_DATES" />
@@ -576,14 +576,14 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_CAR_BOOK_HAS_A_CAR_CAR_BOOK">
-    <End Role="CAR_BOOKING" Type="Self.CAR_BOOKING" Multiplicity="1" />
-    <End Role="CAR_BOOKING_SLOTS" Type="Self.CAR_BOOKING_SLOTS" Multiplicity="*" />
+    <End Role="CAR_BOOKING_SLOTS" Type="Self.CAR_BOOKING_SLOTS" Multiplicity="0..1" />
+    <End Role="CAR_BOOKING" Type="Self.CAR_BOOKING" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="CAR_BOOKING">
-        <PropertyRef Name="CARBOOKING_ID" />
+      <Principal Role="CAR_BOOKING_SLOTS">
+        <PropertyRef Name="CARBOOKINGSLOTID" />
       </Principal>
-      <Dependent Role="CAR_BOOKING_SLOTS">
-        <PropertyRef Name="BOOKING_ID" />
+      <Dependent Role="CAR_BOOKING">
+        <PropertyRef Name="CARBOOKINGSLOTID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -1141,8 +1141,8 @@
       <End Role="CAR_BOOKING" EntitySet="CAR_BOOKING" />
     </AssociationSet>
     <AssociationSet Name="FK_CAR_BOOK_HAS_A_CAR_CAR_BOOK" Association="Self.FK_CAR_BOOK_HAS_A_CAR_CAR_BOOK">
-      <End Role="CAR_BOOKING" EntitySet="CAR_BOOKING" />
       <End Role="CAR_BOOKING_SLOTS" EntitySet="CAR_BOOKING_SLOTS" />
+      <End Role="CAR_BOOKING" EntitySet="CAR_BOOKING" />
     </AssociationSet>
     <AssociationSet Name="FK_CAR_BOOK_HAS_CLIEN_CLIENT" Association="Self.FK_CAR_BOOK_HAS_CLIEN_CLIENT">
       <End Role="CLIENT" EntitySet="CLIENTs" />

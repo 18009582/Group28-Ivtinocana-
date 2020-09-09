@@ -504,10 +504,10 @@
     <Content Include="Views\Reports\PurchasesReport.cshtml" />
     <Content Include="Views\Reports\SalesReport.cshtml" />
     <Content Include="Views\Reports\EmployeeSalesChart.cshtml" />
-    <Content Include="Views\CAR_BOOKING_SLOTS\BookingSlotsIndex.cshtml" />
+    <Content Include="Views\View.cshtml" />
     <Content Include="Views\CAR_BOOKING_SLOTS\Create.cshtml" />
     <Content Include="Views\CAR_BOOKING_SLOTS\Edit.cshtml" />
-    <Content Include="Views\View.cshtml" />
+    <Content Include="Views\CAR_BOOKING_SLOTS\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

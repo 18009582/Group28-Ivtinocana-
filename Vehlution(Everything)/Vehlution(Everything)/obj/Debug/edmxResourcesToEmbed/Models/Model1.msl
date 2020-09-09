@@ -54,6 +54,7 @@
           <ScalarProperty Name="CARBOOKING_ID" ColumnName="CARBOOKING_ID" />
           <ScalarProperty Name="CLIENT_ID" ColumnName="CLIENT_ID" />
           <ScalarProperty Name="CAR_ID" ColumnName="CAR_ID" />
+          <ScalarProperty Name="CARBOOKINGSLOTID" ColumnName="CARBOOKINGSLOTID" />
           <ScalarProperty Name="STATUS" ColumnName="STATUS" />
           <ScalarProperty Name="BOOKING_DATE" ColumnName="BOOKING_DATE" />
           <ScalarProperty Name="BOOKING_TIME" ColumnName="BOOKING_TIME" />
@@ -66,7 +67,6 @@
           <ScalarProperty Name="TIME_ID" ColumnName="TIME_ID" />
           <ScalarProperty Name="DAY_" ColumnName="DAY_" />
           <ScalarProperty Name="STATUSID" ColumnName="STATUSID" />
-          <ScalarProperty Name="BOOKING_ID" ColumnName="BOOKING_ID" />
           <ScalarProperty Name="EMPLYEE_ID" ColumnName="EMPLYEE_ID" />
           <ScalarProperty Name="CARBOOKINGSLOTID" ColumnName="CARBOOKINGSLOTID" />
         </MappingFragment>
