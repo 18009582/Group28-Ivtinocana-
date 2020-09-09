@@ -17,8 +17,12 @@ namespace Vehlution_Everything_.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public USER()
         {
-            this.ACCESSes = new HashSet<ACCESS>();
-            this.CLIENTs = new HashSet<CLIENT>();
+            this.BOOKING_FOR_POSSIBLE_PURCHASE = new HashSet<BOOKING_FOR_POSSIBLE_PURCHASE>();
+            this.CAR_BOOKING = new HashSet<CAR_BOOKING>();
+            this.CARS = new HashSet<CAR>();
+            this.CLIENT_DOCUMENTS = new HashSet<CLIENT_DOCUMENTS>();
+            this.OFFERS = new HashSet<OFFER>();
+            this.PURCHASES = new HashSet<Purchase>();
         }
     
         public int USER_ID { get; set; }
@@ -33,9 +37,17 @@ namespace Vehlution_Everything_.Models
         public Nullable<bool> BLOCKED { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ACCESS> ACCESSes { get; set; }
+        public virtual ICollection<BOOKING_FOR_POSSIBLE_PURCHASE> BOOKING_FOR_POSSIBLE_PURCHASE { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CLIENT> CLIENTs { get; set; }
+        public virtual ICollection<CAR_BOOKING> CAR_BOOKING { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CAR> CARS { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CLIENT_DOCUMENTS> CLIENT_DOCUMENTS { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<OFFER> OFFERS { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Purchase> PURCHASES { get; set; }
         public virtual USER_ROLE USER_ROLE { get; set; }
     }
 }

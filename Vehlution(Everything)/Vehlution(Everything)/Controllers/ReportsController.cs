@@ -8,9 +8,8 @@ using System.Security.Cryptography.X509Certificates;
 using System.Web;
 using System.Web.Mvc;
 using Vehlution_Everything_.Models;
-using Vehlution_Everything_.ViewModels;
 using Vehlution_Everything_.Reporting;
-using Vehlution.ViewModels;
+using Vehlution_Everything_.ViewModels;
 
 namespace Vehlution_Everything_.Controllers
 {
@@ -316,7 +315,7 @@ namespace Vehlution_Everything_.Controllers
                 var purch = db.PURCHASES.Select(rr => new PurchasesClass
                 {
                     ID = rr.PURCHASE_ID,
-                    ClientName = rr.CLIENT.FULL_NAME_,
+                    ClientName = rr.USER.FIRSTNAME + " " + rr.USER.LASTNAME,
                     PurchaseDate = rr.PURCHASEDATE_.Value,
                     AcceptedOffer = rr.COST_.Value,
                     Car = rr.CAR.CAR_ID + " " + rr.CAR.CAR_TYPE,
@@ -390,7 +389,7 @@ namespace Vehlution_Everything_.Controllers
                 var book = db.CAR_BOOKING.Where(cc => cc.BOOKING_DATE >= DateTime.Today).Select(rr => new ClientBookingsClass
                 {
                     ID = rr.CARBOOKING_ID,
-                    ClientName = rr.CLIENT.FULL_NAME_,
+                    ClientName = rr.USER.FIRSTNAME + " " + rr.USER.LASTNAME,
                     Date = rr.BOOKING_DATE.Value,
                     Time = rr.BOOKING_TIME.Value,
                     Car = rr.CAR.CAR_ID + " " + rr.CAR.CAR_TYPE + " " + rr.CAR.COLOUR
@@ -458,7 +457,7 @@ namespace Vehlution_Everything_.Controllers
                 var book = db.BOOKING_FOR_POSSIBLE_PURCHASE.Where(cc => cc.BOOKING_DATE >= DateTime.Today).Select(rr => new AdminBookingsClass
                 {
                     ID = rr.BOOKING_ID,
-                    ClientName = rr.CLIENT.FULL_NAME_,
+                    ClientName = rr.USER.FIRSTNAME + " " + rr.USER.LASTNAME,
                     Date = rr.BOOKING_DATE.Value,
                     Time = rr.BOOKING_TIME.Value,
                     Car = rr.CAR.CAR_ID + " " + rr.CAR.CAR_TYPE + " " + rr.CAR.COLOUR

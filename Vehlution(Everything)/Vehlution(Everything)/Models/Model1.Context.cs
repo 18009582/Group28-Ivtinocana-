@@ -25,7 +25,6 @@ namespace Vehlution_Everything_.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<ACCESS> ACCESSes { get; set; }
         public virtual DbSet<BOOKING_DATES> BOOKING_DATES { get; set; }
         public virtual DbSet<BOOKING_FOR_POSSIBLE_PURCHASE> BOOKING_FOR_POSSIBLE_PURCHASE { get; set; }
         public virtual DbSet<BOOKING_STATUS> BOOKING_STATUS { get; set; }
@@ -39,7 +38,6 @@ namespace Vehlution_Everything_.Models
         public virtual DbSet<CAR_STATUS> CAR_STATUS { get; set; }
         public virtual DbSet<CAR_TYPE> CAR_TYPE { get; set; }
         public virtual DbSet<CAR> CARS { get; set; }
-        public virtual DbSet<CLIENT> CLIENTs { get; set; }
         public virtual DbSet<CLIENT_DOCUMENTS> CLIENT_DOCUMENTS { get; set; }
         public virtual DbSet<COLOUR> COLOURs { get; set; }
         public virtual DbSet<DEFECT_STATUS> DEFECT_STATUS { get; set; }
@@ -67,7 +65,7 @@ namespace Vehlution_Everything_.Models
         public virtual DbSet<SUPPLIER> SUPPLIERs { get; set; }
         public virtual DbSet<TASK> TASKs { get; set; }
         public virtual DbSet<TRANSMISSION> TRANSMISSIONs { get; set; }
+        public virtual DbSet<USER> USERs { get; set; }
         public virtual DbSet<USER_ROLE> USER_ROLE { get; set; }
-        public virtual DbSet<USER> USERS { get; set; }
     }
 }

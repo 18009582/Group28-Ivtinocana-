@@ -30,16 +30,16 @@ namespace Vehlution_Everything_.Models
         public int COLOUR_ID { get; set; }
         public int TRANSMISSION_ID { get; set; }
         public int DOORS_ID { get; set; }
-        public int CLIENT_ID { get; set; }
         public int STATUS_ID { get; set; }
         public int FUELTYPE_ID { get; set; }
         public Nullable<int> MODEL_ID { get; set; }
         public Nullable<int> YEAR { get; set; }
         public Nullable<int> MILAGE_ { get; set; }
         public Nullable<double> LISTING_PRICE { get; set; }
-        public byte[] IMAGE { get; set; }
+        public string IMAGE { get; set; }
         public int CAR_ID { get; set; }
         public Nullable<int> CAR_TYPEID { get; set; }
+        public Nullable<int> USER_ID { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<BOOKING_FOR_POSSIBLE_PURCHASE> BOOKING_FOR_POSSIBLE_PURCHASE { get; set; }
@@ -50,7 +50,7 @@ namespace Vehlution_Everything_.Models
         public virtual CAR_STATUS CAR_STATUS { get; set; }
         public virtual CAR_TYPE CAR_TYPE { get; set; }
         public virtual MODEL MODEL { get; set; }
-        public virtual CLIENT CLIENT { get; set; }
+        public virtual USER USER { get; set; }
         public virtual COLOUR COLOUR { get; set; }
         public virtual FUEL_TYPE FUEL_TYPE { get; set; }
         public virtual NUMBER_OF_DOORS NUMBER_OF_DOORS { get; set; }

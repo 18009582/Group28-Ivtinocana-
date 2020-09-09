@@ -18,7 +18,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
     <script src='https://kit.fontawesome.com/a076d05399.js'></script>
-    <link href="@Url.Content("~/Content/Site.css")" rel="stylesheet" type="text/css" />
+    <link href="~/CSS1/StyleSheet1.css" rel="stylesheet" />
     <title>Create</title>
 </head>
 <body>
@@ -33,15 +33,15 @@
 
 
 
-                    <input type="text" id="FULL_NAME" name="FULL_NAME" style="width:50%" maxlength="50" /> <br />
+                    <input type="text" id="FULL_NAME" name="FULL_NAME" style="width:50%" maxlength="50" required/> <br />
                     <label>Cell Number</label><br />
-                    <input type="text" id="CELL_NUMBER" name="CELL_NUMBER" style="width:50%" maxlength="10" /><br />
+                    <input type="text" id="CELL_NUMBER" name="CELL_NUMBER" style="width:50%" maxlength="10" required /><br />
                     <label>Email Address</label><br />
-                    <input type="text" id="EMAIL" name="EMAIL" style="width:50%" maxlength="50" /><br />
+                    <input type="text" id="EMAIL" name="EMAIL" style="width:50%" maxlength="50" required/><br />
                     <label>Job description </label><br />
-                    <input type="text" id="JOB_DESCRIPTION" name="JOB_DESCRIPTION" style="width:50%" maxlength="225" /><br />
+                    <input type="text" id="JOB_DESCRIPTION" name="JOB_DESCRIPTION" style="width:50%" maxlength="225" required /><br />
                     <label>Date Hired </label><br />
-                    <input type="date" style="width:50%" id="DATE_HIRED" name="DATE_HIRED" /><br />
+                    <input type="date" style="width:50%" id="DATE_HIRED" name="DATE_HIRED" required/><br />
 
                     <button type="submit" class="btn btn-default btn-sm" id="Create" name="Create" style="background-color:lightgreen">
                         <i class="fa fa-plus-square"></i>

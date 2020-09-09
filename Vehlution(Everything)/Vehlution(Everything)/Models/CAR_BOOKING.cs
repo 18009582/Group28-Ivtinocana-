@@ -15,15 +15,15 @@ namespace Vehlution_Everything_.Models
     public partial class CAR_BOOKING
     {
         public int CARBOOKING_ID { get; set; }
-        public int CLIENT_ID { get; set; }
         public int CAR_ID { get; set; }
         public Nullable<int> CARBOOKINGSLOTID { get; set; }
+        public Nullable<int> USER_ID { get; set; }
         public string STATUS { get; set; }
         public Nullable<System.DateTime> BOOKING_DATE { get; set; }
         public Nullable<System.DateTime> BOOKING_TIME { get; set; }
     
         public virtual CAR CAR { get; set; }
         public virtual CAR_BOOKING_SLOTS CAR_BOOKING_SLOTS { get; set; }
-        public virtual CLIENT CLIENT { get; set; }
+        public virtual USER USER { get; set; }
     }
 }

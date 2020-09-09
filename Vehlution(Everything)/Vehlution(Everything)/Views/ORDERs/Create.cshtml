@@ -2,7 +2,7 @@
 
 @{
     ViewBag.Title = "Create";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = null;
 }
 
 
@@ -18,7 +18,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
     <script src='https://kit.fontawesome.com/a076d05399.js'></script>
     <link href="@Url.Content("~/Content/Site.css")" rel="stylesheet" type="text/css" />
-
+    <link href="~/CSS1/StyleSheet1.css" rel="stylesheet" />
     <meta charset="utf-8" />
     <style>
         .modal {
@@ -76,7 +76,7 @@
                 <label>Please Select a quantity </label><br />
                 <input type="number" name="Qty" id="Qty" style="width:50%" /><br />
                 <label>Please Enter the price per a part</label><br />
-                <input type="text" id="Price" name="Price" style="width:50%" /><br />
+                <input type="text" id="Price" name="Price" style="width:50%" required /><br />
                 <button type="submit" class="btn btn-default btn-sm" style="background-color:orange;width:50%;color:white" value="addToList">
 
                     <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-cart-plus-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -133,7 +133,7 @@
                                         @using (Html.BeginForm("RemoveFromList", "ORDERs"))
                                         {
                                             <input type="hidden" value="@item.PartID" name="id" id="id" readonly />
-                                            <a class="btn text-danger"><i type="submit" class="fa fa-trash fa-lg"></i></a>
+                                            <button class="btn text-danger" type="submit"><i  class="fa fa-trash fa-lg" id="RemoveFromList" name="RemoveFromList"></i></button>
 
                                         }
                                     </td>
@@ -154,7 +154,7 @@
                 @Html.DropDownList("SUPPLIER_ID", null, htmlAttributes: new { @class = "select" })
                 <br />
                 <label>Date Placed</label><br />
-                <input type="date" id="date" name="date" style="width:50%" /><br />
+                <input type="date" id="date" name="date" style="width:50%" required /><br />
                 <button type="submit" name="Create" style="background-color:lightgreen" class="btn btn-default btn-sm" value="Create">
 
                     <i class="fa fa-plus-square"></i>

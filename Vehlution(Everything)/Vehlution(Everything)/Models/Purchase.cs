@@ -15,12 +15,12 @@ namespace Vehlution_Everything_.Models
     public partial class Purchase
     {
         public int PURCHASE_ID { get; set; }
-        public int CLIENT_ID { get; set; }
         public Nullable<System.DateTime> PURCHASEDATE_ { get; set; }
         public Nullable<double> COST_ { get; set; }
         public Nullable<int> CAR_ID { get; set; }
+        public Nullable<int> USER_ID { get; set; }
     
         public virtual CAR CAR { get; set; }
-        public virtual CLIENT CLIENT { get; set; }
+        public virtual USER USER { get; set; }
     }
 }

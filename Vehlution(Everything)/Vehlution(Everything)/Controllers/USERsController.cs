@@ -17,7 +17,7 @@ namespace Vehlution_Everything_.Controllers
         // GET: USERs
         public ActionResult Index()
         {
-            var uSERS = db.USERS.Include(u => u.USER_ROLE);
+            var uSERS = db.USERs.Include(u => u.USER_ROLE);
             return View(uSERS.ToList());
         }
 
@@ -28,7 +28,7 @@ namespace Vehlution_Everything_.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            USER uSER = db.USERS.Find(id);
+            USER uSER = db.USERs.Find(id);
             if (uSER == null)
             {
                 return HttpNotFound();
@@ -52,7 +52,7 @@ namespace Vehlution_Everything_.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.USERS.Add(uSER);
+                db.USERs.Add(uSER);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -68,7 +68,7 @@ namespace Vehlution_Everything_.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            USER uSER = db.USERS.Find(id);
+            USER uSER = db.USERs.Find(id);
             if (uSER == null)
             {
                 return HttpNotFound();
@@ -101,7 +101,7 @@ namespace Vehlution_Everything_.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            USER uSER = db.USERS.Find(id);
+            USER uSER = db.USERs.Find(id);
             if (uSER == null)
             {
                 return HttpNotFound();
@@ -114,8 +114,8 @@ namespace Vehlution_Everything_.Controllers
         //[ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            USER uSER = db.USERS.Find(id);
-            db.USERS.Remove(uSER);
+            USER uSER = db.USERs.Find(id);
+            db.USERs.Remove(uSER);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

@@ -17,13 +17,13 @@ namespace Vehlution_Everything_.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public USER_ROLE()
         {
-            this.USERS = new HashSet<USER>();
+            this.USERs = new HashSet<USER>();
         }
     
         public int USERROLE_ID { get; set; }
         public string ROLE { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<USER> USERS { get; set; }
+        public virtual ICollection<USER> USERs { get; set; }
     }
 }

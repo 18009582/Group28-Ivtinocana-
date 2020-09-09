@@ -16,7 +16,7 @@ namespace Vehlution_Everything_.Controllers
         // GET: ADMINCARs
         public ActionResult Index()
         {
-            var cARS = db.CARS.Include(c => c.CAR_STATUS).Include(c => c.MODEL).Include(c => c.CLIENT).Include(c => c.COLOUR).Include(c => c.FUEL_TYPE).Include(c => c.NUMBER_OF_DOORS).Include(c => c.NUMBER_OF_SEATS).Include(c => c.TRANSMISSION);
+            var cARS = db.CARS.Include(c => c.CAR_STATUS).Include(c => c.MODEL).Include(c => c.USER).Include(c => c.COLOUR).Include(c => c.FUEL_TYPE).Include(c => c.NUMBER_OF_DOORS).Include(c => c.NUMBER_OF_SEATS).Include(c => c.TRANSMISSION);
             return View(cARS.ToList());
         }
 
@@ -40,7 +40,7 @@ namespace Vehlution_Everything_.Controllers
         {
             ViewBag.STATUS_ID = new SelectList(db.CAR_STATUS, "STATUS_ID", "SASTUS_NAME");
             ViewBag.MODEL_ID = new SelectList(db.MODELs, "MODEL_ID", "MODEL_NAME");
-            ViewBag.CLIENT_ID = new SelectList(db.CLIENTs, "CLIENT_ID", "USER_NAME");
+            ViewBag.CLIENT_ID = new SelectList(db.USERs, "CLIENT_ID", "USER_NAME");
             ViewBag.COLOUR_ID = new SelectList(db.COLOURs, "COLOUR_ID", "COLOUR_NAME");
             ViewBag.FUELTYPE_ID = new SelectList(db.FUEL_TYPE, "FUELTYPE_ID", "FUELTYPE_NAME");
             ViewBag.DOORS_ID = new SelectList(db.NUMBER_OF_DOORS, "DOORS_ID", "DOORS_ID");
@@ -65,7 +65,7 @@ namespace Vehlution_Everything_.Controllers
 
             ViewBag.STATUS_ID = new SelectList(db.CAR_STATUS, "STATUS_ID", "SASTUS_NAME", cAR.STATUS_ID);
             ViewBag.MODEL_ID = new SelectList(db.MODELs, "MODEL_ID", "MODEL_NAME", cAR.MODEL_ID);
-            ViewBag.CLIENT_ID = new SelectList(db.CLIENTs, "CLIENT_ID", "USER_NAME", cAR.CLIENT_ID);
+            ViewBag.CLIENT_ID = new SelectList(db.USERs, "CLIENT_ID", "USER_NAME", cAR.USER_ID);
             ViewBag.COLOUR_ID = new SelectList(db.COLOURs, "COLOUR_ID", "COLOUR_NAME", cAR.COLOUR_ID);
             ViewBag.FUELTYPE_ID = new SelectList(db.FUEL_TYPE, "FUELTYPE_ID", "FUELTYPE_NAME", cAR.FUELTYPE_ID);
             ViewBag.DOORS_ID = new SelectList(db.NUMBER_OF_DOORS, "DOORS_ID", "DOORS_ID", cAR.DOORS_ID);
@@ -88,7 +88,7 @@ namespace Vehlution_Everything_.Controllers
             }
             ViewBag.STATUS_ID = new SelectList(db.CAR_STATUS, "STATUS_ID", "SASTUS_NAME", cAR.STATUS_ID);
             ViewBag.MODEL_ID = new SelectList(db.MODELs, "MODEL_ID", "MODEL_NAME", cAR.MODEL_ID);
-            ViewBag.CLIENT_ID = new SelectList(db.CLIENTs, "CLIENT_ID", "USER_NAME", cAR.CLIENT_ID);
+            ViewBag.CLIENT_ID = new SelectList(db.USERs, "CLIENT_ID", "USER_NAME", cAR.USER_ID);
             ViewBag.COLOUR_ID = new SelectList(db.COLOURs, "COLOUR_ID", "COLOUR_NAME", cAR.COLOUR_ID);
             ViewBag.FUELTYPE_ID = new SelectList(db.FUEL_TYPE, "FUELTYPE_ID", "FUELTYPE_NAME", cAR.FUELTYPE_ID);
             ViewBag.DOORS_ID = new SelectList(db.NUMBER_OF_DOORS, "DOORS_ID", "DOORS_ID", cAR.DOORS_ID);
@@ -112,7 +112,7 @@ namespace Vehlution_Everything_.Controllers
             }
             ViewBag.STATUS_ID = new SelectList(db.CAR_STATUS, "STATUS_ID", "SASTUS_NAME", cAR.STATUS_ID);
             ViewBag.MODEL_ID = new SelectList(db.MODELs, "MODEL_ID", "MODEL_NAME", cAR.MODEL_ID);
-            ViewBag.CLIENT_ID = new SelectList(db.CLIENTs, "CLIENT_ID", "USER_NAME", cAR.CLIENT_ID);
+            ViewBag.CLIENT_ID = new SelectList(db.USERs, "CLIENT_ID", "USER_NAME", cAR.USER_ID);
             ViewBag.COLOUR_ID = new SelectList(db.COLOURs, "COLOUR_ID", "COLOUR_NAME", cAR.COLOUR_ID);
             ViewBag.FUELTYPE_ID = new SelectList(db.FUEL_TYPE, "FUELTYPE_ID", "FUELTYPE_NAME", cAR.FUELTYPE_ID);
             ViewBag.DOORS_ID = new SelectList(db.NUMBER_OF_DOORS, "DOORS_ID", "DOORS_ID", cAR.DOORS_ID);
@@ -158,5 +158,4 @@ namespace Vehlution_Everything_.Controllers
     }
 }
 
-    }
-}
+    

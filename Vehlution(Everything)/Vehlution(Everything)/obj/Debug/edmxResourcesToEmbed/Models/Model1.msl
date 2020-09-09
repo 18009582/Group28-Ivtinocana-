@@ -1,16 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
   <EntityContainerMapping StorageEntityContainer="VehlutionModelStoreContainer" CdmEntityContainer="VehlutionEntities">
-    <EntitySetMapping Name="ACCESSes">
-      <EntityTypeMapping TypeName="VehlutionModel.ACCESS">
-        <MappingFragment StoreEntitySet="ACCESS">
-          <ScalarProperty Name="ACCESS_ID" ColumnName="ACCESS_ID" />
-          <ScalarProperty Name="USER_ID" ColumnName="USER_ID" />
-          <ScalarProperty Name="USERANAME" ColumnName="USERANAME" />
-          <ScalarProperty Name="PASSWORD_" ColumnName="PASSWORD_" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="BOOKING_DATES">
       <EntityTypeMapping TypeName="VehlutionModel.BOOKING_DATES">
         <MappingFragment StoreEntitySet="BOOKING_DATES">
@@ -22,9 +12,9 @@
     <EntitySetMapping Name="BOOKING_FOR_POSSIBLE_PURCHASE">
       <EntityTypeMapping TypeName="VehlutionModel.BOOKING_FOR_POSSIBLE_PURCHASE">
         <MappingFragment StoreEntitySet="BOOKING_FOR_POSSIBLE_PURCHASE">
-          <ScalarProperty Name="CLIENT_ID" ColumnName="CLIENT_ID" />
           <ScalarProperty Name="BOOKING_ID" ColumnName="BOOKING_ID" />
           <ScalarProperty Name="CAR_ID" ColumnName="CAR_ID" />
+          <ScalarProperty Name="USER_ID" ColumnName="USER_ID" />
           <ScalarProperty Name="BOOKING_DATE" ColumnName="BOOKING_DATE" />
           <ScalarProperty Name="BOOKING_TIME" ColumnName="BOOKING_TIME" />
           <ScalarProperty Name="BOOKING_STATUS" ColumnName="BOOKING_STATUS" />
@@ -52,9 +42,9 @@
       <EntityTypeMapping TypeName="VehlutionModel.CAR_BOOKING">
         <MappingFragment StoreEntitySet="CAR_BOOKING">
           <ScalarProperty Name="CARBOOKING_ID" ColumnName="CARBOOKING_ID" />
-          <ScalarProperty Name="CLIENT_ID" ColumnName="CLIENT_ID" />
           <ScalarProperty Name="CAR_ID" ColumnName="CAR_ID" />
           <ScalarProperty Name="CARBOOKINGSLOTID" ColumnName="CARBOOKINGSLOTID" />
+          <ScalarProperty Name="USER_ID" ColumnName="USER_ID" />
           <ScalarProperty Name="STATUS" ColumnName="STATUS" />
           <ScalarProperty Name="BOOKING_DATE" ColumnName="BOOKING_DATE" />
           <ScalarProperty Name="BOOKING_TIME" ColumnName="BOOKING_TIME" />
@@ -139,7 +129,6 @@
           <ScalarProperty Name="COLOUR_ID" ColumnName="COLOUR_ID" />
           <ScalarProperty Name="TRANSMISSION_ID" ColumnName="TRANSMISSION_ID" />
           <ScalarProperty Name="DOORS_ID" ColumnName="DOORS_ID" />
-          <ScalarProperty Name="CLIENT_ID" ColumnName="CLIENT_ID" />
           <ScalarProperty Name="STATUS_ID" ColumnName="STATUS_ID" />
           <ScalarProperty Name="FUELTYPE_ID" ColumnName="FUELTYPE_ID" />
           <ScalarProperty Name="MODEL_ID" ColumnName="MODEL_ID" />
@@ -149,19 +138,7 @@
           <ScalarProperty Name="IMAGE" ColumnName="IMAGE" />
           <ScalarProperty Name="CAR_ID" ColumnName="CAR_ID" />
           <ScalarProperty Name="CAR_TYPEID" ColumnName="CAR_TYPEID" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="CLIENTs">
-      <EntityTypeMapping TypeName="VehlutionModel.CLIENT">
-        <MappingFragment StoreEntitySet="CLIENT">
-          <ScalarProperty Name="CLIENT_ID" ColumnName="CLIENT_ID" />
           <ScalarProperty Name="USER_ID" ColumnName="USER_ID" />
-          <ScalarProperty Name="USER_NAME" ColumnName="USER_NAME" />
-          <ScalarProperty Name="PASSWORD" ColumnName="PASSWORD" />
-          <ScalarProperty Name="FULL_NAME_" ColumnName="FULL_NAME_" />
-          <ScalarProperty Name="EMAIL_" ColumnName="EMAIL_" />
-          <ScalarProperty Name="ADDRESS" ColumnName="ADDRESS" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -169,7 +146,7 @@
       <EntityTypeMapping TypeName="VehlutionModel.CLIENT_DOCUMENTS">
         <MappingFragment StoreEntitySet="CLIENT_DOCUMENTS">
           <ScalarProperty Name="DOCUEMTN_ID" ColumnName="DOCUEMTN_ID" />
-          <ScalarProperty Name="CLIENT_ID" ColumnName="CLIENT_ID" />
+          <ScalarProperty Name="USER_ID" ColumnName="USER_ID" />
           <ScalarProperty Name="DOCUMENTTYPE_ID" ColumnName="DOCUMENTTYPE_ID" />
           <ScalarProperty Name="DOCUMENT" ColumnName="DOCUMENT" />
         </MappingFragment>
@@ -323,9 +300,9 @@
         <MappingFragment StoreEntitySet="OFFERS">
           <ScalarProperty Name="OFFER_ID" ColumnName="OFFER_ID" />
           <ScalarProperty Name="CAR_ID" ColumnName="CAR_ID" />
-          <ScalarProperty Name="CLIENT_ID" ColumnName="CLIENT_ID" />
           <ScalarProperty Name="STATUS_ID" ColumnName="STATUS_ID" />
           <ScalarProperty Name="OFFERTYPE_ID" ColumnName="OFFERTYPE_ID" />
+          <ScalarProperty Name="USER_ID" ColumnName="USER_ID" />
           <ScalarProperty Name="AMOUNT" ColumnName="AMOUNT" />
         </MappingFragment>
       </EntityTypeMapping>
@@ -362,10 +339,10 @@
       <EntityTypeMapping TypeName="VehlutionModel.Purchase">
         <MappingFragment StoreEntitySet="PURCHASES">
           <ScalarProperty Name="PURCHASE_ID" ColumnName="PURCHASE_ID" />
-          <ScalarProperty Name="CLIENT_ID" ColumnName="CLIENT_ID" />
           <ScalarProperty Name="PURCHASEDATE_" ColumnName="PURCHASEDATE_" />
           <ScalarProperty Name="COST_" ColumnName="COST_" />
           <ScalarProperty Name="CAR_ID" ColumnName="CAR_ID" />
+          <ScalarProperty Name="USER_ID" ColumnName="USER_ID" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -416,17 +393,9 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="USER_ROLE">
-      <EntityTypeMapping TypeName="VehlutionModel.USER_ROLE">
-        <MappingFragment StoreEntitySet="USER_ROLE">
-          <ScalarProperty Name="USERROLE_ID" ColumnName="USERROLE_ID" />
-          <ScalarProperty Name="ROLE" ColumnName="ROLE" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="USERS">
+    <EntitySetMapping Name="USERs">
       <EntityTypeMapping TypeName="VehlutionModel.USER">
-        <MappingFragment StoreEntitySet="USERS">
+        <MappingFragment StoreEntitySet="USER">
           <ScalarProperty Name="USER_ID" ColumnName="USER_ID" />
           <ScalarProperty Name="USERROLE_ID" ColumnName="USERROLE_ID" />
           <ScalarProperty Name="FIRSTNAME" ColumnName="FIRSTNAME" />
@@ -437,6 +406,14 @@
           <ScalarProperty Name="ACTIVATIONCODE" ColumnName="ACTIVATIONCODE" />
           <ScalarProperty Name="OTP" ColumnName="OTP" />
           <ScalarProperty Name="BLOCKED" ColumnName="BLOCKED" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="USER_ROLE">
+      <EntityTypeMapping TypeName="VehlutionModel.USER_ROLE">
+        <MappingFragment StoreEntitySet="USER_ROLE">
+          <ScalarProperty Name="USERROLE_ID" ColumnName="USERROLE_ID" />
+          <ScalarProperty Name="ROLE" ColumnName="ROLE" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

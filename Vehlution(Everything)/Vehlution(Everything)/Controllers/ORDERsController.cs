@@ -225,7 +225,7 @@ namespace Vehlution_Everything_.Controllers
                 if (x.PartID == id)
                 {
                     NewPartsOrder.Remove(x);
-                    continue;
+                    return RedirectToAction("Create");
 
                 }
             }

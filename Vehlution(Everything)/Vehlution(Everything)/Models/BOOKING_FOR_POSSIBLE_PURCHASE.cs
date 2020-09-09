@@ -14,14 +14,14 @@ namespace Vehlution_Everything_.Models
     
     public partial class BOOKING_FOR_POSSIBLE_PURCHASE
     {
-        public int CLIENT_ID { get; set; }
         public int BOOKING_ID { get; set; }
         public Nullable<int> CAR_ID { get; set; }
+        public Nullable<int> USER_ID { get; set; }
         public Nullable<System.DateTime> BOOKING_DATE { get; set; }
         public Nullable<System.DateTime> BOOKING_TIME { get; set; }
         public string BOOKING_STATUS { get; set; }
     
         public virtual CAR CAR { get; set; }
-        public virtual CLIENT CLIENT { get; set; }
+        public virtual USER USER { get; set; }
     }
 }

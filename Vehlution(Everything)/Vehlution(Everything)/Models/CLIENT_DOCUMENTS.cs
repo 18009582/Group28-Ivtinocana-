@@ -15,11 +15,11 @@ namespace Vehlution_Everything_.Models
     public partial class CLIENT_DOCUMENTS
     {
         public int DOCUEMTN_ID { get; set; }
-        public int CLIENT_ID { get; set; }
+        public Nullable<int> USER_ID { get; set; }
         public int DOCUMENTTYPE_ID { get; set; }
         public string DOCUMENT { get; set; }
     
-        public virtual CLIENT CLIENT { get; set; }
+        public virtual USER USER { get; set; }
         public virtual DOCUMENT_TYPE DOCUMENT_TYPE { get; set; }
     }
 }

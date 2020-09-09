@@ -45,9 +45,11 @@ namespace Vehlution_Everything_.Controllers
 
             //it generate unique code     
             objUsr.ACTIVATIONCODE = Guid.NewGuid();
+            objUsr.USERROLE_ID = 3;
+            objUsr.BLOCKED = Convert.ToBoolean(0);
             //password convert  
             objUsr.PASSWORD = Vehlution_Everything_.Models.encryptPassword.textToEncrypt(objUsr.PASSWORD);
-            objcon.USERS.Add(objUsr);
+            objcon.USERs.Add(objUsr);
             objcon.SaveChanges();
 
             #region Send email verification link
@@ -64,7 +66,7 @@ namespace Vehlution_Everything_.Controllers
         #region Check Email Exists or not in DB  
         public bool IsEmailExists(string eMail)
         {
-            var IsCheck = objcon.USERS.Where(email => email.EMAIL == eMail).FirstOrDefault();
+            var IsCheck = objcon.USERs.Where(email => email.EMAIL == eMail).FirstOrDefault();
             return IsCheck != null;
         }
         #endregion
@@ -87,7 +89,7 @@ namespace Vehlution_Everything_.Controllers
             smtp.Credentials = new NetworkCredential(fromMail.Address, fromEmailpassword);
 
             var Message = new MailMessage(fromMail, toEmail);
-            Message.Subject = "Registration Completed-Demo";
+            Message.Subject = "Registration Completed - Vehlution";
             Message.Body = "<br/> Your registration completed succesfully." +
                            "<br/> please click on the below link for account verification" +
                            "<br/><br/><a href=" + link + ">" + link + "</a>";
@@ -103,7 +105,7 @@ namespace Vehlution_Everything_.Controllers
             bool Status = false;
 
             objcon.Configuration.ValidateOnSaveEnabled = false; // Ignore to password confirmation   
-            var IsVerify = objcon.USERS.Where(u => u.ACTIVATIONCODE == new Guid(id)).FirstOrDefault();
+            var IsVerify = objcon.USERs.Where(u => u.ACTIVATIONCODE == new Guid(id)).FirstOrDefault();
 
             if (IsVerify != null)
             {
@@ -134,7 +136,7 @@ namespace Vehlution_Everything_.Controllers
         public ActionResult Login(UserLogin LgnUsr)
         {
             var _passWord = Vehlution_Everything_.Models.encryptPassword.textToEncrypt(LgnUsr.Password);
-            bool Isvalid = objcon.USERS.Any(x => x.EMAIL == LgnUsr.EmailId && x.EMAILVERIFICATION == true &&
+            bool Isvalid = objcon.USERs.Any(x => x.EMAIL == LgnUsr.EmailId && x.EMAILVERIFICATION == true &&
             x.PASSWORD == _passWord);
             if (Isvalid)
             {
@@ -213,7 +215,7 @@ namespace Vehlution_Everything_.Controllers
                 ModelState.AddModelError("EmailNotExists", "This email is not exists");
                 return View();
             }
-            var objUsr = objcon.USERS.Where(x => x.EMAIL == pass.EmailId).FirstOrDefault();
+            var objUsr = objcon.USERs.Where(x => x.EMAIL == pass.EmailId).FirstOrDefault();
 
             // Genrate OTP   
             string OTP = GeneratePassword();

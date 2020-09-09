@@ -32,13 +32,13 @@ namespace Vehlution_Everything_.Controllers
 
         public ActionResult IndexSearch()
         {
-            ViewBag.Makes = new SelectList(db.MAKEs, "MAKE_ID", "MAKE_NAME");
+            ViewBag.Models = new SelectList(db.MODELs, "MODEL_ID", "MODEL_NAME");
             return View(carlist);
         }
         [HttpPost]
-        public ActionResult Search(int Makes)
+        public ActionResult Search(int Models)
         {
-            carlist = db.CARS.Include(zz => zz.MODEL).Where(zz => zz.MODEL.MAKE_ID == Makes).ToList();
+            carlist = db.CARS.Include(zz => zz.MODEL).Where(zz => zz.MODEL.MODEL_ID == Models).ToList();
 
             return RedirectToAction("IndexSearch");
         }
@@ -101,14 +101,7 @@ namespace Vehlution_Everything_.Controllers
             return RedirectToAction("Index");
         }
 
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
-        }
+
 
         // GET: CARs/Edit/5
         public ActionResult Edit(int? id)
@@ -125,7 +118,7 @@ namespace Vehlution_Everything_.Controllers
             ViewBag.STATUS_ID = new SelectList(db.CAR_STATUS, "STATUS_ID", "SASTUS_NAME", cAR.STATUS_ID);
             ViewBag.CAR_TYPEID = new SelectList(db.CAR_TYPE, "CAR_TYPEID", "TYPE_NAME", cAR.CAR_TYPEID);
             ViewBag.MODEL_ID = new SelectList(db.MODELs, "MODEL_ID", "MODEL_NAME", cAR.MODEL_ID);
-            ViewBag.CLIENT_ID = new SelectList(db.CLIENTs, "CLIENT_ID", "USER_NAME", cAR.CLIENT_ID);
+            ViewBag.CLIENT_ID = new SelectList(db.USERs, "CLIENT_ID", "USER_NAME", cAR.USER_ID);
             ViewBag.COLOUR_ID = new SelectList(db.COLOURs, "COLOUR_ID", "COLOUR_NAME", cAR.COLOUR_ID);
             ViewBag.FUELTYPE_ID = new SelectList(db.FUEL_TYPE, "FUELTYPE_ID", "FUELTYPE_NAME", cAR.FUELTYPE_ID);
             ViewBag.DOORS_ID = new SelectList(db.NUMBER_OF_DOORS, "DOORS_ID", "NUMBER_OF_DOORS1", cAR.DOORS_ID);
@@ -150,7 +143,7 @@ namespace Vehlution_Everything_.Controllers
             ViewBag.STATUS_ID = new SelectList(db.CAR_STATUS, "STATUS_ID", "SASTUS_NAME", cAR.STATUS_ID);
             ViewBag.CAR_TYPEID = new SelectList(db.CAR_TYPE, "CAR_TYPEID", "TYPE_NAME", cAR.CAR_TYPEID);
             ViewBag.MODEL_ID = new SelectList(db.MODELs, "MODEL_ID", "MODEL_NAME", cAR.MODEL_ID);
-            ViewBag.CLIENT_ID = new SelectList(db.CLIENTs, "CLIENT_ID", "USER_NAME", cAR.CLIENT_ID);
+            ViewBag.CLIENT_ID = new SelectList(db.USERs, "CLIENT_ID", "USER_NAME", cAR.USER_ID);
             ViewBag.COLOUR_ID = new SelectList(db.COLOURs, "COLOUR_ID", "COLOUR_NAME", cAR.COLOUR_ID);
             ViewBag.FUELTYPE_ID = new SelectList(db.FUEL_TYPE, "FUELTYPE_ID", "FUELTYPE_NAME", cAR.FUELTYPE_ID);
             ViewBag.DOORS_ID = new SelectList(db.NUMBER_OF_DOORS, "DOORS_ID", "NUMBER_OF_DOORS1", cAR.DOORS_ID);

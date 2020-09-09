@@ -22,15 +22,15 @@ namespace Vehlution_Everything_.Models
     
         public int OFFER_ID { get; set; }
         public int CAR_ID { get; set; }
-        public int CLIENT_ID { get; set; }
         public int STATUS_ID { get; set; }
         public int OFFERTYPE_ID { get; set; }
+        public Nullable<int> USER_ID { get; set; }
         public Nullable<double> AMOUNT { get; set; }
     
         public virtual CAR CAR { get; set; }
-        public virtual CLIENT CLIENT { get; set; }
         public virtual OFFER_STATUS OFFER_STATUS { get; set; }
         public virtual OFFER_TYPE OFFER_TYPE { get; set; }
+        public virtual USER USER { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SALE> SALES { get; set; }
     }

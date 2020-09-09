@@ -140,7 +140,6 @@
     <Compile Include="Controllers\CLIENTCARsController.cs" />
     <Compile Include="Controllers\DEFECTsController.cs" />
     <Compile Include="Controllers\EmployeesController.cs" />
-    <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MAKEsController.cs" />
     <Compile Include="Controllers\MECHANICsController.cs" />
     <Compile Include="Controllers\MECHANICsJOBController.cs" />
@@ -157,9 +156,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\ACCESS.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
+    <Compile Include="ViewModel\AdminBookings.cs" />
     <Compile Include="Models\BOOKING_DATES.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -175,6 +172,7 @@
     <Compile Include="Models\CAR.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="ViewModel\CarParts.cs" />
     <Compile Include="Models\CAR_BOOKING.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -200,9 +198,7 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ChangePassword.cs" />
-    <Compile Include="Models\CLIENT.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
+    <Compile Include="ViewModel\ClientBookings.cs" />
     <Compile Include="Models\CLIENT_DOCUMENTS.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -235,6 +231,7 @@
     <Compile Include="Models\MECHANIC.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="ViewModel\MechanicJob.cs" />
     <Compile Include="Models\MECHANIC_JOB.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -287,12 +284,14 @@
     <Compile Include="Models\Purchase.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="ViewModel\Purchases.cs" />
     <Compile Include="Models\RELATIONSHIP_12.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\SALE.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="ViewModel\SalesVM.cs" />
     <Compile Include="Models\SUPPLIER.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -377,26 +376,21 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>SalesModel.xsd</DependentUpon>
     </Compile>
-    <Compile Include="ViewModel\AdminBookings.cs" />
-    <Compile Include="ViewModel\CarParts.cs" />
-    <Compile Include="ViewModel\ClientBookings.cs" />
-    <Compile Include="ViewModel\MechanicJob.cs" />
-    <Compile Include="ViewModel\Purchases.cs" />
-    <Compile Include="ViewModel\Sales.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="CSS1\StyleSheet1.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Models\Model1.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>Model1.Context.cs</LastGenOutput>
       <DependentUpon>Model1.edmx</DependentUpon>
+      <LastGenOutput>Model1.Context.cs</LastGenOutput>
     </Content>
     <Content Include="Models\Model1.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -542,7 +536,6 @@
     <Content Include="Views\Register\Registration.cshtml" />
     <Content Include="Views\Register\UserVerification.cshtml" />
     <Content Include="Views\UserDash\Index.cshtml" />
-    <Content Include="Views\USERs\Create.cshtml" />
     <Content Include="Views\USERs\Delete.cshtml" />
     <Content Include="Views\USERs\Details.cshtml" />
     <Content Include="Views\USERs\Edit.cshtml" />
@@ -557,7 +550,6 @@
     <Content Include="Views\ADMINCARs\Index.cshtml" />
     <Content Include="Views\ADMINCARs\Edit.cshtml" />
     <Content Include="Views\CAR_PARTs\Create.cshtml" />
-    <Content Include="Views\CAR_PARTs\Details.cshtml" />
     <Content Include="Views\CAR_PARTs\Edit.cshtml" />
     <Content Include="Views\CAR_PARTs\Index.cshtml" />
     <Content Include="Views\CLIENTCARs\Create.cshtml" />
