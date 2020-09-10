@@ -30,9 +30,9 @@
 
 
                     <label>Sale Date</label><br />
-                    <input type="date" id="SALE_DATE_" name="SALE_DATE_" style="width:50%" required  /> <br />
+                    <input type="date" id="SALE_DATE_" name="SALE_DATE_" style="width:50%" required /> <br />
                     <label>Accepted Offer</label><br />
-                    <input type="number" min="1" step="any" id="ACCEPTED_OFFER" name="ACCEPTED_OFFER" style="width:50%" required /> <br />
+                    @Html.DropDownList("Amount", null, htmlAttributes: new { @class = "select" }) <br />
                     <label>Car Contract</label><br />
                     <input type="file" id="CAR_CONTRACT_" name="CAR_CONTRACT_" style="width:50%" required /> <br />
                     //change datatype to file or document
