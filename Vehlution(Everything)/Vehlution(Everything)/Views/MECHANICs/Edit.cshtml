@@ -2,9 +2,10 @@
 
 @{
     ViewBag.Title = "Edit";
+    Layout = null;
 }
 <head>
-    <link rel="stylesheet" href="~/CSS/StyleSheet1.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="~/CSS1/StyleSheet1.css" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
@@ -52,55 +53,41 @@
             }
     </style>
 </head>
-<h2>Mechanic</h2>
 
+    <div class="container" style="text-align:center">
+        <div class="panel panel-default">
+            <h1 style="color:orange">Edit @Model.FULL_NAME_ Car Makes</h1>
+            <div class="panel-body">
 
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
+                <label>Car Make Name </label><br />
+                @using (Html.BeginForm("Edit", "MECHANICs"))
+                {
+                    @Html.AntiForgeryToken()
 
-    <div class="form-horizontal">
-        <h4>Update Mechanic</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.MECHANIC_ID)
+                    <input type="hidden" id="MECHANI_ID" name="MECHANIC_ID" value="@Model.MECHANIC_ID" readonly />
+                    <label>Mechanic Full Name</label><br />
+                    <input type="text" id="FULL_NAME_" name="FULL_NAME_" style="width:50%" required /> <br />
 
-        <div class="form-group">
-            <div class="col-md-10">
-                <label for="FullName">Full Name</label>
-                @Html.EditorFor(model => model.FULL_NAME_, new { htmlAttributes = new { @class = "form-control" }, id = "FullName" })
-                @Html.ValidationMessageFor(model => model.FULL_NAME_, "", new { @class = "text-danger" })
-            </div>
-        </div>
+                    <label>Mechanic Cell Number</label><br />
+                    <input type="text" id="CELL_NUMBER_" name="CELL_NUMBER_" style="width:50%" required minlength="10" maxlength="10" /> <br />
 
-        <div class="form-group">
-            <div class="col-md-10">
-                <label for="CellNum">Cell Number</label>
-                @Html.EditorFor(model => model.CELL_NUMBER_, new { htmlAttributes = new { @class = "form-control" }, id = "CellNum" })
-                @Html.ValidationMessageFor(model => model.CELL_NUMBER_, "", new { @class = "text-danger" })
-            </div>
-        </div>
+                    <label>Mechanic Email Address</label><br />
+                    <input type="email" id="EMAIL_" name="EMAIL_" style="width:50%" required /> <br />
 
-        <div class="form-group">
-            <div class="col-md-10">
-                <label for="Email">Email</label>
-                @Html.EditorFor(model => model.EMAIL_, new { htmlAttributes = new { @class = "form-control" }, id = "Email" })
-                @Html.ValidationMessageFor(model => model.EMAIL_, "", new { @class = "text-danger" })
-            </div>
-        </div>
+                    <button type="submit" onclick="myFunction()" class="btn btn-default btn-sm" id="Create" name="Create" style="background-color:lightgreen">
+                        <i class="fa fa-plus-square"></i>
+                        <span class="glyphicon glyphicon-ok"></span> Add New Mechanic
+                    </button> <button type="button" class="btn btn-default btn-sm" style="background-color:red" onclick="location.href='@Url.Action("Index","MECHANICs")'">
+                        <i class="fa fa-times"></i>
+                        <i class="glyphicon glyphicon-remove"></i> Cancel
+                    </button>
+                }
+                <button type="button" class="btn btn-default btn-sm" style="background-color:red">
+                    <i class="fa fa-times"></i>
+                    <i class="glyphicon glyphicon-remove"></i> Cancel
+                </button>
 
-        <div class="form-group">
-            <div class="col-md-10">
-                <input type="submit" value="Save" class="btn btn-primary" />
             </div>
         </div>
     </div>
-}
 
-<div>
-    @Html.ActionLink("Return to Mechanic Lists", "Index", "Index", new { @class = "btn btn-dark" })
-</div>
-
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}

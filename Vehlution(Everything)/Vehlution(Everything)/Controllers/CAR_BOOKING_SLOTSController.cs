@@ -15,7 +15,7 @@ namespace Vehlution_Everything_.Controllers
         private VehlutionEntities db = new VehlutionEntities();
 
         // GET: CAR_BOOKING_SLOTS
-        public ActionResult Index()
+        public ActionResult BookingSlotsIndex()
         {
             var cAR_BOOKING_SLOTS = db.CAR_BOOKING_SLOTS.Include(c => c.BOOKING_DATES).Include(c => c.BOOKING_STATUS).Include(c => c.BOOKING_TIMES).Include(c => c.EMPLOYEE);
             return View(cAR_BOOKING_SLOTS.ToList());
@@ -57,7 +57,7 @@ namespace Vehlution_Everything_.Controllers
             {
                 db.CAR_BOOKING_SLOTS.Add(cAR_BOOKING_SLOTS);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("BookingSlotsIndex");
             }
 
             ViewBag.DAY_ = new SelectList(db.BOOKING_DATES, "DAY_", "DAY_", cAR_BOOKING_SLOTS.DAY_);
@@ -97,11 +97,11 @@ namespace Vehlution_Everything_.Controllers
             {
                 db.Entry(cAR_BOOKING_SLOTS).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("BookingSlotsIndex");
             }
-            ViewBag.DAY_ = new SelectList(db.BOOKING_DATES, "DAY_", "DAY_", cAR_BOOKING_SLOTS.DAY_);
+            ViewBag.DAY_ = new SelectList(db.BOOKING_DATES, "DAY_", "DATE", cAR_BOOKING_SLOTS.DAY_);
             ViewBag.STATUSID = new SelectList(db.BOOKING_STATUS, "STATUSID", "STATUSNAME", cAR_BOOKING_SLOTS.STATUSID);
-            ViewBag.TIME_ID = new SelectList(db.BOOKING_TIMES, "TIME_ID", "TIME_ID", cAR_BOOKING_SLOTS.TIME_ID);
+            ViewBag.TIME_ID = new SelectList(db.BOOKING_TIMES, "TIME_ID", "START_TIME_", cAR_BOOKING_SLOTS.TIME_ID);
             ViewBag.EMPLYEE_ID = new SelectList(db.EMPLOYEEs, "EMPLYEE_ID", "FULL_NAME", cAR_BOOKING_SLOTS.EMPLYEE_ID);
             return View(cAR_BOOKING_SLOTS);
         }

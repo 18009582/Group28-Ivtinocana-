@@ -8,14 +8,12 @@
 
 <html>
 <head>
-    <meta name="viewport" content="width=device-width" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
     <script src='https://kit.fontawesome.com/a076d05399.js'></script>
     <link href="@Url.Content("~/Content/Site.css")" rel="stylesheet" type="text/css" />
-    <title>Index</title>
     <style>
         .modal {
             display: none; /* Hidden by default */
@@ -30,6 +28,7 @@
             background-color: rgb(0,0,0); /* Fallback color */
             background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
         }
+
         /* Modal Content */
         .modal-content {
             background-color: #fefefe;
@@ -39,6 +38,7 @@
             width: 50%;
             text-align: center;
         }
+
         /* The Close Button */
         .close {
             color: #aaaaaa;
@@ -54,6 +54,9 @@
                 cursor: pointer;
             }
     </style>
+    <meta name="viewport" content="width=device-width" />
+    <title>Car Make</title>
+    <link rel="stylesheet" type="text/css" href="~/CSS1/StyleSheet1.css" />
 </head>
 <body>
    
@@ -68,9 +71,10 @@
                 <table class="table-latitude">
                     <caption>User Role Information</caption>
                     <thead>
+                    <th>User Role ID</th>
                     <th>User Role</th>
 
-                    <th><a class="btn btn-outline-success" onclick="location.href='@Url.Action("Create","USER_ROLE")'"><i class="fa fa-plus-square"></i> Create New</a></th>
+                    <th><a class="btn btn-outline-success" onclick="location.href='@Url.Action("Create","USER_ROLE")'"><i class="fa fa-plus-square"></i> Create New User Role</a></th>
                     </thead>
 
                     <tbody>
@@ -79,7 +83,10 @@
                         {
                             <tr>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.ROLE)
+                                    @item.USERROLE_ID
+                                </td>
+                                <td>
+                                    @item.ROLE
                                 </td>
                                 <td>
 

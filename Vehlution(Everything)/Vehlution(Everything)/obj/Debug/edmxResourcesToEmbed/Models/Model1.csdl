@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Schema Namespace="VehlutionModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+<Schema Namespace="Vehlution2Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
   <EntityType Name="BOOKING_DATES">
     <Key>
       <PropertyRef Name="DAY_" />
@@ -148,7 +148,7 @@
     <Property Name="YEAR" Type="Int32" />
     <Property Name="MILAGE_" Type="Int32" />
     <Property Name="LISTING_PRICE" Type="Double" />
-    <Property Name="IMAGE" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+    <Property Name="IMAGE" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
     <Property Name="CAR_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="CAR_TYPEID" Type="Int32" />
     <Property Name="USER_ID" Type="Int32" />

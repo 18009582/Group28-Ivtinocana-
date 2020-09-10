@@ -59,9 +59,18 @@
 
 
                             <td>
-                                <button class="btn btn-default btn-sm" id="Create" name="Create" style="background-color:lightsteelblue" onclick="location.href=' @Url.Action("Accept", "OFFERs", new { id = item.OFFER_ID })'">Accept</button>
-                                <button class="btn btn-default btn-sm" id="Create" name="Create" style="background-color:lightsteelblue" onclick="location.href=' @Url.Action("Reject", "OFFERS", new { id = item.OFFER_ID })'">Reject</button>
+                                @using (Html.BeginForm("Accept", "OFFERs"))
+                                {
 
+                                    <input type="hidden" value="@item.OFFER_ID" id="id" name="id" />
+                                    <button class="btn btn-default btn-sm" id="Accept" name="Accept" style="background-color:lightsteelblue">Accept</button>
+                                }
+                                <br />
+                                @using (Html.BeginForm("Reject", "OFFERs"))
+                                {
+                                    <input type="hidden" value="@item.OFFER_ID" id="id" name="id" />
+                                    <button class="btn btn-default btn-sm" id="Accept" name="Accept" style="background-color:lightsteelblue">Reject</button>
+                                }
                             </td>
                         </tr>
                     }

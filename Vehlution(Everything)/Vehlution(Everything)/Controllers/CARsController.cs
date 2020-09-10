@@ -24,9 +24,9 @@ namespace Vehlution_Everything_.Controllers
                               .Include(c => c.NUMBER_OF_DOORS)
                               .Include(c => c.NUMBER_OF_SEATS)
                               .Include(c => c.TRANSMISSION)
-                              .Include(c => db.MAKEs.Where(p => p.MAKE_ID == c.MODEL.MAKE_ID))
-                              .Include(c => c.IMAGE)
-                              .Where(cc => cc.STATUS_ID == 5);
+                              .Include(c => c.MODEL.MAKE)
+                          
+                              .Where(cc => cc.STATUS_ID == 3);
             return View(cARS.ToList());
         }
 
@@ -55,7 +55,7 @@ namespace Vehlution_Everything_.Controllers
                               .Include(c => c.TRANSMISSION)
                               .Include(c => db.MAKEs.Where(p => p.MAKE_ID == c.MODEL.MAKE_ID))
                               .Include(c => c.IMAGE)
-                              .Where(cc => cc.STATUS_ID == 1);
+                              .Where(cc => cc.STATUS_ID == 4);
             return View(cARS.ToList());
         }
 

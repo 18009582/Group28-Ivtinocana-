@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Vehlution_Everything_.Models.OFFER>
+﻿@model IEnumerable<Vehlution_Everything_.Models.BOOKING_FOR_POSSIBLE_PURCHASE>
 
 @{
     ViewBag.Title = "AdminIndex";
@@ -65,24 +65,20 @@
 
             <div class="panel-body">
                 <table class="table-latitude">
-                    <caption>OFFERS</caption>
+                    <caption>Bookings</caption>
                     <thead>
                     <th>
-                        Offer ID
+                        Booking ID
                     </th>
+                   
                     <th>
-                        C
-                        @Html.DisplayNameFor(model => model.AMOUNT)
+                       Car Registration
                     </th>
+                   
                     <th>
-                        @Html.DisplayNameFor(model => model.CAR.CAR_REG)
+                      Booking Date
                     </th>
-                    <th>
-                        User Name
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.OFFER_STATUS.STATUS_NAME_)
-                    </th>
+                    <th>Booking Time</th>
                     <th></th>
 
                     </thead>
@@ -91,30 +87,31 @@
                     {
                         <tr>
                             <td>
-                                @Html.DisplayFor(modelItem => item.OFFER_ID)
+                                @Html.DisplayFor(modelItem => item.BOOKING_ID)
                             </td>
                             <td>
-                                @Html.DisplayFor(modelItem => item.AMOUNT)
-                            </td>
+    @Html.DisplayFor(modelItem => item.CAR.CAR_REG)
+</td>
                             <td>
-                                @Html.DisplayFor(modelItem => item.CAR.CAR_REG)
+                                @Html.DisplayFor(modelItem => item.BOOKING_DATE)
                             </td>
+                            
                             <td>
-                                @Html.DisplayFor(modelItem => item.USER.FIRSTNAME)
+                                @Html.DisplayFor(modelItem => item.BOOKING_TIME)
                             </td>
 
                             <td>
-                                @using (Html.BeginForm("Accept", "OFFERs"))
+                                @using (Html.BeginForm("Accept", "BOOKINGs"))
                                 {
 
-                                    <input type="hidden" value="@item.OFFER_ID" id="id" name="id" />
+                                    <input type="hidden" value="@item.BOOKING_ID" id="id" name="id" />
                                     <button class="btn btn-default btn-sm" id="Accept" name="Accept" style="background-color:lightsteelblue">Accept</button>
                                 }
                                 <br />
-                                @using (Html.BeginForm("Reject", "OFFERs"))
+                                @using (Html.BeginForm("Reject", "BOOKINGs"))
                                 {
-                                    <input type="hidden" value="@item.OFFER_ID" id="id" name="id" />
-                                    <button class="btn btn-default btn-sm" id="Accept" name="Accept" style="background-color:lightsteelblue" >Reject</button>
+                                    <input type="hidden" value="@item.BOOKING_ID" id="id" name="id" />
+                                    <button class="btn btn-default btn-sm" id="Accept" name="Accept" style="background-color:lightsteelblue">Reject</button>
                                 }
                             </td>
                         </tr>

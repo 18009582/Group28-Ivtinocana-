@@ -88,35 +88,38 @@
 
                         @foreach (var item in Model)
                         {
-                            <tr>
-                                <td>
-                                    @item.CAR_ID
-                                </td>
-                                <td>
-                                    @item.YEAR
-                                </td>
-                                <td>
-                                    @item.MILAGE_
-                                </td>
-                                <td>
-                                    @item.LISTING_PRICE
-                                </td>
-                                <td>
-                                    @item.IMAGE
-                                </td>
-                                <td>
-                                    @item.MODEL.MODEL_NAME
-                                </td>
-                                <td>
-                                </td>
-                                <td>
-                                    @item.COLOUR.COLOUR_NAME
-                                </td>
-                                <td>
-                                    <a class="glyphicon glyphicon-info-sign"></a>
-                                    @Html.ActionLink("Details", "SaleDetails", new { id = item.CAR_ID })
-                                </td>
-                            </tr>
+                        <tr>
+                            <td>
+                                @item.CAR_ID
+                            </td>
+                            <td>
+                                @item.YEAR
+                            </td>
+                            <td>
+                                @item.MILAGE_
+                            </td>
+                            <td>
+                                @item.LISTING_PRICE
+                            </td>
+                            <td>
+
+                                <img src="~/Images/@item.IMAGE" />
+
+                            </td>
+                         
+                            <td>
+                                @item.MODEL.MODEL_NAME
+                            </td>
+                            <td>
+                            </td>
+                            <td>
+                                @item.COLOUR.COLOUR_NAME
+                            </td>
+                            <td>
+                                <a class="glyphicon glyphicon-info-sign"></a>
+                                @Html.ActionLink("Details", "SaleDetails", new { id = item.CAR_ID })
+                            </td>
+                        </tr>
                         }
                     </tbody>
                 </table>

@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Vehlution_Everything_.Models.MODEL>
+﻿@model IEnumerable<Vehlution_Everything_.Models.CAR_BOOKING_SLOTS>
 
 @{
     Layout = null;
@@ -56,7 +56,7 @@
     </style>
     <meta name="viewport" content="width=device-width" />
     <title>Index</title>
-    <link rel="stylesheet" type="text/css" href="~/CSS1/StyleSheet1.css" />
+    <link rel="stylesheet" type="text/css" href="~/CSS/StyleSheet1.css" />
 </head>
 <body>
     <div class="container">
@@ -66,41 +66,48 @@
             </div>
             <div class="panel-body">
                 <table class="table-latitude">
-                    <caption>Car Model Information</caption>
+                    <caption>Booking Slots Information</caption>
                     <thead>
 
                     <thead>
-                    <th>Model ID</th>
-                    <th>Model Name</th>
-                    <th>Associated Make</th>
+                    <th>Booking ID</th>
+                    <th>Booking Date </th>
+                    <th>Booking Time</th>
+                    <th>Booking Status</th>
+                    <th>Associated Employee</th>
                     <th>
-                        <a class="btn btn-outline-success" onclick="location.href='@Url.Action("Create","MODELs")'"><i class="fa fa-plus-square"></i> Create New Car Make</a>
+                        <a class="btn btn-outline-success" onclick="location.href='@Url.Action("Create","CAR_BOOKING_SLOTS")'"><i class="fa fa-plus-square"></i> Create New Booking Slot</a>
                     </th>
 
                     </thead>
                     <tbody>
-
                         @foreach (var item in Model)
                         {
-                            <tr>
-                                <td>
-                                    @item.MODEL_ID
-                                </td>
-                                <td>
-                                    @item.MODEL_NAME
-                                </td>
-                                <td>
-                                    @item.MAKE.MAKE_NAME
-                                </td>
-                                <td>
-                                    <a class="btn text-danger" onclick="del(@item.MODEL_ID)" value="item.MODEL_ID"><i class="fa fa-trash fa-lg"></i></a>
-                                    <a onclick="location.href='@Url.Action("Edit","MODELs",new { id=item.MODEL_ID})'">
-                                        <svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-person-lines-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                            <path fill-rule="evenodd" d="M1 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm7 1.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5zm-2-3a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5zm0-3a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5zm2 9a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5z" />
-                                        </svg>
-                                    </a>
-                                </td>
-                            </tr>
+                        <tr>
+                            <td>
+                                @item.CARBOOKINGSLOTID
+                            </td>
+                            <td>
+                                @item.BOOKING_DATES.DATE
+                            </td>
+                            <td>
+                                @item.BOOKING_TIMES.START_TIME_
+                            </td>
+                            <td>
+                                @item.BOOKING_STATUS.STATUSNAME
+                            </td>
+                            <td>
+                                @item.EMPLOYEE.FULL_NAME
+                            </td>
+                            <td>
+                                <a class="btn text-danger" onclick="del(@item.CARBOOKINGSLOTID)" value="item.CARBOOKINGSLOTID"><i class="fa fa-trash fa-lg"></i></a>
+                                <a onclick="location.href='@Url.Action("Edit","CAR_BOOKING_SLOTs",new { id=item.CARBOOKINGSLOTID})'">
+                                    <svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-person-lines-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd" d="M1 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm7 1.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5zm-2-3a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5zm0-3a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5zm2 9a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5z" />
+                                    </svg>
+                                </a>
+                            </td>
+                        </tr>
                         }
                     </tbody>
                 </table>
@@ -109,7 +116,7 @@
     </div>
     <div id="myModal1" class="modal">
         <div class="modal-content">
-            @using (Html.BeginForm("Delete", "MODELs"))
+            @using (Html.BeginForm("Delete", "CAR_BOOKING_SLOTS"))
             {
                 @Html.AntiForgeryToken()
                 <form id="DeleteConfirmed">
@@ -140,7 +147,7 @@
             modal.style.display = "block";
         }
         function del(id) {
-            document.getElementById('dellabel').innerText = "Are you sure you want to delete car model number " + id + " ?";
+            document.getElementById('dellabel').innerText = "Are you sure you want to delete time slot " + id + " ?";
             document.getElementById('id').value = id;
             modal1.style.display = "block";
         }
@@ -157,4 +164,3 @@
     </script>
 </body>
 </html>
-
