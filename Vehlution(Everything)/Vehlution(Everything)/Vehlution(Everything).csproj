@@ -494,7 +494,6 @@
     <Content Include="Views\Web.config" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
-    <Content Include="Views\Shared\_LayoutClientLogout.cshtml" />
     <Content Include="Views\MAKEs\CarMakeIndex.cshtml" />
     <Content Include="Views\MAKEs\Create.cshtml" />
     <Content Include="Views\MAKEs\Edit.cshtml" />
@@ -575,8 +574,7 @@
     <Content Include="Views\SALEs\Details.cshtml" />
     <Content Include="Views\SALEs\Edit.cshtml" />
     <Content Include="Views\SALEs\Index.cshtml" />
-    <Content Include="Views\Shared\_LayoutAdmin.cshtml" />
-    <Content Include="Views\Shared\_LayoutClientLogin.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
