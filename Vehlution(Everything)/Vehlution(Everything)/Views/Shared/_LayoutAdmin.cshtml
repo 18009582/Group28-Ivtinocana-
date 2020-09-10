@@ -1,0 +1,163 @@
+﻿
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Bootstrap Example</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<style>
+    .navbar {
+        background-color: darkblue;
+    }
+
+    .dropdown-menu {
+        background-color: #FFA500;
+    }
+
+    body {
+        background-color: #FFFACD;
+        font-size: 20px;
+    }
+
+    .navbar-brand {
+        font-size: 40px;
+    }
+
+    li {
+        font-size: 20px;
+    }
+</style>
+<body>
+
+    <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#">Vehlution</a>
+            </div>
+            <ul class="nav navbar-nav">
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">Cars<span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#"> <span class="glyphicon glyphicon-eye-open"> View Car For Purchase </a></li>
+                        <li><a href="#"> <span class="glyphicon glyphicon-eye-open"> View Cars For Sale </a></li>
+                        <li><a href="#"> <span class="glyphicon glyphicon-eye-open"> View Car Make </a></li>
+                        <li><a href="#"> <span class="glyphicon glyphicon-eye-open"> View Car Model </a></li>
+                        <li><a href="#"> <span class="glyphicon glyphicon-eye-open"> View Car Defect </a></li>
+                    </ul>
+                </li>
+            </ul>
+            <ul class="nav navbar-nav">
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">Bookings<span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+
+                        <li><a href="#"> <span class="glyphicon glyphicon-eye-open"> View Booking Slots </a></li>
+                        <li><a href="#"> <span class="glyphicon glyphicon-thumbs-up"> Accept/Reject Booking <span class="glyphicon glyphicon-thumbs-down"> </a></li>
+                        <li><a href="#"><span class="glyphicon glyphicon-pencil"> Make Booking To View Car For Sale </a></li>
+
+
+
+                    </ul>
+                </li>
+            </ul>
+
+            <ul class="nav navbar-nav">
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">Offers<span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+
+                        <li><a href="#"> <span class="glyphicon glyphicon-thumbs-up"> Accept/Reject Offer <span class="glyphicon glyphicon-thumbs-down"> </a></li>
+                        <li><a href="#"><span class="glyphicon glyphicon-pencil"> Make Offer To Buy Car For Sale </a></li>
+
+
+
+                    </ul>
+                </li>
+            </ul>
+
+            <ul class="nav navbar-nav">
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">Reports<span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+
+                        <li><a href="#"> <span class="glyphicon glyphicon-list-alt"> Sales Report </a></li>
+                        <li><a href="#"><span class="glyphicon glyphicon-list-alt"> Bookings Report For Client Viewings </a></li>
+                        <li><a href="#"><span class="glyphicon glyphicon-list-alt"> Bookings Report For Purchase Viewings </a></li>
+                        <li><a href="#"><span class="glyphicon glyphicon-list-alt"> Mechanic Job Report </a></li>
+                        <li><a href="#"><span class="glyphicon glyphicon-list-alt"> Car Parts Purchased Report </a></li>
+                        <li><a href="#"><span class="glyphicon glyphicon-list-alt"> Purchases Report </a></li>
+
+
+
+                    </ul>
+                </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="#"><span class="glyphicon glyphicon-user"></span> View My Profile</a></li>
+                <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <nav class="navbar navbar-inverse navbar-fixed-bottom">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#">Vehlution</a>
+            </div>
+
+            <ul class="nav navbar-nav">
+
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">Users <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#"><span class="glyphicon glyphicon-eye-open"> View User Role</a></li>
+                        <li><a href="#"><span class="glyphicon glyphicon-eye-open"> View Users</a></li>
+                        <li><a href="#"><span class="glyphicon glyphicon-ban-circle"> Block User</a></li>
+                    </ul>
+                </li>
+            </ul>
+            <ul class="nav navbar-nav">
+
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">Employees <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#"><span class="glyphicon glyphicon-eye-open"> View Employee</a></li>
+                        <li><a href="#"><span class="glyphicon glyphicon-user"> View Employee Profile</a></li>
+                    </ul>
+                </li>
+            </ul>
+            <ul class="nav navbar-nav">
+
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">Supplier<span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#"><span class="glyphicon glyphicon-eye-open"> View Supplier</a></li>
+
+                        <li><a href="#"><span class="glyphicon glyphicon-pencil"> Place Supplier Order</a></li>
+                        <li><a href="#"><span class="glyphicon glyphicon-remove-sign"> Cancel Supplier Order</a></li>
+                        <li><a href="#"><span class="glyphicon glyphicon-eye-open"> View Supplier Order</a></li>
+                        <li><a href="#"><span class="glyphicon glyphicon-inbox"> Receive Supplier Order</a></li>
+                        <li><a href="#"><span class="glyphicon glyphicon-eye-open"> View Car Part</a></li>
+
+                    </ul>
+                </li>
+            </ul>
+            <ul class="nav navbar-nav">
+
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">Mechanic <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#"> <span class="glyphicon glyphicon-eye-open"> View Mechanic</a></li>
+                        <li><a href="#"><span class="glyphicon glyphicon-camera"> Capture Mechanic Job</a></li>
+                        <li><a href="#"> <span class="glyphicon glyphicon-eye-open"> View Task</a></li>
+                    </ul>
+        </div>
+    </nav>
+
+
+</body>
+</html>
