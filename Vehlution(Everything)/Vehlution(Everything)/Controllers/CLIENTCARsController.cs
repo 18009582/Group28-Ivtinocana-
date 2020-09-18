@@ -62,17 +62,18 @@ namespace Vehlution_Everything_.Controllers
 
             if (ModelState.IsValid)
             {
+                UserInfo usr = new UserInfo();
+                CAR cAR = new CAR();
                 string pic = null;
                 if (IMAGE != null)
                 {
                     pic = System.IO.Path.GetFileName(IMAGE.FileName);
                     string path = System.IO.Path.Combine(Server.MapPath("~/Images/"), pic);
-                    IMAGE.SaveAs(path);
+                    cAR.IMAGE = path;
 
                 }
               
-                UserInfo usr = new UserInfo();
-                CAR cAR = new CAR();
+                
                 cAR.CAR_REG = CarReg;
                 cAR.SEATS_ID = SEATS_ID;
                 cAR.CAR_TYPEID = CAR_TYPEID;
@@ -86,9 +87,11 @@ namespace Vehlution_Everything_.Controllers
                 cAR.YEAR = YEAR;
                 cAR.MILAGE_ = MILAGE_;
                 cAR.LISTING_PRICE = LISTING_PRICE;
+                int clientid = Convert.ToInt32(HttpContext.Request.Cookies.Get("User").Value);
+                cAR.USER_ID = clientid;
                 db.CARS.Add(cAR);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("ClientNav", "Nav");
             }
 
             //ViewBag.STATUS_ID = new SelectList(db.CAR_STATUS, "STATUS_ID", "SASTUS_NAME", cAR.STATUS_ID);
@@ -100,7 +103,7 @@ namespace Vehlution_Everything_.Controllers
             //ViewBag.SEATS_ID = new SelectList(db.NUMBER_OF_SEATS, "SEATS_ID", "NUMBER_OF_SEATS_", cAR.SEATS_ID);
             //ViewBag.TRANSMISSION_ID = new SelectList(db.TRANSMISSIONs, "TRANSMISSION_ID", "TRANSMISSION_NAME", cAR.TRANSMISSION_ID);
             // return View(cAR);
-            return RedirectToAction("Index");
+            return RedirectToAction("ClientNav","Nav");
         }
 
         // GET: ClientCARs/Edit/5

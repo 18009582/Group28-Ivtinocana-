@@ -55,7 +55,7 @@ namespace Vehlution_Everything_.Controllers
             {
                 db.MECHANIC_JOB.Add(mECHANIC_JOB);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("AdminNav","Nav");
             }
 
             ViewBag.CAR_ID = new SelectList(db.CARS, "CAR_ID", "CAR_ID", mECHANIC_JOB.CAR_ID);

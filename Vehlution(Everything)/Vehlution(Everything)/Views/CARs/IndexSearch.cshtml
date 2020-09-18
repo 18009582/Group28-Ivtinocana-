@@ -26,7 +26,7 @@
         {
 
 
-            @Html.DropDownList("Models"); 
+            @Html.DropDownList("Models");
             <button type="submit" class="btn btn-default btn-sm" id="Search" name="Search" style="background-color:darkgray">   <span class="fa fa-search form-control-feedback"></span> Search</button>
         }
 
@@ -41,27 +41,27 @@
                     <table class="table-latitude">
 
                         <thead>
-                            <th>
-                                ID
-                            </th>
-                            <th>
-                                Colour
-                            </th>
-                            <th>Transmission</th>
-                            <th>
-                                Make
-                            </th>
-                            <th>
-                                Model
-                            </th>
-                            <th>
-                                Mileage
-                            </th>
-                            <th>
-                                Listing Price
-                            </th>
+                        <th>
+                            ID
+                        </th>
+                        <th>
+                            Colour
+                        </th>
+                        <th>Transmission</th>
+                        <th>
+                            Make
+                        </th>
+                        <th>
+                            Model
+                        </th>
+                        <th>
+                            Mileage
+                        </th>
+                        <th>
+                            Listing Price
+                        </th>
 
-                            <th></th>
+                        <th></th>
                         </thead>
 
                         @foreach (var item in Model)
@@ -110,5 +110,6 @@
             </div>
         </div>
     }
+    <input type="button" value="Home" onclick="location.href='@Url.Action("ClientNav","Nav")'" />
 </body>
 </html>

@@ -13,6 +13,7 @@ namespace Vehlution_Everything_.ViewModels
         public double AcceptedOffer { get; set; }
         public string Car { get; set; }
         public string Colour { get; set; } 
+       // public List<IGrouping<String, PurchasesClass>> results { get; set; }
     }
 
     public class Advanced

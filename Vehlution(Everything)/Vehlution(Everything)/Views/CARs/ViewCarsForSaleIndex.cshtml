@@ -2,6 +2,7 @@
 
 @{
     Layout = null;
+
 }
 
 <!DOCTYPE html>
@@ -50,13 +51,6 @@
             font-size: 28px;
             font-weight: bold;
         }
-
-            .close:hover,
-            .close:focus {
-                color: #000;
-                text-decoration: none;
-                cursor: pointer;
-            }
     </style>
     <meta name="viewport" content="width=device-width" />
     <title>Index</title>
@@ -88,44 +82,45 @@
 
                         @foreach (var item in Model)
                         {
-                        <tr>
-                            <td>
-                                @item.CAR_ID
-                            </td>
-                            <td>
-                                @item.YEAR
-                            </td>
-                            <td>
-                                @item.MILAGE_
-                            </td>
-                            <td>
-                                @item.LISTING_PRICE
-                            </td>
-                            <td>
+                            <tr>
+                                <td>
+                                    @item.CAR_ID
+                                </td>
+                                <td>
+                                    @item.YEAR
+                                </td>
+                                <td>
+                                    @item.MILAGE_
+                                </td>
+                                <td>
+                                    @item.LISTING_PRICE
+                                </td>
+                                <td>
 
-                                <img src="~/Images/@item.IMAGE" />
+                                    <img src="~/Images/@item.IMAGE" />
 
-                            </td>
-                         
-                            <td>
-                                @item.MODEL.MODEL_NAME
-                            </td>
-                            <td>
-                            </td>
-                            <td>
-                                @item.COLOUR.COLOUR_NAME
-                            </td>
-                            <td>
-                                <a class="glyphicon glyphicon-info-sign"></a>
-                                @Html.ActionLink("Details", "SaleDetails", new { id = item.CAR_ID })
-                            </td>
-                        </tr>
+                                </td>
+
+                                <td>
+                                    @item.MODEL.MODEL_NAME
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                    @item.COLOUR.COLOUR_NAME
+                                </td>
+                                <td>
+                                    <a class="glyphicon glyphicon-info-sign"></a>
+                                    @Html.ActionLink("Details", "SaleDetails", new { id = item.CAR_ID })
+                                </td>
+                            </tr>
                         }
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
+    <input type="button" value="Home" onclick="location.href='@Url.Action("ClientNav","Nav")'" />
 </body>
 </html>
 

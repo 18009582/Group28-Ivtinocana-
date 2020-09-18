@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using Vehlution_Everything_.Models;
 using System.Net.Mail;
+using Microsoft.AspNet.Identity;
 
 namespace Vehlution_Everything_.Controllers
 {
@@ -18,15 +19,17 @@ namespace Vehlution_Everything_.Controllers
         // GET: OFFERs
         public ActionResult AdminIndex()
         {
-            //where pending //where type = 1 client 2=admin
+            //where pending //where type = 1 client 3=admin
             var oFFERS = db.OFFERS.Where(zz => zz.STATUS_ID == 3 && zz.OFFERTYPE_ID == 1).Include(o => o.CAR).Include(o => o.USER).Include(o => o.OFFER_STATUS).Include(o => o.OFFER_TYPE);
             return View(oFFERS.ToList());
         }
         //need to take in client id as a parameter
-        public ActionResult ClientIndex(int clientid)
+       public ActionResult ClientIndex()
         {
-            //where pending //where type = 1 client 2=admin
-            var oFFERS = db.OFFERS.Where(zz => zz.STATUS_ID == 3 && zz.USER_ID == clientid).Include(o => o.CAR).Include(o => o.USER).Include(o => o.OFFER_STATUS).Include(o => o.OFFER_TYPE);
+          //where pending //where type = 1 client 2=admin
+          int clientid = Convert.ToInt32(HttpContext.Request.Cookies.Get("User").Value);
+          var oFFERS = db.OFFERS.Where(zz => zz.STATUS_ID == 3 && zz.USER_ID == clientid).Include(o => o.CAR).Include(o => o.USER).Include(o => o.OFFER_STATUS).Include(o => o.OFFER_TYPE);
+            
             return View(oFFERS.ToList());
         }
 
@@ -67,33 +70,37 @@ namespace Vehlution_Everything_.Controllers
         {
             OFFER oFFER = db.OFFERS.Find(id);
             oFFER.STATUS_ID = 2;
-            var senderEmail = new MailAddress("vehlution@gmail.com", "Vehlution");
+            db.SaveChanges();
             if (oFFER.USER_ID != null)
             {
-                string email = db.USERs.Where(zz => zz.USER_ID == oFFER.USER_ID).First().EMAIL;
-                var receiverEmail = new MailAddress(email, "Receiver");
-                var password = "Ivtinocana";
-                var sub = "Rejected Offer";
-                var body = " regret to infrom you that your offer has been rejected Your Offer details :  \n Offer ID: " + oFFER.OFFER_ID + " \n car registration : " + oFFER.CAR.CAR_REG + " \n Price: R " + oFFER.AMOUNT + "  \n if you would like to make another offer please do so on the Vehlution website. \n Yours Faithfully , \n Vehlution";
-                var smtp = new SmtpClient
+                var senderEmail = new MailAddress("vehlution@gmail.com", "Vehlution");
+                if (oFFER.USER_ID != null)
                 {
-                    Host = "smtp.gmail.com",
-                    Port = 587,
-                    EnableSsl = true,
-                    DeliveryMethod = SmtpDeliveryMethod.Network,
-                    UseDefaultCredentials = false,
-                    Credentials = new NetworkCredential(senderEmail.Address, password)
-                };
-                using (var mess = new MailMessage(senderEmail, receiverEmail)
-                {
-                    Subject = sub,
-                    Body = body
-                })
-                {
-                    smtp.Send(mess);
+                    string email = db.USERs.Where(zz => zz.USER_ID == oFFER.USER_ID).First().EMAIL;
+                    var receiverEmail = new MailAddress(email, "Receiver");
+                    var password = "Ivtinocana";
+                    var sub = "Rejected Offer";
+                    var body = " regret to infrom you that your offer has been rejected Your Offer details :  \n Offer ID: " + oFFER.OFFER_ID + " \n car registration : " + oFFER.CAR.CAR_REG + " \n Price: R " + oFFER.AMOUNT + "  \n if you would like to make another offer please do so on the Vehlution website. \n Yours Faithfully , \n Vehlution";
+                    var smtp = new SmtpClient
+                    {
+                        Host = "smtp.gmail.com",
+                        Port = 587,
+                        EnableSsl = true,
+                        DeliveryMethod = SmtpDeliveryMethod.Network,
+                        UseDefaultCredentials = false,
+                        Credentials = new NetworkCredential(senderEmail.Address, password)
+                    };
+                    using (var mess = new MailMessage(senderEmail, receiverEmail)
+                    {
+                        Subject = sub,
+                        Body = body
+                    })
+                    {
+                        smtp.Send(mess);
+                    }
                 }
             }
-            return RedirectToAction("ClientIndex");
+            return RedirectToAction("AdminIndex");
         }
 
 

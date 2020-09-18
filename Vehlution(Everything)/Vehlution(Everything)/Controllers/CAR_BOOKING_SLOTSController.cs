@@ -129,7 +129,7 @@ namespace Vehlution_Everything_.Controllers
             CAR_BOOKING_SLOTS cAR_BOOKING_SLOTS = db.CAR_BOOKING_SLOTS.Find(id);
             db.CAR_BOOKING_SLOTS.Remove(cAR_BOOKING_SLOTS);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("BookingSlotsIndex");
         }
 
         protected override void Dispose(bool disposing)

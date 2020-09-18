@@ -71,14 +71,14 @@
                 <input type="text" id="PARTNAME" name="PARTNAME" style="width:50%" required /> <br />
 
                 <label>Reorder Point</label><br />
-                <input type="text" id="RESTOCKORDER" name="RESTOCKORDER" style="width:50%" required minlength="10" maxlength="10" /> <br />
+                <input type="text" id="RESTOCKORDER" name="RESTOCKORDER" style="width:50%" required  /> <br />
 
                 <label>Stock On Hand</label><br />
                 <input type="text" id="STOCKONHAND" name="STOCKONHAND" style="width:50%" required /> <br />
 
                 <button type="submit" onclick="myFunction()" class="btn btn-default btn-sm" id="Create" name="Create" style="background-color:lightgreen">
                     <i class="fa fa-plus-square"></i>
-                    <span class="glyphicon glyphicon-ok"></span> Add New Mechanic
+                    <span class="glyphicon glyphicon-ok"></span> Edit Car Part
                 </button> <button type="button" class="btn btn-default btn-sm" style="background-color:red" onclick="location.href='@Url.Action("Index","CAR_PARTs")'">
                     <i class="fa fa-times"></i>
                     <i class="glyphicon glyphicon-remove"></i> Cancel

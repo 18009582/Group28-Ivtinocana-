@@ -123,14 +123,14 @@
                     </thead>
                 </table>
                 <a class="btn btn-outline-success" id="myBtn"><i class="glyphicon glyphicon-calendar"></i> Make Booking to View Car</a> <br /> <br />
-                <a class="btn btn-outline-success" id="myBtn"><i class="glyphicon glyphicon-usd"></i> Make an Offer on this Car</a>
+                <a class="btn btn-outline-success" onclick="MakeOffer(@Model.CAR_ID)"><i class="glyphicon glyphicon-usd"></i> Make an Offer on this Car</a>
             </div>
         </div>
     </div>
 
     <div id="myModal1" class="modal">
         <div class="modal-content">
-            @using (Html.BeginForm("MakeOffer", "Carss"))
+            @using (Html.BeginForm("MakeOfferC", "CARs"))
             {
                 <form id="DeleteConfirmed">
                     <label>Please enter the amount you would like to offer</label>
@@ -164,13 +164,12 @@
     var modal1 = document.getElementById("myModal1");
 
     var closebtn = document.getElementById("close");
+    var myBtn = document.getElementById("close");
 
-    function MakeNewOffer(car) {
+    function MakeOffer(car) {
 
         document.getElementById('c').value = car;
         modal1.style.display = "block";
-
-
     }
 
     closebtn.onclick = function () {

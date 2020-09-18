@@ -2,135 +2,73 @@
 
 @{
     ViewBag.Title = "Create";
+    Layout = null;
 }
+<html>
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    <script src='https://kit.fontawesome.com/a076d05399.js'></script>
+    <link href="@Url.Content("~/Content/Site.css")" rel="stylesheet" type="text/css" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Create</title>
+    <link rel="stylesheet" type="text/css" href="~/CSS1/StyleSheet1.css" />
+</head>
 
-<h2>Create</h2>
+<div class="container" style="text-align:center">
+        <h1 style="color:orange">Car Details</h1>
+            @using (Html.BeginForm("Create", "ADMINCARs"))
+            {
+                @Html.AntiForgeryToken()
 
+                <label>Car Registration</label><br />
+                <input type="text" id="CarReg" name="CarReg" style="width:50%" required maxlength="8" minlength="8" /> <br />
 
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
+                <label>Seats</label><br />
+                @Html.DropDownList("SEATS_ID", null, htmlAttributes: new { @class = "select" })
+                <br />
 
-    <div class="form-horizontal">
-        <h4>CAR</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            <div class="col-md-10">
-                <label>Seats</label>
-                @Html.DropDownList("SEATS_ID", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.SEATS_ID, "", new { @class = "text-danger" })
-            </div>
-        </div>
+                <label>Colour</label><br />
+                @Html.DropDownList("COLOUR_ID", null, htmlAttributes: new { @class = "select" })
+                <br />
+                <label>Transmission</label><br />
+                @Html.DropDownList("TRANSMISSION_ID", null, htmlAttributes: new { @class = "select" })
+                <br />
+                <label>Doors</label><br />
+                @Html.DropDownList("DOORS_ID", null, htmlAttributes: new { @class = "select" })
+                <br />
+                <label>Fuel Type</label><br />
+                @Html.DropDownList("FUELTYPE_ID", null, htmlAttributes: new { @class = "select" })
+                <br />
+                <label>Model</label><br />
+                @Html.DropDownList("MODEL_ID", null, htmlAttributes: new { @class = "select" })
+                <br />
+                <label>Year</label><br />
+                @Html.EditorFor(model => model.YEAR, new { htmlAttributes = new { @class = "select" } })
+                <br />
+                <label>Mileage</label><br />
+                @Html.EditorFor(model => model.MILAGE_, new { htmlAttributes = new { @class = "select" } })
+                <br />
+                <label>Listing Price</label><br />
+                @Html.EditorFor(model => model.LISTING_PRICE, new { htmlAttributes = new { @class = "select" } })
+                <br />
+                <label>Body Type</label><br />
+                @Html.DropDownList("CAR_TYPEID", null, htmlAttributes: new { @class = "select" })
+                <br />
+                <label>Image</label> <br />
+                <input type="file" name="IMAGE" id="IMAGE" style="width: 100%" /><br />
 
-        <div class="form-group">
-            <div class="col-md-10">
-                <label>Colour</label>
-                @Html.DropDownList("COLOUR_ID", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.COLOUR_ID, "", new { @class = "text-danger" })
-            </div>
-        </div>
+                <button type="submit" class="btn btn-default btn-sm" id="Create" name="Create" style="background-color:lightgreen">
+                    <i class="fa fa-plus-square"></i>
+                    <span class="glyphicon glyphicon-ok"></span> Add My Car
+                </button> <button type="button" class="btn btn-default btn-sm" style="background-color:red" onclick="location.href='@Url.Action("Index", "MAKEs")'">
+                    <i class="fa fa-times"></i>
+                    <i class="glyphicon glyphicon-remove"></i> Cancel
+                </button>
+            }
+  </div>
 
-        <div class="form-group">
-            <div class="col-md-10">
-                <label>Transmission</label>
-                @Html.DropDownList("TRANSMISSION_ID", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.TRANSMISSION_ID, "", new { @class = "text-danger" })
-            </div>
-        </div>
+</html>
 
-        <div class="form-group">
-            <div class="col-md-10">
-                <label>Doors</label>
-                @Html.DropDownList("DOORS_ID", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.DOORS_ID, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-10">
-                <label>Make</label>
-                @Html.EditorFor(model => model.MAKE_ID, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.MAKE_ID, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-10">
-                <label>Client</label>
-                @Html.DropDownList("CLIENT_ID", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.CLIENT_ID, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-10">
-                <label>Status</label>
-                @Html.DropDownList("STATUS_ID", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.STATUS_ID, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-10">
-                <label>Fuel Type</label>
-                @Html.DropDownList("FUELTYPE_ID", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.FUELTYPE_ID, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-10">
-                <label>Model </label>
-                @Html.DropDownList("MODEL_ID", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.MODEL_ID, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-10">
-                <label>Year</label>
-                @Html.EditorFor(model => model.YEAR, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.YEAR, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-10">
-                <label>Mileage</label>
-                @Html.EditorFor(model => model.MILAGE_, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.MILAGE_, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-10">
-                <label>Listing Price</label>
-                @Html.EditorFor(model => model.LISTING_PRICE, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.LISTING_PRICE, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-10">
-                <label>Image</label>
-                @Html.EditorFor(model => model.IMAGE, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.IMAGE, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
-            </div>
-        </div>
-    </div>
-}
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
-
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}

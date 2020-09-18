@@ -82,13 +82,17 @@ namespace Vehlution_Everything_.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         //[ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "USER_ID,USERROLE_ID,FIRSTNAME,LASTNAME,EMAIL,PASSWORD,EMAILVERIFICATION,ACTIVATIONCODE,OTP")] USER uSER)
+        public ActionResult Edit([Bind(Include = "USER_ID,FIRSTNAME,LASTNAME,EMAIL")] USER uSER)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(uSER).State = EntityState.Modified;
+                USER usr = db.USERs.Find(uSER.USER_ID);
+                usr.FIRSTNAME = uSER.FIRSTNAME;
+                usr.LASTNAME = uSER.LASTNAME;
+                usr.EMAIL = uSER.EMAIL;
+                            
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("MyProfile");
             }
             ViewBag.USERROLE_ID = new SelectList(db.USER_ROLE, "USERROLE_ID", "ROLE", uSER.USERROLE_ID);
             return View(uSER);
@@ -117,9 +121,24 @@ namespace Vehlution_Everything_.Controllers
             USER uSER = db.USERs.Find(id);
             db.USERs.Remove(uSER);
             db.SaveChanges();
+            return RedirectToAction("LoginNav", "Nav");
+        }
+        public ActionResult Blocked(int id)
+        {
+
+            USER u = db.USERs.Find(id);
+            u.BLOCKED = Convert.ToBoolean(1);
+            db.SaveChanges();
             return RedirectToAction("Index");
         }
+        public ActionResult MyProfile()
+        {
+            int clientid = Convert.ToInt32(HttpContext.Request.Cookies.Get("User").Value);
+            USER usr = db.USERs.Find(clientid);
+            return View(usr);
+        }
 
+        
         protected override void Dispose(bool disposing)
         {
             if (disposing)

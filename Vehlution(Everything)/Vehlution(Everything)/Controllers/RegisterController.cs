@@ -45,7 +45,7 @@ namespace Vehlution_Everything_.Controllers
 
             //it generate unique code     
             objUsr.ACTIVATIONCODE = Guid.NewGuid();
-            objUsr.USERROLE_ID = 3;
+            objUsr.USERROLE_ID = 1;
             objUsr.BLOCKED = Convert.ToBoolean(0);
             //password convert  
             objUsr.PASSWORD = Vehlution_Everything_.Models.encryptPassword.textToEncrypt(objUsr.PASSWORD);
@@ -135,6 +135,7 @@ namespace Vehlution_Everything_.Controllers
         [HttpPost]
         public ActionResult Login(UserLogin LgnUsr)
         {
+            VehlutionEntities db = new VehlutionEntities();
             var _passWord = Vehlution_Everything_.Models.encryptPassword.textToEncrypt(LgnUsr.Password);
             bool Isvalid = objcon.USERs.Any(x => x.EMAIL == LgnUsr.EmailId && x.EMAILVERIFICATION == true &&
             x.PASSWORD == _passWord);
@@ -143,16 +144,31 @@ namespace Vehlution_Everything_.Controllers
                 int timeout = LgnUsr.Rememberme ? 60 : 5; // Timeout in minutes, 60 = 1 hour.  
                 var ticket = new FormsAuthenticationTicket(LgnUsr.EmailId, false, timeout);
                 string encrypted = FormsAuthentication.Encrypt(ticket);
-                var cookie = new HttpCookie(FormsAuthentication.FormsCookieName, encrypted);
+                var cookie = new HttpCookie(FormsAuthentication.FormsCookieName);
                 cookie.Expires = System.DateTime.Now.AddMinutes(timeout);
                 cookie.HttpOnly = true;
+                var name = db.USERs.Where(cc => cc.EMAIL == LgnUsr.EmailId && cc.PASSWORD == _passWord).First();
+                cookie.Name = "User";
+                cookie.Value = Convert.ToString(name.USER_ID);
                 Response.Cookies.Add(cookie);
-                return RedirectToAction("Index", "UserDash");
+
+                int clientid = Convert.ToInt32(HttpContext.Request.Cookies.Get("User").Value);
+                USER usr = db.USERs.Find(name.USER_ID);
+
+                if(usr.USER_ROLE.USERROLE_ID == 1)
+                {
+                    return RedirectToAction("ClientNav", "Nav");
+                }
+                else
+                {
+                    return RedirectToAction("AdminNav", "Nav");
+                }
             }
             else
             {
                 ModelState.AddModelError("", "Invalid Information... Please try again!");
             }
+            
             return View();
         }
 

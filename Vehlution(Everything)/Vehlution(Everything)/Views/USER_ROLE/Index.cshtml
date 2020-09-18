@@ -59,7 +59,7 @@
     <link rel="stylesheet" type="text/css" href="~/CSS1/StyleSheet1.css" />
 </head>
 <body>
-   
+
 
 
     <div class="container">
@@ -90,11 +90,11 @@
                                 </td>
                                 <td>
 
-                                  @*  @Html.ActionLink("Edit", "Edit", new { id = item.USERROLE_ID }) |
-                                    @Html.ActionLink("Details", "Details", new { id = item.USERROLE_ID }) |
-                                    @Html.ActionLink("Delete", "Delete", new { id = item.USERROLE_ID })
-                                </td>
-                                <td>*@
+                                    @*  @Html.ActionLink("Edit", "Edit", new { id = item.USERROLE_ID }) |
+                                            @Html.ActionLink("Details", "Details", new { id = item.USERROLE_ID }) |
+                                            @Html.ActionLink("Delete", "Delete", new { id = item.USERROLE_ID })
+                                        </td>
+                                        <td>*@
                                     <a class="btn text-danger" onclick="del(@item.USERROLE_ID)"><i class="fa fa-trash fa-lg"></i></a>
                                     <a onclick="location.href='@Url.Action("Edit","USER_ROLE",new { id=item.USERROLE_ID})'">
                                         <svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-person-lines-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -137,12 +137,12 @@
     </div>
 
     @*<div id="myModal" class="modal">
-        <div class="modal-content">
+            <div class="modal-content">
 
-            <label id="DelConMsg">Please enter a valid time period </label>
-            <button type="button" class="btn btn-default btn-sm" id="close" style="background-color:orange">Ok</button>
-        </div>
-    </div>*@
+                <label id="DelConMsg">Please enter a valid time period </label>
+                <button type="button" class="btn btn-default btn-sm" id="close" style="background-color:orange">Ok</button>
+            </div>
+        </div>*@
     <script>
         // Get the modal
         var modal = document.getElementById("myModal");
@@ -168,6 +168,7 @@
             }
         }
     </script>
+    <input type="button" value="Home" onclick="location.href='@Url.Action("AdminNav","Nav")'" />
 </body>
 </html>
 

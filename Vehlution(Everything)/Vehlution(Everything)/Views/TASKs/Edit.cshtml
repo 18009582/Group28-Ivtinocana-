@@ -55,21 +55,21 @@
 </head>
 <div class="container" style="text-align:center">
     <div class="panel panel-default">
-        <h1 style="color:orange">Edit @Model.SERVICE_NAME Car Makes</h1>
+        <h1 style="color:orange">Edit @Model.SERVICE_NAME Tasks</h1>
         <div class="panel-body">
 
-            <label>Car Make Name </label><br />
+           
             @using (Html.BeginForm("Edit", "TASKs"))
             {
                 @Html.AntiForgeryToken()
 
-                <input type="hidden" id="CARPARTS_ID" name="CARPARTS_ID" value="@Model.SERVICE_NAME" readonly />
+                <input type="hidden" id="SERVICE_ID" name="SERVICE_ID" value="@Model.SERVICE_ID" readonly />
                 <label>Task Name</label><br />
                 <input type="text" id="SERVICE_NAME" name="SERVICE_NAME" style="width:50%" required /> <br />
 
                 <button type="submit" onclick="myFunction()" class="btn btn-default btn-sm" id="Create" name="Create" style="background-color:lightgreen">
                     <i class="fa fa-plus-square"></i>
-                    <span class="glyphicon glyphicon-ok"></span> Add New Task
+                    <span class="glyphicon glyphicon-ok"></span> Edit Task
                 </button> <button type="button" class="btn btn-default btn-sm" style="background-color:red" onclick="location.href='@Url.Action("Index","TASKs")'">
                     <i class="fa fa-times"></i>
                     <i class="glyphicon glyphicon-remove"></i> Cancel

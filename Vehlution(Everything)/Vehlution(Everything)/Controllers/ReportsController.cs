@@ -64,33 +64,41 @@ namespace Vehlution_Everything_.Controllers
         {
             using (VehlutionEntities db = new VehlutionEntities())
             {
-                db.Configuration.ProxyCreationEnabled = false;
+                try
+                {
+                    db.Configuration.ProxyCreationEnabled = false;
 
-                vm.Employees = GetEmployees(vm.SelectedEmployeeID);
+                    vm.Employees = GetEmployees(vm.SelectedEmployeeID);
 
-                vm.employee = db.EMPLOYEEs.Where(x => x.EMPLYEE_ID == vm.SelectedEmployeeID).FirstOrDefault();
+                    vm.employee = db.EMPLOYEEs.Where(x => x.EMPLYEE_ID == vm.SelectedEmployeeID).FirstOrDefault();
+               
+                    var list = db.EMPLYEE_SALES.Where(pp => pp.EMPLOYEE.EMPLYEE_ID == vm.employee.EMPLYEE_ID
+                    && pp.SALE.SALE_DATE_ >= vm.DateFrom && pp.SALE.SALE_DATE_ <= vm.DateTo)
+                        .ToList()
+                        .Select(rr => new ReportRecord()
+                        {
+                            orderDate = rr.SALE.SALE_DATE_.Value.ToString("dd-mmm-yyy"),
+                            Amount = Convert.ToDouble(rr.SALE.ACCEPTED_OFFER),
+                            PaymentMethod = rr.SALE.PAYMENT_ID.ToString(),
+                            Employee = rr.EMPLOYEE.FULL_NAME,
+                            EmployeeID = rr.EMPLYEE_ID
+                        });
 
-                var list = db.EMPLYEE_SALES.Include("PAYMENTTYPE").Where(pp => pp.EMPLOYEESALESID == vm.employee.EMPLYEE_ID
-                   && pp.SALE.SALE_DATE_ >= vm.DateFrom && pp.SALE.SALE_DATE_ <= vm.DateTo)
-                    .ToList()
-                    .Select(rr => new ReportRecord
-                    {
-                        orderDate = rr.SALE.SALE_DATE_.Value.ToString("dd-mmm-yyy"),
-                        Amount = Convert.ToDouble(rr.SALE.ACCEPTED_OFFER),
-                        PaymentMethod = rr.SALE.PAYMENT.PAYMENTTYPE,
-                        Employee = rr.EMPLOYEE.FULL_NAME,
-                        EmployeeID = rr.EMPLYEE_ID
-                    });
+                    vm.results = list.GroupBy(g => g.PaymentMethod).ToList();
 
-                vm.results = list.GroupBy(g => g.PaymentMethod).ToList();
+                    vm.chartData = list.GroupBy(g => g.Employee).ToDictionary(g => g.Key, g => g.Sum(v => v.Amount));
 
-                vm.chartData = list.GroupBy(g => g.Employee).ToDictionary(g => g.Key, g => g.Sum(v => v.Amount));
+                    TempData["chartData"] = vm.chartData;
+                    TempData["records"] = list.ToList();
+                    TempData["employee"] = vm.employee;
+                    return View(vm);
+                }
+                catch (Exception ex)
+                {
+                    return Redirect("SalesReport");
+                }
 
-                TempData["chartData"] = vm.chartData;
-                TempData["records"] = list.ToList();
-                TempData["employee"] = vm.employee;
-
-                return View(vm);
+                
             }
         }
         public ActionResult EmployeeSalesChart()
@@ -162,7 +170,7 @@ namespace Vehlution_Everything_.Controllers
 
         //Code for Car Parts Report
         [HttpGet]
-        public ActionResult CarParts()
+        public ActionResult CarPartsReport()
         {
             ViewBag.Message = "Car Parts Report";
             return View(getCarPartData());
@@ -188,9 +196,9 @@ namespace Vehlution_Everything_.Controllers
                 {
                     DataRow row = reportData.CarParts.NewRow();
                     row["ID"] = item.ID;
-                    row["Name"] = item.ReorderPoint;
-                    row["ReorderPoint"] = item.ReorderPoint;
-                    row["CurrentStock"] = item.StockOnHand;
+                    row["PartName"] = item.PartName;
+                    row["ReorderStock"] = item.ReorderPoint;
+                    row["StockOnHand"] = item.StockOnHand;
                     reportData.CarParts.Rows.Add(row);
                 }
                 return reportData;
@@ -203,7 +211,7 @@ namespace Vehlution_Everything_.Controllers
         {
             ReportDocument report = new ReportDocument();
 
-            report.Load(Path.Combine(Server.MapPath("~/Report/CarParts.rpt")));
+            report.Load(Path.Combine(Server.MapPath("~/Reporting/CarParts.rpt")));
             report.SetDataSource(getCarPartData());
             Response.Buffer = false;
             Response.ClearContent();
@@ -217,7 +225,7 @@ namespace Vehlution_Everything_.Controllers
         {
             ReportDocument report = new ReportDocument();
 
-            report.Load(Path.Combine(Server.MapPath("~/Report/CarParts.rpt")));
+            report.Load(Path.Combine(Server.MapPath("~/Reporting/CarParts.rpt")));
             report.SetDataSource(getCarPartData());
             Response.Buffer = false;
             Response.ClearContent();
@@ -247,7 +255,7 @@ namespace Vehlution_Everything_.Controllers
                     ID = rr.MECHANICJOB_ID,
                     JobDate = rr.JOB_DATE.Value,
                     JobTime = rr.JOB_TIME.Value,
-                    Car = rr.CAR_ID + " " + rr.CAR.CAR_TYPE + " " + rr.CAR.COLOUR,
+                    Car = rr.CAR.CAR_REG,
                     MechanicName = rr.MECHANIC.FULL_NAME_
                 }).ToList();
 
@@ -259,7 +267,7 @@ namespace Vehlution_Everything_.Controllers
                     row["JobDate"] = item.JobDate;
                     row["JobTime"] = item.JobTime;
                     row["Car"] = item.Car;
-                    row["MechanicName"] = item.MechanicName;
+                    row["Mechanic"] = item.MechanicName;
                     reportData.MechanicJob.Rows.Add(row);
                 }
                 return reportData;
@@ -318,8 +326,8 @@ namespace Vehlution_Everything_.Controllers
                     ClientName = rr.USER.FIRSTNAME + " " + rr.USER.LASTNAME,
                     PurchaseDate = rr.PURCHASEDATE_.Value,
                     AcceptedOffer = rr.COST_.Value,
-                    Car = rr.CAR.CAR_ID + " " + rr.CAR.CAR_TYPE,
-                    Colour = rr.CAR.COLOUR.COLOUR_NAME
+                    Car = rr.CAR.CAR_REG,
+                    Colour = rr.CAR.CAR_REG
                 }).ToList();
 
                 reportData.Purchases.Rows.Clear();
@@ -373,7 +381,7 @@ namespace Vehlution_Everything_.Controllers
 
         //Code for Client Bookings report
         [HttpGet]
-        public ActionResult ClientBookingReport()
+        public ActionResult ClientBookingsReport()
         {
             ViewBag.Message = "Client Bookings Report";
             return View(getClientData());
@@ -392,7 +400,7 @@ namespace Vehlution_Everything_.Controllers
                     ClientName = rr.USER.FIRSTNAME + " " + rr.USER.LASTNAME,
                     Date = rr.BOOKING_DATE.Value,
                     Time = rr.BOOKING_TIME.Value,
-                    Car = rr.CAR.CAR_ID + " " + rr.CAR.CAR_TYPE + " " + rr.CAR.COLOUR
+                    Car = rr.CAR.CAR_REG
                 }).ToList();
 
                 reportData.Client_Booking.Rows.Clear();
@@ -441,7 +449,7 @@ namespace Vehlution_Everything_.Controllers
 
         //Code for Admin Bookings report
         [HttpGet]
-        public ActionResult AdminBookingReport()
+        public ActionResult AdminBookingsReport()
         {
             ViewBag.Message = "Client Bookings Report";
             return View(getAdminData());
@@ -460,7 +468,7 @@ namespace Vehlution_Everything_.Controllers
                     ClientName = rr.USER.FIRSTNAME + " " + rr.USER.LASTNAME,
                     Date = rr.BOOKING_DATE.Value,
                     Time = rr.BOOKING_TIME.Value,
-                    Car = rr.CAR.CAR_ID + " " + rr.CAR.CAR_TYPE + " " + rr.CAR.COLOUR
+                    Car = rr.CAR.CAR_REG
                 }).ToList();
 
                 reportData.AdminBookings.Rows.Clear();

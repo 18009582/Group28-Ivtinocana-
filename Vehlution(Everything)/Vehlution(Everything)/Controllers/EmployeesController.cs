@@ -108,8 +108,7 @@ namespace Vehlution_Everything_.Controllers
                 EMPLOYEE eMPLOYEE = db.EMPLOYEEs.Find(id);
                 db.EMPLOYEEs.Remove(eMPLOYEE);
                 db.SaveChanges();
-                ViewBag.DelId = 1;
-                ViewBag.DelConfirm = "Deletion Successful";
+              
                 return RedirectToAction("Index");
             }
             catch (Exception ex)

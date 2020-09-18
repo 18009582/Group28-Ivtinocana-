@@ -71,17 +71,16 @@
                         Offer ID
                     </th>
                     <th>
-                        C
-                        @Html.DisplayNameFor(model => model.AMOUNT)
+                        Amount
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.CAR.CAR_REG)
+                        Car Registration
                     </th>
                     <th>
                         User Name
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.OFFER_STATUS.STATUS_NAME_)
+                       Offer Status
                     </th>
                     <th></th>
 
@@ -114,7 +113,7 @@
                                 @using (Html.BeginForm("Reject", "OFFERs"))
                                 {
                                     <input type="hidden" value="@item.OFFER_ID" id="id" name="id" />
-                                    <button class="btn btn-default btn-sm" id="Accept" name="Accept" style="background-color:lightsteelblue" >Reject</button>
+                                    <button class="btn btn-default btn-sm" id="Accept" name="Accept" style="background-color:lightsteelblue">Reject</button>
                                 }
                             </td>
                         </tr>
@@ -124,5 +123,6 @@
             </div>
         </div>
     </div>
+    <input type="button" value="Home" onclick="location.href='@Url.Action("AdminNav","Nav")'" />
 </body>
 </html>

@@ -41,7 +41,7 @@ namespace Vehlution_Everything_.Controllers
         {
             ViewBag.OFFER_ID = new SelectList(db.OFFERS, "OFFER_ID", "OFFER_ID");
             ViewBag.PAYMENT_ID = new SelectList(db.PAYMENTs, "PAYMENT_ID", "PAYMENTTYPE");
-            ViewBag.Amount = new SelectList(db.OFFERS, "OFFER_ID", "AMOUNT");
+            ViewBag.Amount = new SelectList(db.OFFERS.Where(cc=> cc.OFFERTYPE_ID == 2 && cc.OFFER_STATUS.STATUS_ID == 1), "OFFER_ID", "OFFER_ID");
             return View();
         }
 

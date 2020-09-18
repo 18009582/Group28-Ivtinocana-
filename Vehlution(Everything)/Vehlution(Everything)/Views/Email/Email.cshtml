@@ -1,0 +1,39 @@
+﻿
+@{
+    ViewBag.Title = "Email";
+}
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    <script src='https://kit.fontawesome.com/a076d05399.js'></script>
+    <link href="~/CSS1/StyleSheet1.css" rel="stylesheet" />
+    <title>Email</title>
+</head>
+
+<h2> Car Sale Finalisation</h2>
+<br />
+<br /> @if (ViewBag.Error != null)
+{
+    <h2> @ViewBag.Error </h2>
+}
+<form method="post"
+      action="Email">
+    <div class="container">
+        <span class="form-control-static"> Receiver: </span> <input class="form-control"
+                                                                    type="text"
+                                                                    name="receiver" /> <br /> <span class="form-control-static"> Subject: </span> <input class="form-control"
+                                                                                                                                                         type="text"
+                                                                                                                                                         name="subject" /> <br /> <span class="form-control-static"> Car Details: </span> <input style="height:200px" class="form-control"
+                                                                                                                                                                                                                                                 type="text"
+                                                                                                                                                                                                                                                 name="message" /> <br /> <input class="btn btn-primary"
+                                                                                                                                                                                                                                                                                 type="submit"
+                                                                                                                                                                                                                                                                                 value="Send" />
+    </div>
+    <input type="button" value="Home" onclick="location.href='@Url.Action("AdminNav","Nav")'" />
+</form>
+</html>

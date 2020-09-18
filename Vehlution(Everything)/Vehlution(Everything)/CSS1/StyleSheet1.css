@@ -9,60 +9,7 @@ body {
     margin: 0;
 }
 
-.navbar {
-    overflow: hidden;
-    background-color: darkblue;
-    font-family: Arial, Helvetica, sans-serif;
-}
 
-    .navbar a {
-        float: left;
-        font-size: 16px;
-        color: white;
-        text-align: center;
-        padding: 14px 16px;
-        text-decoration: none;
-    }
-
-.dropdown {
-    float: left;
-    overflow: hidden;
-}
-
-    .dropdown .dropbtn {
-        font-size: 16px;
-        border: none;
-        outline: none;
-        color: white;
-        padding: 14px 16px;
-        background-color: inherit;
-        font: inherit;
-        margin: 0;
-    }
-
-    .navbar a:hover, .dropdown:hover .dropbtn {
-        background-color: #FFA500;
-    }
-
-.dropdown-content {
-    display: none;
-    position: absolute;
-    background-color: #f9f9f9;
-    width: 100%;
-    left: 0;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    z-index: 1;
-}
-
-    .dropdown-content .header {
-        background: darkblue;
-        padding: 16px;
-        color: white;
-    }
-
-.dropdown:hover .dropdown-content {
-    display: block;
-}
 /* Create three equal columns that floats next to each other */
 .column {
     float: left;
@@ -301,4 +248,22 @@ button {
 
 h1 {
     align-items: center;
+}
+
+
+.navbar {
+    background-color: darkblue;
+    height: auto;
+}
+
+.dropdown-menu {
+    background-color: #FFA500;
+}
+
+.navbar-brand {
+    font-size: 40px;
+}
+
+li {
+    font-size: 20px;
 }

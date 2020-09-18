@@ -54,6 +54,12 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.3\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.EntityFramework, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.EntityFramework.2.2.3\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -139,16 +145,20 @@
     <Compile Include="Controllers\CAR_BOOKING_SLOTSController.cs" />
     <Compile Include="Controllers\CAR_PARTsController.cs" />
     <Compile Include="Controllers\CLIENTCARsController.cs" />
+    <Compile Include="Controllers\ContactAboutController.cs" />
     <Compile Include="Controllers\DEFECTsController.cs" />
+    <Compile Include="Controllers\EmailController.cs" />
     <Compile Include="Controllers\EmployeesController.cs" />
     <Compile Include="Controllers\MAKEsController.cs" />
     <Compile Include="Controllers\MECHANICsController.cs" />
     <Compile Include="Controllers\MECHANICsJOBController.cs" />
     <Compile Include="Controllers\MODELsController.cs" />
+    <Compile Include="Controllers\NavController.cs" />
     <Compile Include="Controllers\OFFERsController.cs" />
     <Compile Include="Controllers\ORDERsController.cs" />
     <Compile Include="Controllers\RegisterController.cs" />
     <Compile Include="Controllers\ReportsController.cs" />
+    <Compile Include="Controllers\SALEsController.cs" />
     <Compile Include="Controllers\SUPPLIERsController.cs" />
     <Compile Include="Controllers\TASKsController.cs" />
     <Compile Include="Controllers\UserDashController.cs" />
@@ -507,7 +517,7 @@
     <Content Include="Views\SUPPLIERs\Edit.cshtml" />
     <Content Include="Views\SUPPLIERs\Index.cshtml" />
     <Content Include="Views\CARs\PendingCarIndex.cshtml" />
-    <Content Include="Views\CARs\PendinDetails.cshtml" />
+    <Content Include="Views\CARs\PendingDetails.cshtml" />
     <Content Include="Views\CARs\ViewCarsForSaleIndex.cshtml" />
     <Content Include="Views\CARs\SaleDetails.cshtml" />
     <Content Include="Views\DEFECTs\Create.cshtml" />
@@ -567,6 +577,17 @@
     <Content Include="Views\TASKs\Edit.cshtml" />
     <Content Include="Views\CAR_BOOKING_SLOTS\BookingSlotsIndex.cshtml" />
     <Content Include="Views\BOOKINGs\AdminbookingIndex.cshtml" />
+    <Content Include="Views\StartPage.cshtml" />
+    <Content Include="Views\Nav\AdminNav.cshtml" />
+    <Content Include="Views\Nav\ClientNav.cshtml" />
+    <Content Include="Views\Nav\LoginNav.cshtml" />
+    <Content Include="Views\SALEs\Create.cshtml" />
+    <Content Include="Views\Email\Email.cshtml" />
+    <Content Include="Views\Email\ReceiveEmail.cshtml" />
+    <Content Include="Views\CARs\AdminCarsForSale.cshtml" />
+    <Content Include="Views\USERs\MyProfile.cshtml" />
+    <Content Include="Views\ContactAbout\AboutUs.cshtml" />
+    <Content Include="Views\ContactAbout\ContactUs.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
