@@ -69,7 +69,7 @@
             </div>
             <div class="panel-body">
                 <table class="table-latitude">
-                    <caption>Cars For Sale</caption>
+                    <caption>Pending Car Details</caption>
                     <thead>
 
                         <tr>
@@ -82,15 +82,15 @@
                         </tr>
                         <tr>
                             <th>Milage</th>
-                            <td> @Html.DisplayFor(model => model.MILAGE_)</td>
+                            <td> @Html.DisplayFor(model => model.MILAGE_) KM</td>
                         </tr>
                         <tr>
                             <th>Listing Price</th>
-                            <td>@Html.DisplayFor(model => model.LISTING_PRICE)</td>
+                            <td>R: @Html.DisplayFor(model => model.LISTING_PRICE),00</td>
                         </tr>
                         <tr>
                             <th>Image</th>
-                            <td>@Html.DisplayFor(model => model.IMAGE)</td>
+                            <td><img width="193" height="130" src="~/Images/@Model.IMAGE" /></td>
                         </tr>
                         <tr>
                             <th>Car Make</th>
@@ -110,11 +110,11 @@
                         </tr>
                         <tr>
                             <th>Number Of Doors</th>
-                            <td>@Html.DisplayFor(model => model.NUMBER_OF_DOORS.DOORS_ID)</td>
+                            <td>@Html.DisplayFor(model => model.NUMBER_OF_DOORS.NUMBER_OF_DOORS1)</td>
                         </tr>
                         <tr>
                             <th>Number Of Seats</th>
-                            <td>@Html.DisplayFor(model => model.NUMBER_OF_SEATS.SEATS_ID)</td>
+                            <td>@Html.DisplayFor(model => model.NUMBER_OF_SEATS.NUMBER_OF_SEATS_)</td>
                         </tr>
                         <tr>
                             <th>Transmission</th>
@@ -123,7 +123,8 @@
                     </thead>
                 </table>
                 <a class="btn btn-outline-success" id="myBtn"><i class="glyphicon glyphicon-calendar"></i> Make Booking to View Car</a> <br /> <br />
-                <a class="btn btn-outline-success" onclick="MakeOffer(@Model.CAR_ID)"><i class="glyphicon glyphicon-usd"></i> Make an Offer on this Car</a>
+                <a class="btn btn-outline-success" onclick="MakeOffer(@Model.CAR)"><i class="glyphicon glyphicon-usd"></i> Make an Offer on this Car</a><br />
+                <a class="btn text-danger" onclick="del(@Model.CAR_ID)" value="Model.CAR_ID"><i class="fa fa-trash fa-lg"></i></a>
             </div>
         </div>
     </div>
@@ -151,6 +152,31 @@
             }
         </div>
     </div>
+    <div id="myModal2" class="modal2">
+        <div class="modal-content">
+            @using (Html.BeginForm("Delete", "CARs"))
+            {
+                @Html.AntiForgeryToken()
+                <form id="DeleteConfirmed">
+                    <label id="dellabel">Are You sure you want to delete this car defect? </label>
+                    <br />
+                    <input type="hidden" id="id" name="id" readonly />
+                    <button type="submit" class="btn btn-default btn-sm" style="background-color:lightgreen;width:100%">
+                        <i class="fa fa-check"></i>
+                        Yes
+                    </button>
+
+                    <button type="button" class="btn btn-default btn-sm" style="background-color:red;width:100%" id="close">
+                        <i class="fa fa-times"></i>
+                        <i class="glyphicon glyphicon-remove"></i> Cancel
+                    </button>
+                    <br />
+                </form>
+            }
+        </div>
+    </div>
+
+
 </body>
 
 <p>
@@ -158,32 +184,46 @@
 </p>
 </html>
 
-
-
-
 <script>
 
     var modal1 = document.getElementById("myModal1");
-
+    var modal2 = document.getElementById("myModal2");
+    var closebtn = document.getElementById("close");
     var closebtn = document.getElementById("close");
 
     function MakeOffer(car) {
 
-        document.getElementById('c').value = car;
+        document.getElementById('c').value = car.CAR_ID;
+        document.getElementById('offer').placeholder = "R" + car.LISTING_PRICE;
         modal1.style.display = "block";
-
-
     }
-
+    function DelCon(msg) {
+        document.getElementById(DelConMsg).innerHTML = msg;
+        modal2.style.display = "block";
+    }
+    function del(id) {
+        document.getElementById('dellabel').innerText = "Are you sure you want to delete car number " + id + " ?";
+        document.getElementById('id').value = id;
+        modal2.style.display = "block";
+    }
     closebtn.onclick = function () {
         modal1.style.display = "none";
-
+        modal.style.display = "none";
+    }
+    closebtn.onclick = function () {
+        modal2.style.display = "none";
+        moda2.style.display = "none";
     }
 
     // When the user clicks anywhere outside of the modal, close it
     window.onclick = function (event) {
         if (event.target == modal) {
             modal1.style.display = "none";
+        }
+    }
+    window.onclick = function (event) {
+        if (event.target == modal) {
+            modal2.style.display = "none";
         }
     }
 

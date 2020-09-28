@@ -10,6 +10,8 @@ using System.Web.Mvc;
 using Vehlution_Everything_.Models;
 using Vehlution_Everything_.Reporting;
 using Vehlution_Everything_.ViewModels;
+using System.Dynamic;
+using Newtonsoft.Json;
 
 namespace Vehlution_Everything_.Controllers
 {
@@ -22,22 +24,66 @@ namespace Vehlution_Everything_.Controllers
         //Returns advanced view with associated ViewModel
         //Called for initial loasding of the Advanced view
         [HttpGet]
-        public ActionResult SalesReport()
+
+        public ActionResult SaleIndex()
         {
-            SalesVM vm = new SalesVM();
-
-            //Retrives Employees dropdown
-            vm.Employees = GetEmployees(0);
-
-            //Set Defualt values for the FROM and TO dates 
-            vm.DateFrom = new DateTime(2014, 12, 1);
-            vm.DateTo = new DateTime(2014, 12, 31);
-
-            return View(vm);
+            return View();
         }
+        public ActionResult genReport(DateTime start, DateTime end)
+            {
+                List<dynamic> d = new List<dynamic>();
+                List<SALE> sales = db.SALES.ToList();
 
-        //Builds list of employees 
-        public SelectList GetEmployees(int selected)
+                foreach (SALE s in sales)
+                {
+                    dynamic obj = new ExpandoObject();
+                    if (s.SALE_DATE_ >= start && s.SALE_DATE_ <= end)
+                    {
+
+                        obj.saleid = s.SALES_ID;
+                        obj.date = s.SALE_DATE_;
+                        obj.AcceptedOffer = s.ACCEPTED_OFFER;
+                        obj.make = s.OFFER.CAR.MODEL.MAKE.MAKE_NAME;
+                        obj.makeid = s.OFFER.CAR.MODEL.MAKE_ID;
+                        obj.model = s.OFFER.CAR.MODEL.MODEL_NAME;
+                        obj.paymenttype = s.PAYMENT.PAYMENTTYPE;
+                        obj.CarReg = s.OFFER.CAR.CAR_REG;
+                        obj.client = s.OFFER.USER_ID;
+                        d.Add(obj);
+                    }
+                }
+                var b = d.GroupBy(o => o.make).ToList();
+
+                List<int> counts = new List<int>();
+                List<string> makes = new List<string>();
+                List<DataPoint> points = new List<DataPoint>();
+                foreach (var i in b)
+                {
+
+                    points.Add(new DataPoint(i.Key, i.Count()));
+                    counts.Add(i.Count());
+                    makes.Add(i.Key);
+                }
+
+                ViewBag.counts = counts;
+                ViewBag.Makes = makes;
+                ViewBag.start = start;
+                ViewBag.end = end;
+
+                ViewBag.DataPoints = JsonConvert.SerializeObject(points);
+
+                return View(b);
+
+            }
+            JsonSerializerSettings _jsonSetting = new JsonSerializerSettings() { NullValueHandling = NullValueHandling.Ignore };
+
+        }
+    }
+
+}
+
+//Builds list of employees 
+public SelectList GetEmployees(int selected)
         {
             using (VehlutionEntities db = new VehlutionEntities())
             {

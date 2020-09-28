@@ -155,7 +155,7 @@ namespace Vehlution_Everything_.Controllers
                 int clientid = Convert.ToInt32(HttpContext.Request.Cookies.Get("User").Value);
                 USER usr = db.USERs.Find(name.USER_ID);
 
-                if(usr.USER_ROLE.USERROLE_ID == 1)
+                if (usr.USER_ROLE.USERROLE_ID == 1)
                 {
                     return RedirectToAction("ClientNav", "Nav");
                 }
@@ -168,12 +168,13 @@ namespace Vehlution_Everything_.Controllers
             {
                 ModelState.AddModelError("", "Invalid Information... Please try again!");
             }
-            
+
             return View();
         }
 
         public ActionResult ForgetPassword()
         {
+            ViewBag.Message = string.Empty;
             return View();
         }
         public string GeneratePassword()
@@ -237,23 +238,50 @@ namespace Vehlution_Everything_.Controllers
             string OTP = GeneratePassword();
 
             objUsr.ACTIVATIONCODE = Guid.NewGuid();
+            objUsr.RESETCODE = Guid.NewGuid().ToString();
             objUsr.OTP = OTP;
             objcon.Entry(objUsr).State = System.Data.Entity.EntityState.Modified;
             objcon.SaveChanges();
 
-            ForgetPasswordEmailToUser(objUsr.EMAIL, objUsr.ACTIVATIONCODE.ToString(), objUsr.OTP);
+            ForgetPasswordEmailToUser(objUsr.EMAIL, objUsr.RESETCODE, objUsr.OTP);
+            ViewBag.Message = "Email has been sent!";
             return View();
         }
 
 
 
 
-        public ActionResult ChangePassword()
+        public ActionResult ChangePassword(string Id)
         {
-           
-            return View();
+            if (string.IsNullOrEmpty(Id))
+            {
+                return HttpNotFound();
+            }
+
+            var user = objcon.USERs.FirstOrDefault(x => x.RESETCODE == Id);
+            if(user==null)
+                return HttpNotFound();
+            Vehlution_Everything_.Models.ChangePassword em = new ChangePassword();
+            TempData["ResetCode"] = Id;
+            //em.ResetCode = Id;
+            return View(em);
         }
-       
+
+        [HttpPost]
+        public ActionResult ChangePassword(ChangePassword chngepswd)
+        {
+            string code = TempData["ResetCode"].ToString();
+            var user = objcon.USERs.FirstOrDefault(x => x.RESETCODE == code);
+            if (user.OTP == chngepswd.OTP)
+            {
+                user.PASSWORD = Vehlution_Everything_.Models.encryptPassword.textToEncrypt(chngepswd.Password);
+            }
+            else {
+                throw new Exception("Invalid OTP");
+            }
+            objcon.SaveChanges();
+            return RedirectToAction("login","Register");
+        }
 
     }
 

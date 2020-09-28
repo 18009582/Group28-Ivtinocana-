@@ -82,15 +82,15 @@
                         </tr>
                         <tr>
                             <th>Milage</th>
-                            <td> @Html.DisplayFor(model => model.MILAGE_)</td>
+                            <td> @Html.DisplayFor(model => model.MILAGE_) KM</td>
                         </tr>
                         <tr>
                             <th>Listing Price</th>
-                            <td>@Html.DisplayFor(model => model.LISTING_PRICE)</td>
+                            <td>R: @Html.DisplayFor(model => model.LISTING_PRICE), 00</td>
                         </tr>
                         <tr>
                             <th>Image</th>
-                            <td>@Html.DisplayFor(model => model.IMAGE)</td>
+                            <td> <img width="193" height="130" src="~/Images/@Model.IMAGE" /> </td>
                         </tr>
                         <tr>
                             <th>Car Make</th>
@@ -110,11 +110,11 @@
                         </tr>
                         <tr>
                             <th>Number Of Doors</th>
-                            <td>@Html.DisplayFor(model => model.NUMBER_OF_DOORS.DOORS_ID)</td>
+                            <td>@Html.DisplayFor(model => model.NUMBER_OF_DOORS.NUMBER_OF_DOORS1)</td>
                         </tr>
                         <tr>
                             <th>Number Of Seats</th>
-                            <td>@Html.DisplayFor(model => model.NUMBER_OF_SEATS.SEATS_ID)</td>
+                            <td>@Html.DisplayFor(model => model.NUMBER_OF_SEATS.NUMBER_OF_SEATS_)</td>
                         </tr>
                         <tr>
                             <th>Transmission</th>

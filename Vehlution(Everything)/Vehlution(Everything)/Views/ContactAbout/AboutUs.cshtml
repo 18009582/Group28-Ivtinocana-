@@ -59,7 +59,7 @@
             font-family: Arial, Helvetica, sans-serif;
         }
        
-        div {
+        .main-container {
             width: 600px;
             background-color : #F7F7F7;
             border: 4px solid darkblue;
@@ -68,28 +68,44 @@
             font-size: 16px;
             text-align : center;
         }
+        body {
+            background-image: url('../../Content/pexels-photo-248747.jpeg');
+            
+            background-size: cover;
+        }
+        
+        
     </style>
 </head>
 <body>
-    <h1>About Us</h1>
+
+
     <div>
-        <p>
-                    JDE Traders sells many different types of vehicles, which are dependent on
-                    the level of client and their specific requirement. They do however
-                    in hatchbacks and bakkies and also focus on low budget vehicles for the
-                    average South African. They sell categories of vehicles that include brand
-                    new, pre-owned and non-running vehicles.
-                    Shiela and her team focus mainly on obtaining the vehicles at cheap
-                    purchase prices in order to sell them for an appealing price to the public.
-                    They also allow potential customers to request a specific type of vehicle, and
-                    will use this to track the vehicle down. They constantly monitor vehicles put up
-                    for sale online and travel around Gauteng in order to complete purchase
-                    transactions by fetching the vehicles from sellers. They take an online
-                    approach to their marketing strategy, which allows them to target specific
-                    areas and specific customer types depending on the vehicle. When vehicles
-                    are sold, customers have to pick it up from JDE Traders, as they do not offer
-                    deliveries.
-         </p>
-         
-</div>
+        <div class="main-container" style="float:left; height:500px">
+            <p>
+                <h3>About Us</h3>
+                JDE Traders sells many different types of vehicles, which are dependent on
+                the level of client and their specific requirement. They do however
+                in hatchbacks and bakkies and also focus on low budget vehicles for the
+                average South African. They sell categories of vehicles that include brand
+                new, pre-owned and non-running vehicles.
+                Shiela and her team focus mainly on obtaining the vehicles at cheap
+                purchase prices in order to sell them for an appealing price to the public.
+                They also allow potential customers to request a specific type of vehicle, and
+                will use this to track the vehicle down. They constantly monitor vehicles put up
+                for sale online and travel around Gauteng in order to complete purchase
+                transactions by fetching the vehicles from sellers. They take an online
+                approach to their marketing strategy, which allows them to target specific
+                areas and specific customer types depending on the vehicle. When vehicles
+                are sold, customers have to pick it up from JDE Traders, as they do not offer
+                deliveries.
+            </p>
+        </div>
+
+    </div>
+ 
+    <div style="align-content:center; float:left; width:400px; height:200px; padding:50px; border: 4px solid darkblue; padding: 50px;margin: auto;">
+        <h4 style="color:white">Click Me!</h4>
+        <input style="width:400px" type="button" class="button" value="Customer Satisfaction Rate" onclick="location.href='@Url.Action("Index","Graph")'" />
+    </div>  
 </body>

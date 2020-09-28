@@ -24,7 +24,8 @@
     }
 
     body {
-        background-color: #FFFACD;
+        background-image: url('../../Content/images.jpg');
+       background-size:cover;
         font-size: 20px;
     }
 
@@ -35,13 +36,24 @@
     li {
         font-size: 20px;
     }
+
+    .main-container {
+        width: 600px;
+        background-color: #F7F7F7;
+        border: 4px solid darkblue;
+        padding: 50px;
+        margin: auto;
+        font-size: 16px;
+        text-align: center;
+        height:auto;
+    }
 </style>
 <body>
 
     <nav class="navbar navbar-inverse">
         <div class="container-fluid">
             <div class="navbar-header">
-                <a class="navbar-brand" href="#">Vehlution</a>
+                <a class="navbar-brand" href="#" style="font-family:Courier New, Courier, monospace">Vehlution</a>
             </div>
             <ul class="nav navbar-nav">
                 <li class="dropdown">
@@ -50,61 +62,62 @@
                         <li><a onclick="location.href='@Url.Action("ViewCarsForSaleIndex","CARs")'" href="#"> <span class="glyphicon glyphicon-eye-open"> View Cars For Sale </a></li>
                         <li><a onclick="location.href='@Url.Action("IndexSearch","CARs")'" href="#"> <span class="glyphicon glyphicon-search"> Search Cars For Sale </span></a></li>
                         <li><a onclick="location.href='@Url.Action("Create","CLIENTCARs")'" href="#"><span class="glyphicon glyphicon-usd"> Sell My Car </a></li>
-                        <li><a onclick="location.href='@Url.Action("MyProfile","USERs")'"href="#"> <span class="glyphicon glyphicon-user"> View My Profile </a></li>
+                        <li><a onclick="location.href='@Url.Action("MyProfile","USERs")'" href="#"> <span class="glyphicon glyphicon-user"> View My Profile </a></li>
 
                     </ul>
                 </li>
                 <li><a href="#" onclick="location.href='@Url.Action("ContactUs","ContactAbout")'">Contact Us</a></li>
-                <li><a href="#" onclick="location.href='@Url.Action("AboutUs","ContactAbout")'">About</a></li>
+                    <li><a href="#" onclick="location.href='@Url.Action("AboutUs","ContactAbout")'">About</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="#" onclick="location.href='@Url.Action("LoginNav","Nav")'"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
             </ul>
         </div>
     </nav>
+   
 
-    <nav class="navbar navbar-inverse navbar-fixed-bottom">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <a class="navbar-brand" href="#">Vehlution</a>
+        <nav class="navbar navbar-inverse navbar-fixed-bottom">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="#" style="font-family:Courier New, Courier, monospace">Vehlution</a>
+                </div>
+
+                <ul class="nav navbar-nav">
+
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Bookings <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#"><span class="glyphicon glyphicon-plus-sign"> Accept Booking To View My Car</a></li>
+                            <li><a href="#"><span class="glyphicon glyphicon-refresh"> Update Booking To View My Car</a></li>
+
+                        </ul>
+                    </li>
+                </ul>
+
+                <ul class="nav navbar-nav">
+
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Offers <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a onclick="location.href='@Url.Action("ClientIndex","OFFERs")'" href="#"><span class="glyphicon glyphicon-plus-sign"> View Offers To Buy My Car</a></li>
+
+                        </ul>
+                    </li>
+                </ul>
+
+                <ul class="nav navbar-nav">
+
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Sales<span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a onclick="location.href='@Url.Action("ReceiveEmail","Email")'" href="#"><span class="glyphicon glyphicon-plus-sign">Finalise Car Sale</a></li>
+
+                        </ul>
+                    </li>
+                </ul>
+
             </div>
-
-            <ul class="nav navbar-nav">
-
-                <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">Bookings <span class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="#"><span class="glyphicon glyphicon-plus-sign"> Accept Booking To View My Car</a></li>
-                        <li><a href="#"><span class="glyphicon glyphicon-refresh"> Update Booking To View My Car</a></li>
-
-                    </ul>
-                </li>
-            </ul>
-
-            <ul class="nav navbar-nav">
-
-                <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">Offers <span class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                        <li><a onclick="location.href='@Url.Action("ClientIndex","OFFERs")'" href="#"><span class="glyphicon glyphicon-plus-sign"> View Offers To Buy My Car</a></li>
-
-                    </ul>
-                </li>
-            </ul>
-
-            <ul class="nav navbar-nav">
-
-                <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">Sales<span class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                        <li><a onclick="location.href='@Url.Action("ReceiveEmail","Email")'" href="#"><span class="glyphicon glyphicon-plus-sign">Finalise Car Sale</a></li>
-
-                    </ul>
-                </li>
-            </ul>
-
-        </div>
-    </nav>
+        </nav>
 
 </body>
 </html>

@@ -20,5 +20,7 @@ namespace Vehlution_Everything_.Models
         [DataType(DataType.Password)]
         [Compare("Password", ErrorMessage = "Confirm Password should match with Password")]
         public string ConfirmPassword { get; set; }
+
+        public string ResetCode { get; set; }
     }
 }

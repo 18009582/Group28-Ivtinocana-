@@ -25,9 +25,15 @@
         @using (Html.BeginForm("Search", "CARs"))
         {
 
-
-            @Html.DropDownList("Models");
-            <button type="submit" class="btn btn-default btn-sm" id="Search" name="Search" style="background-color:darkgray">   <span class="fa fa-search form-control-feedback"></span> Search</button>
+            <label>Make</label>
+            @Html.DropDownList("Makes");
+            <label>Models</label>
+            
+            <label>Body Type</label>
+            @Html.DropDownList("BodyTypes");
+            <label>Max Millage</label>
+            <input type="number" id="Millage" name="Milage" />
+            <input type="submit" id="Search" />
         }
 
     </div><br />

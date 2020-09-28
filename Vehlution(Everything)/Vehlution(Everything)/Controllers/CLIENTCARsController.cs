@@ -41,7 +41,7 @@ namespace Vehlution_Everything_.Controllers
         public ActionResult Create()
         {
             ViewBag.STATUS_ID = new SelectList(db.CAR_STATUS, "STATUS_ID", "SASTUS_NAME");
-            ViewBag.MODEL_ID = new SelectList(db.MODELs, "MODEL_ID", "MODEL_NAME");
+            ViewBag.MAKE_ID = new SelectList(db.MAKEs, "MAKE_ID", "MAKE_NAME");
             ViewBag.USER_ID = new SelectList(db.USERs, "USER_ID", "FIRSTNAME");
             ViewBag.COLOUR_ID = new SelectList(db.COLOURs, "COLOUR_ID", "COLOUR_NAME");
             ViewBag.FUELTYPE_ID = new SelectList(db.FUEL_TYPE, "FUELTYPE_ID", "FUELTYPE_NAME");
@@ -57,23 +57,23 @@ namespace Vehlution_Everything_.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create( string CarReg, int SEATS_ID,int COLOUR_ID, int TRANSMISSION_ID, int DOORS_ID,  int FUELTYPE_ID, int CAR_TYPEID, int MODEL_ID, int YEAR, int MILAGE_, float LISTING_PRICE,HttpPostedFileBase IMAGE)
+        public ActionResult Create( string CarReg, int SEATS_ID,int COLOUR_ID, int TRANSMISSION_ID, int DOORS_ID,  int FUELTYPE_ID, int CAR_TYPEID, int MODEL_ID, int YEAR, int MILAGE_, float LISTING_PRICE,HttpPostedFileBase file)
         {
 
             if (ModelState.IsValid)
             {
-                UserInfo usr = new UserInfo();
                 CAR cAR = new CAR();
                 string pic = null;
-                if (IMAGE != null)
+                if (file != null)
                 {
-                    pic = System.IO.Path.GetFileName(IMAGE.FileName);
+                    pic = System.IO.Path.GetFileName(file.FileName);
                     string path = System.IO.Path.Combine(Server.MapPath("~/Images/"), pic);
-                    cAR.IMAGE = path;
+                    file.SaveAs(path);
+                    cAR.IMAGE = pic;
 
                 }
-              
-                
+
+
                 cAR.CAR_REG = CarReg;
                 cAR.SEATS_ID = SEATS_ID;
                 cAR.CAR_TYPEID = CAR_TYPEID;
@@ -81,7 +81,6 @@ namespace Vehlution_Everything_.Controllers
                 cAR.TRANSMISSION_ID = TRANSMISSION_ID;
                 cAR.DOORS_ID = DOORS_ID;
                 cAR.MODEL_ID = MODEL_ID;
-                cAR.USER_ID = usr.UserID;
                 cAR.STATUS_ID = 4;
                 cAR.FUELTYPE_ID = FUELTYPE_ID;
                 cAR.YEAR = YEAR;

@@ -4,6 +4,32 @@
     ViewBag.Title = "Create";
     Layout = null;
 }
+<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
+<script language="javascript" type="text/javascript">
+    function GetModel(_makeId) {
+        var procemessage = "<option value='0'> Please wait...</option>";
+        $("#ddlmodel").html(procemessage).show();
+        var url = "/ADMINCARs/GetModelByMakeId/";
+
+        $.ajax({
+            url: url,
+            data: { makeid: _makeId },
+            cache: false,
+            type: "POST",
+            success: function (data) {
+                var markup = "<option value='0'>Select Make</option>";
+                for (var x = 0; x < data.length; x++) {
+                    markup += "<option value=" + data[x].Value + ">" + data[x].Text + "</option>";
+                }
+                $("#ddlmodel").html(markup).show();
+            },
+            error: function (reponse) {
+                alert("error : " + reponse);
+            }
+        });
+
+    }
+</script>
 <html>
 <head>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
@@ -18,16 +44,16 @@
 </head>
 
 <div class="container" style="text-align:center">
-    <h1 style="color:orange">Car Details</h1>
+    <h1 style="color:orange">Please Enter your Car Details</h1>
 
-    @using (Html.BeginForm("Create", "CLIENTCARs"))
+    @using (Html.BeginForm("Create", "CLIENTCARs", FormMethod.Post, new { enctype = "multipart/form-data" }))
     {
         @Html.AntiForgeryToken()
 
         <label>Car Registration</label><br />
         <input type="text" id="CarReg" name="CarReg" style="width:50%" required maxlength="8" minlength="8" /> <br />
-       
-        <label>Seats</label><br />
+
+        <label>Number of Seats</label><br />
         @Html.DropDownList("SEATS_ID", null, htmlAttributes: new { @class = "select" })<br />
 
 
@@ -37,30 +63,47 @@
         <label>Transmission</label><br />
         @Html.DropDownList("TRANSMISSION_ID", null, htmlAttributes: new { @class = "select" })<br />
 
-        <label>Doors</label><br />
+        <label>Number of Doors</label><br />
         @Html.DropDownList("DOORS_ID", null, htmlAttributes: new { @class = "select" })<br />
 
         <label>Fuel Type</label><br />
         @Html.DropDownList("FUELTYPE_ID", null, htmlAttributes: new { @class = "select" })<br />
 
-        <label>Model</label><br />
-        @Html.DropDownList("MODEL_ID", null, htmlAttributes: new { @class = "select" })<br />
+        <label>Make and Model</label><br />
+        <label>Please Select a Make</label><br />
+        @Html.DropDownList("MAKE_ID", null, htmlAttributes: new { @id = "ddlmake", @style = "width:200px;", @onchange = "javascript:GetModel(this.value);" })
+        <br />
+        <br />
+        <select id="ddlmodel" name="ddlmodel" style="width: 200px">
+        </select>
 
-        <label>Year</label><br />
-        @Html.EditorFor(model => model.YEAR, new { htmlAttributes = new { @class = "select" } })<br />
-
-        <label>Mileage</label><br />
-        @Html.EditorFor(model => model.MILAGE_, new { htmlAttributes = new { @class = "select" } })<br />
-
-        <label>Listing Price</label><br />
-        @Html.EditorFor(model => model.LISTING_PRICE, new { htmlAttributes = new { @class = "select" } })<br />
+        <br /><br />
+        <br />
 
         <label>Body Type</label><br />
         @Html.DropDownList("CAR_TYPEID", null, htmlAttributes: new { @class = "select" })<br />
 
+        <label>Year</label><br />
+        <input type="number" id="YEAR" name="YEAR" style="width:50%" required minlength="4" maxlenth="4" min="1800" /><br />
+        <br />
+        <label>Mileage</label><br />
+        <input type="number" id="MILAGE_" name="MILAGE_" style="width:50%" required min="0" /><br />
+        <br />
+        <label>Listing Price</label><br />
+        <input type="text" id="LISTING_PRICE" name="LISTING_PRICE" style="width:50%" required data-type="currency"
+               pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" placeholder="R 250000.00" /><br />
+        <br />
 
-        <label>Image</label><br />
-        <input type="file" name="IMAGE" id="IMAGE" style="width: 100%" /><br />
+        <label>Uplaod an Image</label>
+        <p><input type="file" accept="image/*" name="file" onchange="loadFile(event)"></p>
+        <p><img id="output" width="200" /></p>
+
+        <script>
+            var loadFile = function (event) {
+                var image = document.getElementById('output');
+                image.src = URL.createObjectURL(event.target.files[0]);
+            };
+        </script>
 
         <button type="submit" class="btn btn-default btn-sm" id="Create" name="Create" style="background-color:lightgreen">
             <i class="fa fa-plus-square"></i>

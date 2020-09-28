@@ -1,0 +1,116 @@
+﻿@model IEnumerable<Vehlution_Everything_.Models.CAR>
+
+@{
+    Layout = null;
+}
+
+
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+    <link href="~/Content/Site.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    <script src='https://kit.fontawesome.com/a076d05399.js'></script>
+    <link href="~/CSS1/StyleSheet1.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="container">
+        <h3>Search cars </h3>
+        <label>Please choose the status of the car that you are searching for</label>
+        @using (Html.BeginForm("SearchStatus", "CARs"))
+        {
+
+            <label>Status</label>
+            @Html.DropDownList("status");
+           
+            <input type="submit" id="SearchStatus" />
+        }
+
+    </div><br />
+
+    @if (Model != null)
+    {
+        <div class="container">
+            <div class="panel panel-default">
+
+                <div class="panel-body">
+                    <table class="table-latitude">
+
+                        <thead>
+                        <th>
+                            ID
+                        </th>
+                        <th>
+                            Colour
+                        </th>
+                        <th>Transmission</th>
+                        <th>
+                            Make
+                        </th>
+                        <th>
+                            Model
+                        </th>
+                        <th>
+                            Mileage
+                        </th>
+                        <th>
+                            Listing Price
+                        </th>
+
+                        <th></th>
+                        </thead>
+
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.CAR_ID)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.COLOUR.COLOUR_NAME)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.TRANSMISSION.TRANSMISSION_NAME)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.MODEL.MAKE.MAKE_NAME)
+                                </td>
+
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.MODEL.MODEL_NAME)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.MILAGE_)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.LISTING_PRICE)
+                                </td>
+
+
+
+
+
+
+                                <td>
+                                    <button class="btn btn-default btn-sm" id="Create" name="Create" style="background-color:lightsteelblue" onclick="location.href=' @Url.Action("Edit", "CARs", new { id = item.CAR_ID })'">Update</button>
+                                    <button class="btn btn-default btn-sm" id="Create" name="Create" style="background-color:lightsteelblue" onclick="location.href=' @Url.Action("Details", "CARs", new { id = item.CAR_ID })'">View</button>
+
+
+                                </td>
+                            </tr>
+                        }
+
+
+                    </table>
+                </div>
+            </div>
+        </div>
+    }
+    <input type="button" value="Home" onclick="location.href='@Url.Action("ClientNav","Nav")'" />
+</body>
+</html>

@@ -90,14 +90,14 @@
                                     @item.YEAR
                                 </td>
                                 <td>
-                                    @item.MILAGE_
+                                    @item.MILAGE_ KM
                                 </td>
                                 <td>
-                                    @item.LISTING_PRICE
+                                   R: @item.LISTING_PRICE,00
                                 </td>
                                 <td>
 
-                                    <img src="~/Images/@item.IMAGE" />
+                                    <img width="193" height="130" src="~/Images/@item.IMAGE" />
 
                                 </td>
 
@@ -105,6 +105,7 @@
                                     @item.MODEL.MODEL_NAME
                                 </td>
                                 <td>
+                                    @item.MODEL.MAKE.MAKE_NAME
                                 </td>
                                 <td>
                                     @item.COLOUR.COLOUR_NAME
