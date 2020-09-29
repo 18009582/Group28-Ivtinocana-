@@ -108,4 +108,3 @@ C:\Users\hoole\Documents\GitHub\Group28-Ivtinocana-\Vehlution(Everything)\Vehlut
 C:\Users\hoole\Documents\GitHub\Group28-Ivtinocana-\Vehlution(Everything)\Vehlution(Everything)\bin\Microsoft.AspNet.Identity.EntityFramework.dll
 C:\Users\hoole\Documents\GitHub\Group28-Ivtinocana-\Vehlution(Everything)\Vehlution(Everything)\bin\Microsoft.AspNet.Identity.Core.xml
 C:\Users\hoole\Documents\GitHub\Group28-Ivtinocana-\Vehlution(Everything)\Vehlution(Everything)\bin\Microsoft.AspNet.Identity.EntityFramework.xml
-C:\Users\hoole\Documents\GitHub\Group28-Ivtinocana-\Vehlution(Everything)\Vehlution(Everything)\obj\Debug\Vehlution(Everything).csprojAssemblyReference.cache

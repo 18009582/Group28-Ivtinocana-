@@ -66,7 +66,7 @@ namespace Vehlution_Everything_.Controllers
 
         public ActionResult IndexSearch()
         {
-            ViewBag.Makes = new SelectList(db.MAKEs, "MAKE_ID", "MAKE_NAME");
+            ViewBag.MAKE_ID = new SelectList(db.MAKEs, "MAKE_ID", "MAKE_NAME");
             ViewBag.Models = new SelectList(db.MODELs, "MODEL_ID", "MODEL_NAME");
             ViewBag.BodyTypes = new SelectList(db.CAR_TYPE, "CAR_TYPEID", "TYPE_NAME");
 

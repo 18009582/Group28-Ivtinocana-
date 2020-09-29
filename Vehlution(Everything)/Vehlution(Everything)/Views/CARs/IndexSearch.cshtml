@@ -4,6 +4,33 @@
     Layout = null;
 }
 
+<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
+<script language="javascript" type="text/javascript">
+    function GetModel(_makeId) {
+        var procemessage = "<option value='0'> Please wait...</option>";
+        $("#MODEL_ID").html(procemessage).show();
+        var url = "/ADMINCARs/GetModelByMakeId/";
+
+        $.ajax({
+            url: url,
+            data: { makeid: _makeId },
+            cache: false,
+            type: "POST",
+            success: function (data) {
+                var markup = "<option value='0'>Select Make</option>";
+                for (var x = 0; x < data.length; x++) {
+                    markup += "<option value=" + data[x].Value + ">" + data[x].Text + "</option>";
+                }
+                $("#MODEL_ID").html(markup).show();
+
+            },
+            error: function (reponse) {
+                alert("error : " + reponse);
+            }
+        });
+
+    }
+</script>
 <!DOCTYPE html>
 
 <html>
@@ -17,6 +44,8 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
     <script src='https://kit.fontawesome.com/a076d05399.js'></script>
     <link href="~/CSS1/StyleSheet1.css" rel="stylesheet" />
+
+
 </head>
 <body>
     <div class="container">
@@ -24,11 +53,16 @@
         <label>Please choose the Make of the car that you are searching for</label>
         @using (Html.BeginForm("Search", "CARs"))
         {
+            <label>Make</label><br />
+            @Html.DropDownList("MAKE_ID", null, htmlAttributes: new { @id = "ddlmake", @style = "width:200px;", @onchange = "javascript:GetModel(this.value);" })
+            <br />
+            <br />
+            <select id="MODEL_ID" name="MODEL_ID" style="width: 200px">
+            </select>
 
-            <label>Make</label>
-            @Html.DropDownList("Makes");
-            <label>Models</label>
-            
+            <br /><br />
+            <br />
+
             <label>Body Type</label>
             @Html.DropDownList("BodyTypes");
             <label>Max Millage</label>

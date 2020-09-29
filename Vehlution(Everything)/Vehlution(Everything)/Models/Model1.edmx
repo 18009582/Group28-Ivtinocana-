@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="Vehlution2Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="VehlutionFinalModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="BOOKING_DATES">
           <Key>
             <PropertyRef Name="DAY_" />
@@ -128,7 +128,7 @@
           <Property Name="YEAR" Type="int" />
           <Property Name="MILAGE_" Type="int" />
           <Property Name="LISTING_PRICE" Type="float" />
-          <Property Name="IMAGE" Type="varchar" MaxLength="100" />
+          <Property Name="IMAGE" Type="varchar" MaxLength="1" />
           <Property Name="CAR_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="CAR_TYPEID" Type="int" />
           <Property Name="USER_ID" Type="int" />
@@ -331,7 +331,7 @@
           <Property Name="OFFER_ID" Type="int" />
           <Property Name="SALE_DATE_" Type="datetime" />
           <Property Name="ACCEPTED_OFFER" Type="float" />
-          <Property Name="CAR_CONTRACT_" Type="binary" MaxLength="250" />
+          <Property Name="CAR_CONTRACT_" Type="varbinary" MaxLength="64" />
         </EntityType>
         <EntityType Name="SUPPLIER">
           <Key>
@@ -371,6 +371,7 @@
           <Property Name="ACTIVATIONCODE" Type="uniqueidentifier" />
           <Property Name="OTP" Type="nvarchar" MaxLength="4" />
           <Property Name="BLOCKED" Type="bit" />
+          <Property Name="RESETCODE" Type="nvarchar" MaxLength="100" />
         </EntityType>
         <EntityType Name="USER_ROLE">
           <Key>
@@ -931,7 +932,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="Vehlution2ModelStoreContainer">
+        <EntityContainer Name="VehlutionFinalModelStoreContainer">
           <EntitySet Name="BOOKING_DATES" EntityType="Self.BOOKING_DATES" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BOOKING_FOR_POSSIBLE_PURCHASE" EntityType="Self.BOOKING_FOR_POSSIBLE_PURCHASE" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BOOKING_STATUS" EntityType="Self.BOOKING_STATUS" Schema="dbo" store:Type="Tables" />
@@ -1163,7 +1164,7 @@
     </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="Vehlution2Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <Schema Namespace="VehlutionFinalModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="BOOKING_DATES">
           <Key>
             <PropertyRef Name="DAY_" />
@@ -1312,7 +1313,7 @@
           <Property Name="YEAR" Type="Int32" />
           <Property Name="MILAGE_" Type="Int32" />
           <Property Name="LISTING_PRICE" Type="Double" />
-          <Property Name="IMAGE" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="IMAGE" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
           <Property Name="CAR_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="CAR_TYPEID" Type="Int32" />
           <Property Name="USER_ID" Type="Int32" />
@@ -1568,7 +1569,7 @@
           <Property Name="OFFER_ID" Type="Int32" />
           <Property Name="SALE_DATE_" Type="DateTime" Precision="3" />
           <Property Name="ACCEPTED_OFFER" Type="Double" />
-          <Property Name="CAR_CONTRACT_" Type="Binary" MaxLength="250" FixedLength="true" />
+          <Property Name="CAR_CONTRACT_" Type="Binary" MaxLength="64" FixedLength="false" />
           <NavigationProperty Name="EMPLYEE_SALES" Relationship="Self.FK_EMPLYEE__HAS_SALE_SALES" FromRole="SALES" ToRole="EMPLYEE_SALES" />
           <NavigationProperty Name="OFFER" Relationship="Self.FK_SALES_DR2_OFFERS" FromRole="SALES" ToRole="OFFERS" />
           <NavigationProperty Name="PAYMENT" Relationship="Self.FK_SALES_HAS_PAYME_PAYMENT" FromRole="SALES" ToRole="PAYMENT" />
@@ -1614,6 +1615,7 @@
           <Property Name="ACTIVATIONCODE" Type="Guid" />
           <Property Name="OTP" Type="String" MaxLength="4" FixedLength="false" Unicode="true" />
           <Property Name="BLOCKED" Type="Boolean" />
+          <Property Name="RESETCODE" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="BOOKING_FOR_POSSIBLE_PURCHASE" Relationship="Self.FK_BOOKING__HAS_A_BOO_USER" FromRole="USER" ToRole="BOOKING_FOR_POSSIBLE_PURCHASE" />
           <NavigationProperty Name="CAR_BOOKING" Relationship="Self.FK_CAR_BOOK_HAS_CLIEN_USER" FromRole="USER" ToRole="CAR_BOOKING" />
           <NavigationProperty Name="CARS" Relationship="Self.FK_CARS_HAS_CLIEN_USER" FromRole="USER" ToRole="CARS" />
@@ -2415,9 +2417,9 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="Vehlution2ModelStoreContainer" CdmEntityContainer="VehlutionEntities">
+        <EntityContainerMapping StorageEntityContainer="VehlutionFinalModelStoreContainer" CdmEntityContainer="VehlutionEntities">
           <EntitySetMapping Name="BOOKING_DATES">
-            <EntityTypeMapping TypeName="Vehlution2Model.BOOKING_DATES">
+            <EntityTypeMapping TypeName="VehlutionFinalModel.BOOKING_DATES">
               <MappingFragment StoreEntitySet="BOOKING_DATES">
                 <ScalarProperty Name="DAY_" ColumnName="DAY_" />
                 <ScalarProperty Name="DATE" ColumnName="DATE" />
@@ -2425,7 +2427,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="BOOKING_FOR_POSSIBLE_PURCHASE">
-            <EntityTypeMapping TypeName="Vehlution2Model.BOOKING_FOR_POSSIBLE_PURCHASE">
+            <EntityTypeMapping TypeName="VehlutionFinalModel.BOOKING_FOR_POSSIBLE_PURCHASE">
               <MappingFragment StoreEntitySet="BOOKING_FOR_POSSIBLE_PURCHASE">
                 <ScalarProperty Name="BOOKING_ID" ColumnName="BOOKING_ID" />
                 <ScalarProperty Name="CAR_ID" ColumnName="CAR_ID" />
@@ -2437,7 +2439,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="BOOKING_STATUS">
-            <EntityTypeMapping TypeName="Vehlution2Model.BOOKING_STATUS">
+            <EntityTypeMapping TypeName="VehlutionFinalModel.BOOKING_STATUS">
               <MappingFragment StoreEntitySet="BOOKING_STATUS">
                 <ScalarProperty Name="STATUSID" ColumnName="STATUSID" />
                 <ScalarProperty Name="STATUSNAME" ColumnName="STATUSNAME" />
@@ -2445,7 +2447,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="BOOKING_TIMES">
-            <EntityTypeMapping TypeName="Vehlution2Model.BOOKING_TIMES">
+            <EntityTypeMapping TypeName="VehlutionFinalModel.BOOKING_TIMES">
               <MappingFragment StoreEntitySet="BOOKING_TIMES">
                 <ScalarProperty Name="TIME_ID" ColumnName="TIME_ID" />
                 <ScalarProperty Name="START_TIME_" ColumnName="START_TIME_" />
@@ -2454,7 +2456,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="CAR_BOOKING">
-            <EntityTypeMapping TypeName="Vehlution2Model.CAR_BOOKING">
+            <EntityTypeMapping TypeName="VehlutionFinalModel.CAR_BOOKING">
               <MappingFragment StoreEntitySet="CAR_BOOKING">
                 <ScalarProperty Name="CARBOOKING_ID" ColumnName="CARBOOKING_ID" />
                 <ScalarProperty Name="CAR_ID" ColumnName="CAR_ID" />
@@ -2467,7 +2469,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="CAR_BOOKING_SLOTS">
-            <EntityTypeMapping TypeName="Vehlution2Model.CAR_BOOKING_SLOTS">
+            <EntityTypeMapping TypeName="VehlutionFinalModel.CAR_BOOKING_SLOTS">
               <MappingFragment StoreEntitySet="CAR_BOOKING_SLOTS">
                 <ScalarProperty Name="TIME_ID" ColumnName="TIME_ID" />
                 <ScalarProperty Name="DAY_" ColumnName="DAY_" />
@@ -2478,7 +2480,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="CAR_DEFECT_STATUS">
-            <EntityTypeMapping TypeName="Vehlution2Model.CAR_DEFECT_STATUS">
+            <EntityTypeMapping TypeName="VehlutionFinalModel.CAR_DEFECT_STATUS">
               <MappingFragment StoreEntitySet="CAR_DEFECT_STATUS">
                 <ScalarProperty Name="STATUS_ID" ColumnName="STATUS_ID" />
                 <ScalarProperty Name="DEFECT_ID" ColumnName="DEFECT_ID" />
@@ -2490,7 +2492,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="CAR_DEFECTS">
-            <EntityTypeMapping TypeName="Vehlution2Model.CAR_DEFECTS">
+            <EntityTypeMapping TypeName="VehlutionFinalModel.CAR_DEFECTS">
               <MappingFragment StoreEntitySet="CAR_DEFECTS">
                 <ScalarProperty Name="DEFECT_ID" ColumnName="DEFECT_ID" />
                 <ScalarProperty Name="CAR_ID" ColumnName="CAR_ID" />
@@ -2501,7 +2503,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="CAR_PARTS">
-            <EntityTypeMapping TypeName="Vehlution2Model.CAR_PARTS">
+            <EntityTypeMapping TypeName="VehlutionFinalModel.CAR_PARTS">
               <MappingFragment StoreEntitySet="CAR_PARTS">
                 <ScalarProperty Name="CARPARTS_ID" ColumnName="CARPARTS_ID" />
                 <ScalarProperty Name="PARTNAME" ColumnName="PARTNAME" />
@@ -2511,7 +2513,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="CAR_PARTS_ORDERED">
-            <EntityTypeMapping TypeName="Vehlution2Model.CAR_PARTS_ORDERED">
+            <EntityTypeMapping TypeName="VehlutionFinalModel.CAR_PARTS_ORDERED">
               <MappingFragment StoreEntitySet="CAR_PARTS_ORDERED">
                 <ScalarProperty Name="ORD_ID" ColumnName="ORD_ID" />
                 <ScalarProperty Name="CARPARTS_ID" ColumnName="CARPARTS_ID" />
@@ -2521,7 +2523,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="CAR_STATUS">
-            <EntityTypeMapping TypeName="Vehlution2Model.CAR_STATUS">
+            <EntityTypeMapping TypeName="VehlutionFinalModel.CAR_STATUS">
               <MappingFragment StoreEntitySet="CAR_STATUS">
                 <ScalarProperty Name="STATUS_ID" ColumnName="STATUS_ID" />
                 <ScalarProperty Name="SASTUS_NAME" ColumnName="SASTUS_NAME" />
@@ -2529,7 +2531,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="CAR_TYPE">
-            <EntityTypeMapping TypeName="Vehlution2Model.CAR_TYPE">
+            <EntityTypeMapping TypeName="VehlutionFinalModel.CAR_TYPE">
               <MappingFragment StoreEntitySet="CAR_TYPE">
                 <ScalarProperty Name="CAR_TYPEID" ColumnName="CAR_TYPEID" />
                 <ScalarProperty Name="TYPE_NAME" ColumnName="TYPE_NAME" />
@@ -2537,7 +2539,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="CARS">
-            <EntityTypeMapping TypeName="Vehlution2Model.CAR">
+            <EntityTypeMapping TypeName="VehlutionFinalModel.CAR">
               <MappingFragment StoreEntitySet="CARS">
                 <ScalarProperty Name="CAR_REG" ColumnName="CAR_REG" />
                 <ScalarProperty Name="SEATS_ID" ColumnName="SEATS_ID" />
@@ -2558,7 +2560,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="CLIENT_DOCUMENTS">
-            <EntityTypeMapping TypeName="Vehlution2Model.CLIENT_DOCUMENTS">
+            <EntityTypeMapping TypeName="VehlutionFinalModel.CLIENT_DOCUMENTS">
               <MappingFragment StoreEntitySet="CLIENT_DOCUMENTS">
                 <ScalarProperty Name="DOCUEMTN_ID" ColumnName="DOCUEMTN_ID" />
                 <ScalarProperty Name="USER_ID" ColumnName="USER_ID" />
@@ -2568,7 +2570,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="COLOURs">
-            <EntityTypeMapping TypeName="Vehlution2Model.COLOUR">
+            <EntityTypeMapping TypeName="VehlutionFinalModel.COLOUR">
               <MappingFragment StoreEntitySet="COLOUR">
                 <ScalarProperty Name="COLOUR_ID" ColumnName="COLOUR_ID" />
                 <ScalarProperty Name="COLOUR_NAME" ColumnName="COLOUR_NAME" />
@@ -2576,7 +2578,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="DEFECT_STATUS">
-            <EntityTypeMapping TypeName="Vehlution2Model.DEFECT_STATUS">
+            <EntityTypeMapping TypeName="VehlutionFinalModel.DEFECT_STATUS">
               <MappingFragment StoreEntitySet="DEFECT_STATUS">
                 <ScalarProperty Name="STATUS_ID" ColumnName="STATUS_ID" />
                 <ScalarProperty Name="STATUS_NAME" ColumnName="STATUS_NAME" />
@@ -2584,7 +2586,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="DEFECTS">
-            <EntityTypeMapping TypeName="Vehlution2Model.DEFECT">
+            <EntityTypeMapping TypeName="VehlutionFinalModel.DEFECT">
               <MappingFragment StoreEntitySet="DEFECTS">
                 <ScalarProperty Name="DEFECT_ID" ColumnName="DEFECT_ID" />
                 <ScalarProperty Name="DEFECTNAME" ColumnName="DEFECTNAME" />
@@ -2592,7 +2594,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="DOCUMENT_TYPE">
-            <EntityTypeMapping TypeName="Vehlution2Model.DOCUMENT_TYPE">
+            <EntityTypeMapping TypeName="VehlutionFinalModel.DOCUMENT_TYPE">
               <MappingFragment StoreEntitySet="DOCUMENT_TYPE">
                 <ScalarProperty Name="DOCUMENTTYPE_ID" ColumnName="DOCUMENTTYPE_ID" />
                 <ScalarProperty Name="DOCUMENT" ColumnName="DOCUMENT" />
@@ -2601,7 +2603,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="EMPLOYEEs">
-            <EntityTypeMapping TypeName="Vehlution2Model.EMPLOYEE">
+            <EntityTypeMapping TypeName="VehlutionFinalModel.EMPLOYEE">
               <MappingFragment StoreEntitySet="EMPLOYEE">
                 <ScalarProperty Name="EMPLYEE_ID" ColumnName="EMPLYEE_ID" />
                 <ScalarProperty Name="FULL_NAME" ColumnName="FULL_NAME" />
@@ -2613,7 +2615,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="EMPLYEE_SALES">
-            <EntityTypeMapping TypeName="Vehlution2Model.EMPLYEE_SALES">
+            <EntityTypeMapping TypeName="VehlutionFinalModel.EMPLYEE_SALES">
               <MappingFragment StoreEntitySet="EMPLYEE_SALES">
                 <ScalarProperty Name="EMPLYEE_ID" ColumnName="EMPLYEE_ID" />
                 <ScalarProperty Name="SALES_ID" ColumnName="SALES_ID" />
@@ -2622,7 +2624,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="FUEL_TYPE">
-            <EntityTypeMapping TypeName="Vehlution2Model.FUEL_TYPE">
+            <EntityTypeMapping TypeName="VehlutionFinalModel.FUEL_TYPE">
               <MappingFragment StoreEntitySet="FUEL_TYPE">
                 <ScalarProperty Name="FUELTYPE_ID" ColumnName="FUELTYPE_ID" />
                 <ScalarProperty Name="FUELTYPE_NAME" ColumnName="FUELTYPE_NAME" />
@@ -2630,7 +2632,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="MAKEs">
-            <EntityTypeMapping TypeName="Vehlution2Model.MAKE">
+            <EntityTypeMapping TypeName="VehlutionFinalModel.MAKE">
               <MappingFragment StoreEntitySet="MAKE">
                 <ScalarProperty Name="MAKE_ID" ColumnName="MAKE_ID" />
                 <ScalarProperty Name="MAKE_NAME" ColumnName="MAKE_NAME" />
@@ -2638,7 +2640,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="MECHANICs">
-            <EntityTypeMapping TypeName="Vehlution2Model.MECHANIC">
+            <EntityTypeMapping TypeName="VehlutionFinalModel.MECHANIC">
               <MappingFragment StoreEntitySet="MECHANIC">
                 <ScalarProperty Name="MECHANIC_ID" ColumnName="MECHANIC_ID" />
                 <ScalarProperty Name="FULL_NAME_" ColumnName="FULL_NAME_" />
@@ -2648,7 +2650,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="MECHANIC_JOB">
-            <EntityTypeMapping TypeName="Vehlution2Model.MECHANIC_JOB">
+            <EntityTypeMapping TypeName="VehlutionFinalModel.MECHANIC_JOB">
               <MappingFragment StoreEntitySet="MECHANIC_JOB">
                 <ScalarProperty Name="MECHANICJOB_ID" ColumnName="MECHANICJOB_ID" />
                 <ScalarProperty Name="CAR_ID" ColumnName="CAR_ID" />
@@ -2659,7 +2661,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="MECHANIC_TASK">
-            <EntityTypeMapping TypeName="Vehlution2Model.MECHANIC_TASK">
+            <EntityTypeMapping TypeName="VehlutionFinalModel.MECHANIC_TASK">
               <MappingFragment StoreEntitySet="MECHANIC_TASK">
                 <ScalarProperty Name="CARPARTS_ID" ColumnName="CARPARTS_ID" />
                 <ScalarProperty Name="CARPARTSUSEDID" ColumnName="CARPARTSUSEDID" />
@@ -2670,7 +2672,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="MODELs">
-            <EntityTypeMapping TypeName="Vehlution2Model.MODEL">
+            <EntityTypeMapping TypeName="VehlutionFinalModel.MODEL">
               <MappingFragment StoreEntitySet="MODEL">
                 <ScalarProperty Name="MODEL_ID" ColumnName="MODEL_ID" />
                 <ScalarProperty Name="MAKE_ID" ColumnName="MAKE_ID" />
@@ -2679,7 +2681,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="NUMBER_OF_DOORS">
-            <EntityTypeMapping TypeName="Vehlution2Model.NUMBER_OF_DOORS">
+            <EntityTypeMapping TypeName="VehlutionFinalModel.NUMBER_OF_DOORS">
               <MappingFragment StoreEntitySet="NUMBER_OF_DOORS">
                 <ScalarProperty Name="DOORS_ID" ColumnName="DOORS_ID" />
                 <ScalarProperty Name="NUMBER_OF_DOORS1" ColumnName="NUMBER_OF_DOORS" />
@@ -2687,7 +2689,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="NUMBER_OF_SEATS">
-            <EntityTypeMapping TypeName="Vehlution2Model.NUMBER_OF_SEATS">
+            <EntityTypeMapping TypeName="VehlutionFinalModel.NUMBER_OF_SEATS">
               <MappingFragment StoreEntitySet="NUMBER_OF_SEATS">
                 <ScalarProperty Name="SEATS_ID" ColumnName="SEATS_ID" />
                 <ScalarProperty Name="NUMBER_OF_SEATS_" ColumnName="NUMBER_OF_SEATS_" />
@@ -2695,7 +2697,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="OFFER_STATUS">
-            <EntityTypeMapping TypeName="Vehlution2Model.OFFER_STATUS">
+            <EntityTypeMapping TypeName="VehlutionFinalModel.OFFER_STATUS">
               <MappingFragment StoreEntitySet="OFFER_STATUS">
                 <ScalarProperty Name="STATUS_ID" ColumnName="STATUS_ID" />
                 <ScalarProperty Name="STATUS_NAME_" ColumnName="STATUS_NAME_" />
@@ -2703,7 +2705,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="OFFER_TYPE">
-            <EntityTypeMapping TypeName="Vehlution2Model.OFFER_TYPE">
+            <EntityTypeMapping TypeName="VehlutionFinalModel.OFFER_TYPE">
               <MappingFragment StoreEntitySet="OFFER_TYPE">
                 <ScalarProperty Name="OFFERTYPE_ID" ColumnName="OFFERTYPE_ID" />
                 <ScalarProperty Name="OFFERTYPE" ColumnName="OFFERTYPE" />
@@ -2711,7 +2713,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="OFFERS">
-            <EntityTypeMapping TypeName="Vehlution2Model.OFFER">
+            <EntityTypeMapping TypeName="VehlutionFinalModel.OFFER">
               <MappingFragment StoreEntitySet="OFFERS">
                 <ScalarProperty Name="OFFER_ID" ColumnName="OFFER_ID" />
                 <ScalarProperty Name="CAR_ID" ColumnName="CAR_ID" />
@@ -2723,7 +2725,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="ORDERs">
-            <EntityTypeMapping TypeName="Vehlution2Model.ORDER">
+            <EntityTypeMapping TypeName="VehlutionFinalModel.ORDER">
               <MappingFragment StoreEntitySet="ORDER">
                 <ScalarProperty Name="ORDER_ID" ColumnName="ORDER_ID" />
                 <ScalarProperty Name="SUPPLIER_ID" ColumnName="SUPPLIER_ID" />
@@ -2734,7 +2736,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="PART_OF_CAR">
-            <EntityTypeMapping TypeName="Vehlution2Model.PART_OF_CAR">
+            <EntityTypeMapping TypeName="VehlutionFinalModel.PART_OF_CAR">
               <MappingFragment StoreEntitySet="PART_OF_CAR">
                 <ScalarProperty Name="PARTOFCAR_ID" ColumnName="PARTOFCAR_ID" />
                 <ScalarProperty Name="PARTOFCAR_NAME" ColumnName="PARTOFCAR_NAME" />
@@ -2742,7 +2744,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="PAYMENTs">
-            <EntityTypeMapping TypeName="Vehlution2Model.PAYMENT">
+            <EntityTypeMapping TypeName="VehlutionFinalModel.PAYMENT">
               <MappingFragment StoreEntitySet="PAYMENT">
                 <ScalarProperty Name="PAYMENT_ID" ColumnName="PAYMENT_ID" />
                 <ScalarProperty Name="PAYMENTTYPE" ColumnName="PAYMENTTYPE" />
@@ -2751,7 +2753,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="PURCHASES">
-            <EntityTypeMapping TypeName="Vehlution2Model.Purchase">
+            <EntityTypeMapping TypeName="VehlutionFinalModel.Purchase">
               <MappingFragment StoreEntitySet="PURCHASES">
                 <ScalarProperty Name="PURCHASE_ID" ColumnName="PURCHASE_ID" />
                 <ScalarProperty Name="PURCHASEDATE_" ColumnName="PURCHASEDATE_" />
@@ -2762,7 +2764,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="RELATIONSHIP_12">
-            <EntityTypeMapping TypeName="Vehlution2Model.RELATIONSHIP_12">
+            <EntityTypeMapping TypeName="VehlutionFinalModel.RELATIONSHIP_12">
               <MappingFragment StoreEntitySet="RELATIONSHIP_12">
                 <ScalarProperty Name="CARPARTS_ID" ColumnName="CARPARTS_ID" />
                 <ScalarProperty Name="CARPARTSUSEDID" ColumnName="CARPARTSUSEDID" />
@@ -2770,7 +2772,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="SALES">
-            <EntityTypeMapping TypeName="Vehlution2Model.SALE">
+            <EntityTypeMapping TypeName="VehlutionFinalModel.SALE">
               <MappingFragment StoreEntitySet="SALES">
                 <ScalarProperty Name="SALES_ID" ColumnName="SALES_ID" />
                 <ScalarProperty Name="PAYMENT_ID" ColumnName="PAYMENT_ID" />
@@ -2782,7 +2784,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="SUPPLIERs">
-            <EntityTypeMapping TypeName="Vehlution2Model.SUPPLIER">
+            <EntityTypeMapping TypeName="VehlutionFinalModel.SUPPLIER">
               <MappingFragment StoreEntitySet="SUPPLIER">
                 <ScalarProperty Name="SUPPLIER_ID" ColumnName="SUPPLIER_ID" />
                 <ScalarProperty Name="NAME_" ColumnName="NAME_" />
@@ -2793,7 +2795,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="TASKs">
-            <EntityTypeMapping TypeName="Vehlution2Model.TASK">
+            <EntityTypeMapping TypeName="VehlutionFinalModel.TASK">
               <MappingFragment StoreEntitySet="TASK">
                 <ScalarProperty Name="SERVICE_ID" ColumnName="SERVICE_ID" />
                 <ScalarProperty Name="SERVICE_NAME" ColumnName="SERVICE_NAME" />
@@ -2801,7 +2803,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="TRANSMISSIONs">
-            <EntityTypeMapping TypeName="Vehlution2Model.TRANSMISSION">
+            <EntityTypeMapping TypeName="VehlutionFinalModel.TRANSMISSION">
               <MappingFragment StoreEntitySet="TRANSMISSION">
                 <ScalarProperty Name="TRANSMISSION_ID" ColumnName="TRANSMISSION_ID" />
                 <ScalarProperty Name="TRANSMISSION_NAME" ColumnName="TRANSMISSION_NAME" />
@@ -2809,7 +2811,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="USERs">
-            <EntityTypeMapping TypeName="Vehlution2Model.USER">
+            <EntityTypeMapping TypeName="VehlutionFinalModel.USER">
               <MappingFragment StoreEntitySet="USER">
                 <ScalarProperty Name="USER_ID" ColumnName="USER_ID" />
                 <ScalarProperty Name="USERROLE_ID" ColumnName="USERROLE_ID" />
@@ -2821,11 +2823,12 @@
                 <ScalarProperty Name="ACTIVATIONCODE" ColumnName="ACTIVATIONCODE" />
                 <ScalarProperty Name="OTP" ColumnName="OTP" />
                 <ScalarProperty Name="BLOCKED" ColumnName="BLOCKED" />
+                <ScalarProperty Name="RESETCODE" ColumnName="RESETCODE" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="USER_ROLE">
-            <EntityTypeMapping TypeName="Vehlution2Model.USER_ROLE">
+            <EntityTypeMapping TypeName="VehlutionFinalModel.USER_ROLE">
               <MappingFragment StoreEntitySet="USER_ROLE">
                 <ScalarProperty Name="USERROLE_ID" ColumnName="USERROLE_ID" />
                 <ScalarProperty Name="ROLE" ColumnName="ROLE" />

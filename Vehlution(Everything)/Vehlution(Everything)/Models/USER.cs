@@ -35,6 +35,7 @@ namespace Vehlution_Everything_.Models
         public Nullable<System.Guid> ACTIVATIONCODE { get; set; }
         public string OTP { get; set; }
         public Nullable<bool> BLOCKED { get; set; }
+        public string RESETCODE { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<BOOKING_FOR_POSSIBLE_PURCHASE> BOOKING_FOR_POSSIBLE_PURCHASE { get; set; }

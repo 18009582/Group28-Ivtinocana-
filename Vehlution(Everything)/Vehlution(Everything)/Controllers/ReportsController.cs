@@ -77,10 +77,8 @@ namespace Vehlution_Everything_.Controllers
             }
             JsonSerializerSettings _jsonSetting = new JsonSerializerSettings() { NullValueHandling = NullValueHandling.Ignore };
 
-        }
-    }
-
-}
+        
+    
 
 //Builds list of employees 
 public SelectList GetEmployees(int selected)
