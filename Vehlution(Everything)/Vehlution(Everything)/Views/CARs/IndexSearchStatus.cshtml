@@ -27,7 +27,7 @@
 
             <label>Status</label>
             @Html.DropDownList("status");
-           
+
             <input type="submit" id="SearchStatus" />
         }
 
@@ -37,80 +37,75 @@
     {
         <div class="container">
             <div class="panel panel-default">
+                <div class="panel-heading">
 
+                </div>
                 <div class="panel-body">
                     <table class="table-latitude">
+                        <caption>Cars Details</caption>
+                        <thead>
 
                         <thead>
-                        <th>
-                            ID
-                        </th>
-                        <th>
-                            Colour
-                        </th>
-                        <th>Transmission</th>
-                        <th>
-                            Make
-                        </th>
-                        <th>
-                            Model
-                        </th>
-                        <th>
-                            Mileage
-                        </th>
-                        <th>
-                            Listing Price
-                        </th>
+                        <th>Car ID</th>
+                        <th>Year</th>
+                        <th>Milage</th>
+                        <th>Listing Price</th>
+                        <th>Image</th>
+                        <th>Car Make</th>
+                        <th>Car Model</th>
+                        <th>Colour</th>
+                        <th>Car Status</th>
+                        <th>View Car Details</th>
 
-                        <th></th>
                         </thead>
+                        <tbody>
 
-                        @foreach (var item in Model)
-                        {
+                            @foreach (var item in Model)
+                            {
                             <tr>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.CAR_ID)
+                                    @item.CAR_ID
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.COLOUR.COLOUR_NAME)
+                                    @item.YEAR
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.TRANSMISSION.TRANSMISSION_NAME)
+                                    @item.MILAGE_ KM
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.MODEL.MAKE.MAKE_NAME)
+                                    R: @item.LISTING_PRICE,00
+                                </td>
+                                <td>
+
+                                    <img width="193" height="130" src="~/Images/@item.IMAGE" />
+
                                 </td>
 
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.MODEL.MODEL_NAME)
+                                    @item.MODEL.MODEL_NAME
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.MILAGE_)
+                                    @item.MODEL.MAKE.MAKE_NAME
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.LISTING_PRICE)
+                                    @item.COLOUR.COLOUR_NAME
                                 </td>
-
-
-
-
-
-
+                                <td>
+                                    @item.CAR_STATUS.SASTUS_NAME
+                                </td>
                                 <td>
                                     <button class="btn btn-default btn-sm" id="Create" name="Create" style="background-color:lightsteelblue" onclick="location.href=' @Url.Action("Edit", "CARs", new { id = item.CAR_ID })'">Update</button>
                                     <button class="btn btn-default btn-sm" id="Create" name="Create" style="background-color:lightsteelblue" onclick="location.href=' @Url.Action("Details", "CARs", new { id = item.CAR_ID })'">View</button>
-
-
                                 </td>
                             </tr>
-                        }
-
-
+                            }
+                        </tbody>
                     </table>
                 </div>
             </div>
         </div>
     }
-    <input type="button" value="Home" onclick="location.href='@Url.Action("ClientNav","Nav")'" />
-</body>
+        <input type="button" value="Home" onclick="location.href='@Url.Action("AdminNav","Nav")'" />
+    </body>
 </html>
+

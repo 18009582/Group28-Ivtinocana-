@@ -66,13 +66,13 @@
 
                     <input type="hidden" id="MECHANI_ID" name="MECHANIC_ID" value="@Model.MECHANIC_ID" readonly />
                     <label>Mechanic Full Name</label><br />
-                    <input type="text" id="FULL_NAME_" name="FULL_NAME_" style="width:50%" required /> <br />
+                    <input type="text" id="FULL_NAME_" name="FULL_NAME_" value="@Model.FULL_NAME_" style="width:50%" required /> <br />
 
                     <label>Mechanic Cell Number</label><br />
-                    <input type="text" id="CELL_NUMBER_" name="CELL_NUMBER_" style="width:50%" required minlength="10" maxlength="10" /> <br />
+                    <input type="text" id="CELL_NUMBER_" name="CELL_NUMBER_" value="@Model.CELL_NUMBER_" style="width:50%" required minlength="10" maxlength="10" /> <br />
 
                     <label>Mechanic Email Address</label><br />
-                    <input type="email" id="EMAIL_" name="EMAIL_" style="width:50%" required /> <br />
+                    <input type="email" id="EMAIL_" name="EMAIL_" value="@Model.EMAIL_" style="width:50%" required /> <br />
 
                     <button type="submit" onclick="myFunction()" class="btn btn-default btn-sm" id="Create" name="Create" style="background-color:lightgreen">
                         <i class="fa fa-plus-square"></i>

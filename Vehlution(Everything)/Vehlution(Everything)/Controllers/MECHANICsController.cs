@@ -48,12 +48,22 @@ namespace Vehlution_Everything_.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "MECHANIC_ID,FULL_NAME_,CELL_NUMBER_,EMAIL_")] MECHANIC mECHANIC)
         {
-            if (ModelState.IsValid)
+            try
             {
-                db.MECHANICs.Add(mECHANIC);
-                db.SaveChanges();
+                if (ModelState.IsValid)
+                {
+                    db.MECHANICs.Add(mECHANIC);
+                    db.SaveChanges();
+                    TempData["AlertMessage"] = "A mechanic has sucessfully been added!";
+                    return RedirectToAction("Index");
+                }
+            }
+            catch
+            {
+                TempData["AlertMessage"] = "Sorry something went wrong, please try again later";
                 return RedirectToAction("Index");
             }
+            
 
             return View(mECHANIC);
         }
@@ -80,12 +90,22 @@ namespace Vehlution_Everything_.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "MECHANIC_ID,FULL_NAME_,CELL_NUMBER_,EMAIL_")] MECHANIC mECHANIC)
         {
-            if (ModelState.IsValid)
+            try
             {
-                db.Entry(mECHANIC).State = EntityState.Modified;
-                db.SaveChanges();
+                if (ModelState.IsValid)
+                {
+                    db.Entry(mECHANIC).State = EntityState.Modified;
+                    db.SaveChanges();
+                    TempData["AlertMessage"] = "A mechanic has sucessfully been updated!";
+                    return RedirectToAction("Index");
+                }
+            }
+            catch
+            {
+                TempData["AlertMessage"] = "Sorry something went wrong, please try again later";
                 return RedirectToAction("Index");
             }
+
             return View(mECHANIC);
         }
 
@@ -109,11 +129,21 @@ namespace Vehlution_Everything_.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            MECHANIC mECHANIC = db.MECHANICs.Find(id);
-            db.MECHANICs.Remove(mECHANIC);
-            db.SaveChanges();
-            return RedirectToAction("Index");
-        }
+            try
+            {
+                MECHANIC mECHANIC = db.MECHANICs.Find(id);
+                db.MECHANICs.Remove(mECHANIC);
+                db.SaveChanges();
+                TempData["AlertMessage"] = "A mechanic has sucessfully been deleted!";
+                return RedirectToAction("Index");
+            }
+            catch
+            {
+                TempData["AlertMessage"] = "Sorry something went wrong, please try again later";
+                return RedirectToAction("Index");
+            }
+
+}
 
         protected override void Dispose(bool disposing)
         {

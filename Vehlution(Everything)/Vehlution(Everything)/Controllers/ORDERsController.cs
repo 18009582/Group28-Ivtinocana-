@@ -76,57 +76,68 @@ namespace Vehlution_Everything_.Controllers
 
         public ActionResult Create(int SUPPLIER_ID, System.DateTime date)
         {
-
-
-            ORDER o = new ORDER();
-            string body;
-
-            o.ORDER_DATE_ = date;
-            o.ORDER_STATUS_ = "Placed";
-            o.SUPPLIER_ID = SUPPLIER_ID;
-            o.ORDER_PRICE_ = NewPartsOrder.Sum(z => z.Total);
-            db.ORDERs.Add(o);
-            db.SaveChanges();
-            body = "Good day " + db.SUPPLIERs.Where(zz => zz.SUPPLIER_ID == SUPPLIER_ID).First().NAME_.Trim() + ", I trust you are well. \n  We'd like to place the following order: \n Order ID: " + db.ORDERs.ToList().Last().ORDER_ID + "\t date: " + date.ToShortDateString() + "\n" + "Order details";
-            int id = db.ORDERs.ToList().Last().ORDER_ID;
-            foreach (NewOrderItem x in NewPartsOrder)
+            try
             {
-                CAR_PARTS_ORDERED c = new CAR_PARTS_ORDERED();
-                c.CARPARTS_ID = x.PartID;
-                c.ORD_ID = id;
-                c.QUANTITY = x.Qty;
-                db.CAR_PARTS_ORDERED.Add(c);
-                body += "\n" + x.PartName + " X " + x.Qty + "\t R" + x.Price;
+                ORDER o = new ORDER();
+                string body;
+
+                o.ORDER_DATE_ = date;
+                o.ORDER_STATUS_ = "Placed";
+                o.SUPPLIER_ID = SUPPLIER_ID;
+                o.ORDER_PRICE_ = NewPartsOrder.Sum(z => z.Total);
+                db.ORDERs.Add(o);
                 db.SaveChanges();
+                body = "Good day " + db.SUPPLIERs.Where(zz => zz.SUPPLIER_ID == SUPPLIER_ID).First().NAME_.Trim() + ", I trust you are well. \n  We'd like to place the following order: \n Order ID: " + db.ORDERs.ToList().Last().ORDER_ID + "\t date: " + date.ToShortDateString() + "\n" + "Order details";
+                int id = db.ORDERs.ToList().Last().ORDER_ID;
+                foreach (NewOrderItem x in NewPartsOrder)
+                {
+                    CAR_PARTS_ORDERED c = new CAR_PARTS_ORDERED();
+                    c.CARPARTS_ID = x.PartID;
+                    c.ORD_ID = id;
+                    c.QUANTITY = x.Qty;
+                    db.CAR_PARTS_ORDERED.Add(c);
+                    body += "\n" + x.PartName + " X " + x.Qty + "\t R" + x.Price;
+                    db.SaveChanges();
+                }
+                body += "\n Total: R " + NewPartsOrder.Sum(z => z.Total) + " \n Thank you. \n + Yours Faithfully, \n Vehlution  ";
+
+
+                var senderEmail = new MailAddress("vehlution@gmail.com", "Vehlution");
+                string email = db.SUPPLIERs.Where(zz => zz.SUPPLIER_ID == SUPPLIER_ID).First().EMAIL_;
+                var receiverEmail = new MailAddress(email, "Receiver");
+                var password = "Ivtinocana";
+                var sub = "New Order";
+
+                var smtp = new SmtpClient
+                {
+                    Host = "smtp.gmail.com",
+                    Port = 587,
+                    EnableSsl = true,
+                    DeliveryMethod = SmtpDeliveryMethod.Network,
+                    UseDefaultCredentials = false,
+                    Credentials = new NetworkCredential(senderEmail.Address, password)
+                };
+                using (var mess = new MailMessage(senderEmail, receiverEmail)
+                {
+                    Subject = sub,
+                    Body = body
+                })
+                {
+                    smtp.Send(mess);
+                }
+                NewPartsOrder.Clear();
+                TempData["AlertMessage"] = "Your order has been placed!";
+                return RedirectToAction("Index");
+            
             }
-            body += "\n Total: R " + NewPartsOrder.Sum(z => z.Total) + " \n Thank you. \n + Yours Faithfully, \n Vehlution  ";
-
-
-            var senderEmail = new MailAddress("vehlution@gmail.com", "Vehlution");
-            string email = db.SUPPLIERs.Where(zz => zz.SUPPLIER_ID == SUPPLIER_ID).First().EMAIL_;
-            var receiverEmail = new MailAddress(email, "Receiver");
-            var password = "Ivtinocana";
-            var sub = "New Order";
-
-            var smtp = new SmtpClient
+            catch
             {
-                Host = "smtp.gmail.com",
-                Port = 587,
-                EnableSsl = true,
-                DeliveryMethod = SmtpDeliveryMethod.Network,
-                UseDefaultCredentials = false,
-                Credentials = new NetworkCredential(senderEmail.Address, password)
-            };
-            using (var mess = new MailMessage(senderEmail, receiverEmail)
-            {
-                Subject = sub,
-                Body = body
-            })
-            {
-                smtp.Send(mess);
+                TempData["AlertMessage"] = "Sorry something went wrong, please try again late";
+                return RedirectToAction("Index");
+
             }
-            NewPartsOrder.Clear();
-            return RedirectToAction("Index");
+
+
         }
 
 
@@ -138,49 +149,61 @@ namespace Vehlution_Everything_.Controllers
         //  [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int DelId)
         {
-            ORDER oRDER = db.ORDERs.Find(DelId);
-            var sup = oRDER.SUPPLIER.EMAIL_;
-            var supname = oRDER.SUPPLIER.NAME_;
-            var dateplaced = Convert.ToDateTime(oRDER.ORDER_DATE_).ToShortDateString();
-
-            db.ORDERs.Remove(oRDER);
-
-            foreach (CAR_PARTS_ORDERED x in db.CAR_PARTS_ORDERED)
+            try
             {
-                if (x.ORD_ID == DelId)
+                ORDER oRDER = db.ORDERs.Find(DelId);
+                var sup = oRDER.SUPPLIER.EMAIL_;
+                var supname = oRDER.SUPPLIER.NAME_;
+                var dateplaced = Convert.ToDateTime(oRDER.ORDER_DATE_).ToShortDateString();
+
+                db.ORDERs.Remove(oRDER);
+
+                foreach (CAR_PARTS_ORDERED x in db.CAR_PARTS_ORDERED)
                 {
-                    db.CAR_PARTS_ORDERED.Remove(x);
+                    if (x.ORD_ID == DelId)
+                    {
+                        db.CAR_PARTS_ORDERED.Remove(x);
 
+                    }
                 }
+
+                db.SaveChanges();
+
+                var body = "Good day" + supname + ", I trust you are well. +\n We regret to inform you that we will be canceling our order , Order Id : " + DelId + " , Placed of the " + dateplaced + " \n Thank you. \n + Yours Faithfully, \n Vehlution  ";
+                var senderEmail = new MailAddress("vehlution@gmail.com", "Vehlution");
+
+                var receiverEmail = new MailAddress(sup, "Receiver");
+                var password = "Ivtinocana";
+                var sub = "New Order";
+
+                var smtp = new SmtpClient
+                {
+                    Host = "smtp.gmail.com",
+                    Port = 587,
+                    EnableSsl = true,
+                    DeliveryMethod = SmtpDeliveryMethod.Network,
+                    UseDefaultCredentials = false,
+                    Credentials = new NetworkCredential(senderEmail.Address, password)
+                };
+                using (var mess = new MailMessage(senderEmail, receiverEmail)
+                {
+                    Subject = sub,
+                    Body = body
+                })
+                {
+                    smtp.Send(mess);
+                }
+                TempData["AlertMessage"] = "Your order has been cancelled!";
+                return RedirectToAction("Index");
+
+            }
+            catch
+            {
+                TempData["AlertMessage"] = "Sorry something went wrong, please try again late";
+                return RedirectToAction("Index");
+
             }
 
-            db.SaveChanges();
-
-            var body = "Good day" + supname + ", I trust you are well. +\n We regret to inform you that we will be canceling our order , Order Id : " + DelId + " , Placed of the " + dateplaced + " \n Thank you. \n + Yours Faithfully, \n Vehlution  ";
-            var senderEmail = new MailAddress("vehlution@gmail.com", "Vehlution");
-
-            var receiverEmail = new MailAddress(sup, "Receiver");
-            var password = "Ivtinocana";
-            var sub = "New Order";
-
-            var smtp = new SmtpClient
-            {
-                Host = "smtp.gmail.com",
-                Port = 587,
-                EnableSsl = true,
-                DeliveryMethod = SmtpDeliveryMethod.Network,
-                UseDefaultCredentials = false,
-                Credentials = new NetworkCredential(senderEmail.Address, password)
-            };
-            using (var mess = new MailMessage(senderEmail, receiverEmail)
-            {
-                Subject = sub,
-                Body = body
-            })
-            {
-                smtp.Send(mess);
-            }
-            return RedirectToAction("Index");
         }
 
         protected override void Dispose(bool disposing)
@@ -220,28 +243,52 @@ namespace Vehlution_Everything_.Controllers
         [HttpPost]
         public ActionResult RemoveFromList(int id)
         {
-            foreach (NewOrderItem x in NewPartsOrder)
+            try
             {
-                if (x.PartID == id)
+                foreach (NewOrderItem x in NewPartsOrder)
                 {
-                    NewPartsOrder.Remove(x);
-                    return RedirectToAction("Create");
+                    if (x.PartID == id)
+                    {
+                        NewPartsOrder.Remove(x);
+                        return RedirectToAction("Create");
 
+                    }
                 }
+                TempData["AlertMessage"] = "Your item has been removed!";
+                return RedirectToAction("Create");
+
             }
-            return RedirectToAction("Create");
+            catch
+            {
+                TempData["AlertMessage"] = "Sorry something went wrong, please try again late";
+                return RedirectToAction("Create");
+
+            }
+
         }
         [HttpPost]
         public ActionResult RecieveOrder(int id)
         {
-            db.ORDERs.Find(id).ORDER_STATUS_ = "Recieved";
-            List<CAR_PARTS_ORDERED> ord = db.CAR_PARTS_ORDERED.Where(zz => zz.ORD_ID == id).ToList();
-            foreach (CAR_PARTS_ORDERED x in ord)
+            try
             {
-                db.CAR_PARTS.Find(x.CARPARTS_ID).STOCKONHAND += x.QUANTITY;
+                db.ORDERs.Find(id).ORDER_STATUS_ = "Recieved";
+                List<CAR_PARTS_ORDERED> ord = db.CAR_PARTS_ORDERED.Where(zz => zz.ORD_ID == id).ToList();
+                foreach (CAR_PARTS_ORDERED x in ord)
+                {
+                    db.CAR_PARTS.Find(x.CARPARTS_ID).STOCKONHAND += x.QUANTITY;
+                }
+                db.SaveChanges();
+                TempData["AlertMessage"] = "Your order has been recieved!";
+                return RedirectToAction("Create");
+
             }
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            catch
+            {
+                TempData["AlertMessage"] = "Sorry something went wrong, please try again late";
+                return RedirectToAction("Create");
+
+            }
+
         }
 
     }

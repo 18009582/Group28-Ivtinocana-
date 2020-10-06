@@ -48,7 +48,7 @@ namespace Vehlution_Everything_.Controllers
                         obj.model = s.OFFER.CAR.MODEL.MODEL_NAME;
                         obj.paymenttype = s.PAYMENT.PAYMENTTYPE;
                         obj.CarReg = s.OFFER.CAR.CAR_REG;
-                        obj.client = s.OFFER.USER_ID;
+                        obj.client = s.OFFER.USER.FIRSTNAME + " " + s.OFFER.USER.LASTNAME;
                         d.Add(obj);
                     }
                 }
@@ -558,5 +558,59 @@ public SelectList GetEmployees(int selected)
             stream.Seek(0, SeekOrigin.Begin);
             return File(stream, "application/msword", "AdminBookingsReport.doc");
         }
+        public ActionResult PurchIndex()
+        {
+            return View();
+        }
+        [HttpPost]
+
+
+        public ActionResult PurchgenReport(DateTime start, DateTime end)
+        {
+            List<dynamic> d = new List<dynamic>();
+            List<Purchase> sales = db.PURCHASES.OrderByDescending(x => x.PURCHASEDATE_).ToList();
+            foreach (Purchase s in sales)
+            {
+                dynamic obj = new ExpandoObject();
+                if (s.PURCHASEDATE_ >= start && s.PURCHASEDATE_ <= end)
+                {
+
+                    obj.saleid = s.PURCHASE_ID;
+                    obj.date = s.PURCHASEDATE_;
+                    obj.AcceptedOffer = s.COST_;
+                    obj.make = s.CAR.MODEL.MAKE.MAKE_NAME;
+                    obj.makeid = s.CAR.MODEL.MAKE_ID;
+                    obj.model = s.CAR.MODEL.MODEL_NAME;
+
+                    obj.CarReg = s.CAR.CAR_REG;
+                    obj.client = s.USER.FIRSTNAME +" "+s.USER.LASTNAME;
+                    d.Add(obj);
+                }
+            }
+            var b = d.GroupBy(o => o.make).ToList();
+
+            List<int> counts = new List<int>();
+            List<string> makes = new List<string>();
+
+            foreach (var i in b)
+            {
+
+
+                counts.Add(i.Count());
+                makes.Add(i.Key);
+            }
+
+            ViewBag.counts = counts;
+            ViewBag.Makes = makes;
+            ViewBag.start = start;
+            ViewBag.end = end;
+
+
+
+            return View(b);
+
+        }
+
+
     }
 }

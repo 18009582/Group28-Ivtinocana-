@@ -1,0 +1,81 @@
+﻿@model dynamic
+@{
+    ViewBag.Title = "genReport";
+}
+<head>
+
+    <meta name="viewport" content="width=device-width" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    <script src='https://kit.fontawesome.com/a076d05399.js'></script>
+    <link href="~/CSS1/StyleSheet1.css" rel="stylesheet" />
+
+    <title>Index</title>
+
+
+</head>
+
+
+<table class="table-latitude">
+    <caption>Purchases report</caption>
+    <thead>
+        <tr class="thead">
+
+            <th>Purchase ID</th>
+            <th>Purchase Date</th>
+            <th>Price</th>
+
+            <th>Car REgistrationD</th>
+            <th> Make</th>
+            <th>Model</th>
+            <th>Client Name</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            var c = 0;
+            var d = 0;
+            foreach (var item in Model)
+            {
+
+
+
+                foreach (var x in item)
+                {
+
+
+                    <tr>
+
+
+                        <td>@x.saleid </td>
+                        <td>@x.date </td>
+                        <td>R @x.AcceptedOffer .00</td>
+
+
+                        <td>@x.CarReg</td>
+                        <td>@x.make </td>
+
+                        <td>@x.model </td>
+
+
+                        <td>@x.client </td>
+                    </tr>
+                }
+                <tr>
+
+                    <td>Sales of @ViewBag.Makes[c] : @ViewBag.counts[c]</td>
+                </tr>
+                d = d + @ViewBag.counts[c];
+                c++;
+            }
+        }
+    <td>Total Cars bought : @d</td>
+
+
+
+    </tbody>
+</table>
+<br />
+<input type="button" value="Home" onclick="location.href='@Url.Action("AdminNav","Nav")'" />

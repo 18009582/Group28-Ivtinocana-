@@ -9,14 +9,30 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>Download</title>
+    <style>
+        .main {
+            width: 600px;
+            background-color: #F7F7F7;
+            border: 4px solid darkblue;
+            padding: 50px;
+            margin: auto;
+            font-size: 16px;
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
-    <div> 
+    
+    <div class="main" >
+        <label>Please download this car contract</label><br />
         @foreach (var item in ViewData.Model)
         {
             @Html.ActionLink((string)item, "DownloadFile", new { filename = item });
             <br />
         }
+        <label>Once you have filled in your details please send it to us via email (VehlutionReceive@gmail.com)</label><br />
+        <label>Thank you!</label>
     </div>
+
 </body>
 </html>

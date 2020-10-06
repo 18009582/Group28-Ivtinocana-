@@ -6,6 +6,15 @@
 
 @model IEnumerable<Vehlution_Everything_.Models.OFFER>
 
+@{
+    var message = TempData["AlertMessage"] ?? string.Empty;
+}
+
+<script type="text/javascript">
+    var message = '@message';
+    if(message)
+        alert(message);
+</script>
 
 
 <!DOCTYPE html>
@@ -63,65 +72,84 @@
         <title>Car Make</title>
         <link rel="stylesheet" type="text/css" href="~/CSS1/StyleSheet1.css" />
     </head>
-<body>
-    <div class="container">
-        <div class="panel panel-default">
+    <body>
+        <div class="container">
+            <div class="panel panel-default">
 
-            <div class="panel-body">
-                <table class="table-latitude">
-                    <caption>OFFERS</caption>
-                    <thead>
-                    <th>
-                        Offer ID
-                    </th>
-                    <th>
+                <div class="panel-body">
+                    <table class="table-latitude">
+                        <caption>OFFERS</caption>
+                        <thead>
+                        <th>
+                            Offer ID
+                        </th>
+                        <th>
+                            Listing Price
+                        </th>
+                        <th>
+                            Offer Amount
+                        </th>
+                        <th>
+                            Car Registration
+                        </th>
+                        <th>
+                            Make and Model
+                        </th>
+                        <th>
+                            Image
+                        </th>
 
-                        @Html.DisplayNameFor(model => model.AMOUNT)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.CAR.CAR_REG)
-                    </th>
+                        <th>
+                            Offer Status
+                        </th>
 
-                    <th></th>
+                        </thead>
 
-                    </thead>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.OFFER_ID)
+                                </td>
+                                <td>
+                                    @item.CAR.LISTING_PRICE
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.AMOUNT)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.CAR.CAR_REG)
+                                </td>
+                                <td>
+                                    @item.CAR.MODEL.MAKE.MAKE_NAME @item.CAR.MODEL.MODEL_NAME
+                                </td>
+                                <td>
+                                    <img width="193" height="130" src="~/Images/@item.CAR.IMAGE" />
+                                </td>
 
-                    @foreach (var item in Model)
-                    {
-                        <tr>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.OFFER_ID)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.AMOUNT)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.CAR.CAR_REG)
-                            </td>
 
+                                <td>
+                                    @using (Html.BeginForm("AcceptC", "OFFERs"))
+                                    {
 
-                            <td>
-                                @using (Html.BeginForm("Accept", "OFFERs"))
-                                {
+                                        <input type="hidden" value="@item.OFFER_ID" id="id" name="id" />
+                                        <button class="btn btn-default btn-sm" id="Accept" name="Accept" style="background-color:lightsteelblue">Accept</button>
+                                    }
+                                    <br />
+                                    @using (Html.BeginForm("RejectC", "OFFERs"))
+                                    {
+                                        <input type="hidden" value="@item.OFFER_ID" id="id" name="id" />
+                                        <button class="btn btn-default btn-sm" id="Accept" name="Accept" style="background-color:lightsteelblue">Reject</button>
+                                    }
+                                </td>
+                            </tr>
+                        }
 
-                                    <input type="hidden" value="@item.OFFER_ID" id="id" name="id" />
-                                    <button class="btn btn-default btn-sm" id="Accept" name="Accept" style="background-color:lightsteelblue">Accept</button>
-                                }
-                                <br />
-                                @using (Html.BeginForm("Reject", "OFFERs"))
-                                {
-                                    <input type="hidden" value="@item.OFFER_ID" id="id" name="id" />
-                                    <button class="btn btn-default btn-sm" id="Accept" name="Accept" style="background-color:lightsteelblue">Reject</button>
-                                }
-                            </td>
-                        </tr>
-                    }
-
-                </table>
-                <input type="button" value="Home" onclick="location.href='@Url.Action("ClientNav","Nav")'" />
+                    </table>
+                    <input type="button" value="Home" onclick="location.href='@Url.Action("ClientNav","Nav")'" />
+                </div>
             </div>
         </div>
-    </div>
-</body>
+    </body>
 </html>
 

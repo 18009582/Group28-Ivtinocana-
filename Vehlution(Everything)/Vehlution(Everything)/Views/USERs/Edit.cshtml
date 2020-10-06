@@ -28,14 +28,15 @@
                 @using (Html.BeginForm("Edit", "USERs"))
                 {
 
-                    <label>First Name </label><br />
+
                     <input type="hidden" id="USER_ID" name="USER_ID" value="@Model.USER_ID" readonly />
+                    <label>First Name </label><br />
                     <input type="text" id="FIRSTNAME" name="FIRSTNAME" value="@Model.FIRSTNAME" style="width:50%" /> <br />
                     <label>Last Name</label><br />
                     <input type="text" id="LASTNAME" name="LASTNAME" value="@Model.LASTNAME" style="width:50%" /><br />
                     <label>Email Address</label><br />
-                    <input type="text" id="EMAIL" name="EMAIL" value="@Model.EMAIL" style="width:50%" /><br />
-                  
+                    <input type="email" id="EMAIL" name="EMAIL" value="@Model.EMAIL" style="width:50%" /><br />
+
 
                     <button type="submit" class="btn btn-default btn-sm" id="Create" name="Create" style="background-color:lightgreen">
                         <i class="fa fa-plus-square"></i>

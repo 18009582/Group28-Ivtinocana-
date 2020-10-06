@@ -4,11 +4,22 @@
     ViewBag.Title = "Create";
     Layout = null;
 }
+
+@{
+    var message = TempData["AlertMessage"] ?? string.Empty;
+}
+
+<script type="text/javascript">
+    var message = '@message';
+    if(message)
+        alert(message);
+</script>
+
 <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
 <script language="javascript" type="text/javascript">
     function GetModel(_makeId) {
         var procemessage = "<option value='0'> Please wait...</option>";
-        $("#ddlmodel").html(procemessage).show();
+        $("#MODEL_ID").html(procemessage).show();
         var url = "/ADMINCARs/GetModelByMakeId/";
 
         $.ajax({
@@ -21,7 +32,7 @@
                 for (var x = 0; x < data.length; x++) {
                     markup += "<option value=" + data[x].Value + ">" + data[x].Text + "</option>";
                 }
-                $("#ddlmodel").html(markup).show();
+                $("#MODEL_ID").html(markup).show();
             },
             error: function (reponse) {
                 alert("error : " + reponse);
@@ -42,10 +53,75 @@
     <title>Create</title>
     <link rel="stylesheet" type="text/css" href="~/CSS1/StyleSheet1.css" />
 </head>
+<div id="myModal" class="modal">
+    <div class="modal-content">
+        <h1 style="color:orange">Part details</h1><br />
+        <label>Please select a Defect</label><br />
+        @using (Html.BeginForm("AddToList", "CLIENTCARs"))
+        {
 
+            @Html.DropDownList("DEFECTS", null, htmlAttributes: new { @class = "select" })<br />
+            <label>Which part of yout car has the defect</label><br />
+            @Html.DropDownList("CarParts", null, htmlAttributes: new { @class = "select" })
+            <br />
+            <label>Please Select a severity on a scale of 1-10 (1 being minor and 10 being very severe) </label><br />
+            <input type="number" name="severity" id="severity" style="width:50%" required min="1" max="10" /><br />
+
+            <button type="submit" class="btn btn-default btn-sm" style="background-color:orange;width:50%;color:white" value="addToList">
+
+                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-cart-plus-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1H.5zM4 14a1 1 0 1 1 2 0 1 1 0 0 1-2 0zm7 0a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM9 5.5a.5.5 0 0 0-1 0V7H6.5a.5.5 0 0 0 0 1H8v1.5a.5.5 0 0 0 1 0V8h1.5a.5.5 0 0 0 0-1H9V5.5z" />
+                </svg>
+                Add Defect
+            </button>
+
+            <button type="button" id="close" class="btn btn-default btn-sm" style="background-color:darkblue;width:50%;color:white">
+                <i class="fa fa-times"></i>
+                <i class="glyphicon glyphicon-remove"></i>
+                Cancel
+            </button>
+
+        }
+    </div>
+</div>
 <div class="container" style="text-align:center">
     <h1 style="color:orange">Please Enter your Car Details</h1>
+    <table class="noborder">
+        <caption>Defects</caption>
 
+        <tr style="border-color:white">
+            <th>Part</th>
+            <th>Defect</th>
+            <th>Severity</th>
+
+            <th><button class="btn btn-outline-success" style="color:darkblue" id="myBtn"><i class="fa fa-plus-square"></i> Add Defect</button></th>
+        </tr>
+        @foreach (var item in ViewBag.Defectslist)
+        {
+
+
+            <tr style="border-color:white">
+                <td> @item.PartName</td>
+                <td>
+                    @item.defname
+                </td>
+                <td>
+                    @item.severity
+                </td>
+
+                <td>
+                    @using (Html.BeginForm("RemoveFromList", "CLIENTCARs"))
+                    {
+                        <input type="hidden" value="@item.defid" name="id" id="id" readonly />
+                        <input type="hidden" value="@item.PartID" name="partid" id="partid" readonly />
+                        <button class="btn text-danger" type="submit"><i class="fa fa-trash fa-lg" id="RemoveFromList" name="RemoveFromList"></i></button>
+
+                    }
+                </td>
+            </tr>
+        }
+
+    </table>
     @using (Html.BeginForm("Create", "CLIENTCARs", FormMethod.Post, new { enctype = "multipart/form-data" }))
     {
         @Html.AntiForgeryToken()
@@ -74,7 +150,7 @@
         @Html.DropDownList("MAKE_ID", null, htmlAttributes: new { @id = "ddlmake", @style = "width:200px;", @onchange = "javascript:GetModel(this.value);" })
         <br />
         <br />
-        <select id="ddlmodel" name="ddlmodel" style="width: 200px">
+        <select id="MODEL_ID" name="MODEL_ID" style="width: 200px">
         </select>
 
         <br /><br />
@@ -84,14 +160,14 @@
         @Html.DropDownList("CAR_TYPEID", null, htmlAttributes: new { @class = "select" })<br />
 
         <label>Year</label><br />
-        <input type="number" id="YEAR" name="YEAR" style="width:50%" required minlength="4" maxlenth="4" min="1800" /><br />
+        <input type="number" id="YEAR" name="YEAR" style="width:50%" required minlength="4" maxlenth="4" min="1900" max="2020"/><br />
         <br />
         <label>Mileage</label><br />
         <input type="number" id="MILAGE_" name="MILAGE_" style="width:50%" required min="0" /><br />
         <br />
         <label>Listing Price</label><br />
-        <input type="text" id="LISTING_PRICE" name="LISTING_PRICE" style="width:50%" required data-type="currency"
-               pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" placeholder="R 250000.00" /><br />
+        <input type="number" id="LISTING_PRICE" name="LISTING_PRICE" style="width:50%" required placeholder="250000.00"
+               min="0" /> <br />
         <br />
 
         <label>Uplaod an Image</label>
@@ -116,5 +192,28 @@
     }
 </div>
 
-</html>
 
+</html>
+<script>
+    // Get the modal
+    var modal = document.getElementById("myModal");
+
+    var btn = document.getElementById("myBtn");
+    var closebtn = document.getElementById("close");
+
+    btn.onclick = function () {
+        modal.style.display = "block";
+    }
+
+    closebtn.onclick = function () {
+        modal.style.display = "none";
+    }
+
+    window.onclick = function (event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+
+
+</script>

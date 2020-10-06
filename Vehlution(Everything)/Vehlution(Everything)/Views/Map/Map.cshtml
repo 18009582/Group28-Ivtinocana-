@@ -19,17 +19,18 @@
     <!--The div element for the map -->
     <div id="map"></div>
     <script>
-// Initialize and add the map
-function initMap() {
-  // The location of Uluru
-    var uluru = {
-        lat: -25.876170, lng: 28.103720}; 
-  // The map, centered at Uluru
-  var map = new google.maps.Map(
-      document.getElementById('map'), {zoom: 4, center: uluru});
-  // The marker, positioned at Uluru
-  var marker = new google.maps.Marker({position: uluru, map: map});
-}
+        // Initialize and add the map
+        function initMap() {
+            // The location of Uluru
+            var uluru = {
+                lat: -25.876170, lng: 28.103720
+            };
+            // The map, centered at Uluru
+            var map = new google.maps.Map(
+                document.getElementById('map'), { zoom: 4, center: uluru });
+            // The marker, positioned at Uluru
+            var marker = new google.maps.Marker({ position: uluru, map: map });
+        }
     </script>
     <!--Load the API from the specified URL
     * The async attribute allows the browser to render the page while the API loads
@@ -39,5 +40,6 @@ function initMap() {
     <script defer
             src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDBt1Tp3IldwlC_AgJ5ioBUjAb05PVPOao&callback=initMap">
     </script>
+    <input type="button" value="Home" onclick="location.href='@Url.Action("ContactUs","ContactAbout")'" />
 </body>
 </html>

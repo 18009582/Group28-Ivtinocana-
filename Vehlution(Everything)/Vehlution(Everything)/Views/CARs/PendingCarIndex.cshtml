@@ -3,7 +3,15 @@
 @{
     Layout = null;
 }
+@{
+    var message = TempData["AlertMessage"] ?? string.Empty;
+}
 
+<script type="text/javascript">
+    var message = '@message';
+    if(message)
+        alert(message);
+</script>
 <!DOCTYPE html>
 
 <html>
@@ -79,7 +87,9 @@
                     <th>Listing Price</th>
                     <th>Image</th>
                     <th>Car Make</th>
+                    <th>Car Model</th>
                     <th>Colour</th>
+                    
                     <th>View Car Details</th>
 
                     </thead>
@@ -95,7 +105,7 @@
                                     @item.YEAR
                                 </td>
                                 <td>
-                                    @item.MILAGE_ KM 
+                                    @item.MILAGE_ KM
                                 </td>
                                 <td>
                                     R: @item.LISTING_PRICE,00
@@ -105,6 +115,9 @@
                                 </td>
                                 <td>
                                     @item.MODEL.MAKE.MAKE_NAME
+                                </td>
+                                <td>
+                                    @item.MODEL.MODEL_NAME
                                 </td>
                                 <td>
                                     @item.COLOUR.COLOUR_NAME
@@ -122,7 +135,7 @@
             </div>
         </div>
     </div>
-    <input type="button" value="Home" onclick="location.href='@Url.Action("AdminNav","Nav")'"/>
+    <input type="button" value="Home" onclick="location.href='@Url.Action("AdminNav","Nav")'" />
 </body>
 </html>
 

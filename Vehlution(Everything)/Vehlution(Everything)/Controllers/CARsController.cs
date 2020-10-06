@@ -20,7 +20,6 @@ namespace Vehlution_Everything_.Controllers
         // GET: CARs for sale
         public ActionResult ViewCarsForSaleIndex()
         {
-            
             var cARS = db.CARS.Include(c => c.CAR_STATUS)
                               .Include(c => c.MODEL)
                               .Include(c => c.COLOUR)
@@ -36,16 +35,14 @@ namespace Vehlution_Everything_.Controllers
 
         public ActionResult ViewCarsForSaleIndexAdmin()
         {
-            var cARS = db.CARS.Include(c => c.CAR_STATUS)
+           var cARS = db.CARS.Include(c => c.CAR_STATUS)
                               .Include(c => c.MODEL)
                               .Include(c => c.COLOUR)
                               .Include(c => c.FUEL_TYPE)
                               .Include(c => c.NUMBER_OF_DOORS)
                               .Include(c => c.NUMBER_OF_SEATS)
                               .Include(c => c.TRANSMISSION)
-                              .Include(c => c.MODEL.MAKE)
-
-                              .Where(cc => cc.STATUS_ID == 2);
+                              .Include(c => c.MODEL.MAKE).ToList();
             return View(cARS.ToList());
         }
 
@@ -73,15 +70,15 @@ namespace Vehlution_Everything_.Controllers
             return View(carlist);
         }
         [HttpPost]
-        public ActionResult Search(int Makes, int Colours, int BodyTypes, int Milage)
+        public ActionResult Search( int MODEL_ID, int BodyTypes, int Milage)
         {
-            carlist = db.CARS.Include(zz => zz.MODEL).Where(zz => zz.MODEL.MAKE_ID == Makes && zz.COLOUR_ID == Colours && zz.CAR_TYPE.CAR_TYPEID == BodyTypes && zz.MILAGE_ <= Milage).ToList();
+            carlist = db.CARS.Include(zz => zz.MODEL).Where(zz => zz.MODEL.MODEL_ID == MODEL_ID  && zz.CAR_TYPE.CAR_TYPEID == BodyTypes && zz.MILAGE_ <= Milage).ToList();
             return RedirectToAction("IndexSearch");
         }
 
         public ActionResult IndexSearchStatus()
         {
-            ViewBag.status = new SelectList(db.CAR_STATUS, "STATUS_ID", "STATUS");
+            ViewBag.status = new SelectList(db.CAR_STATUS, "STATUS_ID", "SASTUS_NAME");
 
             return View(carlists);
         }
@@ -104,12 +101,26 @@ namespace Vehlution_Everything_.Controllers
                                  .Include(c => c.TRANSMISSION)
                                  .Include(c => c.MODEL.MAKE)
 
-                                 .Where(cc => cc.STATUS_ID == 4);
+                                 .Where(cc => cc.STATUS_ID == 3);
             return View(cARS.ToList());
         }
 
         // GET: CARs/Details/5
         public ActionResult SaleDetails(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            CAR cAR = db.CARS.Find(id);
+            if (cAR == null)
+            {
+                return HttpNotFound();
+            }
+            return View(cAR);
+        }
+
+        public ActionResult Details(int? id)
         {
             if (id == null)
             {
@@ -154,68 +165,140 @@ namespace Vehlution_Everything_.Controllers
         [HttpPost]
         public ActionResult MakeOfferA(int c, float offer, int type)
         {
-            OFFER x = db.OFFERS.Where(zz => zz.CAR_ID == c && (zz.STATUS_ID == 1 || zz.STATUS_ID == 3)).FirstOrDefault();
-            if (x != null)
+            try
             {
-                return RedirectToAction("Index");
-            }
-            else
-            {
-
-
-                OFFER o = new OFFER();
-
-                o.AMOUNT = offer;
-                o.CAR_ID = c;
-                o.OFFERTYPE_ID = type;
-                o.STATUS_ID = 3;
-                db.OFFERS.Add(o);
-                db.SaveChanges();
-                CAR of = db.CARS.Where(zz => zz.CAR_ID == c).First();
-                var senderEmail = new MailAddress("vehlution@gmail.com", "Vehlution");
-                string email = db.USERs.Where(zz => zz.USER_ID == of.USER_ID).First().EMAIL;
-                var receiverEmail = new MailAddress(email, "Receiver");
-                var password = "Ivtinocana";
-                var sub = "Accepted Offer";
-                var body = "We have viewed your car  with car registration : " + of.CAR_REG +"Car details: "+of.MODEL.MAKE.MAKE_NAME+" "+of.MODEL.MODEL_NAME + "and would like to offer R "+offer + " for the car. please log onto your Velhution profile to confirm or reject the offer." ;
-                var smtp = new SmtpClient
+                OFFER x = db.OFFERS.Where(zz => zz.CAR_ID == c && (zz.STATUS_ID == 1 || zz.STATUS_ID == 3) && zz.OFFERTYPE_ID == type).FirstOrDefault();
+                if (x != null)
                 {
-                    Host = "smtp.gmail.com",
-                    Port = 587,
-                    EnableSsl = true,
-                    DeliveryMethod = SmtpDeliveryMethod.Network,
-                    UseDefaultCredentials = false,
-                    Credentials = new NetworkCredential(senderEmail.Address, password)
-                };
-                using (var mess = new MailMessage(senderEmail, receiverEmail)
-                {
-                    Subject = sub,
-                    Body = body
-                })
-                {
-                    smtp.Send(mess);
+                    TempData["AlertMessage"] = "You have already made an offer on this car";
+                    return RedirectToAction("PendingCarIndex");
                 }
+                else
+                {
+                    OFFER o = new OFFER();
+
+                    o.AMOUNT = offer;
+                    o.CAR_ID = c;
+                    o.OFFERTYPE_ID = type;
+                    o.STATUS_ID = 3;
+                    int clientid = Convert.ToInt32(HttpContext.Request.Cookies.Get("User").Value);
+                    o.USER_ID = clientid;
+                    db.OFFERS.Add(o);
+                    db.SaveChanges();
+                    CAR of = db.CARS.Where(zz => zz.CAR_ID == c).First();
+                    var senderEmail = new MailAddress("vehlution@gmail.com", "Vehlution");
+                    string email = db.USERs.Where(zz => zz.USER_ID == of.USER_ID).First().EMAIL;
+                    var receiverEmail = new MailAddress(email, "Receiver");
+                    var password = "Ivtinocana";
+                    var sub = "Accepted Offer";
+                    var body = "Good day " + o.CAR.USER.FIRSTNAME +
+                            "\n We hope you are doing well, we have just made an offer on the following car which you have put up on our website" +
+                            "\n Car Registration : " + o.CAR.CAR_REG + " " +
+                            "\n Car Details: " + o.CAR.MODEL.MAKE.MAKE_NAME + " " + o.CAR.MODEL.MODEL_NAME +
+                            "\n Colour: " + o.CAR.COLOUR.COLOUR_NAME +
+                            "\n Our Offer Price: R " + o.AMOUNT + "  " +
+                            "\n Please login on our website with your details and review our offer we have just made as well as accept of reject our offer" +
+                            "\n Yours Faithfully, " +
+                            "\n Vehlution ";
+                    var smtp = new SmtpClient
+                    {
+                        Host = "smtp.gmail.com",
+                        Port = 587,
+                        EnableSsl = true,
+                        DeliveryMethod = SmtpDeliveryMethod.Network,
+                        UseDefaultCredentials = false,
+                        Credentials = new NetworkCredential(senderEmail.Address, password)
+                    };
+                    using (var mess = new MailMessage(senderEmail, receiverEmail)
+                    {
+                        Subject = sub,
+                        Body = body
+                    })
+                    {
+                        smtp.Send(mess);
+                    }
+                }
+                TempData["AlertMessage"] = "Your offer has successfully been placed ";
+                return RedirectToAction("PendingCarIndex");
+            }
+            catch (Exception err)
+            {
+                TempData["AlertMessage"] = "Sorry something went wrong please try again later. " + err;
+                return RedirectToAction("PendingCarIndex");
             }
 
-            return RedirectToAction("PendingCarIndex");
         }
 
         [HttpPost]
         public ActionResult MakeOfferC(int c, float offer, int type)
         {
-            OFFER o = new OFFER();
+            try
+            {
+                int clientid = Convert.ToInt32(HttpContext.Request.Cookies.Get("User").Value);
 
-            o.AMOUNT = offer;
-            o.CAR_ID = c;
-            o.OFFERTYPE_ID = type;
-            o.STATUS_ID = 3;
-            db.OFFERS.Add(o);
-            db.SaveChanges();
+                OFFER x = db.OFFERS.Where(zz => zz.CAR_ID == c && (zz.STATUS_ID == 1 || zz.STATUS_ID == 3) && zz.USER_ID == clientid && zz.OFFERTYPE_ID == type).FirstOrDefault();
+                if (x != null)
+                {
+                    TempData["AlertMessage"] = "You have already made an offer on this car";
+                    return RedirectToAction("ViewCarsForSaleIndex");
+                }
+                else
+                {
+                    OFFER o = new OFFER();
+                    o.USER_ID = clientid;
+                    o.AMOUNT = offer;
+                    o.CAR_ID = c;
+                    o.OFFERTYPE_ID = type;
+                    o.STATUS_ID = 3;
+                    db.OFFERS.Add(o);
+                    db.SaveChanges();
 
-            return RedirectToAction("ViewCarsForSaleIndex");
+                    if (o.USER_ID != 1)
+                    {
+
+                        var senderEmail = new MailAddress("vehlution@gmail.com", "Vehlution");
+                        var receiverEmail = new MailAddress("vehlutionReceive@gmail.com", "Receiver");
+                        var password = "Ivtinocana";
+                        var sub = "Accepted Offer";
+                        var body = "Good day " + o.CAR.USER.FIRSTNAME +
+                             "\n I hope you are doing well, I have made an offer on the following car which is on your website: " +
+                             "\n Car Registration : " + o.CAR.CAR_REG + " " +
+                             "\n Car Details: " + o.CAR.MODEL.MAKE.MAKE_NAME + " " + o.CAR.MODEL.MODEL_NAME +
+                             "\n Colour: " + o.CAR.COLOUR.COLOUR_NAME +
+                             "\n Price: R " + o.AMOUNT + "  " +
+                             "\n Please login on the website to review this offer and make a decision" +
+                             "\n Please contact me via email for more details: " + o.CAR.USER.EMAIL +
+                             "\n Yours Faithfully, " +
+                             "\n" + o.USER.FIRSTNAME + o.USER.LASTNAME;
+                        var smtp = new SmtpClient
+                        {
+                            Host = "smtp.gmail.com",
+                            Port = 587,
+                            EnableSsl = true,
+                            DeliveryMethod = SmtpDeliveryMethod.Network,
+                            UseDefaultCredentials = false,
+                            Credentials = new NetworkCredential(senderEmail.Address, password)
+                        };
+                        using (var mess = new MailMessage(senderEmail, receiverEmail)
+                        {
+                            Subject = sub,
+                            Body = body
+                        })
+                        {
+                            smtp.Send(mess);
+                        }
+                    }
+                }
+                TempData["AlertMessage"] = "Your offer has successfully been placed ";
+                return RedirectToAction("ViewCarsForSaleIndex");
+            }
+            catch (Exception err)
+            {
+                TempData["AlertMessage"] = "Sorry something went wrong please try again later. " + err;
+                return RedirectToAction("ViewCarsForSaleIndex");
+            }
+
         }
-
-
 
         // GET: CARs/Edit/5
         public ActionResult Edit(int? id)
@@ -286,54 +369,66 @@ namespace Vehlution_Everything_.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            CAR cAR = db.CARS.Find(id);
-
-            //Send email to user saying car was rejected 
-            if (cAR.USER_ID != null)
+            try
             {
-                var senderEmail = new MailAddress("vehlution@gmail.com", "Vehlution");
-                string email = db.USERs.Where(zz => zz.USER_ID == cAR.USER_ID).First().EMAIL;
-                var receiverEmail = new MailAddress(email, "Receiver");
-                var password = "Ivtinocana";
-                var sub = "Car Uploaded to Vehlution";
-                var body = "This email is about your car, " +
-                    "\n Car ID: " + cAR.CAR_ID + " " +
-                    "\n Car registration : " + cAR.CAR_REG + " " +
-                    "\n We are not interested in buying your car at this moment in time " +
-                    "\n If you want some more information people contact us on 059623015" +
-                    "\n Yours Faithfully , " +
-                    "\n Vehlution ";
-                var smtp = new SmtpClient
+                CAR cAR = db.CARS.Find(id);
+
+                //Send email to user saying car was rejected 
+                if (cAR.USER_ID != null)
                 {
-                    Host = "smtp.gmail.com",
-                    Port = 587,
-                    EnableSsl = true,
-                    DeliveryMethod = SmtpDeliveryMethod.Network,
-                    UseDefaultCredentials = false,
-                    Credentials = new NetworkCredential(senderEmail.Address, password)
-                };
-                using (var mess = new MailMessage(senderEmail, receiverEmail)
-                {
-                    Subject = sub,
-                    Body = body
-                })
-                {
-                    smtp.Send(mess);
+                    var senderEmail = new MailAddress("vehlution@gmail.com", "Vehlution");
+                    string email = db.USERs.Where(zz => zz.USER_ID == cAR.USER_ID).First().EMAIL;
+                    var receiverEmail = new MailAddress(email, "Receiver");
+                    var password = "Ivtinocana";
+                    var sub = "Car Uploaded to Vehlution";
+                    var body = "This email is about the follwoing car which you have placed on our website for sale, " +
+                        "\n Car ID: " + cAR.CAR_ID + " " +
+                        "\n Car Registration : " + cAR.CAR_REG + " " +
+                        "\n Car Details: " + cAR.MODEL.MAKE.MAKE_NAME + " " + cAR.MODEL.MODEL_NAME +
+                        "\n Colour: " + cAR.COLOUR.COLOUR_NAME +
+                        "\n We are not interested in buying your car at this moment in time, so it will be taken of our system" +
+                        "\n If you want some more information please contact us on 059623015" +
+                        "\n Yours Faithfully , " +
+                        "\n Vehlution ";
+                    var smtp = new SmtpClient
+                    {
+                        Host = "smtp.gmail.com",
+                        Port = 587,
+                        EnableSsl = true,
+                        DeliveryMethod = SmtpDeliveryMethod.Network,
+                        UseDefaultCredentials = false,
+                        Credentials = new NetworkCredential(senderEmail.Address, password)
+                    };
+                    using (var mess = new MailMessage(senderEmail, receiverEmail)
+                    {
+                        Subject = sub,
+                        Body = body
+                    })
+                    {
+                        smtp.Send(mess);
+                    }
                 }
-            }
-                     
 
-            OFFER oFFER = db.OFFERS.Where(m => m.CAR_ID == id).FirstOrDefault();
-            if(oFFER != null)
-            {
-                db.OFFERS.Remove(oFFER);
+
+                OFFER oFFER = db.OFFERS.Where(m => m.CAR_ID == id).FirstOrDefault();
+                if (oFFER != null)
+                {
+                    db.OFFERS.Remove(oFFER);
+                    db.SaveChanges();
+                }
+
+                db.CARS.Remove(cAR);
                 db.SaveChanges();
-            }
-            
-            db.CARS.Remove(cAR);
-            db.SaveChanges();
 
-            return RedirectToAction("PendingCarIndex");
+                TempData["AlertMessage"] = "This car successfully been deleted from our system";
+                return RedirectToAction("PendingCarIndex");
+            }
+            catch (Exception err)
+            {
+                TempData["AlertMessage"] = "Sorry something went wrong please try again later. " + err;
+                return RedirectToAction("PendingCarIndex");
+            }
+
         }
     }
 }

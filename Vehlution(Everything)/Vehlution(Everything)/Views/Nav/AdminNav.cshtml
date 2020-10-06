@@ -3,6 +3,16 @@
     Layout = null;
 }
 
+@{
+    var message = TempData["AlertMessage"] ?? string.Empty;
+}
+
+<script type="text/javascript">
+    var message = '@message';
+    if(message)
+        alert(message);
+</script>
+
 <!DOCTYPE html>
 
 <html>
@@ -13,7 +23,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <link href="~/CSS1/StyleSheet1.css" rel="stylesheet" />
-    
+
     <title>AdminNav</title>
 
 </head>
@@ -29,7 +39,7 @@
     body {
         font-size: 20px;
         background-image: url('../../Content/images.jpg');
-        background-size:cover;
+        background-size: cover;
     }
 
     .navbar-brand {
@@ -45,14 +55,15 @@
     <nav class="navbar navbar-inverse">
         <div class="container-fluid">
             <div class="navbar-header">
-                <a class="navbar-brand" href="#"style="font-family:Courier New, Courier, monospace">Vehlution</a>
+                <a class="navbar-brand" href="#" style="font-family:Courier New, Courier, monospace">Vehlution</a>
             </div>
             <ul class="nav navbar-nav">
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">Cars<span class="caret"></span></a>
                     <ul class="dropdown-menu">
                         <li><a onclick="location.href='@Url.Action("PendingCarIndex","CARs")'" href="#"><span class="glyphicon glyphicon-eye-open"> View Car For Purchase </a></li>
-                        <li><a onclick="location.href='@Url.Action("ViewCarsForSaleIndex","CARs")'" href="#"> <span class="glyphicon glyphicon-eye-open"> View Cars For Sale </a></li>
+                        <li><a onclick="location.href='@Url.Action("ViewCarsForSaleIndexAdmin","CARs")'" href="#"> <span class="glyphicon glyphicon-eye-open"> View Cars For Sale </a></li>
+                        <li><a onclick="location.href='@Url.Action("IndexSearchStatus","CARs")'" href="#"> <span class="glyphicon glyphicon-search"> Search Cars by Status </span></a></li>
                         <li><a onclick="location.href='@Url.Action("CarMakeIndex","MAKEs")'" href="#"> <span class="glyphicon glyphicon-eye-open"> View Car Make </a></li>
                         <li><a onclick="location.href='@Url.Action("CarModelIndex","MODELs")'" href="#"> <span class="glyphicon glyphicon-eye-open"> View Car Model </a></li>
                         <li><a onclick="location.href='@Url.Action("Index","DEFECTs")'" href="#"> <span class="glyphicon glyphicon-eye-open"> View Car Defect </a></li>
@@ -97,12 +108,12 @@
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">Reports<span class="caret"></span></a>
                     <ul class="dropdown-menu">
 
-                        <li><a onclick="location.href='@Url.Action("SalesReport","Reports")'" href="#"> <span class="glyphicon glyphicon-list-alt"> Sales Report </a></li>
+                        <li><a onclick="location.href='@Url.Action("SaleIndex","Reports")'" href="#"> <span class="glyphicon glyphicon-list-alt"> Sales Report </a></li>
                         <li><a onclick="location.href='@Url.Action("AdminBookingsReport","Reports")'" href="#"><span class="glyphicon glyphicon-list-alt"> Bookings Report For Client Viewings </a></li>
                         <li><a onclick="location.href='@Url.Action("ClientBookingsReport","Reports")'" href="#"><span class="glyphicon glyphicon-list-alt"> Bookings Report For Purchase Viewings </a></li>
                         <li><a onclick="location.href='@Url.Action("MechanicJobReport","Reports")'" href="#"><span class="glyphicon glyphicon-list-alt"> Mechanic Job Report </a></li>
                         <li><a onclick="location.href='@Url.Action("CarPartsReport","Reports")'" href="#"><span class="glyphicon glyphicon-list-alt"> Car Parts Purchased Report </a></li>
-                        <li><a onclick="location.href='@Url.Action("PurchasesReport","Reports")'" href="#"><span class="glyphicon glyphicon-list-alt"> Purchases Report </a></li>
+                        <li><a onclick="location.href='@Url.Action("PurchIndex","Reports")'" href="#"><span class="glyphicon glyphicon-list-alt"> Purchases Report </a></li>
 
 
 
@@ -149,7 +160,7 @@
                         <li><a onclick="location.href='@Url.Action("Index","SUPPLIERs")'" href="#"><span class="glyphicon glyphicon-eye-open"> View Supplier</a></li>
 
                         <li><a onclick="location.href='@Url.Action("Index","ORDERs")'" href="#"><span class="glyphicon glyphicon-pencil"> Place Supplier Order</a></li>
-                     
+
                         <li><a onclick="location.href='@Url.Action("Index","CAR_PARTs")'" href="#"><span class="glyphicon glyphicon-eye-open"> View Car Part</a></li>
 
                     </ul>

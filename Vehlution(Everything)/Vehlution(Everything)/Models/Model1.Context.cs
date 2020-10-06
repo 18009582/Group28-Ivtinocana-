@@ -33,6 +33,7 @@ namespace Vehlution_Everything_.Models
         public virtual DbSet<CAR_BOOKING_SLOTS> CAR_BOOKING_SLOTS { get; set; }
         public virtual DbSet<CAR_DEFECT_STATUS> CAR_DEFECT_STATUS { get; set; }
         public virtual DbSet<CAR_DEFECTS> CAR_DEFECTS { get; set; }
+        public virtual DbSet<CAR_LOGS> CAR_LOGS { get; set; }
         public virtual DbSet<CAR_PARTS> CAR_PARTS { get; set; }
         public virtual DbSet<CAR_PARTS_ORDERED> CAR_PARTS_ORDERED { get; set; }
         public virtual DbSet<CAR_STATUS> CAR_STATUS { get; set; }
@@ -61,6 +62,7 @@ namespace Vehlution_Everything_.Models
         public virtual DbSet<PAYMENT> PAYMENTs { get; set; }
         public virtual DbSet<Purchase> PURCHASES { get; set; }
         public virtual DbSet<RELATIONSHIP_12> RELATIONSHIP_12 { get; set; }
+        public virtual DbSet<SALE_LOGS> SALE_LOGS { get; set; }
         public virtual DbSet<SALE> SALES { get; set; }
         public virtual DbSet<SUPPLIER> SUPPLIERs { get; set; }
         public virtual DbSet<TASK> TASKs { get; set; }

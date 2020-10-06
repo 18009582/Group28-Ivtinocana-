@@ -153,6 +153,16 @@
     </script>
     <input type="button" value="Home" onclick="location.href='@Url.Action("AdminNav","Nav")'" />
 </body>
+@{
+    var message = TempData["AlertMessage"] ?? string.Empty;
+}
+
 </html>
+
+<script type="text/javascript">
+    var message = '@message';
+    if(message)
+        alert(message);
+</script>
 
 

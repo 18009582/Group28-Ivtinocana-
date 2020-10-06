@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Schema Namespace="VehlutionFinalModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+<Schema Namespace="VehlutionFinalAuditModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
   <EntityType Name="BOOKING_DATES">
     <Key>
       <PropertyRef Name="DAY_" />
@@ -76,6 +76,30 @@
     <Property Name="SEVERITY" Type="smallint" />
     <Property Name="CARDEFECTID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
   </EntityType>
+  <EntityType Name="CAR_LOGS">
+    <Key>
+      <PropertyRef Name="CAR_ID" />
+    </Key>
+    <Property Name="CAR_REG" Type="varchar" MaxLength="8" />
+    <Property Name="SEATS_ID" Type="int" />
+    <Property Name="COLOUR_ID" Type="int" />
+    <Property Name="TRANSMISSION_ID" Type="int" />
+    <Property Name="DOORS_ID" Type="int" />
+    <Property Name="STATUS_ID" Type="int" />
+    <Property Name="FUELTYPE_ID" Type="int" />
+    <Property Name="MODEL_ID" Type="int" />
+    <Property Name="YEAR" Type="int" />
+    <Property Name="MILEAGE" Type="int" />
+    <Property Name="LISTING_PRICE" Type="float" />
+    <Property Name="IMAGE" Type="varchar" MaxLength="1" />
+    <Property Name="CAR_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CAR_TYPEID" Type="int" />
+    <Property Name="USER_ID" Type="int" />
+    <Property Name="AUDIT_ID" Type="int" />
+    <Property Name="AUDITDATE" Type="date" />
+    <Property Name="AUDITACTION" Type="varchar" MaxLength="100" />
+    <Property Name="AUDITUSER" Type="varchar" MaxLength="50" />
+  </EntityType>
   <EntityType Name="CAR_PARTS">
     <Key>
       <PropertyRef Name="CARPARTS_ID" />
@@ -123,7 +147,7 @@
     <Property Name="YEAR" Type="int" />
     <Property Name="MILAGE_" Type="int" />
     <Property Name="LISTING_PRICE" Type="float" />
-    <Property Name="IMAGE" Type="varchar" MaxLength="1" />
+    <Property Name="IMAGE" Type="varchar" MaxLength="100" />
     <Property Name="CAR_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="CAR_TYPEID" Type="int" />
     <Property Name="USER_ID" Type="int" />
@@ -316,6 +340,21 @@
     </Key>
     <Property Name="CARPARTS_ID" Type="int" Nullable="false" />
     <Property Name="CARPARTSUSEDID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+  </EntityType>
+  <EntityType Name="SALE_LOGS">
+    <Key>
+      <PropertyRef Name="SALES_ID" />
+    </Key>
+    <Property Name="SALES_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="PAYMENT_ID" Type="char" MaxLength="10" />
+    <Property Name="OFFER_ID" Type="char" MaxLength="10" />
+    <Property Name="SALE_DATE" Type="char" MaxLength="10" />
+    <Property Name="ACCEPTED_OFFER" Type="char" MaxLength="10" />
+    <Property Name="CAR_CONTRACT" Type="char" MaxLength="10" />
+    <Property Name="AUDITID" Type="char" MaxLength="10" />
+    <Property Name="AUDITACTION" Type="char" MaxLength="10" />
+    <Property Name="AUDITDATE" Type="char" MaxLength="10" />
+    <Property Name="AUDITUSER" Type="char" MaxLength="10" />
   </EntityType>
   <EntityType Name="SALES">
     <Key>
@@ -927,7 +966,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <EntityContainer Name="VehlutionFinalModelStoreContainer">
+  <EntityContainer Name="VehlutionFinalAuditModelStoreContainer">
     <EntitySet Name="BOOKING_DATES" EntityType="Self.BOOKING_DATES" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="BOOKING_FOR_POSSIBLE_PURCHASE" EntityType="Self.BOOKING_FOR_POSSIBLE_PURCHASE" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="BOOKING_STATUS" EntityType="Self.BOOKING_STATUS" Schema="dbo" store:Type="Tables" />
@@ -936,6 +975,7 @@
     <EntitySet Name="CAR_BOOKING_SLOTS" EntityType="Self.CAR_BOOKING_SLOTS" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="CAR_DEFECT_STATUS" EntityType="Self.CAR_DEFECT_STATUS" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="CAR_DEFECTS" EntityType="Self.CAR_DEFECTS" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CAR_LOGS" EntityType="Self.CAR_LOGS" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="CAR_PARTS" EntityType="Self.CAR_PARTS" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="CAR_PARTS_ORDERED" EntityType="Self.CAR_PARTS_ORDERED" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="CAR_STATUS" EntityType="Self.CAR_STATUS" Schema="dbo" store:Type="Tables" />
@@ -964,6 +1004,7 @@
     <EntitySet Name="PAYMENT" EntityType="Self.PAYMENT" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="PURCHASES" EntityType="Self.PURCHASES" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="RELATIONSHIP_12" EntityType="Self.RELATIONSHIP_12" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="SALE_LOGS" EntityType="Self.SALE_LOGS" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="SALES" EntityType="Self.SALES" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="SUPPLIER" EntityType="Self.SUPPLIER" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TASK" EntityType="Self.TASK" Schema="dbo" store:Type="Tables" />

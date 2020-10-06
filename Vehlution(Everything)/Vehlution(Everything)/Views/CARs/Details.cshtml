@@ -4,6 +4,8 @@
     Layout = null;
 }
 
+
+
 @{
     var message = TempData["AlertMessage"] ?? string.Empty;
 }
@@ -79,7 +81,7 @@
             </div>
             <div class="panel-body">
                 <table class="table-latitude">
-                    <caption>Cars For Sale</caption>
+                    <caption>Car Details</caption>
                     <thead>
 
                         <tr>
@@ -96,11 +98,11 @@
                         </tr>
                         <tr>
                             <th>Listing Price</th>
-                            <td>R: @Html.DisplayFor(model => model.LISTING_PRICE), 00</td>
+                            <td>R: @Html.DisplayFor(model => model.LISTING_PRICE),00</td>
                         </tr>
                         <tr>
                             <th>Image</th>
-                            <td> <img width="193" height="130" src="~/Images/@Model.IMAGE" /> </td>
+                            <td><img width="193" height="130" src="~/Images/@Model.IMAGE" /></td>
                         </tr>
                         <tr>
                             <th>Car Make</th>
@@ -130,75 +132,16 @@
                             <th>Transmission</th>
                             <td>@Html.DisplayFor(model => model.TRANSMISSION.TRANSMISSION_NAME)</td>
                         </tr>
-                        <tr>
-                            <th>Body Type</th>
-                            <td>@Model.CAR_TYPE.TYPE_NAME</td>
-                        </tr>
                     </thead>
                 </table>
-                <a class="btn btn-outline-success" id="myBtn"><i class="glyphicon glyphicon-calendar"></i> Make Booking to View Car</a> <br /> <br />
-                <a class="btn btn-outline-success" onclick="MakeOffer(@Model.CAR_ID,@Model.LISTING_PRICE)"><i class="glyphicon glyphicon-usd"></i> Make an Offer on this Car</a>
-            </div>
-        </div>
-    </div>
-
-    <div id="myModal1" class="modal">
-        <div class="modal-content">
-            @using (Html.BeginForm("MakeOfferC", "CARs"))
-            {
-                <form id="DeleteConfirmed">
-                    <label>Please enter the amount you would like to offer</label>
-                    <br />
-                    <input type="hidden" id="type" name="type" value="1" readonly />
-                    <input type="hidden" id="c" name="c" readonly />
-                    <input type="number" id="offer" name="offer" required min="0" />
-                    <button type="submit" class="btn btn-default btn-sm" style="background-color:lightgreen;width:100%">
-                        <i class="fa fa-check"></i>
-                        Make Offer
-                    </button>
-
-                    <button type="button" class="btn btn-default btn-sm" style="background-color:red;width:100%" id="close">
-                        <i class="fa fa-times"></i>
-                        <i class="glyphicon glyphicon-remove"></i> Cancel
-                    </button>
-                    <br />
-                </form>
-            }
+             </div>
         </div>
     </div>
 
 </body>
 
 <p>
-    @Html.ActionLink("Back to List", "ViewCarsForSaleIndex")
+    @Html.ActionLink("Back to List", "IndexSearchStatus")
 </p>
-</html>
-<script>
-
-    var modal1 = document.getElementById("myModal1");
-
-    var closebtn = document.getElementById("close");
-    var myBtn = document.getElementById("close");
 
 
-    function MakeOffer(carid, price) {
-
-        document.getElementById('c').value = carid;
-        document.getElementById('offer').placeholder = "R" + price;
-        modal1.style.display = "block";
-    }
-
-    closebtn.onclick = function () {
-        modal1.style.display = "none";
-
-    }
-
-    // When the user clicks anywhere outside of the modal, close it
-    window.onclick = function (event) {
-        if (event.target == modal) {
-            modal1.style.display = "none";
-        }
-    }
-
-
-</script>

@@ -53,17 +53,29 @@ namespace Vehlution_Everything_.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "TIME_ID,DAY_,STATUSID,EMPLYEE_ID,CARBOOKINGSLOTID")] CAR_BOOKING_SLOTS cAR_BOOKING_SLOTS)
         {
-            if (ModelState.IsValid)
+            try
             {
-                db.CAR_BOOKING_SLOTS.Add(cAR_BOOKING_SLOTS);
-                db.SaveChanges();
+                if (ModelState.IsValid)
+                {
+                    db.CAR_BOOKING_SLOTS.Add(cAR_BOOKING_SLOTS);
+                    db.SaveChanges();
+                    TempData["AlertMessage"] = "A booking time slot has sucessfully been added!";
+                    return RedirectToAction("BookingSlotsIndex");
+                }
+
+                ViewBag.DAY_ = new SelectList(db.BOOKING_DATES, "DAY_", "DAY_", cAR_BOOKING_SLOTS.DAY_);
+                ViewBag.STATUSID = new SelectList(db.BOOKING_STATUS, "STATUSID", "STATUSNAME", cAR_BOOKING_SLOTS.STATUSID);
+                ViewBag.TIME_ID = new SelectList(db.BOOKING_TIMES, "TIME_ID", "TIME_ID", cAR_BOOKING_SLOTS.TIME_ID);
+                ViewBag.EMPLYEE_ID = new SelectList(db.EMPLOYEEs, "EMPLYEE_ID", "FULL_NAME", cAR_BOOKING_SLOTS.EMPLYEE_ID);
+            }
+            catch
+            {
+                TempData["AlertMessage"] = "Sorry something went wrong, please try again later";
                 return RedirectToAction("BookingSlotsIndex");
             }
+            
 
-            ViewBag.DAY_ = new SelectList(db.BOOKING_DATES, "DAY_", "DAY_", cAR_BOOKING_SLOTS.DAY_);
-            ViewBag.STATUSID = new SelectList(db.BOOKING_STATUS, "STATUSID", "STATUSNAME", cAR_BOOKING_SLOTS.STATUSID);
-            ViewBag.TIME_ID = new SelectList(db.BOOKING_TIMES, "TIME_ID", "TIME_ID", cAR_BOOKING_SLOTS.TIME_ID);
-            ViewBag.EMPLYEE_ID = new SelectList(db.EMPLOYEEs, "EMPLYEE_ID", "FULL_NAME", cAR_BOOKING_SLOTS.EMPLYEE_ID);
+            
             return View(cAR_BOOKING_SLOTS);
         }
 
@@ -93,16 +105,27 @@ namespace Vehlution_Everything_.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "TIME_ID,DAY_,STATUSID,EMPLYEE_ID,CARBOOKINGSLOTID")] CAR_BOOKING_SLOTS cAR_BOOKING_SLOTS)
         {
-            if (ModelState.IsValid)
+            try
             {
-                db.Entry(cAR_BOOKING_SLOTS).State = EntityState.Modified;
-                db.SaveChanges();
+                if (ModelState.IsValid)
+                {
+                    db.Entry(cAR_BOOKING_SLOTS).State = EntityState.Modified;
+                    db.SaveChanges();
+                    TempData["AlertMessage"] = "A booking time slot has sucessfully been updated!";
+                    return RedirectToAction("BookingSlotsIndex");
+                }
+
+                ViewBag.DAY_ = new SelectList(db.BOOKING_DATES, "DAY_", "DATE", cAR_BOOKING_SLOTS.DAY_);
+                ViewBag.STATUSID = new SelectList(db.BOOKING_STATUS, "STATUSID", "STATUSNAME", cAR_BOOKING_SLOTS.STATUSID);
+                ViewBag.TIME_ID = new SelectList(db.BOOKING_TIMES, "TIME_ID", "START_TIME_", cAR_BOOKING_SLOTS.TIME_ID);
+                ViewBag.EMPLYEE_ID = new SelectList(db.EMPLOYEEs, "EMPLYEE_ID", "FULL_NAME", cAR_BOOKING_SLOTS.EMPLYEE_ID);
+            }
+            catch
+            {
+                TempData["AlertMessage"] = "Sorry something went wrong, please try again later";
                 return RedirectToAction("BookingSlotsIndex");
             }
-            ViewBag.DAY_ = new SelectList(db.BOOKING_DATES, "DAY_", "DATE", cAR_BOOKING_SLOTS.DAY_);
-            ViewBag.STATUSID = new SelectList(db.BOOKING_STATUS, "STATUSID", "STATUSNAME", cAR_BOOKING_SLOTS.STATUSID);
-            ViewBag.TIME_ID = new SelectList(db.BOOKING_TIMES, "TIME_ID", "START_TIME_", cAR_BOOKING_SLOTS.TIME_ID);
-            ViewBag.EMPLYEE_ID = new SelectList(db.EMPLOYEEs, "EMPLYEE_ID", "FULL_NAME", cAR_BOOKING_SLOTS.EMPLYEE_ID);
+            
             return View(cAR_BOOKING_SLOTS);
         }
 
@@ -126,10 +149,20 @@ namespace Vehlution_Everything_.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            CAR_BOOKING_SLOTS cAR_BOOKING_SLOTS = db.CAR_BOOKING_SLOTS.Find(id);
-            db.CAR_BOOKING_SLOTS.Remove(cAR_BOOKING_SLOTS);
-            db.SaveChanges();
-            return RedirectToAction("BookingSlotsIndex");
+            try
+            {
+                CAR_BOOKING_SLOTS cAR_BOOKING_SLOTS = db.CAR_BOOKING_SLOTS.Find(id);
+                db.CAR_BOOKING_SLOTS.Remove(cAR_BOOKING_SLOTS);
+                db.SaveChanges();
+                TempData["AlertMessage"] = "A booking time slot has sucessfully been updated!";
+                return RedirectToAction("BookingSlotsIndex");
+            }
+            catch
+            {
+                TempData["AlertMessage"] = "Sorry something went wrong, please try again later";
+                return RedirectToAction("BookingSlotsIndex");
+            }
+            
         }
 
         protected override void Dispose(bool disposing)

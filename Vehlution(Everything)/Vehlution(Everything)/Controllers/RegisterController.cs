@@ -9,6 +9,7 @@ using Vehlution_Everything_.Models;
 using System.Net.Mail;
 using System.Net;
 using System.Web.Security;
+using Microsoft.Ajax.Utilities;
 
 namespace Vehlution_Everything_.Controllers
 {
@@ -155,7 +156,13 @@ namespace Vehlution_Everything_.Controllers
                 int clientid = Convert.ToInt32(HttpContext.Request.Cookies.Get("User").Value);
                 USER usr = db.USERs.Find(name.USER_ID);
 
-                if (usr.USER_ROLE.USERROLE_ID == 1)
+               if(usr.BLOCKED == Convert.ToBoolean(1))
+                {
+                   ModelState.AddModelError("", "Sorry you have been blocked from our system!");
+                    return View();
+                }
+
+               if (usr.USER_ROLE.USERROLE_ID == 1)
                 {
                     return RedirectToAction("ClientNav", "Nav");
                 }

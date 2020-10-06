@@ -48,12 +48,22 @@ namespace Vehlution_Everything_.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "DEFECT_ID,DEFECTNAME")] DEFECT dEFECT)
         {
-            if (ModelState.IsValid)
+            try
             {
-                db.DEFECTS.Add(dEFECT);
-                db.SaveChanges();
+                if (ModelState.IsValid)
+                {
+                    db.DEFECTS.Add(dEFECT);
+                    db.SaveChanges();
+                    TempData["AlertMessage"] = "A car defect has sucessfully been added!";
+                    return RedirectToAction("Index");
+                }
+            }
+            catch
+            {
+                TempData["AlertMessage"] = "Sorry something went wrong, please try again later";
                 return RedirectToAction("Index");
             }
+            
 
             return View(dEFECT);
         }
@@ -80,12 +90,22 @@ namespace Vehlution_Everything_.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "DEFECT_ID,DEFECTNAME")] DEFECT dEFECT)
         {
-            if (ModelState.IsValid)
+            try
             {
-                db.Entry(dEFECT).State = EntityState.Modified;
-                db.SaveChanges();
+                if (ModelState.IsValid)
+                {
+                    db.Entry(dEFECT).State = EntityState.Modified;
+                    db.SaveChanges();
+                    TempData["AlertMessage"] = "A car defect has sucessfully been updated!";
+                    return RedirectToAction("Index");
+                }
+            }
+            catch
+            {
+                TempData["AlertMessage"] = "Sorry something went wrong, please try again later";
                 return RedirectToAction("Index");
             }
+            
             return View(dEFECT);
         }
 
@@ -109,10 +129,20 @@ namespace Vehlution_Everything_.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            DEFECT dEFECT = db.DEFECTS.Find(id);
-            db.DEFECTS.Remove(dEFECT);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            try
+            {
+                DEFECT dEFECT = db.DEFECTS.Find(id);
+                db.DEFECTS.Remove(dEFECT);
+                db.SaveChanges();
+                TempData["AlertMessage"] = "A car defect has sucessfully been deleted!";
+                return RedirectToAction("Index");
+            }
+            catch
+            {
+                TempData["AlertMessage"] = "Sorry something went wrong, please try again later";
+                return RedirectToAction("Index");
+            }
+            
         }
 
         protected override void Dispose(bool disposing)

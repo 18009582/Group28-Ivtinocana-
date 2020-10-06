@@ -84,18 +84,27 @@ namespace Vehlution_Everything_.Controllers
         //[ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "USER_ID,FIRSTNAME,LASTNAME,EMAIL")] USER uSER)
         {
-            if (ModelState.IsValid)
+            try
             {
-                USER usr = db.USERs.Find(uSER.USER_ID);
-                usr.FIRSTNAME = uSER.FIRSTNAME;
-                usr.LASTNAME = uSER.LASTNAME;
-                usr.EMAIL = uSER.EMAIL;
-                            
-                db.SaveChanges();
+                if (ModelState.IsValid)
+                {
+                    USER usr = db.USERs.Find(uSER.USER_ID);
+                    usr.FIRSTNAME = uSER.FIRSTNAME;
+                    usr.LASTNAME = uSER.LASTNAME;
+                    usr.EMAIL = uSER.EMAIL;
+                    db.SaveChanges();
+                    TempData["AlertMessage"] = "Your profile has successfully been updated";
+                    return RedirectToAction("MyProfile");
+                }
+                ViewBag.USERROLE_ID = new SelectList(db.USER_ROLE, "USERROLE_ID", "ROLE", uSER.USERROLE_ID);
+                return View(uSER);
+            }
+            catch
+            {
+                TempData["AlertMessage"] = "Sorry something went wrong, please try again late";
                 return RedirectToAction("MyProfile");
             }
-            ViewBag.USERROLE_ID = new SelectList(db.USER_ROLE, "USERROLE_ID", "ROLE", uSER.USERROLE_ID);
-            return View(uSER);
+            
         }
 
         // GET: USERs/Delete/5

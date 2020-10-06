@@ -68,10 +68,10 @@
                 <input type="text" id="PARTNAME" name="PARTNAME" style="width:50%" required /> <br />
 
                 <label>Reorder Point</label><br />
-                <input type="text" id="RESTOCKORDER" name="RESTOCKORDER" style="width:50%" required /> <br />
+                <input type="number" id="RESTOCKORDER" name="RESTOCKORDER" style="width:50%" min="0" required /> <br />
 
                 <label>Stock On Hand</label><br />
-                <input type="text" id="STOCKONHAND" name="STOCKONHAND" style="width:50%" required /> <br />
+                <input type="number" id="STOCKONHAND" name="STOCKONHAND" style="width:50%" min="0" required /> <br />
 
                 <button type="submit" onclick="myFunction()" class="btn btn-default btn-sm" id="Create" name="Create" style="background-color:lightgreen">
                     <i class="fa fa-plus-square"></i>

@@ -4,6 +4,9 @@
     Layout = null;
 
 }
+@{
+    var message = TempData["AlertMessage"] ?? string.Empty;
+}
 
 <!DOCTYPE html>
 
@@ -93,7 +96,7 @@
                                     @item.MILAGE_ KM
                                 </td>
                                 <td>
-                                   R: @item.LISTING_PRICE,00
+                                    R: @item.LISTING_PRICE,00
                                 </td>
                                 <td>
 

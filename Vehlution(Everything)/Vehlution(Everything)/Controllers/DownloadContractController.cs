@@ -33,7 +33,7 @@ namespace Vehlution_Everything_.Controllers
             if (Path.GetExtension(filename) == ".docx")
             {
                 string fullPath = Path.Combine(Server.MapPath("~/Contract/"), filename);
-                return File(fullPath, "Contract/docx");
+                return File(fullPath, "Contract/docx", "AGREEMENT FOR THE SALE OF A MOTOR VEHICLE.docx");
 
 
             }

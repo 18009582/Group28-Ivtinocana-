@@ -10,7 +10,7 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
         <script src='https://kit.fontawesome.com/a076d05399.js'></script>
-        <link href="@Url.Content("~/Content/Site.css")" rel="stylesheet" type="text/css" />
+        <link href="~/CSS1/StyleSheet1.css" rel="stylesheet" />
         <title>Index</title>
         <script>
 
@@ -49,8 +49,7 @@ dataPoints: @Html.Raw(ViewBag.DataPoints)
 
     </head>
     <body>
-        @using (Html.BeginForm("SubmitAction", "Report", FormMethod.Post)
-        {
+
 
         <table class="table-latitude">
             <caption>Sales report</caption>
@@ -69,40 +68,42 @@ dataPoints: @Html.Raw(ViewBag.DataPoints)
             </thead>
             <tbody>
                 @{
-                            var c = 0;
-                foreach (var item in Model)
-                {
-
-
-
-                    foreach (var x in item)
+                    var c = 0;
+                    var d = 0;
+                    foreach (var item in Model)
                     {
 
 
+
+                        foreach (var x in item)
+                        {
+
+
+                            <tr>
+
+
+                                <td>@x.saleid </td>
+                                <td>@x.date </td>
+                                <td>R @x.AcceptedOffer .00</td>
+                                <td>@x.paymenttype</td>
+                                <td>@x.CarReg</td>
+                                <td>@x.make </td>
+
+                                <td>@x.model </td>
+
+
+                                <td>@x.client </td>
+                            </tr>
+                        }
                         <tr>
 
-
-                            <td>@x.saleid </td>
-                            <td>@x.date </td>
-                            <td>R @x.AcceptedOffer .00</td>
-                            <td>@x.paymenttype</td>
-                            <td>@x.CarReg</td>
-                            <td>@x.make </td>
-
-                            <td>@x.model </td>
-
-
-                            <td>@x.client </td>
+                            <td>Sales of @ViewBag.Makes[c] : @ViewBag.counts[c]</td>
                         </tr>
+                        d = d + ViewBag.counts[c];
+                        c++;
                     }
-                    <tr>
-
-                        <td>Sales of @ViewBag.Makes[c] : @ViewBag.counts[c]</td>
-                    </tr>
-                    c++;
                 }
-                }
-
+            <td>Total sales : @d cars </td>
             </tbody>
         </table>
         <br />
@@ -110,36 +111,14 @@ dataPoints: @Html.Raw(ViewBag.DataPoints)
         <script type="text/javascript" src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 
         <!-- <button type="submit" id="SubmitAction" name="SubmitAction">Generate pdf</button> -->
+        <input type="button" value="Home" onclick="location.href='@Url.Action("AdminNav","Nav")'" />
     </body>
-     }
-    <input type="button" id="create_pdf" value="Generate PDF">
+     
+
          <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
          <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.5/jspdf.min.js"></script>
          <script>
-             (function () {
-                 var
-                     form = $('.form'),
-                     cache_width = form.width(),
-                     a4 = [595.28, 841.89]; // for a4 size paper width and height
 
-                 $('#create_pdf').on('click', function () {
-                     $('body').scrollTop(0);
-                     createPDF();
-                 });
-                 //create pdf
-                 function createPDF() {
-                     getCanvas().then(function (canvas) {
-                         var
-                             img = canvas.toDataURL("image/png"),
-                             doc = new jsPDF({
-                                 unit: 'px',
-                                 format: 'a4'
-                             });
-                         doc.addImage(img, 'JPEG', 20, 20);
-                         doc.save('SalesReport');
-                         form.width(cache_width);
-                     });
-                 }
 
                  // create canvas object
                  function getCanvas() {
@@ -150,72 +129,8 @@ dataPoints: @Html.Raw(ViewBag.DataPoints)
                      });
                  }
 
-             }());
+           
          </script>
-         <script>
-             /*
-          * jQuery helper plugin for examples and tests
-          */
-             (function ($) {
-                 $.fn.html2canvas = function (options) {
-                     var date = new Date(),
-                         $message = null,
-                         timeoutTimer = false,
-                         timer = date.getTime();
-                     html2canvas.logging = options && options.logging;
-                     html2canvas.Preload(this[0], $.extend({
-                         complete: function (images) {
-                             var queue = html2canvas.Parse(this[0], images, options),
-                                 $canvas = $(html2canvas.Renderer(queue, options)),
-                                 finishTime = new Date();
-
-                             $canvas.css({ position: 'absolute', left: 0, top: 0 }).appendTo(document.body);
-                             $canvas.siblings().toggle();
-
-                             $(window).click(function () {
-                                 if (!$canvas.is(':visible')) {
-                                     $canvas.toggle().siblings().toggle();
-                                     throwMessage("Canvas Render visible");
-                                 } else {
-                                     $canvas.siblings().toggle();
-                                     $canvas.toggle();
-                                     throwMessage("Canvas Render hidden");
-                                 }
-                             });
-                             throwMessage('Screenshot created in ' + ((finishTime.getTime() - timer) / 1000) + " seconds<br />", 4000);
-                         }
-                     }, options));
-
-                     function throwMessage(msg, duration) {
-                         window.clearTimeout(timeoutTimer);
-                         timeoutTimer = window.setTimeout(function () {
-                             $message.fadeOut(function () {
-                                 $message.remove();
-                             });
-                         }, duration || 2000);
-                         if ($message)
-                             $message.remove();
-                         $message = $('<div ></div>').html(msg).css({
-                             margin: 0,
-                             padding: 10,
-                             background: "#000",
-                             opacity: 0.7,
-                             position: "fixed",
-                             top: 10,
-                             right: 10,
-                             fontFamily: 'Tahoma',
-                             color: '#fff',
-                             fontSize: 12,
-                             borderRadius: 12,
-                             width: 'auto',
-                             height: 'auto',
-                             textAlign: 'center',
-                             textDecoration: 'none'
-                         }).hide().fadeIn().appendTo('body');
-                     }
-                 };
-             })(jQuery);
-
-         </script>
+         
 
 

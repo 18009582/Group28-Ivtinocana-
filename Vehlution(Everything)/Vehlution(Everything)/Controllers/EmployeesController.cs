@@ -33,11 +33,21 @@ namespace Vehlution_Everything_.Controllers
 
         public ActionResult Create([Bind(Include = "EMPLYEE_ID,FULL_NAME,CELL_NUMBER,EMAIL,JOB_DESCRIPTION,DATE_HIRED")] EMPLOYEE eMPLOYEE)
         {
-            if (ModelState.IsValid)
+            try
             {
-                db.EMPLOYEEs.Add(eMPLOYEE);
-                db.SaveChanges();
+                if (ModelState.IsValid)
+                {
+                    db.EMPLOYEEs.Add(eMPLOYEE);
+                    db.SaveChanges();
+                    TempData["AlertMessage"] = "A employee has sucessfully been added!";
+                    return RedirectToAction("Index");
+                }
+            }
+            catch
+            {
+                TempData["AlertMessage"] = "Sorry something went wrong, please try again late";
                 return RedirectToAction("Index");
+
             }
 
             return View(eMPLOYEE);
@@ -65,21 +75,30 @@ namespace Vehlution_Everything_.Controllers
 
         public ActionResult Edit([Bind(Include = "EMPLYEE_ID,FULL_NAME,CELL_NUMBER,EMAIL,JOB_DESCRIPTION,DATE_HIRED")] EMPLOYEE eMPLOYEE)
         {
-
-            EMPLOYEE e = new EMPLOYEE();
-            e = db.EMPLOYEEs.Where(zz => zz.EMPLYEE_ID == eMPLOYEE.EMPLYEE_ID).FirstOrDefault();
-            e.FULL_NAME = eMPLOYEE.FULL_NAME;
-            e.EMAIL = eMPLOYEE.EMAIL;
-            e.CELL_NUMBER = eMPLOYEE.CELL_NUMBER;
-            e.JOB_DESCRIPTION = eMPLOYEE.JOB_DESCRIPTION;
-            if (eMPLOYEE.DATE_HIRED != null)
+            try
             {
-                e.DATE_HIRED = eMPLOYEE.DATE_HIRED;
+                EMPLOYEE e = new EMPLOYEE();
+                e = db.EMPLOYEEs.Where(zz => zz.EMPLYEE_ID == eMPLOYEE.EMPLYEE_ID).FirstOrDefault();
+                e.FULL_NAME = eMPLOYEE.FULL_NAME;
+                e.EMAIL = eMPLOYEE.EMAIL;
+                e.CELL_NUMBER = eMPLOYEE.CELL_NUMBER;
+                e.JOB_DESCRIPTION = eMPLOYEE.JOB_DESCRIPTION;
+                if (eMPLOYEE.DATE_HIRED != null)
+                {
+                    e.DATE_HIRED = eMPLOYEE.DATE_HIRED;
+                }
+
+                db.SaveChanges();
+                TempData["AlertMessage"] = "A employee has sucessfully been updated!";
+                return RedirectToAction("Index");
+            }
+            catch
+            {
+                TempData["AlertMessage"] = "Sorry something went wrong, please try again late";
+                return RedirectToAction("Index");
+
             }
 
-
-            db.SaveChanges();
-            return RedirectToAction("Index");
 
         }
 
@@ -108,16 +127,15 @@ namespace Vehlution_Everything_.Controllers
                 EMPLOYEE eMPLOYEE = db.EMPLOYEEs.Find(id);
                 db.EMPLOYEEs.Remove(eMPLOYEE);
                 db.SaveChanges();
-              
+
+                TempData["AlertMessage"] = "A employee has sucessfully been deleted!";
                 return RedirectToAction("Index");
             }
-            catch (Exception ex)
+            catch
             {
-
-                ViewBag.DelId = 1;
-                ViewBag.DelConfirm = "Deletion unsuccessful";
+                TempData["AlertMessage"] = "Sorry something went wrong, please try again late";
                 return RedirectToAction("Index");
-                throw;
+
             }
 
         }

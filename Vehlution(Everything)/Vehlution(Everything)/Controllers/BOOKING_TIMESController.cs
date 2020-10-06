@@ -28,10 +28,19 @@ namespace Vehlution_Everything_.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "TIME_ID,START_TIME_,END_TIME")] BOOKING_TIMES bOOKING_TIMES)
         {
-            if (ModelState.IsValid)
+            try
             {
-                db.BOOKING_TIMES.Add(bOOKING_TIMES);
-                db.SaveChanges();
+                if (ModelState.IsValid)
+                {
+                    db.BOOKING_TIMES.Add(bOOKING_TIMES);
+                    db.SaveChanges();
+                    TempData["AlertMessage"] = "A booking time has sucessfully been added!";
+                    return RedirectToAction("Create", "CAR_BOOKING_SLOTS");
+                }
+            }
+            catch
+            {
+                TempData["AlertMessage"] = "Sorry something went wrong, please try again later";
                 return RedirectToAction("Create", "CAR_BOOKING_SLOTS");
             }
 

@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Schema Namespace="VehlutionFinalModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+<Schema Namespace="VehlutionFinalAuditModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
   <EntityType Name="BOOKING_DATES">
     <Key>
       <PropertyRef Name="DAY_" />
@@ -95,6 +95,30 @@
     <NavigationProperty Name="CAR" Relationship="Self.FK_CAR_DEFE_HAS_CARS_CARS" FromRole="CAR_DEFECTS" ToRole="CARS" />
     <NavigationProperty Name="DEFECT" Relationship="Self.FK_CAR_DEFE_HAS_DEFEC_DEFECTS" FromRole="CAR_DEFECTS" ToRole="DEFECTS" />
   </EntityType>
+  <EntityType Name="CAR_LOGS">
+    <Key>
+      <PropertyRef Name="CAR_ID" />
+    </Key>
+    <Property Name="CAR_REG" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
+    <Property Name="SEATS_ID" Type="Int32" />
+    <Property Name="COLOUR_ID" Type="Int32" />
+    <Property Name="TRANSMISSION_ID" Type="Int32" />
+    <Property Name="DOORS_ID" Type="Int32" />
+    <Property Name="STATUS_ID" Type="Int32" />
+    <Property Name="FUELTYPE_ID" Type="Int32" />
+    <Property Name="MODEL_ID" Type="Int32" />
+    <Property Name="YEAR" Type="Int32" />
+    <Property Name="MILEAGE" Type="Int32" />
+    <Property Name="LISTING_PRICE" Type="Double" />
+    <Property Name="IMAGE" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+    <Property Name="CAR_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CAR_TYPEID" Type="Int32" />
+    <Property Name="USER_ID" Type="Int32" />
+    <Property Name="AUDIT_ID" Type="Int32" />
+    <Property Name="AUDITDATE" Type="DateTime" Precision="0" />
+    <Property Name="AUDITACTION" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="AUDITUSER" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
   <EntityType Name="CAR_PARTS">
     <Key>
       <PropertyRef Name="CARPARTS_ID" />
@@ -148,7 +172,7 @@
     <Property Name="YEAR" Type="Int32" />
     <Property Name="MILAGE_" Type="Int32" />
     <Property Name="LISTING_PRICE" Type="Double" />
-    <Property Name="IMAGE" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+    <Property Name="IMAGE" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
     <Property Name="CAR_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="CAR_TYPEID" Type="Int32" />
     <Property Name="USER_ID" Type="Int32" />
@@ -394,6 +418,21 @@
     <Property Name="CARPARTSUSEDID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <NavigationProperty Name="CAR_PARTS" Relationship="Self.FK_RELATION_RELATIONS_CAR_PART" FromRole="RELATIONSHIP_12" ToRole="CAR_PARTS" />
     <NavigationProperty Name="MECHANIC_TASK" Relationship="Self.FK_MECHANIC_HAS_USED__RELATION" FromRole="RELATIONSHIP_12" ToRole="MECHANIC_TASK" />
+  </EntityType>
+  <EntityType Name="SALE_LOGS">
+    <Key>
+      <PropertyRef Name="SALES_ID" />
+    </Key>
+    <Property Name="SALES_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="PAYMENT_ID" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+    <Property Name="OFFER_ID" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+    <Property Name="SALE_DATE" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+    <Property Name="ACCEPTED_OFFER" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+    <Property Name="CAR_CONTRACT" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+    <Property Name="AUDITID" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+    <Property Name="AUDITACTION" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+    <Property Name="AUDITDATE" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+    <Property Name="AUDITUSER" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
   </EntityType>
   <EntityType Name="SALE">
     <Key>
@@ -1028,6 +1067,7 @@
     <EntitySet Name="CAR_BOOKING_SLOTS" EntityType="Self.CAR_BOOKING_SLOTS" />
     <EntitySet Name="CAR_DEFECT_STATUS" EntityType="Self.CAR_DEFECT_STATUS" />
     <EntitySet Name="CAR_DEFECTS" EntityType="Self.CAR_DEFECTS" />
+    <EntitySet Name="CAR_LOGS" EntityType="Self.CAR_LOGS" />
     <EntitySet Name="CAR_PARTS" EntityType="Self.CAR_PARTS" />
     <EntitySet Name="CAR_PARTS_ORDERED" EntityType="Self.CAR_PARTS_ORDERED" />
     <EntitySet Name="CAR_STATUS" EntityType="Self.CAR_STATUS" />
@@ -1056,6 +1096,7 @@
     <EntitySet Name="PAYMENTs" EntityType="Self.PAYMENT" />
     <EntitySet Name="PURCHASES" EntityType="Self.Purchase" />
     <EntitySet Name="RELATIONSHIP_12" EntityType="Self.RELATIONSHIP_12" />
+    <EntitySet Name="SALE_LOGS" EntityType="Self.SALE_LOGS" />
     <EntitySet Name="SALES" EntityType="Self.SALE" />
     <EntitySet Name="SUPPLIERs" EntityType="Self.SUPPLIER" />
     <EntitySet Name="TASKs" EntityType="Self.TASK" />

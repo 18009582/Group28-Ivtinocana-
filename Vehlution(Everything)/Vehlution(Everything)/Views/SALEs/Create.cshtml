@@ -4,6 +4,16 @@
     Layout = null;
 }
 
+@{
+    var message = TempData["AlertMessage"] ?? string.Empty;
+}
+
+<script type="text/javascript">
+    var message = '@message';
+    if(message)
+        alert(message);
+</script>
+
 <!DOCTYPE html>
 
 <html>
@@ -25,12 +35,19 @@
             <div class="panel-body">
 
 
-                @using (Html.BeginForm("Create", "SALEs"))
+                @using (Html.BeginForm("Create", "SALEs", new { enctype = "multipart/form-data" }))
                 {
 
-
+                    <label>Car Registration</label><br />
+                    @Html.DropDownList("CAR_REG", null, htmlAttributes: new { @class = "select" })<br />
                     <label>Sale Date</label><br />
-                    <input type="date" id="SALE_DATE_" name="SALE_DATE_" style="width:50%" required /> <br />
+                    @DateTime.Now;<br />
+                    <input type="hidden" value="@DateTime.Now" id="SALE_DATE_" name="SALE_DATE_" />
+                    // <input type="date" id="SALE_DATE_" name="SALE_DATE_" style="width:50%" required /> <br />
+
+                    <label>Choose and Employee</label><br />
+                    @Html.DropDownList("EMPLOYEE_ID", null, htmlAttributes: new { @class = "select" }) <br />
+
                     <label>Accepted Offer</label><br />
                     @Html.DropDownList("Amount", null, htmlAttributes: new { @class = "select" }) <br />
                     <label>Car Contract</label><br />

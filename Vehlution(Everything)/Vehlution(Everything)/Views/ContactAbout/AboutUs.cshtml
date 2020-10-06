@@ -3,6 +3,9 @@
     Layout = null;
 }
 
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+
 <!DOCTYPE html>
 
 <head>
@@ -52,29 +55,28 @@
                 text-decoration: none;
                 cursor: pointer;
             }
+
         h1 {
             text-align: center;
             color: darkblue;
             font-weight: bold;
             font-family: Arial, Helvetica, sans-serif;
         }
-       
+
         .main-container {
             width: 600px;
-            background-color : #F7F7F7;
+            background-color: #F7F7F7;
             border: 4px solid darkblue;
             padding: 50px;
             margin: auto;
             font-size: 16px;
-            text-align : center;
+            text-align: center;
         }
+
         body {
             background-image: url('../../Content/pexels-photo-248747.jpeg');
-            
             background-size: cover;
         }
-        
-        
     </style>
 </head>
 <body>
@@ -103,9 +105,10 @@
         </div>
 
     </div>
- 
+
     <div style="align-content:center; float:left; width:400px; height:200px; padding:50px; border: 4px solid darkblue; padding: 50px;margin: auto;">
-        <h4 style="color:white">Click Me!</h4>
+        <h4 style="color:white">Click Me to view our customer satisfaction for 2019!</h4>
         <input style="width:400px" type="button" class="button" value="Customer Satisfaction Rate" onclick="location.href='@Url.Action("Index","Graph")'" />
-    </div>  
+    </div>
+    <input type="button" value="Home" onclick="location.href='@Url.Action("LoginNav","Nav")'" />
 </body>

@@ -47,11 +47,21 @@ namespace Vehlution_Everything_.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "CARPARTS_ID,PARTNAME,STOCKONHAND,RESTOCKORDER")] CAR_PARTS cAR_PARTS)
         {
-            if (ModelState.IsValid)
+            try
             {
-                db.CAR_PARTS.Add(cAR_PARTS);
-                db.SaveChanges();
+                if (ModelState.IsValid)
+                {
+                    db.CAR_PARTS.Add(cAR_PARTS);
+                    db.SaveChanges();
+                    TempData["AlertMessage"] = "A car part has sucessfully been added!";
+                    return RedirectToAction("Index");
+                }
+            }
+            catch
+            {
+                TempData["AlertMessage"] = "Sorry something went wrong, please try again late";
                 return RedirectToAction("Index");
+
             }
 
             return View(cAR_PARTS);
@@ -79,39 +89,24 @@ namespace Vehlution_Everything_.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "CARPARTS_ID,PARTNAME,STOCKONHAND,RESTOCKORDER")] CAR_PARTS cAR_PARTS)
         {
-            if (ModelState.IsValid)
+            try
             {
-                db.Entry(cAR_PARTS).State = EntityState.Modified;
-                db.SaveChanges();
+                if (ModelState.IsValid)
+                {
+                    db.Entry(cAR_PARTS).State = EntityState.Modified;
+                    db.SaveChanges();
+                    TempData["AlertMessage"] = "A car part has sucessfully been updated!";
+                    return RedirectToAction("Index");
+                }
+            }
+            catch
+            {
+                TempData["AlertMessage"] = "Sorry something went wrong, please try again late";
                 return RedirectToAction("Index");
-            }
-            return View(cAR_PARTS);
-        }
 
-        // GET: CAR_PARTS/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            CAR_PARTS cAR_PARTS = db.CAR_PARTS.Find(id);
-            if (cAR_PARTS == null)
-            {
-                return HttpNotFound();
-            }
+            
             return View(cAR_PARTS);
-        }
-
-        // POST: CAR_PARTS/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            CAR_PARTS cAR_PARTS = db.CAR_PARTS.Find(id);
-            db.CAR_PARTS.Remove(cAR_PARTS);
-            db.SaveChanges();
-            return RedirectToAction("Index");
         }
 
         protected override void Dispose(bool disposing)

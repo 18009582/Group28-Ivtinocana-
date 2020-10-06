@@ -55,18 +55,16 @@
         {
             <label>Make</label><br />
             @Html.DropDownList("MAKE_ID", null, htmlAttributes: new { @id = "ddlmake", @style = "width:200px;", @onchange = "javascript:GetModel(this.value);" })
-            <br />
-            <br />
-            <select id="MODEL_ID" name="MODEL_ID" style="width: 200px">
+            
+            <select id="MODEL_ID" name="MODEL_ID" style="width: 200px" required>
             </select>
 
             <br /><br />
-            <br />
 
             <label>Body Type</label>
             @Html.DropDownList("BodyTypes");
             <label>Max Millage</label>
-            <input type="number" id="Millage" name="Milage" />
+            <input type="number" id="Millage" name="Milage" required/>
             <input type="submit" id="Search" />
         }
 
@@ -100,6 +98,9 @@
                         <th>
                             Listing Price
                         </th>
+                        <th>
+                            Image
+                        </th>
 
                         <th></th>
                         </thead>
@@ -129,16 +130,9 @@
                                 <td>
                                     @Html.DisplayFor(modelItem => item.LISTING_PRICE)
                                 </td>
-
-
-
-
-
-
                                 <td>
-                                    <button class="btn btn-default btn-sm" id="Create" name="Create" style="background-color:lightsteelblue" onclick="location.href=' @Url.Action("Edit", "CARs", new { id = item.CAR_ID })'">Update</button>
-                                    <button class="btn btn-default btn-sm" id="Create" name="Create" style="background-color:lightsteelblue" onclick="location.href=' @Url.Action("Details", "CARs", new { id = item.CAR_ID })'">View</button>
 
+                                    <img width="193" height="130" src="~/Images/@item.IMAGE" />
 
                                 </td>
                             </tr>

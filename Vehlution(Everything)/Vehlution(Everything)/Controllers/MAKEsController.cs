@@ -48,12 +48,22 @@ namespace Vehlution_Everything_.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "MAKE_NAME")] MAKE mAKE)
         {
-            if (ModelState.IsValid)
+            try
             {
-                db.MAKEs.Add(mAKE);
-                db.SaveChanges();
+                if (ModelState.IsValid)
+                {
+                    db.MAKEs.Add(mAKE);
+                    db.SaveChanges();
+                    TempData["AlertMessage"] = "A car make has successfully been added!";
+                    return RedirectToAction("CarMakeIndex");
+                }
+            }
+            catch
+            {
+                TempData["AlertMessage"] = "Sorry something went wrong, please try again later";
                 return RedirectToAction("CarMakeIndex");
             }
+            
 
             return View(mAKE);
         }
@@ -80,12 +90,22 @@ namespace Vehlution_Everything_.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "MAKE_ID,MAKE_NAME")] MAKE mAKE)
         {
-            if (ModelState.IsValid)
+            try
             {
-                db.Entry(mAKE).State = EntityState.Modified;
-                db.SaveChanges();
+                if (ModelState.IsValid)
+                {
+                    db.Entry(mAKE).State = EntityState.Modified;
+                    db.SaveChanges();
+                    TempData["AlertMessage"] = "A car make has successfully been updated!";
+                    return RedirectToAction("CarMakeIndex");
+                }
+            }
+            catch
+            {
+                TempData["AlertMessage"] = "Sorry something went wrong, please try again later";
                 return RedirectToAction("CarMakeIndex");
             }
+            
             return View(mAKE);
         }
 
@@ -109,10 +129,19 @@ namespace Vehlution_Everything_.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            MAKE mAKE = db.MAKEs.Find(id);
-            db.MAKEs.Remove(mAKE);
-            db.SaveChanges();
-            return RedirectToAction("CarMakeIndex");
+            try
+            {
+                MAKE mAKE = db.MAKEs.Find(id);
+                db.MAKEs.Remove(mAKE);
+                db.SaveChanges();
+                TempData["AlertMessage"] = "A car make has sucessfully been deleted!";
+                return RedirectToAction("CarMakeIndex");
+            }
+            catch
+            {
+                TempData["AlertMessage"] = "Sorry something went wrong, please try again later";
+                return RedirectToAction("CarMakeIndex");
+            }
         }
 
         protected override void Dispose(bool disposing)

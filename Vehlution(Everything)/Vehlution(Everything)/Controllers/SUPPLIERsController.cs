@@ -48,12 +48,22 @@ namespace Vehlution_Everything_.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "SUPPLIER_ID,NAME_,CELL_NUMBER_,EMAIL_,ADDRESS")] SUPPLIER sUPPLIER)
         {
-            if (ModelState.IsValid)
+            try
             {
-                db.SUPPLIERs.Add(sUPPLIER);
-                db.SaveChanges();
+                if (ModelState.IsValid)
+                {
+                    db.SUPPLIERs.Add(sUPPLIER);
+                    db.SaveChanges();
+                    TempData["AlertMessage"] = "A supplier has sucessfully been added!";
+                    return RedirectToAction("Index");
+                }
+            }
+            catch
+            {
+                TempData["AlertMessage"] = "Sorry something went wrong, please try again later";
                 return RedirectToAction("Index");
             }
+            
 
             return View(sUPPLIER);
         }
@@ -80,12 +90,22 @@ namespace Vehlution_Everything_.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "SUPPLIER_ID,NAME_,CELL_NUMBER_,EMAIL_,ADDRESS")] SUPPLIER sUPPLIER)
         {
-            if (ModelState.IsValid)
+            try
             {
-                db.Entry(sUPPLIER).State = EntityState.Modified;
-                db.SaveChanges();
+                if (ModelState.IsValid)
+                {
+                    db.Entry(sUPPLIER).State = EntityState.Modified;
+                    db.SaveChanges();
+                    TempData["AlertMessage"] = "A supplier has sucessfully been updated!";
+                    return RedirectToAction("Index");
+                }
+            }
+            catch
+            {
+                TempData["AlertMessage"] = "Sorry something went wrong, please try again later";
                 return RedirectToAction("Index");
             }
+            
             return View(sUPPLIER);
         }
 
@@ -109,10 +129,20 @@ namespace Vehlution_Everything_.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            SUPPLIER sUPPLIER = db.SUPPLIERs.Find(id);
-            db.SUPPLIERs.Remove(sUPPLIER);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            try
+            {
+                SUPPLIER sUPPLIER = db.SUPPLIERs.Find(id);
+                db.SUPPLIERs.Remove(sUPPLIER);
+                db.SaveChanges();
+                TempData["AlertMessage"] = "A supplier has sucessfully been deleted!";
+                return RedirectToAction("Index");
+            }
+            catch
+            {
+                TempData["AlertMessage"] = "Sorry something went wrong, please try again later";
+                return RedirectToAction("Index");
+            }
+            
         }
 
         protected override void Dispose(bool disposing)

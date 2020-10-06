@@ -27,21 +27,21 @@
             <h1 style="color:orange">Employee details</h1>
             <div class="panel-body">
 
-                <label>Full Name </label><br />
+
                 @using (Html.BeginForm("Create", "EMPLOYEEs"))
                 {
 
 
-
-                    <input type="text" id="FULL_NAME" name="FULL_NAME" style="width:50%" maxlength="50" required/> <br />
+                    <label>Full Name </label><br />
+                    <input type="text" id="FULL_NAME" name="FULL_NAME" style="width:50%" maxlength="50" required /> <br />
                     <label>Cell Number</label><br />
                     <input type="text" id="CELL_NUMBER" name="CELL_NUMBER" style="width:50%" maxlength="10" required /><br />
                     <label>Email Address</label><br />
-                    <input type="text" id="EMAIL" name="EMAIL" style="width:50%" maxlength="50" required/><br />
+                    <input type="email" id="EMAIL" name="EMAIL" style="width:50%" maxlength="50" required /><br />
                     <label>Job description </label><br />
                     <input type="text" id="JOB_DESCRIPTION" name="JOB_DESCRIPTION" style="width:50%" maxlength="225" required /><br />
                     <label>Date Hired </label><br />
-                    <input type="date" style="width:50%" id="DATE_HIRED" name="DATE_HIRED" required/><br />
+                    <input type="date" style="width:50%" id="DATE_HIRED" name="DATE_HIRED" required /><br />
 
                     <button type="submit" class="btn btn-default btn-sm" id="Create" name="Create" style="background-color:lightgreen">
                         <i class="fa fa-plus-square"></i>

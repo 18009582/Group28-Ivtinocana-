@@ -200,6 +200,9 @@
     <Compile Include="Models\CAR_DEFECT_STATUS.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\CAR_LOGS.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\CAR_PARTS.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -267,6 +270,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Model1.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\NewDefect.cs" />
     <Compile Include="Models\NUMBER_OF_DOORS.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -298,6 +302,9 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\SALE.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SALE_LOGS.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\SUPPLIER.cs">
@@ -434,7 +441,6 @@
     <Content Include="Content\sweetalert\sweet-alert-animations.less" />
     <Content Include="Content\bootstrap\variables.less" />
     <Content Include="Content\bootstrap\mixins.less" />
-    <Content Include="Contract\Test.docx" />
     <EntityDeploy Include="Models\Model1.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>Model1.Designer.cs</LastGenOutput>
@@ -442,6 +448,7 @@
     <Content Include="Models\Model1.edmx.diagram">
       <DependentUpon>Model1.edmx</DependentUpon>
     </Content>
+    <Content Include="Contract\AGREEMENT FOR THE SALE OF A MOTOR VEHICLE.docx" />
     <None Include="Reporting\AdminBookingsModel.xsd">
       <SubType>Designer</SubType>
       <Generator>MSDataSetGenerator</Generator>
@@ -547,7 +554,6 @@
     <Content Include="Views\Reports\CarPartsReport.cshtml" />
     <Content Include="Views\Reports\ClientBookingsReport.cshtml" />
     <Content Include="Views\Reports\MechanicJobReport.cshtml" />
-    <Content Include="Views\Reports\PurchasesReport.cshtml" />
     <Content Include="Views\Reports\SalesReport.cshtml" />
     <Content Include="Views\Reports\EmployeeSalesChart.cshtml" />
     <Content Include="Views\CAR_BOOKING_SLOTS\Create.cshtml" />
@@ -618,6 +624,9 @@
     <Content Include="Views\CARs\IndexSearchStatus.cshtml" />
     <Content Include="Views\Reports\SaleIndex.cshtml" />
     <Content Include="Views\Reports\genReport.cshtml" />
+    <Content Include="Views\Reports\PurchIndex.cshtml" />
+    <Content Include="Views\Reports\PurchgenReport.cshtml" />
+    <Content Include="Views\CARs\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

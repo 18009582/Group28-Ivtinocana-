@@ -4,6 +4,16 @@
     Layout = null;
 }
 
+@{
+    var message = TempData["AlertMessage"] ?? string.Empty;
+}
+
+<script type="text/javascript">
+    var message = '@message';
+    if(message)
+        alert(message);
+</script>
+
 <!DOCTYPE html>
 
 <html>
@@ -157,7 +167,7 @@
         var adddate = document.getElementById("AddDate");
         var mCreateDate = document.getElementById("CreateDate")
         addtime.onclick = function () {
-            mCreateTime.style.display="block"
+            mCreateTime.style.display = "block"
         }
         adddate.onclick = function () {
             mCreateDate.style.display = "block"

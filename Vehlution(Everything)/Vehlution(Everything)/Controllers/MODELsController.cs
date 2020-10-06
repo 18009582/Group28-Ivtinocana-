@@ -50,10 +50,20 @@ namespace Vehlution_Everything_.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "MAKE_ID,MODEL_NAME")] MODEL mODEL)
         {
-            if (ModelState.IsValid)
+            try
             {
-                db.MODELs.Add(mODEL);
-                db.SaveChanges();
+                if (ModelState.IsValid)
+                {
+                    db.MODELs.Add(mODEL);
+                    db.SaveChanges();
+                    TempData["AlertMessage"] = "A car model has sucessfully been added!";
+                    return RedirectToAction("CarModelIndex");
+                }
+   
+            }
+            catch
+            {
+                TempData["AlertMessage"] = "Sorry something went wrong, please try again later";
                 return RedirectToAction("CarModelIndex");
             }
 
@@ -84,12 +94,22 @@ namespace Vehlution_Everything_.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "MODEL_ID,MAKE_ID,MODEL_NAME")] MODEL mODEL)
         {
-            if (ModelState.IsValid)
+            try
             {
-                db.Entry(mODEL).State = EntityState.Modified;
-                db.SaveChanges();
+                if (ModelState.IsValid)
+                {
+                    db.Entry(mODEL).State = EntityState.Modified;
+                    db.SaveChanges();
+                    TempData["AlertMessage"] = "A car model has sucessfully been updated!";
+                    return RedirectToAction("CarModelIndex");
+                }
+            }
+            catch
+            {
+                TempData["AlertMessage"] = "Sorry something went wrong, please try again later";
                 return RedirectToAction("CarModelIndex");
             }
+            
             ViewBag.MAKE_ID = new SelectList(db.MAKEs, "MAKE_ID", "MAKE_NAME", mODEL.MAKE_ID);
             return View(mODEL);
         }
@@ -114,10 +134,19 @@ namespace Vehlution_Everything_.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            MODEL mODEL = db.MODELs.Find(id);
-            db.MODELs.Remove(mODEL);
-            db.SaveChanges();
-            return RedirectToAction("CarModelIndex");
+            try
+            {
+                MODEL mODEL = db.MODELs.Find(id);
+                db.MODELs.Remove(mODEL);
+                db.SaveChanges();
+                TempData["AlertMessage"] = "A car model has sucessfully been deleted!";
+                return RedirectToAction("CarModelIndex");
+            }
+            catch
+            {
+                TempData["AlertMessage"] = "Sorry something went wrong, please try again later";
+                return RedirectToAction("CarModelIndex");
+            }
         }
 
         protected override void Dispose(bool disposing)

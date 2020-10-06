@@ -48,13 +48,22 @@ namespace Vehlution_Everything_.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "SERVICE_ID,SERVICE_NAME")] TASK tASK)
         {
-            if (ModelState.IsValid)
+            try
             {
-                db.TASKs.Add(tASK);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    db.TASKs.Add(tASK);
+                    db.SaveChanges();
+                    TempData["AlertMessage"] = "A mechanic task has sucessfully been added!";
+                    return RedirectToAction("Index");
+                }
             }
+            catch
+            {
+                TempData["AlertMessage"] = "Sorry something went wrong, please try again late";
+                return RedirectToAction("Index");
 
+            }
             return View(tASK);
         }
 
@@ -80,11 +89,21 @@ namespace Vehlution_Everything_.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "SERVICE_ID,SERVICE_NAME")] TASK tASK)
         {
-            if (ModelState.IsValid)
+            try
             {
-                db.Entry(tASK).State = EntityState.Modified;
-                db.SaveChanges();
+                if (ModelState.IsValid)
+                {
+                    db.Entry(tASK).State = EntityState.Modified;
+                    db.SaveChanges();
+                    TempData["AlertMessage"] = "A mechanic task has sucessfully been updated!";
+                    return RedirectToAction("Index");
+                }
+            }
+            catch
+            {
+                TempData["AlertMessage"] = "Sorry something went wrong, please try again late";
                 return RedirectToAction("Index");
+
             }
             return View(tASK);
         }
@@ -109,10 +128,22 @@ namespace Vehlution_Everything_.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            TASK tASK = db.TASKs.Find(id);
-            db.TASKs.Remove(tASK);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            try
+            {
+                TASK tASK = db.TASKs.Find(id);
+                db.TASKs.Remove(tASK);
+                db.SaveChanges();
+                TempData["AlertMessage"] = "A mechanic task has sucessfully been deleted!";
+                return RedirectToAction("Index");
+            }
+            
+            catch
+            {
+                TempData["AlertMessage"] = "Sorry something went wrong, please try again late";
+                return RedirectToAction("Index");
+
+            }
+
         }
 
         protected override void Dispose(bool disposing)
