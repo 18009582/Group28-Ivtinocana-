@@ -17,7 +17,7 @@ namespace Vehlution_Everything_.Controllers
         // GET: CAR_BOOKING_SLOTS
         public ActionResult BookingSlotsIndex()
         {
-            var cAR_BOOKING_SLOTS = db.CAR_BOOKING_SLOTS.Include(c => c.BOOKING_DATES).Include(c => c.BOOKING_STATUS).Include(c => c.BOOKING_TIMES).Include(c => c.EMPLOYEE);
+            var cAR_BOOKING_SLOTS = db.CAR_BOOKING_SLOTS.Include(c => c.BOOKING_DATES).Include(c => c.BOOKING_STATUS).Include(c => c.BOOKING_DATES).Include(c => c.EMPLOYEE);
             return View(cAR_BOOKING_SLOTS.ToList());
         }
 
@@ -40,7 +40,6 @@ namespace Vehlution_Everything_.Controllers
         public ActionResult Create()
         {
             ViewBag.DAY_ = new SelectList(db.BOOKING_DATES, "DAY_", "DATE");
-            ViewBag.STATUSID = new SelectList(db.BOOKING_STATUS, "STATUSID", "STATUSNAME");
             ViewBag.TIME_ID = new SelectList(db.BOOKING_TIMES, "TIME_ID", "START_TIME_");
             ViewBag.EMPLYEE_ID = new SelectList(db.EMPLOYEEs, "EMPLYEE_ID", "FULL_NAME");
             return View();
@@ -51,22 +50,26 @@ namespace Vehlution_Everything_.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "TIME_ID,DAY_,STATUSID,EMPLYEE_ID,CARBOOKINGSLOTID")] CAR_BOOKING_SLOTS cAR_BOOKING_SLOTS)
+        public ActionResult Create(int TIME_ID, int DAY_, int EMPLYEE_ID)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
+                   // CAR_BOOKING_SLOTS n = new CAR_BOOKING_SLOTS();
+                   var n = db.CAR_BOOKING_SLOTS.Max(zz => zz.CAR_BOOKING_SLOTS_ID);
+                    CAR_BOOKING_SLOTS cAR_BOOKING_SLOTS = new CAR_BOOKING_SLOTS();
+                    cAR_BOOKING_SLOTS.CAR_BOOKING_SLOTS_ID = n + 1; 
+                    cAR_BOOKING_SLOTS.TIME_ID = TIME_ID;
+                    cAR_BOOKING_SLOTS.DAY_ = DAY_;
+                    cAR_BOOKING_SLOTS.STATUSID = 2;
+                    cAR_BOOKING_SLOTS.EMPLYEE_ID = EMPLYEE_ID;
                     db.CAR_BOOKING_SLOTS.Add(cAR_BOOKING_SLOTS);
                     db.SaveChanges();
                     TempData["AlertMessage"] = "A booking time slot has sucessfully been added!";
                     return RedirectToAction("BookingSlotsIndex");
                 }
 
-                ViewBag.DAY_ = new SelectList(db.BOOKING_DATES, "DAY_", "DAY_", cAR_BOOKING_SLOTS.DAY_);
-                ViewBag.STATUSID = new SelectList(db.BOOKING_STATUS, "STATUSID", "STATUSNAME", cAR_BOOKING_SLOTS.STATUSID);
-                ViewBag.TIME_ID = new SelectList(db.BOOKING_TIMES, "TIME_ID", "TIME_ID", cAR_BOOKING_SLOTS.TIME_ID);
-                ViewBag.EMPLYEE_ID = new SelectList(db.EMPLOYEEs, "EMPLYEE_ID", "FULL_NAME", cAR_BOOKING_SLOTS.EMPLYEE_ID);
             }
             catch
             {
@@ -74,9 +77,7 @@ namespace Vehlution_Everything_.Controllers
                 return RedirectToAction("BookingSlotsIndex");
             }
             
-
-            
-            return View(cAR_BOOKING_SLOTS);
+            return View(TIME_ID);
         }
 
         // GET: CAR_BOOKING_SLOTS/Edit/5
@@ -91,10 +92,10 @@ namespace Vehlution_Everything_.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.DAY_ = new SelectList(db.BOOKING_DATES, "DAY_", "DAY_", cAR_BOOKING_SLOTS.DAY_);
-            ViewBag.STATUSID = new SelectList(db.BOOKING_STATUS, "STATUSID", "STATUSNAME", cAR_BOOKING_SLOTS.STATUSID);
-            ViewBag.TIME_ID = new SelectList(db.BOOKING_TIMES, "TIME_ID", "TIME_ID", cAR_BOOKING_SLOTS.TIME_ID);
-            ViewBag.EMPLYEE_ID = new SelectList(db.EMPLOYEEs, "EMPLYEE_ID", "FULL_NAME", cAR_BOOKING_SLOTS.EMPLYEE_ID);
+            ViewBag.DAY_ = new SelectList(db.BOOKING_DATES, "DAY_", "DATE");
+            ViewBag.TIME_ID = new SelectList(db.BOOKING_TIMES, "TIME_ID", "START_TIME_");
+            ViewBag.EMPLYEE_ID = new SelectList(db.EMPLOYEEs, "EMPLYEE_ID", "FULL_NAME");
+            ViewBag.STATUSID = new SelectList(db.BOOKING_STATUS, "STATUSID", "STATUSNAME");
             return View(cAR_BOOKING_SLOTS);
         }
 
@@ -103,10 +104,10 @@ namespace Vehlution_Everything_.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "TIME_ID,DAY_,STATUSID,EMPLYEE_ID,CARBOOKINGSLOTID")] CAR_BOOKING_SLOTS cAR_BOOKING_SLOTS)
+        public ActionResult Edit([Bind(Include = "TIME_ID,DAY_,EMPLYEE_ID,CAR_BOOKING_SLOTS_ID,STATUSID")] CAR_BOOKING_SLOTS cAR_BOOKING_SLOTS)
         {
-            try
-            {
+          //  try
+          //  {
                 if (ModelState.IsValid)
                 {
                     db.Entry(cAR_BOOKING_SLOTS).State = EntityState.Modified;
@@ -119,12 +120,12 @@ namespace Vehlution_Everything_.Controllers
                 ViewBag.STATUSID = new SelectList(db.BOOKING_STATUS, "STATUSID", "STATUSNAME", cAR_BOOKING_SLOTS.STATUSID);
                 ViewBag.TIME_ID = new SelectList(db.BOOKING_TIMES, "TIME_ID", "START_TIME_", cAR_BOOKING_SLOTS.TIME_ID);
                 ViewBag.EMPLYEE_ID = new SelectList(db.EMPLOYEEs, "EMPLYEE_ID", "FULL_NAME", cAR_BOOKING_SLOTS.EMPLYEE_ID);
-            }
-            catch
-            {
-                TempData["AlertMessage"] = "Sorry something went wrong, please try again later";
-                return RedirectToAction("BookingSlotsIndex");
-            }
+          //  }
+          //  catch
+          //  {
+          //      TempData["AlertMessage"] = "Sorry something went wrong, please try again later";
+          //      return RedirectToAction("BookingSlotsIndex");
+          //  }
             
             return View(cAR_BOOKING_SLOTS);
         }
@@ -151,10 +152,21 @@ namespace Vehlution_Everything_.Controllers
         {
             try
             {
+                CAR_BOOKING cAR_BOOKING = new CAR_BOOKING();
+                
                 CAR_BOOKING_SLOTS cAR_BOOKING_SLOTS = db.CAR_BOOKING_SLOTS.Find(id);
+
+                cAR_BOOKING = db.CAR_BOOKING.Where(zz => zz.CAR_BOOKING_SLOTS_ID == cAR_BOOKING_SLOTS.CAR_BOOKING_SLOTS_ID).FirstOrDefault();
+                if (cAR_BOOKING != null)
+                {
+                    TempData["AlertMessage"] = "You can not delete this time slot because it has already been booked.";
+                    return RedirectToAction("BookingSlotsIndex");
+                }
+
+
                 db.CAR_BOOKING_SLOTS.Remove(cAR_BOOKING_SLOTS);
                 db.SaveChanges();
-                TempData["AlertMessage"] = "A booking time slot has sucessfully been updated!";
+                TempData["AlertMessage"] = "A booking time slot has sucessfully been deleted!";
                 return RedirectToAction("BookingSlotsIndex");
             }
             catch

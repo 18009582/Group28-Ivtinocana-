@@ -283,9 +283,9 @@ namespace Vehlution_Everything_.Reporting {
             
             private global::System.Data.DataColumn columnClientName;
             
-            private global::System.Data.DataColumn columnTime;
-            
             private global::System.Data.DataColumn columnDate;
+            
+            private global::System.Data.DataColumn columnTime;
             
             private global::System.Data.DataColumn columnCar;
             
@@ -340,17 +340,17 @@ namespace Vehlution_Everything_.Reporting {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn TimeColumn {
+            public global::System.Data.DataColumn DateColumn {
                 get {
-                    return this.columnTime;
+                    return this.columnDate;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn DateColumn {
+            public global::System.Data.DataColumn TimeColumn {
                 get {
-                    return this.columnDate;
+                    return this.columnTime;
                 }
             }
             
@@ -399,13 +399,13 @@ namespace Vehlution_Everything_.Reporting {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public AdminBookingsRow AddAdminBookingsRow(string ID, string ClientName, string Time, string Date, string Car) {
+            public AdminBookingsRow AddAdminBookingsRow(string ID, string ClientName, string Date, string Time, string Car) {
                 AdminBookingsRow rowAdminBookingsRow = ((AdminBookingsRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         ID,
                         ClientName,
-                        Time,
                         Date,
+                        Time,
                         Car};
                 rowAdminBookingsRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowAdminBookingsRow);
@@ -431,8 +431,8 @@ namespace Vehlution_Everything_.Reporting {
             internal void InitVars() {
                 this.columnID = base.Columns["ID"];
                 this.columnClientName = base.Columns["ClientName"];
-                this.columnTime = base.Columns["Time"];
                 this.columnDate = base.Columns["Date"];
+                this.columnTime = base.Columns["Time"];
                 this.columnCar = base.Columns["Car"];
             }
             
@@ -443,10 +443,10 @@ namespace Vehlution_Everything_.Reporting {
                 base.Columns.Add(this.columnID);
                 this.columnClientName = new global::System.Data.DataColumn("ClientName", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnClientName);
-                this.columnTime = new global::System.Data.DataColumn("Time", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnTime);
                 this.columnDate = new global::System.Data.DataColumn("Date", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnDate);
+                this.columnTime = new global::System.Data.DataColumn("Time", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnTime);
                 this.columnCar = new global::System.Data.DataColumn("Car", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnCar);
             }
@@ -623,22 +623,6 @@ namespace Vehlution_Everything_.Reporting {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public string Time {
-                get {
-                    try {
-                        return ((string)(this[this.tableAdminBookings.TimeColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'Time\' in table \'AdminBookings\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableAdminBookings.TimeColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public string Date {
                 get {
                     try {
@@ -650,6 +634,22 @@ namespace Vehlution_Everything_.Reporting {
                 }
                 set {
                     this[this.tableAdminBookings.DateColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string Time {
+                get {
+                    try {
+                        return ((string)(this[this.tableAdminBookings.TimeColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'Time\' in table \'AdminBookings\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableAdminBookings.TimeColumn] = value;
                 }
             }
             
@@ -695,18 +695,6 @@ namespace Vehlution_Everything_.Reporting {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public bool IsTimeNull() {
-                return this.IsNull(this.tableAdminBookings.TimeColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void SetTimeNull() {
-                this[this.tableAdminBookings.TimeColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public bool IsDateNull() {
                 return this.IsNull(this.tableAdminBookings.DateColumn);
             }
@@ -715,6 +703,18 @@ namespace Vehlution_Everything_.Reporting {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public void SetDateNull() {
                 this[this.tableAdminBookings.DateColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsTimeNull() {
+                return this.IsNull(this.tableAdminBookings.TimeColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetTimeNull() {
+                this[this.tableAdminBookings.TimeColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]

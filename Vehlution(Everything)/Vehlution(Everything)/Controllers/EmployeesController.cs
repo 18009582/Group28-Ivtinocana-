@@ -124,7 +124,24 @@ namespace Vehlution_Everything_.Controllers
         {
             try
             {
+                EMPLYEE_SALES eMPLYEE_SALES = new EMPLYEE_SALES();
+                CAR_BOOKING_SLOTS cAR_BOOKING_SLOTS = new CAR_BOOKING_SLOTS();
                 EMPLOYEE eMPLOYEE = db.EMPLOYEEs.Find(id);
+                eMPLYEE_SALES = db.EMPLYEE_SALES.Where(zz => zz.EMPLYEE_ID == eMPLOYEE.EMPLYEE_ID).FirstOrDefault();
+                cAR_BOOKING_SLOTS = db.CAR_BOOKING_SLOTS.Where(zz => zz.EMPLYEE_ID == eMPLOYEE.EMPLYEE_ID).FirstOrDefault(); ;
+
+                if (eMPLYEE_SALES != null)
+                {
+                    TempData["AlertMessage"] = "You can not delete this employee because it is linked to a Sales in the Employee Sales table of the database.";
+                    return RedirectToAction("Index");
+                }
+
+                if (cAR_BOOKING_SLOTS != null)
+                {
+                    TempData["AlertMessage"] = "You can not delete this employee because it is linked to a car booking slots in the Car Booking Slots table of the database.";
+                    return RedirectToAction("Index");
+                }
+
                 db.EMPLOYEEs.Remove(eMPLOYEE);
                 db.SaveChanges();
 

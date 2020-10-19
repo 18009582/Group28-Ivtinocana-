@@ -1,0 +1,83 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    <script src='https://kit.fontawesome.com/a076d05399.js'></script>
+    <link href="@Url.Content("~/Content/Site.css")" rel="stylesheet" type="text/css" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Customer Satisfaction</title>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+</head>
+<body>
+    <div style="text-align:center">
+        <h1 style="color:orange">Customer Satisfaction</h1>
+        <h4>This graph shows the average rating that each of our customers have given us!</h4>
+    </div>
+    <div>
+        <a href="~/Views/CUSTOMER_SATISFACTION/CustomerSatisfaction.cshtml"></a>
+        @*<div id="chart_div"></div>*@
+        <div id="columnchart_material" style="width: 100%; min-width: 25%; height: 500px;"></div>
+    </div><br />
+    <div style="text-align:center">
+        <input  title="Return to homepage" type="button" value="Home" class="btn btn-secondary" onclick="location.href='@Url.Action("ClientNav","Nav")'" />
+    </div>
+    <script>
+        var response = [];
+        var chartData = [];
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                response = JSON.parse(this.response);
+                chartData.push(['Question Type', 'Average Score']);
+
+                console.log(response);
+                response.CustomerComms = response.CustomerComms == null ? 0 : response.CustomerComms;
+                chartData.push(['Customer Comms', response.CustomerComms]);
+
+                response.Experience = response.Experience == null ? 0 : response.Experience;
+                chartData.push(['Experience', response.Experience]);
+
+                response.Recommendation = response.Recommendation == null ? 0 : response.Recommendation;
+                chartData.push(['Recommendation', response.Recommendation]);
+
+                response.ResponseTime = response.ResponseTime == null ? 0 : response.ResponseTime;
+                chartData.push(['ResponseTime', response.ResponseTime]);
+
+                response.Website = response.Website == null ? 0 : response.Website;
+                chartData.push(['Website', response.Website]);
+
+                google.charts.setOnLoadCallback(drawChart);
+
+            }
+        };
+        xhttp.open("GET", "/CUSTOMER_SATISFACTION/ChartSatisfaction", true);
+        xhttp.send();
+
+        google.charts.load('current', { 'packages': ['bar'] });
+
+
+        function drawChart() {
+            var data = google.visualization.arrayToDataTable(chartData);
+            var options = {
+                chart: {
+                    title: 'Customer Satisfaction',
+                    subtitle: ''
+                }
+            };
+
+            var chart = new google.charts.Bar(document.getElementById('columnchart_material'));
+
+            chart.draw(data, google.charts.Bar.convertOptions(options));
+        }
+    </script>
+</body>
+</html>

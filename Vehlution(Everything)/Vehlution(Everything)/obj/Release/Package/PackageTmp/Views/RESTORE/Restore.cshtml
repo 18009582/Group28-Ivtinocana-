@@ -1,0 +1,36 @@
+﻿
+@{
+    Layout = null;
+}
+@{
+    var message = TempData["AlertMessage"] ?? string.Empty;
+}
+
+<script type="text/javascript">
+    var message = '@message';
+    if(message)
+        alert(message);
+</script>
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Restore</title>
+    <link href="~/CSS1/StyleSheet1.css" rel="stylesheet" />
+</head>
+<body>
+    @using (Html.BeginForm("Restore1", "RESTORE", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        <div>
+            <label>Please choose backup file: </label><br />
+            <input type="file" id="file" name="file" /><br />
+            <button type="submit">Restore</button>
+        </div>
+    }
+    <div style="text-align:center">
+        <input type="button" value="Home" class="btn btn-secondary" onclick="location.href='@Url.Action("AdminNav","Nav")'" />
+    </div>
+
+</body>
+</html>

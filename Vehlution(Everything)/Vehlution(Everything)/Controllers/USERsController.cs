@@ -127,7 +127,24 @@ namespace Vehlution_Everything_.Controllers
         //[ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
+            OFFER oFFER = new OFFER();
             USER uSER = db.USERs.Find(id);
+            oFFER = db.OFFERS.Where(zz => zz.USER_ID == uSER.USER_ID).FirstOrDefault();
+            Purchase purchase = new Purchase();
+            purchase = db.PURCHASES.Where(zz => zz.USER_ID == uSER.USER_ID).FirstOrDefault();
+            CAR_BOOKING cAR_BOOKING = new CAR_BOOKING();
+            cAR_BOOKING = db.CAR_BOOKING.Where(zz => zz.USER_ID == uSER.USER_ID).FirstOrDefault();
+            CAR cAR = new CAR();
+            cAR = db.CARS.Where(zz => zz.USER_ID == uSER.USER_ID).FirstOrDefault();
+            BOOKING_FOR_POSSIBLE_PURCHASE bOOKING_FOR_POSSIBLE_PURCHASE = new BOOKING_FOR_POSSIBLE_PURCHASE();
+            bOOKING_FOR_POSSIBLE_PURCHASE = db.BOOKING_FOR_POSSIBLE_PURCHASE.Where(zz => zz.USER_ID == uSER.USER_ID).FirstOrDefault();
+            if((oFFER != null) | (purchase != null) | (cAR_BOOKING != null) | (bOOKING_FOR_POSSIBLE_PURCHASE != null) | (cAR != null))
+            {
+                uSER.BLOCKED = Convert.ToBoolean(1);
+                db.SaveChanges();
+                return RedirectToAction("LoginNav", "Nav");
+            }
+
             db.USERs.Remove(uSER);
             db.SaveChanges();
             return RedirectToAction("LoginNav", "Nav");

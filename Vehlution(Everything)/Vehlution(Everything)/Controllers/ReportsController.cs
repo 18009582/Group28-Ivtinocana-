@@ -438,13 +438,15 @@ public SelectList GetEmployees(int selected)
             using (VehlutionEntities db = new VehlutionEntities())
             {
                 db.Configuration.ProxyCreationEnabled = false;
-                var book = db.CAR_BOOKING.Where(cc => cc.BOOKING_DATE >= DateTime.Today).Select(rr => new ClientBookingsClass
+                var book = db.CAR_BOOKING.Where(cc => cc.CAR_BOOKING_SLOTS.BOOKING_DATES.DATE >= DateTime.Today).Select(rr => new ClientBookingsClass
                 {
                     ID = rr.CARBOOKING_ID,
                     ClientName = rr.USER.FIRSTNAME + " " + rr.USER.LASTNAME,
-                    Date = rr.BOOKING_DATE.Value,
-                    Time = rr.BOOKING_TIME.Value,
-                    Car = rr.CAR.CAR_REG
+                    Date = rr.CAR_BOOKING_SLOTS.BOOKING_DATES.DATE.Value,
+                    Time = rr.CAR_BOOKING_SLOTS.BOOKING_TIMES.START_TIME_.Value,
+                    Car = rr.CAR_ID.ToString(), 
+                    Employee = rr.CAR_BOOKING_SLOTS.EMPLOYEE.FULL_NAME.ToString()
+                    
                 }).ToList();
 
                 reportData.Client_Booking.Rows.Clear();
@@ -456,6 +458,7 @@ public SelectList GetEmployees(int selected)
                     row["Date"] = item.Date;
                     row["Time"] = item.Time;
                     row["Car"] = item.Car;
+                    row["Employee"] = item.Employee;
                     reportData.Client_Booking.Rows.Add(row);
                 }
                 return reportData;
@@ -581,9 +584,8 @@ public SelectList GetEmployees(int selected)
                     obj.make = s.CAR.MODEL.MAKE.MAKE_NAME;
                     obj.makeid = s.CAR.MODEL.MAKE_ID;
                     obj.model = s.CAR.MODEL.MODEL_NAME;
-
                     obj.CarReg = s.CAR.CAR_REG;
-                    obj.client = s.USER.FIRSTNAME +" "+s.USER.LASTNAME;
+                    obj.client = s.USER.FIRSTNAME + " " +s.USER.LASTNAME + " " + s.USER.EMAIL;
                     d.Add(obj);
                 }
             }

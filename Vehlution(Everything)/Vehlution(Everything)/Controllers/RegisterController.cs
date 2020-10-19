@@ -29,6 +29,9 @@ namespace Vehlution_Everything_.Controllers
             return View();
         }
 
+
+
+
         #region Registration post method for data save  
         [HttpPost]
         public ActionResult Index(USER objUsr)
@@ -251,12 +254,9 @@ namespace Vehlution_Everything_.Controllers
             objcon.SaveChanges();
 
             ForgetPasswordEmailToUser(objUsr.EMAIL, objUsr.RESETCODE, objUsr.OTP);
-            ViewBag.Message = "Email has been sent!";
+            ViewBag.Message = "Please check your email for the link to change your password";
             return View();
         }
-
-
-
 
         public ActionResult ChangePassword(string Id)
         {
@@ -268,26 +268,37 @@ namespace Vehlution_Everything_.Controllers
             var user = objcon.USERs.FirstOrDefault(x => x.RESETCODE == Id);
             if(user==null)
                 return HttpNotFound();
-            Vehlution_Everything_.Models.ChangePassword em = new ChangePassword();
+            ChangePassword em = new ChangePassword();
             TempData["ResetCode"] = Id;
-            //em.ResetCode = Id;
+            em.ResetCode = Id;
             return View(em);
         }
 
         [HttpPost]
         public ActionResult ChangePassword(ChangePassword chngepswd)
         {
-            string code = TempData["ResetCode"].ToString();
-            var user = objcon.USERs.FirstOrDefault(x => x.RESETCODE == code);
-            if (user.OTP == chngepswd.OTP)
+            try
             {
-                user.PASSWORD = Vehlution_Everything_.Models.encryptPassword.textToEncrypt(chngepswd.Password);
+                string code = TempData["ResetCode"].ToString();
+                var user = objcon.USERs.FirstOrDefault(x => x.RESETCODE == code);
+                if (user.OTP == chngepswd.OTP)
+                {
+                    user.PASSWORD = encryptPassword.textToEncrypt(chngepswd.Password);
+                }
+                else
+                {
+                    throw new Exception("Invalid OTP");
+                }
+                objcon.SaveChanges();
+                TempData["AlertMessage"] = "Your password has sucessfully been chnaged!";
+                return RedirectToAction("Login", "Register");
             }
-            else {
-                throw new Exception("Invalid OTP");
+            catch(Exception err)
+            {
+                TempData["AlertMessage"] = "Something went wrong, please try agaon" + err;
+                return RedirectToAction("Login", "Register");
             }
-            objcon.SaveChanges();
-            return RedirectToAction("login","Register");
+            
         }
 
     }

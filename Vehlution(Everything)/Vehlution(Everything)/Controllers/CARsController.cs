@@ -20,6 +20,10 @@ namespace Vehlution_Everything_.Controllers
         // GET: CARs for sale
         public ActionResult ViewCarsForSaleIndex()
         {
+
+            ViewBag.MAKE_ID = new SelectList(db.MAKEs, "MAKE_ID", "MAKE_NAME");
+            ViewBag.Models = new SelectList(db.MODELs, "MODEL_ID", "MODEL_NAME");
+            ViewBag.BodyTypes = new SelectList(db.CAR_TYPE, "CAR_TYPEID", "TYPE_NAME");
             var cARS = db.CARS.Include(c => c.CAR_STATUS)
                               .Include(c => c.MODEL)
                               .Include(c => c.COLOUR)
@@ -28,21 +32,28 @@ namespace Vehlution_Everything_.Controllers
                               .Include(c => c.NUMBER_OF_SEATS)
                               .Include(c => c.TRANSMISSION)
                               .Include(c => c.MODEL.MAKE)
-
                               .Where(cc => cc.STATUS_ID == 2);
-            return View(cARS.ToList());
+
+            if (carlist.Count()==0)
+            {
+                carlist = cARS.ToList();
+            }
+            return View(carlist);
         }
 
         public ActionResult ViewCarsForSaleIndexAdmin()
         {
-           var cARS = db.CARS.Include(c => c.CAR_STATUS)
-                              .Include(c => c.MODEL)
-                              .Include(c => c.COLOUR)
-                              .Include(c => c.FUEL_TYPE)
-                              .Include(c => c.NUMBER_OF_DOORS)
-                              .Include(c => c.NUMBER_OF_SEATS)
-                              .Include(c => c.TRANSMISSION)
-                              .Include(c => c.MODEL.MAKE).ToList();
+            ViewBag.MAKE_ID = new SelectList(db.MAKEs, "MAKE_ID", "MAKE_NAME");
+            ViewBag.Models = new SelectList(db.MODELs, "MODEL_ID", "MODEL_NAME");
+            ViewBag.BodyTypes = new SelectList(db.CAR_TYPE, "CAR_TYPEID", "TYPE_NAME");
+            var cARS = db.CARS.Include(c => c.CAR_STATUS)
+                               .Include(c => c.MODEL)
+                               .Include(c => c.COLOUR)
+                               .Include(c => c.FUEL_TYPE)
+                               .Include(c => c.NUMBER_OF_DOORS)
+                               .Include(c => c.NUMBER_OF_SEATS)
+                               .Include(c => c.TRANSMISSION)
+                               .Include(c => c.MODEL.MAKE).ToList();
             return View(cARS.ToList());
         }
 
@@ -70,10 +81,14 @@ namespace Vehlution_Everything_.Controllers
             return View(carlist);
         }
         [HttpPost]
-        public ActionResult Search( int MODEL_ID, int BodyTypes, int Milage)
+        public ActionResult Search(int MODEL_ID, int BodyTypes, int Milage)
         {
-            carlist = db.CARS.Include(zz => zz.MODEL).Where(zz => zz.MODEL.MODEL_ID == MODEL_ID  && zz.CAR_TYPE.CAR_TYPEID == BodyTypes && zz.MILAGE_ <= Milage).ToList();
-            return RedirectToAction("IndexSearch");
+            carlist = db.CARS.Include(zz => zz.MODEL).Where(zz => zz.MODEL.MODEL_ID == MODEL_ID && zz.CAR_TYPE.CAR_TYPEID == BodyTypes && zz.MILAGE_ <= Milage).ToList();
+            if(carlist.Count==0)
+            {
+                TempData["AlertMessage"] = "No cars matching the criteria were found";
+            }
+            return RedirectToAction("ViewCarsForSaleIndex");
         }
 
         public ActionResult IndexSearchStatus()
@@ -92,16 +107,7 @@ namespace Vehlution_Everything_.Controllers
         //GET: CARs that are pending
         public ActionResult PendingCarIndex()
         {
-            var cARS = db.CARS.Include(c => c.CAR_STATUS)
-                                 .Include(c => c.MODEL)
-                                 .Include(c => c.COLOUR)
-                                 .Include(c => c.FUEL_TYPE)
-                                 .Include(c => c.NUMBER_OF_DOORS)
-                                 .Include(c => c.NUMBER_OF_SEATS)
-                                 .Include(c => c.TRANSMISSION)
-                                 .Include(c => c.MODEL.MAKE)
-
-                                 .Where(cc => cc.STATUS_ID == 3);
+            var cARS = db.CARS.Where(cc => cc.STATUS_ID == 3);
             return View(cARS.ToList());
         }
 
@@ -287,10 +293,13 @@ namespace Vehlution_Everything_.Controllers
                         {
                             smtp.Send(mess);
                         }
+                        
                     }
+                    TempData["AlertMessage"] = "Your offer has successfully been placed ";
+                    return RedirectToAction("ViewCarsForSaleIndex");
                 }
-                TempData["AlertMessage"] = "Your offer has successfully been placed ";
-                return RedirectToAction("ViewCarsForSaleIndex");
+
+                
             }
             catch (Exception err)
             {
@@ -312,10 +321,12 @@ namespace Vehlution_Everything_.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.STATUS_ID = new SelectList(db.CAR_STATUS, "STATUS_ID", "SASTUS_NAME", cAR.STATUS_ID);
+
+            ViewBag.MAKE_ID = new SelectList(db.MAKEs, "MAKE_ID", "MAKE_NAME");
+
+            ViewBag.MODEL_ID = new SelectList(db.MODELs, "MODEL_ID", "MODEL_NAME");
+            ViewBag.CAR_TYPEID = new SelectList(db.CAR_TYPE, "CAR_TYPEID", "TYPE_NAME");
             ViewBag.CAR_TYPEID = new SelectList(db.CAR_TYPE, "CAR_TYPEID", "TYPE_NAME", cAR.CAR_TYPEID);
-            ViewBag.MODEL_ID = new SelectList(db.MODELs, "MODEL_ID", "MODEL_NAME", cAR.MODEL_ID);
-            ViewBag.USER_ID = new SelectList(db.USERs, "USER_ID", "FIRSTNAME", cAR.USER_ID);
             ViewBag.COLOUR_ID = new SelectList(db.COLOURs, "COLOUR_ID", "COLOUR_NAME", cAR.COLOUR_ID);
             ViewBag.FUELTYPE_ID = new SelectList(db.FUEL_TYPE, "FUELTYPE_ID", "FUELTYPE_NAME", cAR.FUELTYPE_ID);
             ViewBag.DOORS_ID = new SelectList(db.NUMBER_OF_DOORS, "DOORS_ID", "NUMBER_OF_DOORS1", cAR.DOORS_ID);
@@ -324,30 +335,111 @@ namespace Vehlution_Everything_.Controllers
             return View(cAR);
         }
 
+
+        //carlogs
+        private void AddCarLogs(CAR cr, string action)
+        {
+            cr = db.CARS.Find(cr.CAR_ID);
+            CAR_LOGS cAR = new CAR_LOGS();
+
+
+            cAR.IMAGE = cr.IMAGE;
+            cAR.CAR_REG = cr.CAR_REG;
+            cAR.CAR_ID = cr.CAR_ID;
+            cAR.SEATS_ID = cr.SEATS_ID;
+            var seat = db.NUMBER_OF_SEATS.FirstOrDefault(x => x.SEATS_ID == cAR.SEATS_ID);
+            cAR.SEATS_NAME = seat == null ? string.Empty : seat.NUMBER_OF_SEATS_.ToString();
+            cAR.CAR_TYPEID = cr.CAR_TYPEID;
+            var carType = db.CAR_TYPE.FirstOrDefault(x => x.CAR_TYPEID == cr.CAR_TYPEID);
+            cAR.CAR_TYPENAME = carType == null ? string.Empty : carType.TYPE_NAME.Trim();
+            cAR.COLOUR_ID = cr.COLOUR_ID;
+            var color = db.COLOURs.FirstOrDefault(x => x.COLOUR_ID == cr.COLOUR_ID);
+            cAR.COLOUR_Name = color == null ? string.Empty : color.COLOUR_NAME.Trim();
+            cAR.TRANSMISSION_ID = cr.TRANSMISSION_ID;
+            var Transmission = db.TRANSMISSIONs.FirstOrDefault(x => x.TRANSMISSION_ID == cr.TRANSMISSION_ID);
+            cAR.TRANSMISSION_NAME = Transmission == null ? string.Empty : Transmission.TRANSMISSION_NAME.Trim();
+            cAR.DOORS_ID = cr.DOORS_ID;
+            var cardoor = db.NUMBER_OF_DOORS.FirstOrDefault(x => x.DOORS_ID == cAR.DOORS_ID);
+            cAR.DOORS_NAME = cardoor == null ? string.Empty : cardoor.NUMBER_OF_DOORS1.ToString();
+            cAR.MODEL_ID = cr.MODEL_ID;
+            int modelId = cr.MODEL_ID == null ? 0 : Convert.ToInt32(cr.MODEL_ID);
+            var model = db.MODELs.FirstOrDefault(x => x.MODEL_ID == modelId);
+            cAR.MODEL_NAME = model == null ? string.Empty : model.MODEL_NAME.Trim();
+            cAR.STATUS_ID = cr.STATUS_ID = 2;
+            var status = db.CAR_STATUS.FirstOrDefault(x => x.STATUS_ID == cr.STATUS_ID);
+            cAR.STATUS_NAME = status == null ? string.Empty : status.SASTUS_NAME.Trim();
+            cAR.FUELTYPE_ID = cr.FUELTYPE_ID;
+            var fuelType = db.FUEL_TYPE.FirstOrDefault(x => x.FUELTYPE_ID == cr.FUELTYPE_ID);
+            cAR.FUELTYPE_NAME = fuelType == null ? string.Empty : fuelType.FUELTYPE_NAME.Trim();
+            cAR.YEAR = cr.YEAR;
+            cAR.MILEAGE = cr.MILAGE_;
+            cAR.LISTING_PRICE = cr.LISTING_PRICE;
+            int clientid = Convert.ToInt32(HttpContext.Request.Cookies.Get("User").Value);
+            var user = db.USERs.FirstOrDefault(x => x.USER_ID == clientid);
+            cAR.AUDITUSER = user == null ? string.Empty : user.FIRSTNAME.Trim() + " " + user.LASTNAME.Trim();
+            cAR.USER_ID = clientid;
+            cAR.AUDITACTION = action;
+            cAR.AUDITDATE = DateTime.Now;
+            db.CAR_LOGS.Add(cAR);
+            db.SaveChanges();
+        }
+
+
+
         // POST: CARs/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "CAR_REG,SEATS_ID,COLOUR_ID,TRANSMISSION_ID,DOORS_ID,CLIENT_ID,STATUS_ID,FUELTYPE_ID,MODEL_ID,YEAR,MILAGE_,LISTING_PRICE,IMAGE,CAR_ID,CAR_TYPEID")] CAR cAR)
+        public ActionResult Edit(string CarReg, int SEATS_ID, int COLOUR_ID, int TRANSMISSION_ID, int DOORS_ID, int FUELTYPE_ID, int CAR_TYPEID, int MODEL_ID, int YEAR, int MILAGE_, float LISTING_PRICE, HttpPostedFileBase file)
         {
-            if (ModelState.IsValid)
+            try
             {
-                db.Entry(cAR).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("AdminCarsForSale");
+
+                if (ModelState.IsValid)
+                {
+                    CAR cAR = new CAR();
+                    cAR = db.CARS.Where(zz => zz.CAR_REG == CarReg).First();
+                    string pic = null;
+
+                    if (file != null)
+                    {
+                        pic = System.IO.Path.GetFileName(file.FileName);
+                        string path = System.IO.Path.Combine(Server.MapPath("~/Images/"), pic);
+                        file.SaveAs(path);
+                        cAR.IMAGE = pic;
+
+                    }
+
+                    cAR.SEATS_ID = SEATS_ID;
+                    cAR.CAR_TYPEID = CAR_TYPEID;
+                    cAR.COLOUR_ID = COLOUR_ID;
+                    cAR.TRANSMISSION_ID = TRANSMISSION_ID;
+                    cAR.DOORS_ID = DOORS_ID;
+                    cAR.MODEL_ID = MODEL_ID;
+                    cAR.STATUS_ID = 2;
+                    cAR.FUELTYPE_ID = FUELTYPE_ID;
+                    cAR.YEAR = YEAR;
+                    cAR.MILAGE_ = MILAGE_;
+                    cAR.LISTING_PRICE = Convert.ToInt32(LISTING_PRICE);
+                    
+                //    int clientid = Convert.ToInt32(HttpContext.Request.Cookies.Get("User").Value);
+                //    cAR.USER_ID = clientid;
+                    db.SaveChanges();
+                    AddCarLogs(cAR, "UPDATE");
+
+                    TempData["AlertMessage"] = "Your car has successfully been updated";
+                    return RedirectToAction("IndexSearchStatus", "CARs");
+                }
             }
-            ViewBag.STATUS_ID = new SelectList(db.CAR_STATUS, "STATUS_ID", "SASTUS_NAME", cAR.STATUS_ID);
-            ViewBag.CAR_TYPEID = new SelectList(db.CAR_TYPE, "CAR_TYPEID", "TYPE_NAME", cAR.CAR_TYPEID);
-            ViewBag.MODEL_ID = new SelectList(db.MODELs, "MODEL_ID", "MODEL_NAME", cAR.MODEL_ID);
-            ViewBag.CLIENT_ID = new SelectList(db.USERs, "CLIENT_ID", "USER_NAME", cAR.USER_ID);
-            ViewBag.COLOUR_ID = new SelectList(db.COLOURs, "COLOUR_ID", "COLOUR_NAME", cAR.COLOUR_ID);
-            ViewBag.FUELTYPE_ID = new SelectList(db.FUEL_TYPE, "FUELTYPE_ID", "FUELTYPE_NAME", cAR.FUELTYPE_ID);
-            ViewBag.DOORS_ID = new SelectList(db.NUMBER_OF_DOORS, "DOORS_ID", "NUMBER_OF_DOORS1", cAR.DOORS_ID);
-            ViewBag.SEATS_ID = new SelectList(db.NUMBER_OF_SEATS, "SEATS_ID", "NUMBER_OF_SEATS_", cAR.SEATS_ID);
-            ViewBag.TRANSMISSION_ID = new SelectList(db.TRANSMISSIONs, "TRANSMISSION_ID", "TRANSMISSION_NAME", cAR.TRANSMISSION_ID);
-            return View(cAR);
-        }
+            catch 
+            {
+                TempData["AlertMessage"] = "Sorry something went wrong please try again later. " ;
+                return RedirectToAction("IndexSearchStatus", "CARs");
+            }
+            return RedirectToAction("IndexSearchStatus", "CARs");
+
+        } 
 
 
         public ActionResult Delete(int? id)
@@ -363,6 +455,7 @@ namespace Vehlution_Everything_.Controllers
             }
             return View(cAR);
         }
+        //CArLOGS
 
         // POST: AdminCARs/Delete/5
         [HttpPost, ActionName("Delete")]
@@ -371,6 +464,13 @@ namespace Vehlution_Everything_.Controllers
         {
             try
             {
+                OFFER oFFER = db.OFFERS.Where(m => m.CAR_ID == id).FirstOrDefault();
+                if (oFFER != null)
+                {
+                    TempData["AlertMessage"] = "You can't delete this car because it is linked to a offer in the Offers table";
+                    return RedirectToAction("PendingCarIndex");
+                }
+
                 CAR cAR = db.CARS.Find(id);
 
                 //Send email to user saying car was rejected 
@@ -409,16 +509,10 @@ namespace Vehlution_Everything_.Controllers
                     }
                 }
 
-
-                OFFER oFFER = db.OFFERS.Where(m => m.CAR_ID == id).FirstOrDefault();
-                if (oFFER != null)
-                {
-                    db.OFFERS.Remove(oFFER);
-                    db.SaveChanges();
-                }
-
                 db.CARS.Remove(cAR);
+                AddCarLogs(cAR, "DELETE");
                 db.SaveChanges();
+               
 
                 TempData["AlertMessage"] = "This car successfully been deleted from our system";
                 return RedirectToAction("PendingCarIndex");
@@ -430,5 +524,217 @@ namespace Vehlution_Everything_.Controllers
             }
 
         }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult CreateSeats(int NUMBER_OF_SEATS_)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    List<NUMBER_OF_SEATS> nUMBER_OF_SEATs = new List<NUMBER_OF_SEATS>();
+                    nUMBER_OF_SEATs = db.NUMBER_OF_SEATS.ToList();
+                    NUMBER_OF_SEATS n = new NUMBER_OF_SEATS();
+                    n.NUMBER_OF_SEATS_ = NUMBER_OF_SEATS_;
+                    foreach (var item in nUMBER_OF_SEATs)
+                    {
+                        if (item.NUMBER_OF_SEATS_ == NUMBER_OF_SEATS_)
+                        {
+                            TempData["AlertMessage"] = "This number of seats already exists in our system";
+                            return RedirectToAction("Create", "ADMINCARs");
+                        }
+                    }
+
+                    db.NUMBER_OF_SEATS.Add(n);
+                    db.SaveChanges();
+                    TempData["AlertMessage"] = "A new number of seats has successfully been added!";
+                    return RedirectToAction("Create", "ADMINCARs");
+                }
+            }
+            catch
+            {
+                TempData["AlertMessage"] = "Sorry something went wrong, please try again later";
+                return RedirectToAction("Create", "ADMINCARs");
+            }
+
+
+            return View(NUMBER_OF_SEATS_);
+        }
+
+        public ActionResult CreateDoors(int NUMBER_OF_DOORS1)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    List<NUMBER_OF_DOORS> nUMBER_OF_DOORs = new List<NUMBER_OF_DOORS>();
+                    nUMBER_OF_DOORs = db.NUMBER_OF_DOORS.ToList();
+                    NUMBER_OF_DOORS n = new NUMBER_OF_DOORS();
+                    n.NUMBER_OF_DOORS1 = NUMBER_OF_DOORS1;
+                    foreach (var item in nUMBER_OF_DOORs)
+                    {
+                        if (item.NUMBER_OF_DOORS1 == NUMBER_OF_DOORS1)
+                        {
+                            TempData["AlertMessage"] = "This number of doors already exists in our system";
+                            return RedirectToAction("Create", "ADMINCARs");
+                        }
+                    }
+
+                    db.NUMBER_OF_DOORS.Add(n);
+                    db.SaveChanges();
+                    TempData["AlertMessage"] = "A new number of doors has successfully been added!";
+                    return RedirectToAction("Create", "ADMINCARs");
+                }
+            }
+            catch
+            {
+                TempData["AlertMessage"] = "Sorry something went wrong, please try again later";
+                return RedirectToAction("Create", "ADMINCARs");
+            }
+
+
+            return View(NUMBER_OF_DOORS1);
+        }
+
+        public ActionResult CreateTransmission(string TRANSMISSION_NAME )
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    List<TRANSMISSION> tRANSMISSIONs = new List<TRANSMISSION>();
+                    tRANSMISSIONs = db.TRANSMISSIONs.ToList();
+                    TRANSMISSION n = new TRANSMISSION();
+                    n.TRANSMISSION_NAME = TRANSMISSION_NAME;
+                    foreach (var item in tRANSMISSIONs)
+                    {
+                        if (item.TRANSMISSION_NAME.Trim() == TRANSMISSION_NAME.Trim())
+                        {
+                            TempData["AlertMessage"] = "This transmission already exists in our system";
+                            return RedirectToAction("Create", "ADMINCARs");
+                        }
+                    }
+
+                    db.TRANSMISSIONs.Add(n);
+                    db.SaveChanges();
+                    TempData["AlertMessage"] = "A new transmission has successfully been added!";
+                    return RedirectToAction("Create", "ADMINCARs");
+                }
+            }
+            catch
+            {
+                TempData["AlertMessage"] = "Sorry something went wrong, please try again later";
+                return RedirectToAction("Create", "ADMINCARs");
+            }
+
+
+            return View(TRANSMISSION_NAME);
+        }
+
+        public ActionResult CreateColour(string COLOUR_NAME)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    
+                    List<COLOUR> cOLOURs = new List<COLOUR>();
+                    cOLOURs = db.COLOURs.ToList();
+                    COLOUR n = new COLOUR();
+                    n.COLOUR_NAME = COLOUR_NAME;
+                    foreach (var item in cOLOURs)
+                    {
+                        if (item.COLOUR_NAME.Trim() == COLOUR_NAME.Trim())
+                        {
+                            TempData["AlertMessage"] = "This colour already exists in our system";
+                            return RedirectToAction("Create", "ADMINCARs");
+                        }
+                    }
+
+                    db.COLOURs.Add(n);
+                    db.SaveChanges();
+                    TempData["AlertMessage"] = "A new colour has successfully been added!";
+                    return RedirectToAction("Create", "ADMINCARs");
+                }
+            }
+            catch
+            {
+                TempData["AlertMessage"] = "Sorry something went wrong, please try again later";
+                return RedirectToAction("Create", "ADMINCARs");
+            }
+
+            return View(COLOUR_NAME);
+        }
+
+        public ActionResult CreateFuelType( string FUELTYPE_NAME)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    List<FUEL_TYPE> fUEL_TYPEs = new List<FUEL_TYPE>();
+                    fUEL_TYPEs = db.FUEL_TYPE.ToList();
+                    FUEL_TYPE n = new FUEL_TYPE();
+                    n.FUELTYPE_NAME = FUELTYPE_NAME;
+                    foreach (var item in fUEL_TYPEs)
+                    {
+                        if (item.FUELTYPE_NAME.Trim() == FUELTYPE_NAME.Trim())
+                        {
+                            TempData["AlertMessage"] = "This fuel type already exists in our system";
+                            return RedirectToAction("Create", "ADMINCARs");
+                        }
+                    }
+
+                    db.FUEL_TYPE.Add(n);
+                    db.SaveChanges();
+                    TempData["AlertMessage"] = "A new fuel type has successfully been added!";
+                    return RedirectToAction("Create", "ADMINCARs");
+                }
+            }
+            catch
+            {
+                TempData["AlertMessage"] = "Sorry something went wrong, please try again later";
+                return RedirectToAction("Create", "ADMINCARs");
+            }
+
+            return View(FUELTYPE_NAME);
+        }
+
+        public ActionResult CreateBodyType(string TYPE_NAME)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+
+                    List<CAR_TYPE> cAR_TYPEs = new List<CAR_TYPE>();
+                    cAR_TYPEs = db.CAR_TYPE.ToList();
+                    CAR_TYPE n = new CAR_TYPE();
+                    n.TYPE_NAME = TYPE_NAME;
+                    foreach (var item in cAR_TYPEs)
+                    {
+                        if (item.TYPE_NAME.Trim() == TYPE_NAME.Trim())
+                        {
+                            TempData["AlertMessage"] = "This car type already exists in our system";
+                            return RedirectToAction("Create", "ADMINCARs");
+                        }
+                    }
+
+                    db.CAR_TYPE.Add(n);
+                    db.SaveChanges();
+                    TempData["AlertMessage"] = "A new body type has successfully been added!";
+                    return RedirectToAction("Create", "ADMINCARs");
+                }
+            }
+            catch
+            {
+               TempData["AlertMessage"] = "Sorry something went wrong, please try again later";
+                return RedirectToAction("Create", "ADMINCARs");
+            }
+
+            return View(TYPE_NAME);
+        }
+
     }
 }

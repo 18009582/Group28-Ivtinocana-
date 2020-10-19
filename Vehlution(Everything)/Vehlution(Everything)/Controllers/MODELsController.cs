@@ -137,6 +137,16 @@ namespace Vehlution_Everything_.Controllers
             try
             {
                 MODEL mODEL = db.MODELs.Find(id);
+
+                CAR cAR = new CAR();
+                cAR = db.CARS.Where(zz => zz.MODEL.MODEL_ID == mODEL.MODEL_ID).FirstOrDefault();
+
+                if (cAR != null)
+                {
+                    TempData["AlertMessage"] = "You can not delete this car model because it is linked to a car in the Cars table of the database.";
+                    return RedirectToAction("CarModelIndex");
+                }
+
                 db.MODELs.Remove(mODEL);
                 db.SaveChanges();
                 TempData["AlertMessage"] = "A car model has sucessfully been deleted!";

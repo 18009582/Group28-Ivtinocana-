@@ -35,14 +35,34 @@ namespace Vehlution_Everything_.Controllers
             }
             return View(sALE);
         }
+        [HttpGet]
+        public JsonResult UpdateViewBag(int carId) {
+            var offer = db.OFFERS.Where(cc => cc.OFFERTYPE_ID == 1
+          && cc.OFFER_STATUS.STATUS_ID == 1 && cc.CAR_ID == carId).ToList();
+            ViewBag.Amount = new SelectList(offer, "OFFER_ID", "AMOUNT");
+            var subCategoryToReturn = offer.Select(S => new { Id = S.OFFER_ID, Name = S.AMOUNT });
+
+            return Json(subCategoryToReturn, JsonRequestBehavior.AllowGet);
+        }
 
         // GET: SALEs/Create
         public ActionResult Create()
         {
-            ViewBag.CAR_REG = new SelectList(db.CARS, "CAR_ID", "CAR_REG");
+            var cars = db.CARS.ToList();
+            ViewBag.CAR_REG = new SelectList(cars, "CAR_ID", "CAR_REG");
             ViewBag.PAYMENT_ID = new SelectList(db.PAYMENTs, "PAYMENT_ID", "PAYMENTTYPE");
             ViewBag.EMPLOYEE_ID = new SelectList(db.EMPLOYEEs, "EMPLYEE_ID", "FULL_NAME");
-            ViewBag.Amount = new SelectList(db.OFFERS.Where(cc=> cc.OFFERTYPE_ID == 1 && cc.OFFER_STATUS.STATUS_ID == 1), "OFFER_ID", "AMOUNT");
+            if (cars != null && cars.Count > 0)
+            {
+                int carId = cars[0].CAR_ID;
+                var offer = db.OFFERS.Where(cc => cc.OFFERTYPE_ID == 1
+              && cc.OFFER_STATUS.STATUS_ID == 1 && cc.CAR_ID == carId).ToList();
+                ViewBag.Amount = new SelectList(offer, "OFFER_ID", "AMOUNT");
+            }
+            else {
+                ViewBag.Amount = new SelectList(null, "OFFER_ID", "AMOUNT");
+            }
+           
             return View();
         }
 
@@ -51,20 +71,29 @@ namespace Vehlution_Everything_.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         //[ValidateAntiForgeryToken]
-        public ActionResult Create(int Amount, System.DateTime SALE_DATE_, int EMPLOYEE_ID, HttpPostedFileBase file)
+        public ActionResult Create(int Amount, System.DateTime SALE_DATE_, int EMPLOYEE_ID, int PAYMENT_ID, HttpPostedFileBase file)
         {
             try
             {
                 string doc = null;
 
-                doc = System.IO.Path.GetFileName(file.FileName);
+                doc = System.IO.Path.GetFileName(file.FileName); 
                 string path = System.IO.Path.Combine(Server.MapPath("~/Contract/"), doc);
                 file.SaveAs(path);
+                
 
                 SALE sALE = new SALE();
-                sALE.CAR_CONTRACT_ = Convert.FromBase64String(doc);
+                CAR cAR = new CAR();
+                OFFER oFFER = new OFFER();
+                oFFER = db.OFFERS.Where(zz => zz.OFFER_ID == Amount).First();
+                cAR = db.CARS.Where(zz => zz.CAR_ID == oFFER.CAR.CAR_ID).First();
+                cAR.STATUS_ID = 1;
+                db.SaveChanges();
+
+                sALE.CAR_CONTRACT_ = doc;
                 sALE.OFFER_ID = Amount;
                 sALE.SALE_DATE_ = SALE_DATE_;
+                sALE.PAYMENT_ID = PAYMENT_ID;
                 sALE.ACCEPTED_OFFER = db.OFFERS.Find(Amount).AMOUNT;
                 db.SALES.Add(sALE);
                 db.SaveChanges();
@@ -80,15 +109,17 @@ namespace Vehlution_Everything_.Controllers
 
                 ViewBag.OFFER_ID = new SelectList(db.OFFERS, "OFFER_ID", "OFFER_ID", sALE.OFFER_ID);
                 ViewBag.PAYMENT_ID = new SelectList(db.PAYMENTs, "PAYMENT_ID", "PAYMENTTYPE", sALE.PAYMENT_ID);
-                return View(sALE);
+
+                TempData["AlertMessage"] = "Sale has successfully been made";
+                return RedirectToAction("AdminNav", "Nav");
             }
-            catch
+            catch(Exception err)
             {
-                TempData["AlertMessage"] = "Sorry something went wrong, please try again later";
-                return RedirectToAction("Create", "SALEs");
+                TempData["AlertMessage"] = "Sorry something went wrong, please try again later " + err ;
+                return RedirectToAction("AdminNav", "Nav");
 
             }
-            
+
         }
 
         // GET: SALEs/Edit/5

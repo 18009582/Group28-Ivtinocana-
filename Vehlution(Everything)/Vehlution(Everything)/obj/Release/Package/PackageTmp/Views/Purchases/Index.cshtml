@@ -1,0 +1,208 @@
+﻿@model IEnumerable<Vehlution_Everything_.Models.OFFER>
+@{
+    Layout = null;
+}
+
+@{
+    var message = TempData["AlertMessage"] ?? string.Empty;
+}
+
+<script type="text/javascript">
+    var message = '@message';
+    if(message)
+        alert(message);
+</script>
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    <script src='https://kit.fontawesome.com/a076d05399.js'></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link href="@Url.Content("~/Content/Site.css")" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="~/CSS/StyleSheet1.css" />
+    <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
+    <style>
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 1; /* Sit on top */
+            padding-top: 100px; /* Location of the box */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgb(0,0,0); /* Fallback color */
+            background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+        }
+
+        /* Modal Content */
+        .modal-content {
+            background-color: #fefefe;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 50%;
+            text-align: center;
+        }
+
+        /* The Close Button */
+        .close {
+            color: #aaaaaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+    </style>
+
+</head>
+<body>
+    <div class="container">
+        <h3>Search cars </h3>
+        <label>Please choose the registration of the car that you are searching for</label>
+        @using (Html.BeginForm("Search", "Purchases"))
+        {
+
+            <label>Status</label>
+            @Html.DropDownList("Regs");
+
+            <input type="submit" id="Search" title="Search Purchases by Cars" />
+        }
+
+    </div><br />
+    <div id="myModal1" class="modal">
+        <div class="modal-content">
+            @using (Html.BeginForm("Create", "Purchases"))
+            {
+                <form id="DeleteConfirmed">
+                    <label id="dellabel">Are You sure you want to purchase this vehicle? </label>
+                    <br />
+                    <input type="hidden" id="id" name="id" readonly />
+                    <button type="submit" class="btn btn-default btn-sm" style="background-color:lightgreen;width:100%">
+                        <i class="fa fa-check"></i>
+                        Yes
+                    </button>
+
+                    <button type="button"  title="Return to purchases page" class="btn btn-default btn-sm" style="background-color:red;width:100%" id="close">
+                        <i class="fa fa-times"></i>
+                        <i class="glyphicon glyphicon-remove"></i> Cancel
+                    </button>
+                    <br />
+                </form>
+            }
+        </div>
+    </div>
+
+    @if (Model != null)
+    {
+        <div class="container">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+
+                </div>
+                <div class="panel-body">
+                    <table class="table-latitude">
+                        <caption>OFFERS</caption>
+                        <thead>
+                        <th>
+                            Offer ID
+                        </th>
+                        <th>
+                            Listing Price
+                        </th>
+                        <th>
+                            Offer Amount
+                        </th>
+                        <th>
+                            Car Registration
+                        </th>
+                        <th>
+                            Make and Model
+                        </th>
+                        <th>
+                            Image
+                        </th>
+                        <th>
+                            Client Details
+                        </th>
+
+                        <th>Accept Purchase</th>
+
+                        </thead>
+
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.OFFER_ID)
+                                </td>
+                                <td>
+                                    R: @item.CAR.LISTING_PRICE
+                                </td>
+                                <td>
+                                    R: @Html.DisplayFor(modelItem => item.AMOUNT)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.CAR.CAR_REG)
+                                </td>
+                                <td>
+                                    @item.CAR.MODEL.MAKE.MAKE_NAME @item.CAR.MODEL.MODEL_NAME
+                                </td>
+                                <td>
+                                    <img width="193" height="130" src="~/Images/@item.CAR.IMAGE" />
+                                </td>
+                                <td>
+                                    Full Name: @item.USER.FIRSTNAME @item.USER.LASTNAME<br />
+                                    Email Address: @item.USER.EMAIL
+                                </td>
+
+                                <td>
+
+                                    <button class="btn btn-default btn-sm"  title="Accept to make a Purchase" onclick="del(@item.OFFER_ID)" id="Accept" name="Accept" style="background-color:lightsteelblue">Accept</button>
+
+                                </td>
+                            </tr>
+                        }
+
+                    </table>
+                </div>
+            </div>
+        </div>
+    }
+    <div>
+        <div style="text-align:center">
+            <input type="button" value="Home"  title="Return to homepage" class="btn btn-secondary" onclick="location.href='@Url.Action("AdminNav","Nav")'" />
+        </div>
+    </div>
+</body>
+
+</html>
+<script>
+
+    var modal1 = document.getElementById("myModal1");
+
+    var closebtn = document.getElementById("close");
+
+    // Get the <span> element that closes the modal
+    // When the user clicks on the button, open the modal
+
+
+    function del(id) {
+
+        document.getElementById('id').value = id;
+        modal1.style.display = "block";
+    }
+    closebtn.onclick = function () {
+        modal1.style.display = "none";
+
+    }
+</script>

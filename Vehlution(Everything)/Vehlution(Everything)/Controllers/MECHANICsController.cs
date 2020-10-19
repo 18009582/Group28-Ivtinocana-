@@ -131,7 +131,17 @@ namespace Vehlution_Everything_.Controllers
         {
             try
             {
+                MECHANIC_JOB mECHANIC_JOB = new MECHANIC_JOB();
+
                 MECHANIC mECHANIC = db.MECHANICs.Find(id);
+
+                mECHANIC_JOB = db.MECHANIC_JOB.Where(zz => zz.MECHANIC.MECHANIC_ID == mECHANIC.MECHANIC_ID).FirstOrDefault();
+                if (mECHANIC_JOB != null)
+                {
+                    TempData["AlertMessage"] = "You can not delete this mechanic because it is linked to a mechanic job in the Mechanic Job table of the database.";
+                    return RedirectToAction("Index");
+                }
+
                 db.MECHANICs.Remove(mECHANIC);
                 db.SaveChanges();
                 TempData["AlertMessage"] = "A mechanic has sucessfully been deleted!";

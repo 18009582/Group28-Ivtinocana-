@@ -76,7 +76,7 @@ namespace Vehlution_Everything_.Controllers
                     {
                         if (item.CAR_REG == CarReg)
                         {
-                            TempData["AlertMessage"] = "This car registration already exsists in our system";
+                            TempData["AlertMessage"] = "This car registration already exists in our system";
                             return RedirectToAction("Create", "CLIENTCARs");
                         }
                     }
@@ -226,7 +226,7 @@ namespace Vehlution_Everything_.Controllers
                 {
                     x.defid = DEFECTS;
                     x.severity = severity;
-                    return RedirectToAction("Create");
+                    return RedirectToAction("Create", "CLIENTCARs");
                 }
             }
             dEFECT.PartID = CarParts;
@@ -236,7 +236,7 @@ namespace Vehlution_Everything_.Controllers
             dEFECT.severity = severity;
             NewDefects.Add(dEFECT);
             ViewBag.PartsOrdered = NewDefects;
-            return RedirectToAction("Create");
+            return RedirectToAction("Create", "CLIENTCARs");
 
         }
 
@@ -249,12 +249,12 @@ namespace Vehlution_Everything_.Controllers
                 if (x.PartID == partid && x.defid == id)
                 {
                     NewDefects.Remove(x);
-                    return RedirectToAction("Create");
+                    return RedirectToAction("Create", "CLIENTCARs");
 
                 }
             }
 
-            return RedirectToAction("Create");
+            return RedirectToAction("Create", "CLIENTCARs");
         }
 
         protected override void Dispose(bool disposing)

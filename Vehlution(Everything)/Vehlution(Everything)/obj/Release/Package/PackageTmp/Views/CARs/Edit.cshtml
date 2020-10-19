@@ -1,0 +1,171 @@
+﻿@model Vehlution_Everything_.Models.CAR
+@{
+    ViewBag.Title = "Edit";
+    Layout = null;
+}
+
+
+@{
+    ViewBag.Title = "Edit";
+}
+<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
+<script language="javascript" type="text/javascript">
+    function GetModel(_makeId) {
+        var procemessage = "<option value='0'> Please wait...</option>";
+        $("#MODEL_ID").html(procemessage).show();
+        var url = "/ADMINCARs/GetModelByMakeId/";
+
+        $.ajax({
+            url: url,
+            data: { makeid: _makeId },
+            cache: false,
+            type: "POST",
+            success: function (data) {
+                var markup = "<option value='0'>Select Make</option>";
+                for (var x = 0; x < data.length; x++) {
+                    markup += "<option value=" + data[x].Value + ">" + data[x].Text + "</option>";
+                }
+                $("#MODEL_ID").html(markup).show();
+
+            },
+            error: function (reponse) {
+                alert("error : " + reponse);
+            }
+        });
+
+    }
+</script>
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    <script src='https://kit.fontawesome.com/a076d05399.js'></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link href="@Url.Content("~/Content/Site.css")" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="~/CSS/StyleSheet1.css" />
+    <style>
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 1; /* Sit on top */
+            padding-top: 100px; /* Location of the box */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgb(0,0,0); /* Fallback color */
+            background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+        }
+
+        /* Modal Content */
+        .modal-content {
+            background-color: #fefefe;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 50%;
+            text-align: center;
+        }
+
+        /* The Close Button */
+        .close {
+            color: #aaaaaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<div class="container" style="text-align:center">
+    <h1 style="color:orange">Edit @Model.CAR_REG </h1>
+    @using (Html.BeginForm("Edit", "CARs", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        @Html.AntiForgeryToken()
+
+        <label>Car Registration</label>
+        <br />
+        <input type="text" id="CarReg" name="CarReg" style="width:50%" required maxlength="8" minlength="8" value="@Model.CAR_REG" />
+        <br />
+
+        <label>Number of Seats</label>
+        <br />
+        @Html.DropDownList("SEATS_ID", null, htmlAttributes: new { @class = "select" })
+        <br />
+
+        <label>Colour</label>
+        <br />
+        @Html.DropDownList("COLOUR_ID", null, htmlAttributes: new { @class = "select" })
+        <br />
+        <label>Transmission</label>
+        <br />
+        @Html.DropDownList("TRANSMISSION_ID", null, htmlAttributes: new { @class = "select" })
+        <br />
+        <label>Number of Doors</label>
+        <br />
+        @Html.DropDownList("DOORS_ID", null, htmlAttributes: new { @class = "select" })
+        <br />
+        <label>Fuel Type</label>
+        <br />
+        @Html.DropDownList("FUELTYPE_ID", null, htmlAttributes: new { @class = "select" })
+        <br />
+        <label>Make and Model</label>
+        <br />
+        <label>Please Select a Make</label>
+        <br />
+        @Html.DropDownList("MAKE_ID", null, htmlAttributes: new { @id = "ddlmake", @style = "width:200px;", @onchange = "javascript:GetModel(this.value);" })
+        <br />
+        <br />
+        <select id="MODEL_ID" name="MODEL_ID" style="width: 200px">
+        </select>
+
+        <br />
+        <br />
+        <br />
+        <label>Body Type</label>
+        <br />
+        @Html.DropDownList("CAR_TYPEID", null, htmlAttributes: new { @class = "select" })
+        <br />
+        <label>Year</label>
+        <br />
+        <input type="number" id="YEAR" name="YEAR" style="width:50%" required minlength="4" maxlenth="4" min="1900" max="2020" value="@Model.YEAR" />
+        <br />
+        <br />
+        <label>Mileage</label>
+        <br />
+        <input type="number" id="MILAGE_" name="MILAGE_" style="width:50%" required min="0" value="@Model.MILAGE_" />
+        <br />
+        <br />
+        <label>Listing Price</label>
+        <br />
+        <input type="number" id="LISTING_PRICE" name="LISTING_PRICE" style="width:50%" required
+               value="@Model.LISTING_PRICE" />
+        <br />
+        <br />
+        <label>Uplaod an Image</label>
+        <p><input type="file" accept="image/*" name="file" onchange="loadFile(event)" ></p>
+        <p><img id="output" width="200" /></p>
+
+
+        <script>
+            var loadFile = function (event) {
+                var image = document.getElementById('output');
+                image.src = URL.createObjectURL(event.target.files[0]);
+            };
+        </script>
+
+        <button type="submit" class="btn btn-default btn-sm" id="Edit" name="Edit" style="background-color:lightgreen">
+            <i class="fa fa-plus-square"></i>
+            <span class="glyphicon glyphicon-ok"></span> Update Car For Sale
+        </button>
+        <button type="button" class="btn btn-default btn-sm"  title="Go back to Viewing Cars"  style="background-color:red" onclick="location.href='@Url.Action("IndexSearchStatus", "CARs")'">
+            <i class="fa fa-times"></i>
+            <i class="glyphicon glyphicon-remove"></i> Cancel
+        </button>
+    }
+</div>
+
+

@@ -16,20 +16,28 @@ namespace Vehlution_Everything_.Models
     {
         public string CAR_REG { get; set; }
         public Nullable<int> SEATS_ID { get; set; }
+        public string SEATS_NAME { get; set; }
         public Nullable<int> COLOUR_ID { get; set; }
+        public string COLOUR_Name { get; set; }
         public Nullable<int> TRANSMISSION_ID { get; set; }
+        public string TRANSMISSION_NAME { get; set; }
         public Nullable<int> DOORS_ID { get; set; }
+        public string DOORS_NAME { get; set; }
         public Nullable<int> STATUS_ID { get; set; }
+        public string STATUS_NAME { get; set; }
         public Nullable<int> FUELTYPE_ID { get; set; }
+        public string FUELTYPE_NAME { get; set; }
         public Nullable<int> MODEL_ID { get; set; }
+        public string MODEL_NAME { get; set; }
         public Nullable<int> YEAR { get; set; }
         public Nullable<int> MILEAGE { get; set; }
         public Nullable<double> LISTING_PRICE { get; set; }
         public string IMAGE { get; set; }
-        public int CAR_ID { get; set; }
+        public Nullable<int> CAR_ID { get; set; }
         public Nullable<int> CAR_TYPEID { get; set; }
+        public string CAR_TYPENAME { get; set; }
+        public int CARLOGS_ID { get; set; }
         public Nullable<int> USER_ID { get; set; }
-        public Nullable<int> AUDIT_ID { get; set; }
         public Nullable<System.DateTime> AUDITDATE { get; set; }
         public string AUDITACTION { get; set; }
         public string AUDITUSER { get; set; }

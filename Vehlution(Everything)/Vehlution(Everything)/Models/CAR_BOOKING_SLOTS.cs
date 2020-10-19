@@ -20,11 +20,11 @@ namespace Vehlution_Everything_.Models
             this.CAR_BOOKING = new HashSet<CAR_BOOKING>();
         }
     
-        public int TIME_ID { get; set; }
-        public int DAY_ { get; set; }
-        public int STATUSID { get; set; }
+        public Nullable<int> STATUSID { get; set; }
         public Nullable<int> EMPLYEE_ID { get; set; }
-        public int CARBOOKINGSLOTID { get; set; }
+        public int CAR_BOOKING_SLOTS_ID { get; set; }
+        public Nullable<int> TIME_ID { get; set; }
+        public Nullable<int> DAY_ { get; set; }
     
         public virtual BOOKING_DATES BOOKING_DATES { get; set; }
         public virtual BOOKING_STATUS BOOKING_STATUS { get; set; }

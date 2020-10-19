@@ -1,0 +1,121 @@
+﻿@model IEnumerable<Vehlution_Everything_.Models.CAR>
+
+@{
+    Layout = null;
+}
+@{
+    var message = TempData["AlertMessage"] ?? string.Empty;
+}
+
+<script type="text/javascript">
+    var message = '@message';
+    if(message)
+        alert(message);
+</script>
+
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+    <link href="~/Content/Site.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    <script src='https://kit.fontawesome.com/a076d05399.js'></script>
+    <link href="~/CSS1/StyleSheet1.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="container">
+        <h3>Search cars by thier Status</h3>
+        <label>Please choose the status of the car that you are searching for</label>
+        @using (Html.BeginForm("SearchStatus", "CARs"))
+        {
+
+            <label>Status</label>
+            @Html.DropDownList("status");
+
+            <input type="submit" id="SearchStatus"  title="Search Cars" />
+        }
+
+    </div><br />
+
+    @if (Model != null)
+    {
+        <div class="container">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+
+                </div>
+                <div class="panel-body">
+                    <table class="table-latitude">
+                        <caption>Cars Details</caption>
+                        <thead>
+
+                        <thead>
+                        <th>Car ID</th>
+                        <th>Year</th>
+                        <th>Milage</th>
+                        <th>Listing Price</th>
+                        <th>Image</th>
+                        <th>Car Make</th>
+                        <th>Car Model</th>
+                        <th>Colour</th>
+                        <th>Car Status</th>
+                        <th>View Car Details</th>
+
+                        </thead>
+                        <tbody>
+
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @item.CAR_ID
+                                    </td>
+                                    <td>
+                                        @item.YEAR
+                                    </td>
+                                    <td>
+                                        @item.MILAGE_ KM
+                                    </td>
+                                    <td>
+                                        R: @item.LISTING_PRICE,00
+                                    </td>
+                                    <td>
+
+                                        <img width="193" height="130" src="~/Images/@item.IMAGE" />
+
+                                    </td>
+
+                                    <td>
+                                        @item.MODEL.MODEL_NAME
+                                    </td>
+                                    <td>
+                                        @item.MODEL.MAKE.MAKE_NAME
+                                    </td>
+                                    <td>
+                                        @item.COLOUR.COLOUR_NAME
+                                    </td>
+                                    <td>
+                                        @item.CAR_STATUS.SASTUS_NAME
+                                    </td>
+                                    <td>
+                                        <button class="btn btn-default btn-sm" id="Create" name="Create" style="background-color:lightsteelblue"  onclick="location.href=' @Url.Action("Edit", "CARs", new { id = item.CAR_ID })'">Update</button>
+                                        <button class="btn btn-default btn-sm" id="Create" name="Create" style="background-color:lightsteelblue" onclick="location.href=' @Url.Action("Details", "CARs", new { id = item.CAR_ID })'">View</button>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    }
+<div style="text-align:center">
+    <input type="button" value="Home"  title="Go back to Home screen"  class="btn btn-secondary" onclick="location.href='@Url.Action("AdminNav","Nav")'" />
+</div>
+</body>
+</html>
+

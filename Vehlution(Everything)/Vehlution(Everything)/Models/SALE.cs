@@ -25,7 +25,7 @@ namespace Vehlution_Everything_.Models
         public Nullable<int> OFFER_ID { get; set; }
         public Nullable<System.DateTime> SALE_DATE_ { get; set; }
         public Nullable<double> ACCEPTED_OFFER { get; set; }
-        public byte[] CAR_CONTRACT_ { get; set; }
+        public string CAR_CONTRACT_ { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<EMPLYEE_SALES> EMPLYEE_SALES { get; set; }

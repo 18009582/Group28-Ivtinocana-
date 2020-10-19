@@ -1,14 +1,40 @@
 ﻿@model Vehlution_Everything_.Models.CAR
 @{
     ViewBag.Title = "Edit";
-    Layout =null;
+    Layout = null;
 }
 
 
 @{
     ViewBag.Title = "Edit";
 }
+<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
+<script language="javascript" type="text/javascript">
+    function GetModel(_makeId) {
+        var procemessage = "<option value='0'> Please wait...</option>";
+        $("#MODEL_ID").html(procemessage).show();
+        var url = "/ADMINCARs/GetModelByMakeId/";
 
+        $.ajax({
+            url: url,
+            data: { makeid: _makeId },
+            cache: false,
+            type: "POST",
+            success: function (data) {
+                var markup = "<option value='0'>Select Make</option>";
+                for (var x = 0; x < data.length; x++) {
+                    markup += "<option value=" + data[x].Value + ">" + data[x].Text + "</option>";
+                }
+                $("#MODEL_ID").html(markup).show();
+
+            },
+            error: function (reponse) {
+                alert("error : " + reponse);
+            }
+        });
+
+    }
+</script>
 <head>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -54,143 +80,91 @@
         }
     </style>
 </head>
+<div class="container" style="text-align:center">
+    <h1 style="color:orange">Edit @Model.CAR_REG </h1>
+    @using (Html.BeginForm("Edit", "CARs", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        @Html.AntiForgeryToken()
 
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
+        <label>Car Registration</label>
+        <br />
+        <input type="text" id="CarReg" name="CarReg" style="width:50%" required maxlength="8" minlength="8" value="@Model.CAR_REG" />
+        <br />
 
-<div class="form-horizontal">
-    <h4>Update Car</h4>
-    <hr />
-    @Html.ValidationSummary(true, "", new { @class = "select" })
-    <div class="form-group">
-        @Html.LabelFor(model => model.CAR_REG, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.CAR_REG, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.CAR_REG, "", new { @class = "select" })
-        </div>
-    </div>
+        <label>Number of Seats</label>
+        <br />
+        @Html.DropDownList("SEATS_ID", null, htmlAttributes: new { @class = "select" })
+        <br />
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.SEATS_ID, "SEATS_ID", htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.DropDownList("SEATS_ID", null, htmlAttributes: new { @class = "form-control" })
-            @Html.ValidationMessageFor(model => model.SEATS_ID, "", new { @class = "select" })
-        </div>
-    </div>
+        <label>Colour</label>
+        <br />
+        @Html.DropDownList("COLOUR_ID", null, htmlAttributes: new { @class = "select" })
+        <br />
+        <label>Transmission</label>
+        <br />
+        @Html.DropDownList("TRANSMISSION_ID", null, htmlAttributes: new { @class = "select" })
+        <br />
+        <label>Number of Doors</label>
+        <br />
+        @Html.DropDownList("DOORS_ID", null, htmlAttributes: new { @class = "select" })
+        <br />
+        <label>Fuel Type</label>
+        <br />
+        @Html.DropDownList("FUELTYPE_ID", null, htmlAttributes: new { @class = "select" })
+        <br />
+        <label>Car Make </label>
+        <br />
+        @Html.DropDownList("MAKE_ID", null, htmlAttributes: new { @class = "select" })
+        <br />
+        <label>Car Model</label>
+        <br />
+        @Html.DropDownList("MODEL_ID", null, htmlAttributes: new { @class = "select" })
+        <br />
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.COLOUR_ID, "COLOUR_ID", htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.DropDownList("COLOUR_ID", null, htmlAttributes: new { @class = "form-control" })
-            @Html.ValidationMessageFor(model => model.COLOUR_ID, "", new { @class = "select" })
-        </div>
-    </div>
+        <br />
+        <br />
+        <br />
+        <label>Body Type</label>
+        <br />
+        @Html.DropDownList("CAR_TYPEID", null, htmlAttributes: new { @class = "select" })
+        <br />
+        <label>Year</label>
+        <br />
+        <input type="number" id="YEAR" name="YEAR" style="width:50%" required minlength="4" maxlenth="4" min="1900" max="2020" value="@Model.YEAR" />
+        <br />
+        <br />
+        <label>Mileage</label>
+        <br />
+        <input type="number" id="MILAGE_" name="MILAGE_" style="width:50%" required min="0" value="@Model.MILAGE_" />
+        <br />
+        <br />
+        <label>Listing Price</label>
+        <br />
+        <input type="number" id="LISTING_PRICE" name="LISTING_PRICE" style="width:50%" required
+               value="@Model.LISTING_PRICE" />
+        <br />
+        <br />
+        <label>Uplaod an Image</label>
+        <p><input type="file" accept="image/*" name="file" onchange="loadFile(event)"></p>
+        <p><img id="output" width="200" /></p>
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.TRANSMISSION_ID, "TRANSMISSION_ID", htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.DropDownList("TRANSMISSION_ID", null, htmlAttributes: new { @class = "form-control" })
-            @Html.ValidationMessageFor(model => model.TRANSMISSION_ID, "", new { @class = "select" })
-        </div>
-    </div>
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.DOORS_ID, "DOORS_ID", htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.DropDownList("DOORS_ID", null, htmlAttributes: new { @class = "form-control" })
-            @Html.ValidationMessageFor(model => model.DOORS_ID, "", new { @class = "select" })
-        </div>
-    </div>
+        <script>
+            var loadFile = function (event) {
+                var image = document.getElementById('output');
+                image.src = URL.createObjectURL(event.target.files[0]);
+            };
+        </script>
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.USER_ID, "USER_ID", htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.DropDownList("USER_ID", null, htmlAttributes: new { @class = "form-control" })
-            @Html.ValidationMessageFor(model => model.USER_ID, "", new { @class = "select" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.STATUS_ID, "STATUS_ID", htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.DropDownList("STATUS_ID", null, htmlAttributes: new { @class = "form-control" })
-            @Html.ValidationMessageFor(model => model.STATUS_ID, "", new { @class = "select" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.FUELTYPE_ID, "FUELTYPE_ID", htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.DropDownList("FUELTYPE_ID", null, htmlAttributes: new { @class = "form-control" })
-            @Html.ValidationMessageFor(model => model.FUELTYPE_ID, "", new { @class = "select" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.MODEL_ID, "MODEL_ID", htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.DropDownList("MODEL_ID", null, htmlAttributes: new { @class = "form-control" })
-            @Html.ValidationMessageFor(model => model.MODEL_ID, "", new { @class = "select" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.YEAR, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.YEAR, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.YEAR, "", new { @class = "select" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.MILAGE_, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.MILAGE_, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.MILAGE_, "", new { @class = "select" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.LISTING_PRICE, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.LISTING_PRICE, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.LISTING_PRICE, "", new { @class = "select" })
-        </div>
-    </div>
-
-    <label>Uplaod an Image</label>
-    <p><input type="file" accept="image/*" name="file" onchange="loadFile(event)"></p>
-    <p><img id="output" width="200" /></p>
-
-    <script>
-        var loadFile = function (event) {
-            var image = document.getElementById('output');
-            image.src = URL.createObjectURL(event.target.files[0]);
-        };
-    </script>
-
-    @Html.HiddenFor(model => model.CAR_ID)
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.CAR_TYPEID, "CAR_TYPEID", htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.DropDownList("CAR_TYPEID", null, htmlAttributes: new { @class = "form-control" })
-            @Html.ValidationMessageFor(model => model.CAR_TYPEID, "", new { @class = "select" })
-        </div>
-    </div>
-    <button type="submit" class="btn btn-default btn-sm" id="Edit" name="Edit" style="background-color:lightgreen" onclick="location.href='@Url.Action("Edit","CARs")'">
-        <i class="fa fa-plus-square"></i>
-        <span class="glyphicon glyphicon-ok"></span> Update
-    </button>
-
-    <button type="button" class="btn btn-default btn-sm" style="background-color:red" onclick="location.href='@Url.Action("AdminCarsForSale","CARs")'">
-        <i class="fa fa-times"></i>
-        <i class="glyphicon glyphicon-remove"></i> Cancel
-    </button>
+        <button type="submit" class="btn btn-default btn-sm" id="Edit" name="Edit" style="background-color:lightgreen">
+            <i class="fa fa-plus-square"></i>
+            <span class="glyphicon glyphicon-ok"></span> Update Car For Sale
+        </button>
+        <button type="button" class="btn btn-default btn-sm" title="Go back to Viewing Cars" style="background-color:red" onclick="location.href='@Url.Action("IndexSearchStatus", "CARs")'">
+            <i class="fa fa-times"></i>
+            <i class="glyphicon glyphicon-remove"></i> Cancel
+        </button>
+    }
 </div>
-   
-}
-
 
 

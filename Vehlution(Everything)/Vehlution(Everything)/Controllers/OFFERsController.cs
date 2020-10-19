@@ -9,6 +9,8 @@ using System.Web.Mvc;
 using Vehlution_Everything_.Models;
 using System.Net.Mail;
 using Microsoft.AspNet.Identity;
+using System.Web.UI.WebControls;
+using Microsoft.Office.Interop.Word;
 
 namespace Vehlution_Everything_.Controllers
 {
@@ -64,6 +66,7 @@ namespace Vehlution_Everything_.Controllers
                         "\n Please contact your salesperson if you have any questions" +
                         "\n Yours Faithfully, " +
                         "\n Vehlution ";
+
                     var smtp = new SmtpClient
                     {
                         Host = "smtp.gmail.com",
@@ -73,14 +76,101 @@ namespace Vehlution_Everything_.Controllers
                         UseDefaultCredentials = false,
                         Credentials = new NetworkCredential(senderEmail.Address, password)
                     };
-                    using (var mess = new MailMessage(senderEmail, receiverEmail)
+
+                    using (var mess = new System.Net.Mail.MailMessage(senderEmail, receiverEmail)
                     {
                         Subject = sub,
                         Body = body
                     })
+
                     {
                         smtp.Send(mess);
                     }
+                    try
+                    {
+                        //Create an instance for word app  
+                        Application winword = new Application();
+
+                        //Set animation status for word application  
+                        //winword.ShowAnimation = false;
+
+                        //Set status for word application is to be visible or not.  
+                        winword.Visible = false;
+
+                        //Create a missing variable for missing value  
+                        object missing = System.Reflection.Missing.Value;
+
+                        //Create a new document  
+                        Document document = winword.Documents.Add(ref missing, ref missing, ref missing, ref missing);
+
+                        //Add header into the document  
+                        foreach (Section section in document.Sections)
+                        {
+                            //Get the header range and add the header details.  
+                            Range headerRange = section.Headers[WdHeaderFooterIndex.wdHeaderFooterPrimary].Range;
+                            headerRange.Fields.Add(headerRange, WdFieldType.wdFieldPage);
+                            headerRange.ParagraphFormat.Alignment = WdParagraphAlignment.wdAlignParagraphCenter;
+                            headerRange.Font.ColorIndex = WdColorIndex.wdBlue;
+                            headerRange.Font.Size = 10;
+                            headerRange.Text = "AGREEMENT FOR THE SALE OF A MOTOR VEHICLE";
+                        }
+
+                        //Add the footers into the document  
+                        foreach (Section wordSection in document.Sections)
+                        {
+                            //Get the footer range and add the footer details.  
+                            Range footerRange = wordSection.Footers[WdHeaderFooterIndex.wdHeaderFooterPrimary].Range;
+                            footerRange.Font.ColorIndex = WdColorIndex.wdDarkRed;
+                            footerRange.Font.Size = 10;
+                            footerRange.ParagraphFormat.Alignment = WdParagraphAlignment.wdAlignParagraphCenter;
+                            footerRange.Text = "Footer text goes here";
+                        }
+
+                        //adding text to document  
+                        document.Content.SetRange(0, 0);
+                        document.Content.Text = "Entered into by and between " + Environment.NewLine +
+                                                "JDE Traders" + Environment.NewLine +
+                                                "________________________" + Environment.NewLine +
+                                                "(hereinafter referred to as “the Seller”)" + Environment.NewLine + Environment.NewLine +
+                                                "_____________________________" + Environment.NewLine +
+                                                "(hereinafter referred to as “the Purchaser”)" + Environment.NewLine + Environment.NewLine +
+                                                "1. Sale" + Environment.NewLine +
+                                                "The Seller hereby sells to the Purchaser the following motor vehicle:" + Environment.NewLine +
+                                                "Make: " + oFFER.CAR.MODEL.MAKE.MAKE_NAME + Environment.NewLine +
+                                                "Model: " + oFFER.CAR.MODEL.MODEL_NAME + Environment.NewLine +
+                                                "Year: " + oFFER.CAR.YEAR + Environment.NewLine +
+                                                "Registration Number: " + oFFER.CAR.CAR_REG + Environment.NewLine + Environment.NewLine +
+                                                "2. Purchase Price " + Environment.NewLine +
+                                                "2.1 The purchase price payable by the Purchaser to the Seller the sum of: " + Environment.NewLine +
+                                                "R: " + oFFER.AMOUNT + Environment.NewLine +
+                                                "2.2 The full purchase price is payable prior to the vehicle's papers being released." + Environment.NewLine + Environment.NewLine +
+                                                "3. WARRANTIES AND VOETSTOOTS SALE" + Environment.NewLine +
+                                                "3.1 The seller sells the vehicle voetstoots, and, subject to what is set out below, as is, with no warranties whatsoever," + Environment.NewLine +
+                                                "3.2. The Seller warrants that the Seller has the full right and authority to sell the vehicle" + Environment.NewLine +
+                                                "3.3 The Seller warrants that the vehicle is fully paid for and the vehicle is sold free of any liens and encumbrances." + Environment.NewLine +
+                                                "3.4 The Seller undertakes to sign such forms and change of ownership documentation to enable the Purchaser to transfer the Vehicle into his/her name against payment of the purchase price." + Environment.NewLine +
+                                                "3.5 The Seller warrants that the Vehicle is roadworthy, the Purchaser however shall be responsible for any costs associated with the roadworthy test. " + Environment.NewLine + Environment.NewLine +
+                                                "4. WHOLE AGREEMENT" + Environment.NewLine +
+                                                "This is the whole agreement between the parties and no amendment, alteration or addition thereto shall be any force or effect unless reduced in writing and signed by both parties." + Environment.NewLine +
+                                                "Signed at_____________________________________(place) on this ____________________" + Environment.NewLine + Environment.NewLine +
+                                                "___________________________                                      __________________________________" + Environment.NewLine +
+                                                " Seller                                                                            Witness" + Environment.NewLine + Environment.NewLine +
+                                                "__________________________                                       __________________________________" + Environment.NewLine +
+                                                " Purchaser                                                                         Witness ";
+
+                        //Save the document  
+                        object filename = @"C:\Users\hoole\Documents\GitHub\Group28-Ivtinocana-\Vehlution(Everything)\Vehlution(Everything)\Contract\AGREEMENT FOR THE SALE OF A MOTOR VEHICLE.docx";
+                        document.SaveAs2(ref filename);
+                        document.Close(ref missing, ref missing, ref missing);
+                        document = null;
+                        winword.Quit(ref missing, ref missing, ref missing);
+                        winword = null;
+                    }
+                    catch(Exception err)
+                    {
+                        TempData["AlertMessage"] = "Sorry something went wrong please try again later. " + err;
+                        return RedirectToAction("AdminIndex");
+                    }    
                 }
                 TempData["AlertMessage"] = "You have just accepted this offer";
                 return RedirectToAction("AdminIndex");
@@ -128,7 +218,7 @@ namespace Vehlution_Everything_.Controllers
                             UseDefaultCredentials = false,
                             Credentials = new NetworkCredential(senderEmail.Address, password)
                         };
-                        using (var mess = new MailMessage(senderEmail, receiverEmail)
+                        using (var mess = new System.Net.Mail.MailMessage(senderEmail, receiverEmail)
                         {
                             Subject = sub,
                             Body = body
@@ -182,7 +272,7 @@ namespace Vehlution_Everything_.Controllers
                         UseDefaultCredentials = false,
                         Credentials = new NetworkCredential(senderEmail.Address, password)
                     };
-                    using (var mess = new MailMessage(senderEmail, receiverEmail)
+                    using (var mess = new System.Net.Mail.MailMessage(senderEmail, receiverEmail)
                     {
                         Subject = sub,
                         Body = body
@@ -192,12 +282,12 @@ namespace Vehlution_Everything_.Controllers
                     }
                 }
                 TempData["AlertMessage"] = "You have just accepted this offer";
-                return RedirectToAction("AdminIndex");
+                return RedirectToAction("ClientIndex");
             }
             catch (Exception err)
             {
                 TempData["AlertMessage"] = "Sorry something went wrong please try again later. " + err;
-                return RedirectToAction("AdminIndex");
+                return RedirectToAction("ClientIndex");
             }
         
 
@@ -236,7 +326,7 @@ namespace Vehlution_Everything_.Controllers
                         UseDefaultCredentials = false,
                         Credentials = new NetworkCredential(senderEmail.Address, password)
                     };
-                    using (var mess = new MailMessage(senderEmail, receiverEmail)
+                    using (var mess = new System.Net.Mail.MailMessage(senderEmail, receiverEmail)
                     {
                         Subject = sub,
                         Body = body
@@ -247,7 +337,7 @@ namespace Vehlution_Everything_.Controllers
                 }
 
 
-                TempData["AlertMessage"] = "You have just accepted this offer";
+                TempData["AlertMessage"] = "You have just rejected this offer";
                 return RedirectToAction("AdminIndex");
             }
             catch (Exception err)

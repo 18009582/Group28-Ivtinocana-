@@ -16,14 +16,15 @@ namespace Vehlution_Everything_.Models
     {
         public int CARBOOKING_ID { get; set; }
         public int CAR_ID { get; set; }
-        public Nullable<int> CARBOOKINGSLOTID { get; set; }
-        public Nullable<int> USER_ID { get; set; }
+        public int USER_ID { get; set; }
         public string STATUS { get; set; }
-        public Nullable<System.DateTime> BOOKING_DATE { get; set; }
-        public Nullable<System.DateTime> BOOKING_TIME { get; set; }
+        public int CAR_BOOKING_SLOTS_ID { get; set; }
     
-        public virtual CAR CAR { get; set; }
-        public virtual CAR_BOOKING_SLOTS CAR_BOOKING_SLOTS { get; set; }
         public virtual USER USER { get; set; }
+        public virtual CAR_BOOKING CAR_BOOKING1 { get; set; }
+        public virtual CAR_BOOKING CAR_BOOKING2 { get; set; }
+        public virtual CAR_BOOKING_SLOTS CAR_BOOKING_SLOTS { get; set; }
+        public virtual CAR_BOOKING CAR_BOOKING11 { get; set; }
+        public virtual CAR_BOOKING CAR_BOOKING3 { get; set; }
     }
 }

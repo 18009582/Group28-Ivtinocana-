@@ -131,7 +131,16 @@ namespace Vehlution_Everything_.Controllers
         {
             try
             {
+                ORDER oRDER = new ORDER();
+
                 SUPPLIER sUPPLIER = db.SUPPLIERs.Find(id);
+                oRDER = db.ORDERs.Where(zz => zz.SUPPLIER.SUPPLIER_ID == sUPPLIER.SUPPLIER_ID).FirstOrDefault();
+                if (oRDER != null)
+                {
+                    TempData["AlertMessage"] = "You can not delete this supplier because it is linked to an order in the Orders table of the database.";
+                    return RedirectToAction("Index");
+                }
+                
                 db.SUPPLIERs.Remove(sUPPLIER);
                 db.SaveChanges();
                 TempData["AlertMessage"] = "A supplier has sucessfully been deleted!";

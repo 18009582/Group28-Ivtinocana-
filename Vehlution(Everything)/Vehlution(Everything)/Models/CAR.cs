@@ -18,7 +18,6 @@ namespace Vehlution_Everything_.Models
         public CAR()
         {
             this.BOOKING_FOR_POSSIBLE_PURCHASE = new HashSet<BOOKING_FOR_POSSIBLE_PURCHASE>();
-            this.CAR_BOOKING = new HashSet<CAR_BOOKING>();
             this.CAR_DEFECTS = new HashSet<CAR_DEFECTS>();
             this.MECHANIC_JOB = new HashSet<MECHANIC_JOB>();
             this.OFFERS = new HashSet<OFFER>();
@@ -43,8 +42,6 @@ namespace Vehlution_Everything_.Models
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<BOOKING_FOR_POSSIBLE_PURCHASE> BOOKING_FOR_POSSIBLE_PURCHASE { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CAR_BOOKING> CAR_BOOKING { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CAR_DEFECTS> CAR_DEFECTS { get; set; }
         public virtual CAR_STATUS CAR_STATUS { get; set; }

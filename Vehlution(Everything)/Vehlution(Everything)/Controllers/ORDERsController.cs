@@ -8,6 +8,9 @@ using System.Web.Mvc;
 using Vehlution_Everything_.Models;
 using System.Net.Mail;
 using System;
+using TextmagicRest;
+using TextmagicRest.Model;
+using Twilio.Rest.Api.V2010.Account;
 
 namespace Vehlution_Everything_.Controllers
 {
@@ -169,7 +172,11 @@ namespace Vehlution_Everything_.Controllers
 
                 db.SaveChanges();
 
-                var body = "Good day" + supname + ", I trust you are well. +\n We regret to inform you that we will be canceling our order , Order Id : " + DelId + " , Placed of the " + dateplaced + " \n Thank you. \n + Yours Faithfully, \n Vehlution  ";
+                var body = "Good day" + supname + ", I trust you are well." +
+                    "\n We regret to inform you that we will be canceling our order , Order Id : " + DelId + " , Placed on the " + dateplaced + " " +
+                    "\n Thank you. " +
+                    "\n Yours Faithfully, " +
+                    "\n Vehlution  ";
                 var senderEmail = new MailAddress("vehlution@gmail.com", "Vehlution");
 
                 var receiverEmail = new MailAddress(sup, "Receiver");
@@ -277,16 +284,27 @@ namespace Vehlution_Everything_.Controllers
                 {
                     db.CAR_PARTS.Find(x.CARPARTS_ID).STOCKONHAND += x.QUANTITY;
                 }
-                db.SaveChanges();
-                TempData["AlertMessage"] = "Your order has been recieved!";
-                return RedirectToAction("Create");
+
+            const string accountSid = "ACf2ed1ce01e60b82e9cc208e7317eceff";
+            const string authToken = "07453f54f3f982d999cc8262ffffd46d";
+
+            Twilio.TwilioClient.Init(accountSid, authToken);
+
+            var message = MessageResource.Create(
+                body: "Order number : "+ db.ORDERs.Find(id).ORDER_ID+" has been received by Vehlution!",
+                from: new Twilio.Types.PhoneNumber("+16264995814"),
+                to: new Twilio.Types.PhoneNumber("+27713658503")
+            );
+            db.SaveChanges();
+            TempData["AlertMessage"] = "Your order has been recieved!";
+                return RedirectToAction("Index");
 
             }
             catch
             {
-                TempData["AlertMessage"] = "Sorry something went wrong, please try again late";
-                return RedirectToAction("Create");
-
+                TempData["AlertMessage"] = "Sorry something went wrong, please try again later";
+               return RedirectToAction("Index");
+           
             }
 
         }

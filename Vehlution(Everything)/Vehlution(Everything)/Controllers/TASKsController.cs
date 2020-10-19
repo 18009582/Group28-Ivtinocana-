@@ -130,7 +130,15 @@ namespace Vehlution_Everything_.Controllers
         {
             try
             {
+                MECHANIC_TASK mECHANIC_TASK = new MECHANIC_TASK();
                 TASK tASK = db.TASKs.Find(id);
+
+                mECHANIC_TASK = db.MECHANIC_TASK.Where(zz => zz.TASK.SERVICE_ID == tASK.SERVICE_ID).FirstOrDefault();
+                if (mECHANIC_TASK != null)
+                {
+                    TempData["AlertMessage"] = "You can not delete this task because it is linked to a task done by a mechanic in the Mechanic Task table of the database.";
+                    return RedirectToAction("Index");
+                }
                 db.TASKs.Remove(tASK);
                 db.SaveChanges();
                 TempData["AlertMessage"] = "A mechanic task has sucessfully been deleted!";

@@ -13,7 +13,7 @@ namespace Vehlution_Everything_.Controllers
     public class MECHANICsJOBController : Controller
     {
         private VehlutionEntities db = new VehlutionEntities();
-
+        static public List<MechTask> NewPartsOrder = new List<MechTask>();
         // GET: MECHANICsJOB
         public ActionResult Index()
         {
@@ -39,8 +39,12 @@ namespace Vehlution_Everything_.Controllers
         // GET: MECHANICsJOB/Create
         public ActionResult Create()
         {
-            ViewBag.CAR_ID = new SelectList(db.CARS, "CAR_ID", "CAR_ID");
+            ViewBag.CAR_ID = new SelectList(db.CARS, "CAR_ID", "CarReg");
             ViewBag.MECHANIC_ID = new SelectList(db.MECHANICs, "MECHANIC_ID", "FULL_NAME_");
+            ViewBag.Tasks = new SelectList(db.TASKs, "SERVICE_ID", "SERVICE_NAME");
+            ViewBag.CarParts = new SelectList(db.CAR_PARTS, "CARPARTS_ID", "PARTNAME");
+            ViewBag.CAR_ID = new SelectList(db.CARS, "CAR_ID", "CAR_REG");
+            ViewBag.TaskList = NewPartsOrder;
             return View();
         }
 
@@ -48,19 +52,49 @@ namespace Vehlution_Everything_.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
+   
         public ActionResult Create([Bind(Include = "MECHANICJOB_ID,CAR_ID,MECHANIC_ID,JOB_DATE,JOB_TIME")] MECHANIC_JOB mECHANIC_JOB)
         {
-            if (ModelState.IsValid)
+            try
             {
-                db.MECHANIC_JOB.Add(mECHANIC_JOB);
-                db.SaveChanges();
-                return RedirectToAction("AdminNav","Nav");
-            }
+                if (ModelState.IsValid)
+                {
+                    db.MECHANIC_JOB.Add(mECHANIC_JOB);
+                    db.SaveChanges();
+                    int id = db.MECHANIC_JOB.ToList().Last().MECHANICJOB_ID;
+                    foreach (MechTask x in NewPartsOrder)
+                    {
 
-            ViewBag.CAR_ID = new SelectList(db.CARS, "CAR_ID", "CAR_ID", mECHANIC_JOB.CAR_ID);
-            ViewBag.MECHANIC_ID = new SelectList(db.MECHANICs, "MECHANIC_ID", "FULL_NAME_", mECHANIC_JOB.MECHANIC_ID);
-            return View(mECHANIC_JOB);
+                        MECHANIC_TASK c = new MECHANIC_TASK();
+                        c.MECHANICJOB_ID = id;
+                        RELATIONSHIP_12 d = new RELATIONSHIP_12();
+                        d.CARPARTS_ID = x.PartID;
+                        db.RELATIONSHIP_12.Add(d);
+                        db.SaveChanges();
+
+                        c.CARPARTSUSEDID = db.RELATIONSHIP_12.ToList().Last().CARPARTSUSEDID;
+                        c.CARPARTS_ID = x.PartID;
+                        c.SERVICE_ID = x.TaskId;
+                        db.MECHANIC_TASK.Add(c);
+                        db.CAR_PARTS.Find(x.PartID).STOCKONHAND -= x.Qty;
+                        db.SaveChanges();
+                    }
+                    TempData["AlertMessage"] = "Mechanic Job has successfully been added!";
+                    return RedirectToAction("AdminNav", "Nav");
+                }
+
+                ViewBag.CAR_ID = new SelectList(db.CARS, "CAR_ID", "CAR_ID", mECHANIC_JOB.CAR_ID);
+                ViewBag.MECHANIC_ID = new SelectList(db.MECHANICs, "MECHANIC_ID", "FULL_NAME_", mECHANIC_JOB.MECHANIC_ID);
+                TempData["AlertMessage"] = "Mechanic Job has successfully been added!";
+                return View(mECHANIC_JOB);
+            }
+            catch(Exception err)
+            {
+                TempData["AlertMessage"] = "Sorry something went wrong, please try again later" + err;
+                return View(mECHANIC_JOB);
+
+            }
+            
         }
 
         // GET: MECHANICsJOB/Edit/5
@@ -132,5 +166,55 @@ namespace Vehlution_Everything_.Controllers
             }
             base.Dispose(disposing);
         }
-    }
+        [HttpPost]
+        public ActionResult AddToList(int CarParts, int Qty, int Tasks)
+        {
+            MechTask newOrder = new MechTask();
+            foreach (MechTask x in NewPartsOrder)
+            {
+                if (x.PartID == CarParts && x.TaskId == Tasks)
+                {
+                    x.Qty = Qty;
+
+                    return RedirectToAction("Create");
+                }
+            }
+            newOrder.PartID = CarParts;
+            newOrder.PartName = db.CAR_PARTS.Where(z => z.CARPARTS_ID == CarParts).FirstOrDefault().PARTNAME;
+            newOrder.Qty = Qty;
+            newOrder.TaskId = Tasks;
+            newOrder.TaskName = db.TASKs.Where(z => z.SERVICE_ID == Tasks).FirstOrDefault().SERVICE_NAME;
+            NewPartsOrder.Add(newOrder);
+            ViewBag.TaskList = NewPartsOrder;
+            return RedirectToAction("Create");
+
+        }
+
+        [HttpPost]
+        public ActionResult RemoveFromList(int id, int idt)
+        {
+            try
+            {
+                foreach (MechTask x in NewPartsOrder)
+                {
+                    if (x.PartID == id && x.TaskId == idt)
+                    {
+                        NewPartsOrder.Remove(x);
+                        return RedirectToAction("Create");
+
+                    }
+                }
+                TempData["AlertMessage"] = "Your item has been removed!";
+                return RedirectToAction("Create");
+
+            }
+            catch
+            {
+                TempData["AlertMessage"] = "Sorry something went wrong, please try again later";
+                return RedirectToAction("Create");
+
+            }
+
+        }
+         }
 }

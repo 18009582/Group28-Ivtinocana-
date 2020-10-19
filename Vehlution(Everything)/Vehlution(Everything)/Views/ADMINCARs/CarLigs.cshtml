@@ -1,0 +1,199 @@
+﻿
+
+@model IEnumerable<Vehlution_Everything_.Models.CAR_LOGS>
+
+@{
+    ViewBag.Title = "Index";
+}
+@{
+    var message = TempData["AlertMessage"] ?? string.Empty;
+}
+
+
+
+<script type="text/javascript">
+    var message = '@message';
+    if(message)
+        alert(message);
+</script>
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    <script src='https://kit.fontawesome.com/a076d05399.js'></script>
+    <link href="~/Content/sweetalert/sweet-alert.css" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/Site.css")" rel="stylesheet" type="text/css" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Create</title>
+    <link rel="stylesheet" type="text/css" href="~/CSS1/StyleSheet1.css" />
+    <style>
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 1; /* Sit on top */
+            padding-top: 100px; /* Location of the box */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgb(0,0,0); /* Fallback color */
+            background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+        }
+
+        /* Modal Content */
+        .modal-content {
+            background-color: #fefefe;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 50%;
+            text-align: center;
+        }
+
+        /* The Close Button */
+        .close {
+            color: #aaaaaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+            .close:hover,
+            .close:focus {
+                color: #000;
+                text-decoration: none;
+                cursor: pointer;
+            }
+    </style>
+</head>
+
+<div class="container" style="text-align:Center">
+    <h2>Audit Trail</h2>
+
+    <label>Choose the period you would like to view audits for</label><br />
+    <label>Starting date</label>
+    @using (Html.BeginForm("SearchDate", "ADMINCARs"))
+    {
+        <input id="StartDate" name="StartDate"
+               type="date" class="form-control" required style="margin:auto; text-align:center"/>
+        <label>Ending date</label>
+
+        <input id="EndDate" name="EndDate"
+               type="date" class="form-control" required style="margin:auto; text-align:center"/><br />
+
+        <button type="submit" class="btn-blue" id="gen">Search</button>
+    }
+
+
+
+    <div class="container">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+
+            </div>
+            <div class="panel-body">
+                <table class="table-latitude">
+                    <tr>
+                        <th>
+                            Audit Date
+                        </th>
+                        <th>
+                            Audit User
+                        </th>
+                        <th>
+                            Audit Action
+                        </th>
+                        <th>
+                            Car Reg.
+                        </th>
+                        <th>
+                            Model
+                        </th>
+                        <th>
+                            Body Type
+                        </th>
+                        <th>
+                            Colour
+                        </th>
+                        <th>
+                            Fuel Type
+                        </th>
+                        <th>
+                            No. of Doors
+                        </th>
+                        <th>
+                            No. of Seats
+                        </th>
+                        <th>
+                            Transmission
+                        </th>
+                        <th>
+                            Year
+                        </th>
+                        <th>
+                            Mileage
+                        </th>
+                        <th>
+                            Listing Price
+                        </th>
+                    </tr>
+
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.AUDITDATE)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.AUDITUSER)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.AUDITACTION)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.CAR_REG)
+                            </td>
+
+                            <td>
+                                @Html.DisplayFor(modelItem => item.MODEL_NAME)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.CAR_TYPENAME)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.COLOUR_Name)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.FUELTYPE_NAME)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.DOORS_NAME)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.SEATS_NAME)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.TRANSMISSION_NAME)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.YEAR)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.MILEAGE)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.LISTING_PRICE)
+                            </td>
+                        </tr>
+                    }
+
+                </table>
+            </div>
+        </div>
+    </div><br />
+    <div style="text-align:center">
+        <input type="button" value="Home" class="btn btn-secondary" onclick="location.href='@Url.Action("AdminNav","Nav")'" />
+    </div>
+</div>

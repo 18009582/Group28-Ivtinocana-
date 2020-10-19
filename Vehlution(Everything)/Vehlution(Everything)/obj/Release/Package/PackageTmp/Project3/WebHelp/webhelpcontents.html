@@ -1,0 +1,288 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Frameset//EN" "http://www.w3.org/TR/html4/frameset.dtd">
+<!-- saved from url=(0014)about:internet -->
+<html>
+<head>
+<title>New Help</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css"> 
+<!--
+body{margin: 5px;} 
+.selected {font-weight: normal;background-color: #E2E2E2;padding:0px,2px,0px,2px;}
+.unselected { font-weight: normal;padding:0px,2px,0px,2px;}
+.hand { cursor: hand; }
+.p {height: 16px;width: 16px;vertical-align: middle;border: 0;}
+div,body { font-family: Tahoma, Verdana; font-size: 11px; }
+A:link {text-decoration: none; color:#000000}
+A:visited {text-decoration: none; color: #000000}
+A:active {text-decoration: none; color: #000000 }
+A:hover {text-decoration: none; color: #FF0000 }
+
+-->
+</style>
+
+<SCRIPT LANGUAGE="JavaScript">
+<!--
+var cl,pn,pm,bl;
+var path = 'icons/';
+var pos = 0;
+var icon;
+var tar = 'content';
+var display;
+var imgi;
+var AutoCollapse;
+var LastSelected = -1;
+var loaded = false;
+var max;
+var divlist;
+
+function SetEnv(v,a){
+
+if(v==0){ 
+	pn = [['daplus.gif','daminus.gif'],['tplus.gif','tminus.gif'],['uaplus.gif','uaminus.gif'],['splus.gif','sminus.gif']];
+	PreloadImg('downangle.gif','tshaped.gif','upangle.gif','sline.gif','daplus.gif','daminus.gif','tplus.gif','tminus.gif','uaplus.gif','uaminus.gif','splus.gif','sminus.gif','blank.gif','line.gif');
+}else{
+	pn = [['plus.gif','minus.gif']];
+	PreloadImg('plus.gif','minus.gif','blank.gif');
+
+}
+AutoCollapse = a;
+}
+
+ function PreloadImg(){
+if (document.images) { 
+	var imgs = PreloadImg.arguments; 
+	var pload = new Array();
+	for (var i=0; i<imgs.length; i++) { 
+		pload[i] = new Image; 
+		pload[i].src = path + imgs[i]; 
+	} 
+} 
+ } 
+
+function get(o){
+var x;
+if(document.all) x=document.all[o]; 
+if(document.getElementById) x=document.getElementById(o);
+
+return x;
+}
+
+
+function pnImg(img){
+var i,j;
+for(i=0;i<=3;i++){
+	for(j=0;j<=1;j++){
+	if(img.substr(img.lastIndexOf('/') + 1)== pn[i][j]){
+		return i;
+	}
+	}
+}
+}
+function icon(img){
+var f;
+f = img.substr(img.lastIndexOf('/') + 1);
+if( f=='1.gif' || f=='2.gif'){
+	return ['1.gif','2.gif'];
+}
+if( f=='3.gif' || f=='4.gif'){
+	return ['3.gif','4.gif'];
+}
+if( f=='5.gif' || f=='6.gif'){
+	return ['5.gif','6.gif'];
+}
+if( f=='7.gif' || f=='8.gif'){
+	return ['7.gif','8.gif'];
+}
+return [f,f];
+}
+
+function show(id){
+get('d' + id).style.display='block';
+if(get('imgn' + id )) get('imgn' + id ).src= path + pn[pnImg(get('imgn' + id ).src)][1];
+get('img' + id ).src= path + icon(get('img' + id ).src)[1];
+
+}
+
+function collapse(id){
+get('d' + id ).style.display='none';
+if(get('imgn' + id )) get('imgn' + id ).src= path + pn[pnImg(get('imgn' + id ).src)][0];
+get('img' + id ).src= path + icon(get('img' + id ).src)[0];
+
+}
+
+function collapseAll(){
+var i;
+var o;
+for(i=0;i<=divlist.length-1;i++){
+	if(o=get('d' + divlist[i])){
+		if(o.style.display!='none'){ 
+			collapse(divlist[i]);
+		}
+	}
+}
+}
+
+function showAll(){
+var i;
+var o;
+for(i=0;i<=divlist.length-1;i++){
+	if(o=get('d' + divlist[i])){
+		if(o.style.display!='block'){ 
+			show(divlist[i]);
+		}
+	}
+}
+}
+
+function unselectAll(){
+var i=0;
+while(get("l" + i)){
+	get("l" + i).className = "unselected";
+	i++;
+}
+}
+
+function clickNode(index){
+var e;
+
+e = get("l" + index);
+if(e==null) return;
+e = e.parentNode;
+if(e.nodeName == 'A'){
+	if(e.href!= window.location.href + '#'){
+		parent.parent.content.location.href = e.href;
+	}else{
+		selectNode(index);
+	}
+	e.onclick;
+}
+}
+
+function showParent(ele){
+var e;
+e = ele.parentNode;
+
+if(e==null) return;
+
+if(e.nodeName == 'DIV'){
+	if(e.id!='') show(e.id.substring(1,e.id.length ));
+}else if(e.nodeName == 'A'){
+
+}
+showParent(e);
+}
+
+function showNode(index){
+showParent(get("l" + index));
+LinkClick(index);
+}
+
+function selectNode(index){
+if(LastSelected!=index){
+//collapseAll();
+showParent(get("l" + index));
+LinkClick(index);
+get('l' + index).scrollIntoView(true);
+
+
+//alert(get('l' + index).offsetHeight + '|' + document.body.clientHeight + '|' + document.body.offsetHeight);
+window.scrollTo(0,document.body.scrollTop); // - document.body.clientHeight /3);
+}
+}
+
+
+function NodeClick(id){
+if(get('d' + id ).style.display=='none'){
+	show(id);
+}else{
+	collapse(id);
+}
+return false;
+}
+
+function LinkDblClick(id){
+if(!AutoCollapse){
+	if(get('d' + id ).style.display=='none'){
+		show(id);
+	}else{
+		collapse(id);
+	}
+}
+return false;
+}
+
+function LinkClick(index,hasChild,r){
+if(AutoCollapse && hasChild){
+	if(get('d' + index ).style.display=='none'){
+		collapseAll()
+		showParent(get('l' + index));
+		show(index);
+	}else{
+		collapseAll()
+		showParent(get('l' + index));	
+		collapse(index);
+	}
+}
+if(LastSelected!=-1){
+	get('l' + LastSelected).className = "unselected";
+}
+get('l' + index).className = "selected";
+LastSelected = index;
+return r;
+}
+
+function body_onmousemove(event){
+if(typeof(document.body.scrollTop)!='undefined'){
+if(parseInt(event.clientX)<5){
+window.scroll(0,document.body.scrollTop);}}
+if(typeof(window.scrollY)!='undefined'){
+if(parseInt(event.clientX)<5){
+window.scrollTo(0,window.scrollY);}}
+}
+
+window.defaultStatus = '';
+
+function body_onload(){
+get('loading').style.display='none';
+loaded = true;
+if(parent.parent.content.document.readyState){
+	if(parent.parent.content.document.readyState == 'complete'){
+		try{parent.parent.content.syn();}catch(e){};
+	}
+}else{
+	if(parent.parent.contentLoaded){
+		try{parent.parent.content.syn();}catch(e){};
+	}
+}
+}
+
+//-->
+</SCRIPT>
+<script language="JavaScript" src="languages.js"></script>
+</head>
+
+<body bgcolor="#FFFFFF" onmousemove="body_onmousemove(event);" onload="body_onload();">
+<div id="loading"><font color="#FF0000" size="1"> Loading table of contents... 
+</font><br><br></div>
+<script>SetEnv(0,false)</script><div><nobr><a href="#" onClick="return NodeClick('0')"><img id="imgn0" src="icons/daplus.gif" class="p"></a><a href="#" onclick="return LinkClick('0',true,false)" onDblClick="return LinkDblClick('0')" target="content" title="Register Client" onmousemove="window.status='Register Client'"><img id="img0" src="icons/1.gif" class="p"> <span id="l0" class="unselected">Register Client</span></a></nobr></div>
+<div id="d0" style="display:none"><div><nobr><img src="icons/line.gif" class="p"><img src="icons/upangle.gif" class="p"><a href="pages/this-page-allows-a-client-to-register-themselves-o.html" onclick="return LinkClick('1',false,true)" target="content" title="This page allows a client to register themselves on the system. The Client must enter their first name , last name , Email and password. Once they click register the client will receive an email confirming their registration" onmousemove="window.status='This page allows a client to register themselves on the system. The Client must enter their first name , last name , Email and password. Once they click register the client will receive an email confirming their registration'"><img src="icons/11.gif" class="p"> <span id="l1" class="unselected">This page allows a client to register themselves on the system. The Client must enter their first name , last name , Email and password. Once they click register the client will receive an email confirming their registration</span></a></nobr></div>
+</div><div><nobr><a href="#" onClick="return NodeClick('2')"><img id="imgn2" src="icons/tplus.gif" class="p"></a><a href="#" onclick="return LinkClick('2',true,false)" onDblClick="return LinkDblClick('2')" target="content" title="Update Client profile" onmousemove="window.status='Update Client profile'"><img id="img2" src="icons/1.gif" class="p"> <span id="l2" class="unselected">Update Client profile</span></a></nobr></div>
+<div id="d2" style="display:none"><div><nobr><img src="icons/line.gif" class="p"><img src="icons/upangle.gif" class="p"><a href="pages/this-page-allows-a-client-to-update-their-profile-.html" onclick="return LinkClick('3',false,true)" target="content" title="This page allows a client to update their profile on the system. The Client must enter their first name , last name , Email . Once they click update the client profile will be updated" onmousemove="window.status='This page allows a client to update their profile on the system. The Client must enter their first name , last name , Email . Once they click update the client profile will be updated'"><img src="icons/11.gif" class="p"> <span id="l3" class="unselected">This page allows a client to update their profile on the system. The Client must enter their first name , last name , Email . Once they click update the client profile will be updated</span></a></nobr></div>
+</div><div><nobr><a href="#" onClick="return NodeClick('4')"><img id="imgn4" src="icons/tplus.gif" class="p"></a><a href="#" onclick="return LinkClick('4',true,false)" onDblClick="return LinkDblClick('4')" target="content" title="8.3 Remove Client profile modal" onmousemove="window.status='8.3 Remove Client profile modal'"><img id="img4" src="icons/1.gif" class="p"> <span id="l4" class="unselected">8.3 Remove Client profile modal</span></a></nobr></div>
+<div id="d4" style="display:none"><div><nobr><img src="icons/line.gif" class="p"><img src="icons/upangle.gif" class="p"><a href="pages/this-modal-allows-the-client-to-delete-their-clien.html" onclick="return LinkClick('5',false,true)" target="content" title="This modal allows the client to delete their client profile on the system and then directs them back to the login home page" onmousemove="window.status='This modal allows the client to delete their client profile on the system and then directs them back to the login home page'"><img src="icons/11.gif" class="p"> <span id="l5" class="unselected">This modal allows the client to delete their client profile on the system and then directs them back to the login home page</span></a></nobr></div>
+</div><div><nobr><a href="#" onClick="return NodeClick('6')"><img id="imgn6" src="icons/tplus.gif" class="p"></a><a href="#" onclick="return LinkClick('6',true,false)" onDblClick="return LinkDblClick('6')" target="content" title="Reset Password" onmousemove="window.status='Reset Password'"><img id="img6" src="icons/1.gif" class="p"> <span id="l6" class="unselected">Reset Password</span></a></nobr></div>
+<div id="d6" style="display:none"><div><nobr><img src="icons/line.gif" class="p"><img src="icons/upangle.gif" class="p"><a href="pages/this-page-allows-a-user-to-enter-their-email-and-p.html" onclick="return LinkClick('7',false,true)" target="content" title="This page allows a user to enter their email and press reset button , once that is done they will receive an email with an otp as well as a link that will send them to a page where they will input the otp as well as their new password" onmousemove="window.status='This page allows a user to enter their email and press reset button , once that is done they will receive an email with an otp as well as a link that will send them to a page where they will input the otp as well as their new password'"><img src="icons/11.gif" class="p"> <span id="l7" class="unselected">This page allows a user to enter their email and press reset button , once that is done they will receive an email with an otp as well as a link that will send them to a page where they will input the otp as well as their new password</span></a></nobr></div>
+</div><div><nobr><a href="#" onClick="return NodeClick('8')"><img id="imgn8" src="icons/tplus.gif" class="p"></a><a href="#" onclick="return LinkClick('8',true,false)" onDblClick="return LinkDblClick('8')" target="content" title="8.5.   User Satisfaction Survey" onmousemove="window.status='8.5.   User Satisfaction Survey'"><img id="img8" src="icons/1.gif" class="p"> <span id="l8" class="unselected">8.5.   User Satisfaction Survey</span></a></nobr></div>
+<div id="d8" style="display:none"><div><nobr><img src="icons/line.gif" class="p"><img src="icons/upangle.gif" class="p"><a href="pages/this-page-allows-a-user-to-rate-the-business-the-c.html" onclick="return LinkClick('9',false,true)" target="content" title="This page allows a user to rate the business. The can rate , on a scale of 1-10, their experience with us , chances of recommendation , the website, response time and customer communications" onmousemove="window.status='This page allows a user to rate the business. The can rate , on a scale of 1-10, their experience with us , chances of recommendation , the website, response time and customer communications'"><img src="icons/11.gif" class="p"> <span id="l9" class="unselected">This page allows a user to rate the business. The can rate , on a scale of 1-10, their experience with us , chances of recommendation , the website, response time and customer communications</span></a></nobr></div>
+</div><div><nobr><a href="#" onClick="return NodeClick('10')"><img id="imgn10" src="icons/tplus.gif" class="p"></a><a href="#" onclick="return LinkClick('10',true,false)" onDblClick="return LinkDblClick('10')" target="content" title="8.6.   View cars for sale page" onmousemove="window.status='8.6.   View cars for sale page'"><img id="img10" src="icons/1.gif" class="p"> <span id="l10" class="unselected">8.6.   View cars for sale page</span></a></nobr></div>
+<div id="d10" style="display:none"><div><nobr><img src="icons/line.gif" class="p"><img src="icons/tshaped.gif" class="p"><a href="pages/this-page-allows-a-user-to-view-all-the-cars-the-b.html" onclick="return LinkClick('11',false,true)" target="content" title="This page allows a user to view all the cars the business currently has for sale, they can also select search criteria if they would like to search for a specific car,(they must select a make ,model , body type and enter a max mileage) they can then select a single car to view more details about the car." onmousemove="window.status='This page allows a user to view all the cars the business currently has for sale, they can also select search criteria if they would like to search for a specific car,(they must select a make ,model , body type and enter a max mileage) they can then select a single car to view more details about the car.'"><img src="icons/11.gif" class="p"> <span id="l11" class="unselected">This page allows a user to view all the cars the business currently has for sale, they can also select search criteria if they would like to search for a specific car,(they must select a make ,model , body type and enter a max mileage) they can then select a single car to view more details about the car.</span></a></nobr></div>
+<div><nobr><img src="icons/line.gif" class="p"><img src="icons/upangle.gif" class="p"><a href="pages/this-page-is-called-when-the-details-link-is-click.html" onclick="return LinkClick('12',false,true)" target="content" title="This page is called when the details link is clicked, it displays all the details of the car and allows the client to make a booking or an offer on the car." onmousemove="window.status='This page is called when the details link is clicked, it displays all the details of the car and allows the client to make a booking or an offer on the car.'"><img src="icons/11.gif" class="p"> <span id="l12" class="unselected">This page is called when the details link is clicked, it displays all the details of the car and allows the client to make a booking or an offer on the car.</span></a></nobr></div>
+</div><div><nobr><a href="#" onClick="return NodeClick('13')"><img id="imgn13" src="icons/tplus.gif" class="p"></a><a href="#" onclick="return LinkClick('13',true,false)" onDblClick="return LinkDblClick('13')" target="content" title="8.10. Add client car for purchase" onmousemove="window.status='8.10. Add client car for purchase'"><img id="img13" src="icons/1.gif" class="p"> <span id="l13" class="unselected">8.10. Add client car for purchase</span></a></nobr></div>
+<div id="d13" style="display:none"><div><nobr><img src="icons/line.gif" class="p"><img src="icons/tshaped.gif" class="p"><a href="pages/this-page-allows-a-client-to-put-their-car-up-for-.html" onclick="return LinkClick('14',false,true)" target="content" title="This page allows a client to put their car up for sale to the business. The client must enter the car registration, number of seats, colour, transmission ,number of doors , fuel type , make and model, body type, year mileage, listing price in Rands, and image, and any defects of the car." onmousemove="window.status='This page allows a client to put their car up for sale to the business. The client must enter the car registration, number of seats, colour, transmission ,number of doors , fuel type , make and model, body type, year mileage, listing price in Rands, and image, and any defects of the car.'"><img src="icons/11.gif" class="p"> <span id="l14" class="unselected">This page allows a client to put their car up for sale to the business. The client must enter the car registration, number of seats, colour, transmission ,number of doors , fuel type , make and model, body type, year mileage, listing price in Rands, and image, and any defects of the car.</span></a></nobr></div>
+<div><nobr><img src="icons/line.gif" class="p"><img src="icons/upangle.gif" class="p"><a href="pages/add-defects-modal-this-modal-allows-you-to-add-a-d.html" onclick="return LinkClick('15',false,true)" target="content" title="Add defects modal, this modal allows you to add a defect that your car might have, the user must enter the car part the defect as well as the severity of the defect" onmousemove="window.status='Add defects modal, this modal allows you to add a defect that your car might have, the user must enter the car part the defect as well as the severity of the defect'"><img src="icons/11.gif" class="p"> <span id="l15" class="unselected">Add defects modal, this modal allows you to add a defect that your car might have, the user must enter the car part the defect as well as the severity of the defect</span></a></nobr></div>
+</div><div><nobr><a href="#" onClick="return NodeClick('16')"><img id="imgn16" src="icons/tplus.gif" class="p"></a><a href="pages/propose-offer-to-buy-car-for-sale.html" onclick="return LinkClick('16',true,true)" onDblClick="return LinkDblClick('16')" target="content" title="          Propose offer to buy car for sale" onmousemove="window.status='          Propose offer to buy car for sale'"><img id="img16" src="icons/1.gif" class="p"> <span id="l16" class="unselected">          Propose offer to buy car for sale</span></a></nobr></div>
+<div id="d16" style="display:none"><div><nobr><img src="icons/line.gif" class="p"><img src="icons/upangle.gif" class="p"><a href="pages/8112-this-modal-allows-the-client-to-confirm-that-.html" onclick="return LinkClick('17',false,true)" target="content" title="8.11.2 This modal allows the client to confirm that this is the amount they would like to offer for this vehicle, from here an email will be sent to the business with details about the offer" onmousemove="window.status='8.11.2 This modal allows the client to confirm that this is the amount they would like to offer for this vehicle, from here an email will be sent to the business with details about the offer'"><img src="icons/11.gif" class="p"> <span id="l17" class="unselected">8.11.2 This modal allows the client to confirm that this is the amount they would like to offer for this vehicle, from here an email will be sent to the business with details about the offer</span></a></nobr></div>
+</div><div><nobr><img src="icons/upangle.gif" class="p"><a href="pages/accept-offer-to-buy-car-put-up-for-sale.html" onclick="return LinkClick('18',false,true)" target="content" title="          Accept offer to buy car put up for sale" onmousemove="window.status='          Accept offer to buy car put up for sale'"><img src="icons/11.gif" class="p"> <span id="l18" class="unselected">          Accept offer to buy car put up for sale</span></a></nobr></div>
+<script>divlist = [0,2,4,6,8,10,13,16]</script>
+</body>
+</html>

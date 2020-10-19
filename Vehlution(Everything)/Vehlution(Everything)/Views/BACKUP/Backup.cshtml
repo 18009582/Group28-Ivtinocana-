@@ -1,0 +1,101 @@
+﻿
+@{
+    Layout = null;
+}
+@{
+    var message = TempData["AlertMessage"] ?? string.Empty;
+}
+
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <script type="text/javascript">
+    var message = '@message';
+    if(message)
+        alert(message);
+    </script>
+    <meta name="viewport" content="width=device-width" />
+    <title>Backup</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    <script src='https://kit.fontawesome.com/a076d05399.js'></script>
+    <link href="@Url.Content("~/Content/Site.css")" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="~/CSS1/StyleSheet1.css" />
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        /* Create two equal columns that floats next to each other */
+        .column {
+            float: left;
+            width: 60%;
+            padding: 10px;
+            height: 300px; /* Should be removed. Only for demonstration */
+        }
+
+        /* Clear floats after the columns */
+        .row:after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+    </style>
+</head>
+<body>
+        <div class="container" style="text-align:center" >
+            <div class="panel panel-default">
+                <h1 style="color:orange">Backup & Restore </h1>
+                <h2>Backup</h2>
+                @using (Html.BeginForm("Backup1", "BACKUP"))
+                {
+                    <div>
+                        <label>Server Name: </label><br />
+                        <input type="text" id="serve" name="serve" style="width:50%" required /> <br />
+
+                        <label>Database Name: </label><br />
+                        <input type="text" id="database" name="database" style="width:50%" required /> <br />
+
+                        <button type="submit" onclick="myFunction()" class="btn btn-default btn-sm" id="Create" name="Create" style="background-color:lightgreen">
+                            <i class="fa fa-plus-square"></i>
+                            <span class="glyphicon glyphicon-ok"></span> Backup Database
+                        </button>
+                    </div>
+                }
+            </div>
+        </div> <br />
+        <br />
+        <div class="container" style="text-align:center">
+            <div class="panel panel-default">
+                <h2>Retore</h2>
+                @using (Html.BeginForm("Restore1", "RESTORE", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    <div>
+                        <label>Server Name: </label><br />
+                        <input type="text" id="serve" name="serve" style="width:50%" required /> <br />
+
+                        <label>Database Name: </label><br />
+                        <input type="text" id="database" name="database" style="width:50%" required /> <br />
+
+                        <label>Please choose backup file: </label><br />
+                        <input type="file" id="file" name="file" /><br />
+                        <button type="submit" onclick="myFunction()" class="btn btn-default btn-sm" id="Create" name="Create" style="background-color:lightgreen">
+                            <i class="fa fa-plus-square"></i>
+                            <span class="glyphicon glyphicon-ok"></span> Restore Database
+                        </button>
+                    </div>
+                }
+            </div>
+        </div><br />
+        <br />
+
+        <div style="text-align:center">
+            <input type="button" value="Home" title="Go back to Home screen" class="btn btn-secondary" onclick="location.href='@Url.Action("AdminNav","Nav")'" />
+        </div>
+
+</body>
+</html>

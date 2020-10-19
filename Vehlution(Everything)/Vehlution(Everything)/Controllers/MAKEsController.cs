@@ -46,26 +46,39 @@ namespace Vehlution_Everything_.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "MAKE_NAME")] MAKE mAKE)
+        public ActionResult Create(string MAKE_NAME)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
-                    db.MAKEs.Add(mAKE);
+                    List<MAKE> mAKEs = new List<MAKE>();
+                    mAKEs = db.MAKEs.ToList();
+                    MAKE n = new MAKE();
+                    n.MAKE_NAME = MAKE_NAME;
+                    foreach (var item in mAKEs)
+                    {
+                        if (item.MAKE_NAME.Trim() == MAKE_NAME.Trim())
+                        {
+                            TempData["AlertMessage"] = "This car make already exists in our system";
+                            return RedirectToAction("CarMakeIndex");
+                        }
+                    }
+
+                    db.MAKEs.Add(n);
                     db.SaveChanges();
                     TempData["AlertMessage"] = "A car make has successfully been added!";
                     return RedirectToAction("CarMakeIndex");
                 }
             }
-            catch
+            catch(Exception err)
             {
-                TempData["AlertMessage"] = "Sorry something went wrong, please try again later";
+                TempData["AlertMessage"] = "Sorry something went wrong, please try again later" + err;
                 return RedirectToAction("CarMakeIndex");
             }
             
 
-            return View(mAKE);
+            return View(MAKE_NAME);
         }
 
         // GET: MAKEs/Edit/5
@@ -131,15 +144,37 @@ namespace Vehlution_Everything_.Controllers
         {
             try
             {
+                CAR cAR = new CAR();
+
                 MAKE mAKE = db.MAKEs.Find(id);
-                db.MAKEs.Remove(mAKE);
-                db.SaveChanges();
-                TempData["AlertMessage"] = "A car make has sucessfully been deleted!";
-                return RedirectToAction("CarMakeIndex");
+
+                cAR = db.CARS.Where(zz => zz.MODEL.MAKE_ID == mAKE.MAKE_ID).FirstOrDefault();
+
+                if(cAR != null)
+                {
+                    TempData["AlertMessage"] = "You can not delete this car make because it is linked to a car in the Cars table of the database.";
+                    return RedirectToAction("CarMakeIndex");
+                }
+                else
+                {
+                    List<MODEL> mODELs = new List<MODEL>();
+                    mODELs = db.MODELs.Where(zz => zz.MAKE_ID == mAKE.MAKE_ID).ToList();
+
+                    foreach(var i in mODELs)
+                    {
+                        db.MODELs.Remove(i);
+                        db.SaveChanges();
+                    }
+
+                    db.MAKEs.Remove(mAKE);
+                    db.SaveChanges();
+                    TempData["AlertMessage"] = "A car make has sucessfully been deleted!";
+                    return RedirectToAction("CarMakeIndex");
+                }
             }
-            catch
+            catch(Exception err)
             {
-                TempData["AlertMessage"] = "Sorry something went wrong, please try again later";
+                TempData["AlertMessage"] = "Sorry something went wrong, please try again later" + err;
                 return RedirectToAction("CarMakeIndex");
             }
         }

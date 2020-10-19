@@ -41,6 +41,7 @@ namespace Vehlution_Everything_.Models
         public virtual DbSet<CAR> CARS { get; set; }
         public virtual DbSet<CLIENT_DOCUMENTS> CLIENT_DOCUMENTS { get; set; }
         public virtual DbSet<COLOUR> COLOURs { get; set; }
+        public virtual DbSet<CUSTOMER_SATISFACTION> CUSTOMER_SATISFACTIONs { get; set; }
         public virtual DbSet<DEFECT_STATUS> DEFECT_STATUS { get; set; }
         public virtual DbSet<DEFECT> DEFECTS { get; set; }
         public virtual DbSet<DOCUMENT_TYPE> DOCUMENT_TYPE { get; set; }

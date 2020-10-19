@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using System.Xml;
 using Vehlution_Everything_.Models;
 
 namespace Vehlution_Everything_.Controllers
@@ -131,7 +132,17 @@ namespace Vehlution_Everything_.Controllers
         {
             try
             {
+                CAR_DEFECTS cAR_DEFECTs = new CAR_DEFECTS();  
                 DEFECT dEFECT = db.DEFECTS.Find(id);
+
+                cAR_DEFECTs = db.CAR_DEFECTS.Where(zz => zz.DEFECT_ID == dEFECT.DEFECT_ID).FirstOrDefault();
+
+                if (cAR_DEFECTs != null)
+                {
+                    TempData["AlertMessage"] = "You can not delete this car defect because it is linked to a car in the Cars table of the database.";
+                    return RedirectToAction("Index");
+                }
+
                 db.DEFECTS.Remove(dEFECT);
                 db.SaveChanges();
                 TempData["AlertMessage"] = "A car defect has sucessfully been deleted!";
